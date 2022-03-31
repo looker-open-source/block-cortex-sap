@@ -1,15 +1,15 @@
 constant: CONNECTION_NAME {
-  value: "kittycorn_infy_reporting"
+  value: "Looker connection name" 
   export: override_required
 }
 
 constant: DATASET {
-  value: "kittycorn-dev-infy.DATA_INTELLIGENCE_OTC"
+  value: "Order to Cash Dataset Name"
   export: override_required
 }
 
 constant: DATASET1 {
-  value: "kittycorn-dev-infy.DATA_INTELLIGENCE_FIN"
+  value: "Finance Dataset Name"
   export: override_required
 }
 
