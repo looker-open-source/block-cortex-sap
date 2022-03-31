@@ -9,12 +9,12 @@
   "constants": {
     "CONNECTION_NAME": {
       "label": "Connection Name",
-      "value_constraint": "kittycorn_infy_reporting"
+      "value_constraint": "Looker Connection"
     },
     "DATASET": { "label": "Dataset_OTC"
-               "value_constraint": "kittycorn-dev-infy.DATA_INTELLIGENCE_OTC"}
+               "value_constraint": "Order to Cash Dataset name"}
     
     "DATASET1": { "label": "Dataset"
-               "value_constraint": "kittycorn-dev-infy.DATA_INTELLIGENCE_FIN"}
+               "value_constraint": "Account Receiveable Dataset name"}
   },
   }
