@@ -27,7 +27,9 @@ persist_with: cortex_infosys_default_datagroup
 
 include: "/LookML_Dashboard/*.dashboard.lookml"
 
-explore: data_intelligence_ar {}
+explore: data_intelligence_ar {
+sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
+}
 
 explore:  data_intelligence_otc{
   sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
