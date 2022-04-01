@@ -13,6 +13,11 @@ constant: DATASET1 {
   export: override_required
 }
 
+constant: DATASETFUNCTION {
+  value: "Function Dataset Name"
+  export: override_required
+}
+
 
 visualization: {
   id: "radial_gauge"
