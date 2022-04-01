@@ -288,7 +288,7 @@ view: data_intelligence_otc {
 
   dimension: delivery_number {
     type: string
-    sql: ${TABLE}.DeliveryNumber_VBELN ;;
+    sql: ${TABLE}.Delivery_VBELN ;;
   }
 
   measure: count_delivery_number {
@@ -571,7 +571,7 @@ view: data_intelligence_otc {
 
   dimension: delivery {
     type: string
-    sql: ${TABLE}.DeliveryNumber_VBELN ;;
+    sql: ${TABLE}.Delivery_VBELN ;;
   }
 
   measure: count_deliveries_sales_orders {
