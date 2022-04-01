@@ -148,7 +148,7 @@ view: data_intelligence_otc {
     #sql: ${canceled_order} ;;
     filters: [canceled_order : "Canceled"]
 
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
 
   dimension: city {
@@ -350,7 +350,7 @@ view: data_intelligence_otc {
     else "Not Relevant" END;;
   }
 
-  dimension: sales_order_status {
+  dimension: order_status {
     type: string
     sql: if(${canceled_order}="Canceled","Canceled",if(${open_orders}="OpenOrder","Open","Closed")) ;;
   }
@@ -398,7 +398,7 @@ view: data_intelligence_otc {
   measure: count_incoming_order {
     type: count
     #sql: ${incoming_order} ;;
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
     #drill_fields: [sales_orders, order_line_items, material_number, requesteddeliverydate_date,actual_delivery_date, SoldToParty, ShipToParty, BillToParty, customer_number, delivery_number,billing_document, delivery_status,order_status, sales_order_qty, BaseUoM, sales_order_value]
   }
 
@@ -514,7 +514,7 @@ view: data_intelligence_otc {
   measure:count_open_orders {
     type: count
     filters: [open_orders: "OpenOrder"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
     #drill_fields: [sales_order_number,creation_date_date, material_number, confirmed_order_quantity,sales_order_net_price, shipping_location, requesteddeliverydate_date]
   }
 
@@ -629,14 +629,14 @@ view: data_intelligence_otc {
   measure: count_return_order {
     type: count
     filters: [return_order : "Returned"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
   measure: Return_Order_Percentage {
     type: number
     sql: ${count_return_order}/${count_of_delivery} ;;
     link: {
       label: "Returned Orders"
-      url: "/dashboards/cortex_infosys::returned_orders?"
+      url: "/dashboards/cortex_otc_ar::returned_orders?"
     }
     #drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,Sales_Order_Value_Global_Currency,Global_Currency,sales_order_value_Local_Currecny,Local_Currency_Key]
   }
@@ -646,7 +646,7 @@ view: data_intelligence_otc {
     sql: ${count_canceled_order}/${data_intelligence_otc.count} ;;
     link: {
       label: "Canceled Orders"
-      url: "/dashboards/cortex_infosys::canceled_orders?"
+      url: "/dashboards/cortex_otc_ar::canceled_orders?"
     }
 
   }
@@ -716,7 +716,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Product"
-      url: "/dashboards/cortex_infosys::sales_performance_by_product?"
+      url: "/dashboards/cortex_otc_ar::sales_performance_by_product?"
     }
   }
 
@@ -726,7 +726,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Sales Organization"
-      url: "/dashboards/cortex_infosys::sales_performance_by_sales_org?"
+      url: "/dashboards/cortex_otc_ar::sales_performance_by_sales_org?"
     }
   }
 
@@ -736,7 +736,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Distribution Channel"
-      url: "/dashboards/cortex_infosys::sales_performance_by_distribution_channel?"
+      url: "/dashboards/cortex_otc_ar::sales_performance_by_distribution_channel?"
     }
   }
 
@@ -746,7 +746,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Division"
-      url: "/dashboards/cortex_infosys::sales_performance_by_division?"
+      url: "/dashboards/cortex_otc_ar::sales_performance_by_division?"
     }
   }
 
@@ -844,7 +844,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency}-${adjusted_price_Global_currency} ;;
     link: {
       label: "Customer focused Price Variations"
-      url: "/dashboards/cortex_infosys::customer_based_pricing_variations?"
+      url: "/dashboards/cortex_otc_ar::customer_based_pricing_variations?"
     }
   }
 
@@ -854,7 +854,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_infosys::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -865,7 +865,7 @@ view: data_intelligence_otc {
     sql: ${adjusted_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_infosys::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -876,7 +876,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_infosys::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
     }
 
   }
@@ -887,7 +887,7 @@ view: data_intelligence_otc {
     sql: ${intercompany_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_infosys::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
     }
   }
 
@@ -897,7 +897,7 @@ view: data_intelligence_otc {
     sql: ${discount_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_infosys::product_based_pricing_variations?"
+      url: "/dashboards/cortex_otc_ar::product_based_pricing_variations?"
     }
 
   }
@@ -994,7 +994,7 @@ view: data_intelligence_otc {
     sql: ${count_one_touch_order}/${count_incoming_order}*100 ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_infosys::one_touch_order?"
+      url: "/dashboards/cortex_otc_ar::one_touch_order?"
     }
   }
 
@@ -1004,7 +1004,7 @@ view: data_intelligence_otc {
     sql: ${TABLE}.OneTouchOrderCount ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_infosys::one_touch_order?"
+      url: "/dashboards/cortex_otc_ar::one_touch_order?"
     }
   }
 
