@@ -229,7 +229,7 @@ view: data_intelligence_otc {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.Date_ProofOfDelivery_PODAT ;;
+    sql: ${TABLE}.Date__proofOfDelivery___PODAT ;;
   }
 
   dimension: delivered_value_Local_Currency {
