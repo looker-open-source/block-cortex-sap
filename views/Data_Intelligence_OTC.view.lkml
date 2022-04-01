@@ -119,8 +119,8 @@ view: data_intelligence_otc {
   dimension: blocked_order_value_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${blocked_order_value_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${blocked_order_value_Local_Currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${delivered_value_Local_Currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${blocked_order_value_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${blocked_order_value_Local_Currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${delivered_value_Local_Currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: blocked_order_quantity {
@@ -148,7 +148,7 @@ view: data_intelligence_otc {
     #sql: ${canceled_order} ;;
     filters: [canceled_order : "Canceled"]
 
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
 
   dimension: city {
@@ -247,8 +247,8 @@ view: data_intelligence_otc {
   dimension: delivered_value_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   measure: sum_delivered_value {
@@ -350,7 +350,7 @@ view: data_intelligence_otc {
     else "Not Relevant" END;;
   }
 
-  dimension: order_status {
+  dimension: sales_order_status {
     type: string
     sql: if(${canceled_order}="Canceled","Canceled",if(${open_orders}="OpenOrder","Open","Closed")) ;;
   }
@@ -379,8 +379,8 @@ view: data_intelligence_otc {
   dimension: billing_Net_Value_Global_Currecy {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${billing_Net_Value_Local_Currecy},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${billing_Net_Value_Local_Currecy},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: in_full_delivery {
@@ -398,7 +398,7 @@ view: data_intelligence_otc {
   measure: count_incoming_order {
     type: count
     #sql: ${incoming_order} ;;
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
     #drill_fields: [sales_orders, order_line_items, material_number, requesteddeliverydate_date,actual_delivery_date, SoldToParty, ShipToParty, BillToParty, customer_number, delivery_number,billing_document, delivery_status,order_status, sales_order_qty, BaseUoM, sales_order_value]
   }
 
@@ -417,8 +417,8 @@ view: data_intelligence_otc {
   dimension: intercompany_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric)),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric)))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric)),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric)))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
   dimension: late_deliveries {
     type: string
@@ -514,7 +514,7 @@ view: data_intelligence_otc {
   measure:count_open_orders {
     type: count
     filters: [open_orders: "OpenOrder"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
     #drill_fields: [sales_order_number,creation_date_date, material_number, confirmed_order_quantity,sales_order_net_price, shipping_location, requesteddeliverydate_date]
   }
 
@@ -629,14 +629,14 @@ view: data_intelligence_otc {
   measure: count_return_order {
     type: count
     filters: [return_order : "Returned"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
   measure: Return_Order_Percentage {
     type: number
     sql: ${count_return_order}/${count_of_delivery} ;;
     link: {
       label: "Returned Orders"
-      url: "/dashboards/cortex_otc_ar::returned_orders?"
+      url: "/dashboards/cortex_infosys::returned_orders?"
     }
     #drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,Sales_Order_Value_Global_Currency,Global_Currency,sales_order_value_Local_Currecny,Local_Currency_Key]
   }
@@ -646,7 +646,7 @@ view: data_intelligence_otc {
     sql: ${count_canceled_order}/${data_intelligence_otc.count} ;;
     link: {
       label: "Canceled Orders"
-      url: "/dashboards/cortex_otc_ar::canceled_orders?"
+      url: "/dashboards/cortex_infosys::canceled_orders?"
     }
 
   }
@@ -665,8 +665,8 @@ view: data_intelligence_otc {
   dimension: Rebate_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Rebate_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Rebate_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: Tax_Amount_Local_Currency {
@@ -684,8 +684,8 @@ view: data_intelligence_otc {
   dimension: Tax_Amount_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Tax_Amount_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Tax_Amount_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
 
@@ -699,7 +699,7 @@ view: data_intelligence_otc {
   dimension: sales_order_net_price_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_price_local_currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_price_local_currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
 
@@ -716,7 +716,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Product"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_product?"
+      url: "/dashboards/cortex_infosys::sales_performance_by_product?"
     }
   }
 
@@ -726,7 +726,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Sales Organization"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_sales_org?"
+      url: "/dashboards/cortex_infosys::sales_performance_by_sales_org?"
     }
   }
 
@@ -736,7 +736,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Distribution Channel"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_distribution_channel?"
+      url: "/dashboards/cortex_infosys::sales_performance_by_distribution_channel?"
     }
   }
 
@@ -746,7 +746,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Division"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_division?"
+      url: "/dashboards/cortex_infosys::sales_performance_by_division?"
     }
   }
 
@@ -759,7 +759,7 @@ view: data_intelligence_otc {
   dimension: sales_order_net_value_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_value_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_value_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: delivery_sales_order {
@@ -800,7 +800,7 @@ view: data_intelligence_otc {
   dimension: Sales_Order_Value_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_value_Local_Currecny},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny}),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny}))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_value_Local_Currecny},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny}),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny}))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   measure: sum_sales_order_value {
@@ -844,7 +844,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency}-${adjusted_price_Global_currency} ;;
     link: {
       label: "Customer focused Price Variations"
-      url: "/dashboards/cortex_otc_ar::customer_based_pricing_variations?"
+      url: "/dashboards/cortex_infosys::customer_based_pricing_variations?"
     }
   }
 
@@ -854,7 +854,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_infosys::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -865,7 +865,7 @@ view: data_intelligence_otc {
     sql: ${adjusted_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_infosys::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -876,7 +876,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_infosys::price_adjustments_based_on_product_availability?"
     }
 
   }
@@ -887,7 +887,7 @@ view: data_intelligence_otc {
     sql: ${intercompany_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_infosys::price_adjustments_based_on_product_availability?"
     }
   }
 
@@ -897,7 +897,7 @@ view: data_intelligence_otc {
     sql: ${discount_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::product_based_pricing_variations?"
+      url: "/dashboards/cortex_infosys::product_based_pricing_variations?"
     }
 
   }
@@ -911,8 +911,8 @@ view: data_intelligence_otc {
   dimension: list_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${list_price_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric)),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric)))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${list_price_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric)),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric)))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: adjusted_price_Local_Currency {
@@ -924,8 +924,8 @@ view: data_intelligence_otc {
   dimension: adjusted_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${adjusted_price_Local_Currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric)),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric)))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${adjusted_price_Local_Currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric)),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric)))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: discount_Local_currency {
@@ -937,8 +937,8 @@ view: data_intelligence_otc {
   dimension: discount_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${discount_Local_currency})),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},if(${Exchange_Rate_Type} is null,SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric)),SAP_REPORTING_ECC.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric)))),ifnull(CAST(SAP_REPORTING_ECC.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${discount_Local_currency})),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},if(${Exchange_Rate_Type} is null,@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric)),@{DATASETFUNCTION}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric)))),ifnull(CAST(@{DATASETFUNCTION}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: delivery_date {
@@ -994,7 +994,7 @@ view: data_intelligence_otc {
     sql: ${count_one_touch_order}/${count_incoming_order}*100 ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_otc_ar::one_touch_order?"
+      url: "/dashboards/cortex_infosys::one_touch_order?"
     }
   }
 
@@ -1004,7 +1004,7 @@ view: data_intelligence_otc {
     sql: ${TABLE}.OneTouchOrderCount ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_otc_ar::one_touch_order?"
+      url: "/dashboards/cortex_infosys::one_touch_order?"
     }
   }
 
