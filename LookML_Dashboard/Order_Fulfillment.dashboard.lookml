@@ -552,7 +552,6 @@
     type: cortex_otc_ar::radial_gauge
     fields: [count_of_delivery, data_intelligence_otc.late_deliveries]
     filters:
-      data_intelligence_otc.creation_date_date: 2022/01/01 to 2022/03/26
       data_intelligence_otc.distribution_channel: ''
       data_intelligence_otc.sales_org: ''
       data_intelligence_otc.division: ''
@@ -612,7 +611,7 @@
     spinner_color: "#282828"
     range_color: "#ffffff"
     gauge_fill_type: segment
-    fill_colors: ["#EE7772", "#ffed6f", "#7FCDAE"]
+    fill_colors: ["#7FCDAE", "#ffed6f", "#EE7772"]
     viz_trellis_by: none
     trellis_rows: 2
     trellis_cols: 2
