@@ -19,9 +19,9 @@ What does this Looker Block do for me?
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
-- **Dataset/Schema**: In the manifest.lkml file,For OTC Dashboards if you are not using the default kittycorn-dev-infy.DATA_INTELLIGENCE_OTC dataset, please update the value of the DATASET constant.
+- **Dataset/Schema for OTC**: Update to tha name of the reporting dataset using `project_id:name_of_dataset`. For example, _mysuperproject.REPORTING_
 
-- **Dataset/Schema**: In the manifest.lkml file,For AR Dashboards if you are not using the default kittycorn-dev-infy.DATA_INTELLIGENCE_FIN dataset, please update the value of the DATASET constant.
+- **Dataset/Schema for AR Dashboards**: Update to tha name of the reporting dataset using `project_id:name_of_dataset`. For example, _mysuperproject.REPORTING_
 
 - **ClientId/Constant**: In the manifest.lkml file,For OTC Dashboards please update the value of clientID
 
