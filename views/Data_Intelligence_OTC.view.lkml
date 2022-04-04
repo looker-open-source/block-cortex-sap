@@ -98,10 +98,6 @@ view: data_intelligence_otc {
     type: count
     filters: [blocked_order : "Blocked"]
     drill_fields:[sales_order, sales_order_line_item, product, delivery_block,billing_block,Sold_To_Party,Blocked_Order_Quantity, Base_UoM,Exchange_Rate_Sales_Value,blocked_order_value_Local_Currency,Local_Currency_Key,blocked_order_value_Global_Currency,Global_Currency]
-
-    #drill_fields:[sales_orders, order_line_items, product_category, delivery_block_document_header,billing_block_in_sd_document,SoldToParty, customer_number, blocked_quantity, BaseUoM, blocked_value,blocked_order_value_Local_Currency,Local_Currency_Key]
-    #filters: [blocked_order : "Blocked"]
-#>>>>>>> branch 'main' of ssh://benschuler%40google.com@source.developers.google.com:2022/p/kittycorn-dev-inf/r/looker-repo
   }
 
   dimension: blocked_order_value_Local_Currency {
