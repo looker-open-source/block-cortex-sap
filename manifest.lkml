@@ -1,20 +1,20 @@
 constant: CONNECTION_NAME {
-  value: "Looker connection name" 
+  value: "CONNECTION_NAME"
   export: override_required
 }
 
-constant: DATASET {
-  value: "Order to Cash Dataset Name"
+constant: OTC_DATASET {
+  value: "OTC_DATASET"
   export: override_required
 }
 
-constant: DATASET1 {
-  value: "Finance Dataset Name"
+constant: FINANCE_DATASET {
+  value: "FINANCE_DATASET"
   export: override_required
 }
 
-constant: DATASETFUNCTION {
-  value: "Function Dataset Name"
+constant: FUNCTION_DATASET {
+  value: "`project`.FUNCTION_DATASET"
   export: override_required
 }
 

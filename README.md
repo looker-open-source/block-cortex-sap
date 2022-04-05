@@ -19,9 +19,11 @@ What does this Looker Block do for me?
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
-- **Dataset/Schema for OTC**: Update to tha name of the reporting dataset using `project_id:name_of_dataset`. For example, _mysuperproject.REPORTING_
+- **Dataset/Schema for OTC**: "OTC_DATASET", Set to the name of the OTC dataset using `project_id.name_of_dataset`. For example, _mygcpprojectname.OTC_
 
-- **Dataset/Schema for AR Dashboards**: Update to tha name of the reporting dataset using `project_id:name_of_dataset`. For example, _mysuperproject.REPORTING_
+- **Dataset/Schema for AR Dashboards**: "FINANCE_DATASET", Set to the name of the reporting dataset using `project_id.name_of_dataset`. For example, _mygcpprojectname.REPORTING_
+
+- **Dataset/Schema for Functions**: "FUNCTIONS_DATASET", Set to the name of the dataset which contains the SAP/Cortex Functions using `project_id.name_of_dataset`. For example, _`mygcpprojectname`.SAP_FUNCTIONS_
 
 - **ClientId/Constant**: In the manifest.lkml file,For OTC Dashboards please update the value of clientID
 
