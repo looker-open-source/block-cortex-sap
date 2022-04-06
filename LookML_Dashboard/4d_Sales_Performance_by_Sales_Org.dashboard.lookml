@@ -1,23 +1,23 @@
-- dashboard: sales_performance_by_product
-  title: Sales Performance by Product
+- dashboard: sales_performance_by_sales_org
+  title: "[SAP OTC AR] 04_d: Sales Performance by Sales Org"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Sales Performance by Product
-    name: Sales Performance by Product
-    model: cortex_otc_ar
+  - title: Sales Performance by Sales Org
+    name: Sales Performance by Sales Org
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_grid
-    fields: [data_intelligence_otc.product, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
+    fields: [data_intelligence_otc.sales_org, data_intelligence_otc.distribution_channel,
+      data_intelligence_otc.division, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
       data_intelligence_otc.Sold_To_Party, data_intelligence_otc.Ship_To_Party, data_intelligence_otc.Bill_To_Party,
-      data_intelligence_otc.sales_org, data_intelligence_otc.distribution_channel,
-      data_intelligence_otc.division, data_intelligence_otc.sales_order_qty, data_intelligence_otc.Base_UoM,
+      data_intelligence_otc.product, data_intelligence_otc.sales_order_qty, data_intelligence_otc.Base_UoM,
       data_intelligence_otc.Exchange_Rate_Sales_Value, data_intelligence_otc.sales_order_value_Local_Currecny,
       data_intelligence_otc.Local_Currency_Key, data_intelligence_otc.Sales_Order_Value_Global_Currency,
       data_intelligence_otc.Global_Currency]
     filters: {}
-    sorts: [data_intelligence_otc.product]
+    sorts: [data_intelligence_otc.sales_org]
     limit: 5000
     column_limit: 50
     show_view_names: false
@@ -40,15 +40,15 @@
     show_row_totals: true
     truncate_header: false
     series_column_widths:
-      data_intelligence_otc.product: 120
+      data_intelligence_otc.sales_org: 120
+      data_intelligence_otc.distribution_channel: 120
+      data_intelligence_otc.division: 120
       data_intelligence_otc.sales_order: 120
       data_intelligence_otc.sales_order_line_items: 120
       data_intelligence_otc.Sold_To_Party: 120
       data_intelligence_otc.Ship_To_Party: 120
       data_intelligence_otc.Bill_To_Party: 120
-      data_intelligence_otc.sales_org: 120
-      data_intelligence_otc.distribution_channel: 120
-      data_intelligence_otc.division: 120
+      data_intelligence_otc.product: 120
       data_intelligence_otc.sales_order_qty: 120
       data_intelligence_otc.Base_UoM: 120
       data_intelligence_otc.sales_order_value_Local_Currecny: 120
@@ -58,11 +58,13 @@
       data_intelligence_otc.Sales_Order_Value_Global_Currency: 120
       data_intelligence_otc.Global_Currency: 120
     series_text_format:
-      data_intelligence_otc.product:
+      data_intelligence_otc.sales_org:
+        align: left
+      data_intelligence_otc.distribution_channel:
+        align: left
+      data_intelligence_otc.division:
         align: left
       data_intelligence_otc.sales_order:
-        align: left
-      data_intelligence_otc.sales_order_line_item:
         align: left
       data_intelligence_otc.Sold_To_Party:
         align: left
@@ -70,11 +72,7 @@
         align: left
       data_intelligence_otc.Bill_To_Party:
         align: left
-      data_intelligence_otc.sales_org:
-        align: left
-      data_intelligence_otc.distribution_channel:
-        align: left
-      data_intelligence_otc.division:
+      data_intelligence_otc.product:
         align: left
       data_intelligence_otc.sales_order_qty:
         align: right
@@ -88,6 +86,8 @@
         align: right
       data_intelligence_otc.Sales_Order_Value_Global_Currency:
         align: right
+      data_intelligence_otc.Global_Currency:
+        align: left
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -130,7 +130,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_otc_ar::sales_performance?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_finance::sales_performance?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -147,7 +147,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -161,7 +161,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -175,7 +175,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -189,7 +189,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -203,7 +203,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -217,7 +217,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -230,7 +230,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

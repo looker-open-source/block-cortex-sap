@@ -1,26 +1,25 @@
-- dashboard: delivery_performance
-  title: Delivery Performance
+- dashboard: sales_performance_by_product
+  title: "[SAP OTC AR] 04_c: Sales Performance by Product"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Delivery Performance
-    name: Delivery Performance
-    model: cortex_otc_ar
+  - title: Sales Performance by Product
+    name: Sales Performance by Product
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_grid
-    fields: [data_intelligence_otc.delivery, data_intelligence_otc.delivery_line_item,
-      data_intelligence_otc.product, data_intelligence_otc.req_delivery_date, data_intelligence_otc.actual_delivery_date,
+    fields: [data_intelligence_otc.product, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
       data_intelligence_otc.Sold_To_Party, data_intelligence_otc.Ship_To_Party, data_intelligence_otc.Bill_To_Party,
-      data_intelligence_otc.sales_order, data_intelligence_otc.delivered_qty, data_intelligence_otc.Base_UoM,
-      data_intelligence_otc.Exchange_Rate_of_Delivered_Value, data_intelligence_otc.delivered_value_Local_Currency,
-      data_intelligence_otc.Local_Currency_Key, data_intelligence_otc.delivered_value_Global_Currency,
-      data_intelligence_otc.Global_Currency, data_intelligence_otc.OnTime, data_intelligence_otc.InFull,
-      data_intelligence_otc.OnTime_InFull, data_intelligence_otc.Late_Delivery]
-    filters:
-      data_intelligence_otc.delivery: "-NULL"
-    sorts: [data_intelligence_otc.actual_delivery_date desc]
+      data_intelligence_otc.sales_org, data_intelligence_otc.distribution_channel,
+      data_intelligence_otc.division, data_intelligence_otc.sales_order_qty, data_intelligence_otc.Base_UoM,
+      data_intelligence_otc.Exchange_Rate_Sales_Value, data_intelligence_otc.sales_order_value_Local_Currecny,
+      data_intelligence_otc.Local_Currency_Key, data_intelligence_otc.Sales_Order_Value_Global_Currency,
+      data_intelligence_otc.Global_Currency]
+    filters: {}
+    sorts: [data_intelligence_otc.product]
     limit: 5000
+    column_limit: 50
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -41,38 +40,29 @@
     show_row_totals: true
     truncate_header: false
     series_column_widths:
-      data_intelligence_otc.delivery: 120
-      data_intelligence_otc.delivery_line_item: 120
       data_intelligence_otc.product: 120
-      data_intelligence_otc.delivery_date: 120
-      data_intelligence_otc.act_delivery_date: 120
+      data_intelligence_otc.sales_order: 120
+      data_intelligence_otc.sales_order_line_items: 120
       data_intelligence_otc.Sold_To_Party: 120
       data_intelligence_otc.Ship_To_Party: 120
       data_intelligence_otc.Bill_To_Party: 120
-      data_intelligence_otc.sales_order: 120
-      data_intelligence_otc.delivered_qty: 120
+      data_intelligence_otc.sales_org: 120
+      data_intelligence_otc.distribution_channel: 120
+      data_intelligence_otc.division: 120
+      data_intelligence_otc.sales_order_qty: 120
       data_intelligence_otc.Base_UoM: 120
-      data_intelligence_otc.delivered_value_Local_Currency: 120
+      data_intelligence_otc.sales_order_value_Local_Currecny: 120
       data_intelligence_otc.Local_Currency_Key: 120
-      data_intelligence_otc.actual_delivery_date: 120
-      data_intelligence_otc.req_delivery_date: 120
+      data_intelligence_otc.sales_order_line_item: 120
+      data_intelligence_otc.Exchange_Rate_Sales_Value: 120
+      data_intelligence_otc.Sales_Order_Value_Global_Currency: 120
       data_intelligence_otc.Global_Currency: 120
-      data_intelligence_otc.Exchange_Rate_of_Delivered_Value: 120
-      data_intelligence_otc.delivered_value_Global_Currency: 120
-      data_intelligence_otc.OnTime: 120
-      data_intelligence_otc.InFull: 120
-      data_intelligence_otc.OnTime_InFull: 120
-      data_intelligence_otc.Late_Delivery: 120
     series_text_format:
-      data_intelligence_otc.delivery:
-        align: left
-      data_intelligence_otc.delivery_line_item:
-        align: left
       data_intelligence_otc.product:
         align: left
-      data_intelligence_otc.delivery_date:
+      data_intelligence_otc.sales_order:
         align: left
-      data_intelligence_otc.act_delivery_date:
+      data_intelligence_otc.sales_order_line_item:
         align: left
       data_intelligence_otc.Sold_To_Party:
         align: left
@@ -80,45 +70,59 @@
         align: left
       data_intelligence_otc.Bill_To_Party:
         align: left
-      data_intelligence_otc.sales_order:
+      data_intelligence_otc.sales_org:
         align: left
-      data_intelligence_otc.delivered_qty:
+      data_intelligence_otc.distribution_channel:
+        align: left
+      data_intelligence_otc.division:
+        align: left
+      data_intelligence_otc.sales_order_qty:
         align: right
       data_intelligence_otc.Base_UoM:
         align: left
-      data_intelligence_otc.delivered_value_Local_Currency:
+      data_intelligence_otc.sales_order_value_Local_Currecny:
         align: right
       data_intelligence_otc.Local_Currency_Key:
         align: left
-      data_intelligence_otc.actual_delivery_date:
-        align: left
-      data_intelligence_otc.req_delivery_date:
-        align: left
-      data_intelligence_otc.Global_Currency:
-        align: left
-      data_intelligence_otc.Exchange_Rate_of_Delivered_Value:
+      data_intelligence_otc.Exchange_Rate_Sales_Value:
         align: right
-      data_intelligence_otc.Late_Delivery:
+      data_intelligence_otc.Sales_Order_Value_Global_Currency:
         align: right
-      data_intelligence_otc.OnTime_InFull:
-        align: right
-      data_intelligence_otc.InFull:
-        align: right
-      data_intelligence_otc.OnTime:
-        align: right
-      data_intelligence_otc.delivered_value_Global_Currency:
-        align: right
-    series_types: {}
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
+    series_types: {}
     listen:
+      Currency Required: data_intelligence_otc.Currency_Required
       Year: data_intelligence_otc.creation_date_year
       Region: data_intelligence_otc.country
       Sales Org: data_intelligence_otc.sales_org
       Distribution Channel: data_intelligence_otc.distribution_channel
       Division: data_intelligence_otc.division
       Product: data_intelligence_otc.product
-      Currency: data_intelligence_otc.Currency_Required
-      Sold to Party: data_intelligence_otc.Sold_To_Party
     row: 0
     col: 0
     width: 24
@@ -126,7 +130,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_otc_ar::order_fulfillment?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_finance::sales_performance?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -143,7 +147,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -157,7 +161,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -171,7 +175,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -185,7 +189,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -199,7 +203,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -213,12 +217,12 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
-  - name: Currency
-    title: Currency
+  - name: Currency Required
+    title: Currency Required
     type: field_filter
     default_value: USD
     allow_multiple_values: true
@@ -226,21 +230,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required
-  - name: Sold to Party
-    title: Sold to Party
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-      options: []
-    model: cortex_otc_ar
-    explore: data_intelligence_otc
-    listens_to_filters: []
-    field: data_intelligence_otc.Sold_To_Party

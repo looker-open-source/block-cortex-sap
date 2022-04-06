@@ -1,12 +1,12 @@
 - dashboard: one_touch_order
-  title: One Touch Order
+  title: "[SAP OTC AR] 02_b: One Touch Order"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
   - title: One Touch Order
     name: One Touch Order
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_grid
     fields: [data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
@@ -100,7 +100,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_otc_ar::order_status_snapshot?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_finance::order_status_snapshot?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -117,7 +117,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -131,7 +131,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -145,7 +145,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -159,7 +159,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -173,7 +173,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -187,7 +187,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -200,7 +200,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

@@ -1,12 +1,12 @@
 - dashboard: order_fulfillment
-  title: Order Fulfillment
+  title: "[SAP OTC AR] 01: Order Fulfillment"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
   - title: Navigation Bar
     name: Navigation Bar
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -50,9 +50,9 @@
     height: 2
   - title: OTIF%
     name: OTIF%
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: cortex_otc_ar::radial_gauge
+    type: marketplace_cortex_sap_finance::radial_gauge
     fields: [data_intelligence_otc.otif, count_of_delivery]
     sorts: [data_intelligence_otc.otif desc]
     limit: 500
@@ -170,7 +170,7 @@
     height: 5
   - title: On Time, In Full & OTIF
     name: On Time, In Full & OTIF
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_line
     fields: [data_intelligence_otc.count_on_time_delivery, data_intelligence_otc.count_in_full_delivery,
@@ -256,7 +256,7 @@
     height: 7
   - title: Avg Order To Delivery Cycle Time
     name: Avg Order To Delivery Cycle Time
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.product, average_of_order_cycle_time_in_days]
@@ -317,9 +317,9 @@
     height: 7
   - title: In Full%
     name: In Full%
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: cortex_otc_ar::radial_gauge
+    type: marketplace_cortex_sap_finance::radial_gauge
     fields: [data_intelligence_otc.in_full_delivery, count_of_delivery]
     sorts: [data_intelligence_otc.in_full_delivery]
     limit: 500
@@ -424,9 +424,9 @@
     height: 5
   - title: On Time%
     name: On Time%
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: cortex_otc_ar::radial_gauge
+    type: marketplace_cortex_sap_finance::radial_gauge
     fields: [data_intelligence_otc.on_time_delivery, count_of_delivery]
     sorts: [data_intelligence_otc.on_time_delivery]
     limit: 500
@@ -534,10 +534,10 @@
     col: 0
     width: 6
     height: 5
-  - name: ' <a href="/dashboards/cortex_otc_ar::delivery_performance?">Delivery
+  - name: ' <a href="/dashboards/cortex_sap_finance::delivery_performance?">Delivery
       Performance</a>'
     type: text
-    title_text: ' <a href="/dashboards/cortex_otc_ar::delivery_performance?">Delivery
+    title_text: ' <a href="/dashboards/cortex_sap_finance::delivery_performance?">Delivery
       Performance</a>'
     subtitle_text: ''
     body_text: ''
@@ -547,9 +547,9 @@
     height: 2
   - title: Late Delivery %
     name: Late Delivery %
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: cortex_otc_ar::radial_gauge
+    type: marketplace_cortex_sap_finance::radial_gauge
     fields: [count_of_delivery, data_intelligence_otc.late_deliveries]
     filters:
       data_intelligence_otc.distribution_channel: ''
@@ -677,7 +677,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -691,7 +691,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -705,7 +705,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -719,7 +719,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -733,7 +733,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -747,7 +747,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -761,7 +761,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required
