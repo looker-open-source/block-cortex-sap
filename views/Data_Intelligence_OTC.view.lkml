@@ -632,7 +632,7 @@ view: data_intelligence_otc {
     sql: ${count_return_order}/${count_of_delivery} ;;
     link: {
       label: "Returned Orders"
-      url: "/dashboards/cortex_otc_ar::returned_orders?"
+      url: "/dashboards/cortex_sap_finance::returned_orders?"
     }
     #drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,Sales_Order_Value_Global_Currency,Global_Currency,sales_order_value_Local_Currecny,Local_Currency_Key]
   }
@@ -642,7 +642,7 @@ view: data_intelligence_otc {
     sql: ${count_canceled_order}/${data_intelligence_otc.count} ;;
     link: {
       label: "Canceled Orders"
-      url: "/dashboards/cortex_otc_ar::canceled_orders?"
+      url: "/dashboards/cortex_sap_finance::canceled_orders?"
     }
 
   }
@@ -712,7 +712,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Product"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_product?"
+      url: "/dashboards/cortex_sap_finance::sales_performance_by_product?"
     }
   }
 
@@ -722,7 +722,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Sales Organization"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_sales_org?"
+      url: "/dashboards/cortex_sap_finance::sales_performance_by_sales_org?"
     }
   }
 
@@ -732,7 +732,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Distribution Channel"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_distribution_channel?"
+      url: "/dashboards/cortex_sap_finance::sales_performance_by_distribution_channel?"
     }
   }
 
@@ -742,7 +742,7 @@ view: data_intelligence_otc {
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Division"
-      url: "/dashboards/cortex_otc_ar::sales_performance_by_division?"
+      url: "/dashboards/cortex_sap_finance::sales_performance_by_division?"
     }
   }
 
@@ -840,7 +840,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency}-${adjusted_price_Global_currency} ;;
     link: {
       label: "Customer focused Price Variations"
-      url: "/dashboards/cortex_otc_ar::customer_based_pricing_variations?"
+      url: "/dashboards/cortex_sap_finance::customer_based_pricing_variations?"
     }
   }
 
@@ -850,7 +850,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_sap_finance::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -861,7 +861,7 @@ view: data_intelligence_otc {
     sql: ${adjusted_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_customer_profiling?"
+      url: "/dashboards/cortex_sap_finance::price_adjustments_based_on_customer_profiling?"
     }
 
   }
@@ -872,7 +872,7 @@ view: data_intelligence_otc {
     sql: ${list_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_sap_finance::price_adjustments_based_on_product_availability?"
     }
 
   }
@@ -883,7 +883,7 @@ view: data_intelligence_otc {
     sql: ${intercompany_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::price_adjustments_based_on_product_availability?"
+      url: "/dashboards/cortex_sap_finance::price_adjustments_based_on_product_availability?"
     }
   }
 
@@ -893,7 +893,7 @@ view: data_intelligence_otc {
     sql: ${discount_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_otc_ar::product_based_pricing_variations?"
+      url: "/dashboards/cortex_sap_finance::product_based_pricing_variations?"
     }
 
   }
@@ -990,7 +990,7 @@ view: data_intelligence_otc {
     sql: ${count_one_touch_order}/${count_incoming_order}*100 ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_otc_ar::one_touch_order?"
+      url: "/dashboards/cortex_sap_finance::one_touch_order?"
     }
   }
 
@@ -1000,7 +1000,7 @@ view: data_intelligence_otc {
     sql: ${TABLE}.OneTouchOrderCount ;;
     link: {
       label: "One Touch Order"
-      url: "/dashboards/cortex_otc_ar::one_touch_order?"
+      url: "/dashboards/cortex_sap_finance::one_touch_order?"
     }
   }
 

@@ -1,25 +1,21 @@
-- dashboard: sales_performance_by_division
-  title: Sales Performance by Division
+- dashboard: price_adjustments_based_on_product_availability
+  title: "[SAP OTC AR] 05_b: Price Adjustments based on Product Availability"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Sales Performance by Division
-    name: Sales Performance by Division
-    model: cortex_otc_ar
+  - title: Price Adjustments based on Product Availability
+    name: Price Adjustments based on Product Availability
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     type: looker_grid
-    fields: [data_intelligence_otc.sales_org, data_intelligence_otc.distribution_channel,
-      data_intelligence_otc.division, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
-      data_intelligence_otc.Sold_To_Party, data_intelligence_otc.Ship_To_Party, data_intelligence_otc.Bill_To_Party,
-      data_intelligence_otc.product, data_intelligence_otc.sales_order_qty, data_intelligence_otc.Base_UoM,
-      data_intelligence_otc.Exchange_Rate_Sales_Value, data_intelligence_otc.sales_order_value_Local_Currecny,
-      data_intelligence_otc.Local_Currency_Key, data_intelligence_otc.Sales_Order_Value_Global_Currency,
-      data_intelligence_otc.Global_Currency]
+    fields: [data_intelligence_otc.product, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
+      data_intelligence_otc.sales_order_qty, data_intelligence_otc.sales_order_net_value_Global_Currency,
+      data_intelligence_otc.customer_name1, data_intelligence_otc.list_price_Global_currency,
+      data_intelligence_otc.intercompany_price_Global_currency, data_intelligence_otc.discount_Global_currency]
     filters: {}
-    sorts: [data_intelligence_otc.sales_org]
+    sorts: [data_intelligence_otc.product]
     limit: 5000
-    column_limit: 50
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -39,54 +35,16 @@
     show_totals: true
     show_row_totals: true
     truncate_header: false
-    series_column_widths:
-      data_intelligence_otc.sales_org: 120
-      data_intelligence_otc.distribution_channel: 120
-      data_intelligence_otc.division: 120
-      data_intelligence_otc.sales_order: 120
-      data_intelligence_otc.sales_order_line_items: 120
-      data_intelligence_otc.Sold_To_Party: 120
-      data_intelligence_otc.Ship_To_Party: 120
-      data_intelligence_otc.Bill_To_Party: 120
-      data_intelligence_otc.product: 120
-      data_intelligence_otc.sales_order_qty: 120
-      data_intelligence_otc.Base_UoM: 120
-      data_intelligence_otc.sales_order_value_Local_Currecny: 120
-      data_intelligence_otc.Local_Currency_Key: 120
-      data_intelligence_otc.sales_order_line_item: 120
-      data_intelligence_otc.Exchange_Rate_Sales_Value: 120
-      data_intelligence_otc.Global_Currency: 120
-      data_intelligence_otc.Sales_Order_Value_Global_Currency: 120
     series_text_format:
-      data_intelligence_otc.sales_org:
-        align: left
-      data_intelligence_otc.distribution_channel:
-        align: left
-      data_intelligence_otc.division:
-        align: left
-      data_intelligence_otc.sales_order:
-        align: left
-      data_intelligence_otc.Sold_To_Party:
-        align: left
-      data_intelligence_otc.Ship_To_Party:
-        align: left
-      data_intelligence_otc.Bill_To_Party:
-        align: left
-      data_intelligence_otc.product:
-        align: left
       data_intelligence_otc.sales_order_qty:
         align: right
-      data_intelligence_otc.Base_UoM:
-        align: left
-      data_intelligence_otc.sales_order_value_Local_Currecny:
+      data_intelligence_otc.sales_order_net_value_Global_Currency:
         align: right
-      data_intelligence_otc.Local_Currency_Key:
-        align: left
-      data_intelligence_otc.Exchange_Rate_Sales_Value:
+      data_intelligence_otc.discount_Global_currency:
         align: right
-      data_intelligence_otc.Global_Currency:
-        align: left
-      data_intelligence_otc.Sales_Order_Value_Global_Currency:
+      data_intelligence_otc.intercompany_price_Global_currency:
+        align: right
+      data_intelligence_otc.list_price_Global_currency:
         align: right
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -123,6 +81,7 @@
       Distribution Channel: data_intelligence_otc.distribution_channel
       Division: data_intelligence_otc.division
       Product: data_intelligence_otc.product
+      Sales Order Net Value: data_intelligence_otc.sales_order_net_value_Global_Currency
     row: 0
     col: 0
     width: 24
@@ -130,7 +89,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_otc_ar::sales_performance?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_finance::billing_and_pricing?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -147,7 +106,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -161,7 +120,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -175,7 +134,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -189,7 +148,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -203,7 +162,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -217,7 +176,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -230,7 +189,23 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_otc_ar
+    model: cortex_sap_finance
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required
+  - name: Sales Order Net Value
+    title: Sales Order Net Value
+    type: field_filter
+    default_value: "[1,2000]"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: range_slider
+      display: inline
+      options:
+        min: 0
+        max: 2000
+    model: cortex_sap_finance
+    explore: data_intelligence_otc
+    listens_to_filters: []
+    field: data_intelligence_otc.sales_order_net_value_Global_Currency

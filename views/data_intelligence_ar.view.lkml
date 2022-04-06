@@ -432,7 +432,7 @@ view: data_intelligence_ar {
 
     link: {
       label: "Day Sales Outstanding"
-      url: "/dashboards/cortex_otc_ar::day_sales_outstanding?"
+      url: "/dashboards/cortex_sap_finance::day_sales_outstanding?"
     }
   }
   measure: DSO{
@@ -464,7 +464,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Overdue Recievables"
-      url: "/dashboards/cortex_otc_ar::overdue_receivables?"
+      url: "/dashboards/cortex_sap_finance::overdue_receivables?"
     }
   }
 
@@ -540,7 +540,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Total Recievables"
-      url: "/dashboards/cortex_otc_ar::total_receivable?"
+      url: "/dashboards/cortex_sap_finance::total_receivable?"
       }
     }
 
@@ -568,7 +568,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Doubtful Recievables"
-      url: "/dashboards/cortex_otc_ar::doubtful_receivable?"
+      url: "/dashboards/cortex_sap_finance::doubtful_receivable?"
     }
   }
 
