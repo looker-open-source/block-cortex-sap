@@ -1,0 +1,27 @@
+{
+  "label": "CCAI Insights",
+  "category_label": "Models",
+  "branding": {
+    "image_uri": "https://marketplace-api.looker.com/block-icons/ccai_icon.png",
+    "tagline": "CCAI Insights integrates with the Looker Block to aggregate data outside of contact center sources to provide a more holistic view of the business."
+  },
+
+  "constants": {
+    "CONNECTION_NAME": {
+      "label": "Connection Name",
+       "value_constraint": "connection"
+    },
+    "INSIGHTS_TABLE": {
+      "label": "Insights Table",
+    },
+    "UNNEST_TABLE": {
+      "label": "Unnest Table",
+    }
+  },
+  "models": [
+    {
+      "name": "insights_demo",
+      "connection_constant": "CONNECTION_NAME"
+    }
+  ]
+}
