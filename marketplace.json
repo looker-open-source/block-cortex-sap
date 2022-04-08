@@ -11,10 +11,18 @@
       "label": "Connection Name",
       "value_constraint": "Looker Connection"
     },
-    "DATASET": { "label": "Dataset_OTC"
-               "value_constraint": "Order to Cash Dataset name"}
-    
-    "DATASET1": { "label": "Dataset"
-               "value_constraint": "Account Receiveable Dataset name"}
+    "OTC_DATASET": { 
+      "label": "Order to Cash Dataset"
+     },
+    "FINANCE_DATASET": {
+      "label": "Finance Dataset"
+    }  
   },
-  }
+      "models": [
+        {
+            "name": "cortex",
+            "connection_constant": "CONNECTION_NAME"
+        }
+    ]
+  
+}
