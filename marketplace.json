@@ -2,7 +2,7 @@
   "label": "Cortex Framework for SAP - Finance",
   "category_label": "Models",
   "branding": {
-    "image_uri": "https://marketplace-api.looker.com/block-icons/sap_icon.jpg",
+    "image_uri": "https://marketplace-api.looker.com/block-icons/sap_icon.png",
     "tagline": "SAP Finance - Account Receivable analytics and critical Key Performance Indicators for data replicated from SAP ERP into BigQuery."
   },
 
