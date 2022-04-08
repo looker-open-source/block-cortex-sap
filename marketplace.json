@@ -1,15 +1,15 @@
 {
-  "label": "Google Cloud Cortex Framework for SAP - Data Foundation - Order to Cash and Account Recevibales",
+  "label": "Cortex Framework for SAP - Finance",
   "category_label": "Looker Models",
   "branding": {
     "image_uri": "https://marketplace-api.looker.com/block-icons/cortex.jpg",
-    "tagline": "Sales, Orders, Delivery, Billing, Account Receivables, Products and Customer analytics for data replicated from SAP ERP into BigQuery."
+    "tagline": "SAP Finance - Account Receivable analytics and critical Key Performance Indicators for data replicated from SAP ERP into BigQuery."
   },
 
   "constants": {
     "CONNECTION_NAME": {
       "label": "Connection Name",
-      "value_constraint": "Looker Connection"
+      "value_constraint": "connection"
     },
     "OTC_DATASET": { 
       "label": "Order to Cash Dataset"
