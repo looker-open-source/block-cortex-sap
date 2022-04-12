@@ -52,7 +52,7 @@
     name: OTIF%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex_sap_finance::radial_gauge
+    type: marketplace_cortex-sap-finance::radial_gauge
     fields: [data_intelligence_otc.otif, count_of_delivery]
     sorts: [data_intelligence_otc.otif desc]
     limit: 500
@@ -319,7 +319,7 @@
     name: In Full%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex_sap_finance::radial_gauge
+    type: marketplace_cortex-sap-finance::radial_gauge
     fields: [data_intelligence_otc.in_full_delivery, count_of_delivery]
     sorts: [data_intelligence_otc.in_full_delivery]
     limit: 500
@@ -426,7 +426,7 @@
     name: On Time%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex_sap_finance::radial_gauge
+    type: marketplace_cortex-sap-finance::radial_gauge
     fields: [data_intelligence_otc.on_time_delivery, count_of_delivery]
     sorts: [data_intelligence_otc.on_time_delivery]
     limit: 500
@@ -549,7 +549,7 @@
     name: Late Delivery %
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex_sap_finance::radial_gauge
+    type: marketplace_cortex-sap-finance::radial_gauge
     fields: [count_of_delivery, data_intelligence_otc.late_deliveries]
     filters:
       data_intelligence_otc.distribution_channel: ''
