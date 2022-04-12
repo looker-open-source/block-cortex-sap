@@ -16,6 +16,9 @@
      },
     "FINANCE_DATASET": {
       "label": "Finance Dataset"
+    },
+    "FUNCTION_DATASET": {
+      "label": "Function Dataset"
     }  
   },
       "models": [
