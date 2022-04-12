@@ -19,6 +19,9 @@
     },
     "FUNCTION_DATASET": {
       "label": "Function Dataset"
+    },
+     "CLIENT": {
+      "label": "Client ID"
     }  
   },
       "models": [
