@@ -4,12 +4,12 @@ constant: CONNECTION_NAME {
 }
 
 constant: OTC_DATASET {
-  value: "OTC_DATASET"
+  value: "`project`.OTC_DATASET"
   export: override_required
 }
 
 constant: FINANCE_DATASET {
-  value: "FINANCE_DATASET"
+  value: "`project`.FINANCE_DATASET"
   export: override_required
 }
 
