@@ -7,12 +7,12 @@ include: "/views/**/*.view"
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
 
-datagroup: cortex_infosys_default_datagroup {
+datagroup: cortex_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-persist_with: cortex_infosys_default_datagroup
+persist_with: cortex_default_datagroup
 
 # Explores allow you to join together different views (database tables) based on the
 # relationships between fields. By joining a view into an Explore, you make those
