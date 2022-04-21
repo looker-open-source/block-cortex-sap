@@ -19,12 +19,6 @@ constant: FUNCTION_DATASET {
 }
 
 
-visualization: {
-  id: "radial_gauge"
-  label: "Radial Gauge"
-  file: "Visualization/radialgauge_v2.js"
-}
-
 constant: CLIENT {
   value: "050"
   export: override_required
