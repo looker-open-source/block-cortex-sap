@@ -52,9 +52,8 @@
     name: OTIF%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex-sap-finance::radial_gauge
-    fields: [data_intelligence_otc.otif, count_of_delivery]
-    sorts: [data_intelligence_otc.otif desc]
+    type: single_value
+    fields: [data_intelligence_otc.OTIFPercentage]
     limit: 500
     column_limit: 50
     dynamic_fields: [{args: [data_intelligence_otc.count], calculation_type: percent_of_column_sum,
@@ -82,42 +81,7 @@
           Delivery, type: count_distinct, _kind_hint: measure, _type_hint: number},
       {category: table_calculation, label: Percent of  Count of Delivery, value_format: !!null '',
         value_format_name: percent_1, calculation_type: percent_of_column_sum, table_calculation: percent_of_count_of_delivery,
-        args: [count_of_delivery], _kind_hint: measure, _type_hint: number}]
-    hidden_fields: [count_of_delivery]
-    hidden_points_if_no: []
-    series_labels: {}
-    show_view_names: false
-    arm_length: 9
-    arm_weight: 48
-    spinner_length: 153
-    spinner_weight: 25
-    target_length: 10
-    target_gap: 10
-    target_weight: 25
-    range_min: 0
-    range_max: 1
-    value_label_type: value
-    value_label_font: 12
-    value_label_padding: 45
-    target_source: 'off'
-    target_label_type: both
-    target_label_font: 3
-    label_font_size: 3
-    spinner_type: needle
-    fill_color: "#0092E5"
-    background_color: "#CECECE"
-    spinner_color: "#282828"
-    range_color: "#ffffff"
-    gauge_fill_type: segment
-    fill_colors: ["#EE7772", "#ffed6f", "#7FCDAE"]
-    viz_trellis_by: none
-    trellis_rows: 2
-    trellis_cols: 2
-    angle: 90
-    cutout: 30
-    range_x: 1
-    range_y: 1
-    target_label_padding: 1.06
+        args: [count_of_delivery], _kind_hint: measure, _type_hint: number, is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -127,35 +91,8 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0%
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 0
     series_types: {}
+    defaults_version: 1
     listen:
       Distribution Channel: data_intelligence_otc.distribution_channel
       Division: data_intelligence_otc.division
@@ -319,9 +256,8 @@
     name: In Full%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex-sap-finance::radial_gauge
-    fields: [data_intelligence_otc.in_full_delivery, count_of_delivery]
-    sorts: [data_intelligence_otc.in_full_delivery]
+    type: single_value
+    fields: [data_intelligence_otc.InFullPercentage]
     limit: 500
     column_limit: 50
     dynamic_fields: [{args: [data_intelligence_otc.count], calculation_type: percent_of_column_sum,
@@ -336,43 +272,7 @@
         label: Count of Delivery, type: count_distinct, _kind_hint: measure, _type_hint: number},
       {category: table_calculation, label: In Full%, value_format: !!null '', value_format_name: percent_0,
         calculation_type: percent_of_column_sum, table_calculation: in_full_1, args: [
-          count_of_delivery], _kind_hint: measure, _type_hint: number}]
-    hidden_fields: [count_of_delivery]
-    hidden_points_if_no: []
-    series_labels: {}
-    show_view_names: false
-    arm_length: 9
-    arm_weight: 48
-    spinner_length: 153
-    spinner_weight: 25
-    target_length: 10
-    target_gap: 10
-    target_weight: 25
-    range_min:
-    range_max:
-    value_label_type: value
-    value_label_font: 12
-    value_label_padding: 45
-    target_source: 'off'
-    target_label_type: both
-    target_label_font: 3
-    label_font_size: 3
-    range_formatting: '0'
-    spinner_type: needle
-    fill_color: "#0092E5"
-    background_color: "#CECECE"
-    spinner_color: "#282828"
-    range_color: "#ffffff"
-    gauge_fill_type: segment
-    fill_colors: ["#EE7772", "#ffed6f", "#7FCDAE"]
-    viz_trellis_by: none
-    trellis_rows: 2
-    trellis_cols: 2
-    angle: 90
-    cutout: 30
-    range_x: 1
-    range_y: 1
-    target_label_padding: 1.06
+          count_of_delivery], _kind_hint: measure, _type_hint: number, is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -384,6 +284,7 @@
     conditional_formatting_include_nulls: false
     x_axis_gridlines: false
     y_axis_gridlines: true
+    show_view_names: false
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -408,7 +309,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    defaults_version: 0
+    defaults_version: 1
     series_types: {}
     listen:
       Distribution Channel: data_intelligence_otc.distribution_channel
@@ -426,9 +327,8 @@
     name: On Time%
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex-sap-finance::radial_gauge
-    fields: [data_intelligence_otc.on_time_delivery, count_of_delivery]
-    sorts: [data_intelligence_otc.on_time_delivery]
+    type: single_value
+    fields: [data_intelligence_otc.OnTimePercentage]
     limit: 500
     column_limit: 50
     dynamic_fields: [{args: [data_intelligence_otc.count], calculation_type: percent_of_column_sum,
@@ -447,8 +347,18 @@
         _type_hint: number}, {category: table_calculation, label: Percent of  Count
           of Delivery, value_format: !!null '', value_format_name: percent_1, calculation_type: percent_of_column_sum,
         table_calculation: percent_of_count_of_delivery, args: [count_of_delivery],
-        _kind_hint: measure, _type_hint: number}]
-    hidden_fields: [count_of_delivery]
+        _kind_hint: measure, _type_hint: number, is_disabled: true}]
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    value_format: ''
+    hidden_fields: []
     hidden_points_if_no: []
     series_labels: {}
     show_view_names: false
@@ -484,16 +394,6 @@
     range_x: 1
     range_y: 1
     target_label_padding: 1.06
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    value_format: 0%
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -520,7 +420,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    defaults_version: 0
+    defaults_version: 1
     series_types: {}
     listen:
       Distribution Channel: data_intelligence_otc.distribution_channel
@@ -534,12 +434,10 @@
     col: 0
     width: 6
     height: 5
-  - name: ' <a href="/dashboards/cortex_sap_finance::delivery_performance?">Delivery
-      Performance</a>'
+  - name: ' <a href="/dashboards/cortex_sap_finance::delivery_performance?">Delivery Performance</a>'
     type: text
     title_text: ' <a href="/dashboards/cortex_sap_finance::delivery_performance?">Delivery
       Performance</a>'
-    subtitle_text: ''
     body_text: ''
     row: 9
     col: 0
@@ -549,14 +447,8 @@
     name: Late Delivery %
     model: cortex_sap_finance
     explore: data_intelligence_otc
-    type: marketplace_cortex-sap-finance::radial_gauge
-    fields: [count_of_delivery, data_intelligence_otc.late_deliveries]
-    filters:
-      data_intelligence_otc.distribution_channel: ''
-      data_intelligence_otc.sales_org: ''
-      data_intelligence_otc.division: ''
-      data_intelligence_otc.product: ''
-    sorts: [data_intelligence_otc.late_deliveries]
+    type: single_value
+    fields: [data_intelligence_otc.LateDeliveryPercentage]
     limit: 500
     column_limit: 50
     dynamic_fields: [{args: [data_intelligence_otc.count], calculation_type: percent_of_column_sum,
@@ -584,42 +476,7 @@
           Delivery, type: count_distinct, _kind_hint: measure, _type_hint: number},
       {category: table_calculation, label: Percent of  Late Deliveries, value_format: !!null '',
         value_format_name: percent_0, calculation_type: percent_of_column_sum, table_calculation: percent_of_late_deliveries,
-        args: [count_of_delivery], _kind_hint: measure, _type_hint: number}]
-    hidden_fields: [count_of_delivery]
-    hidden_points_if_no: []
-    series_labels: {}
-    show_view_names: false
-    arm_length: 9
-    arm_weight: 48
-    spinner_length: 153
-    spinner_weight: 25
-    target_length: 10
-    target_gap: 10
-    target_weight: 25
-    range_min: 0
-    range_max: 1
-    value_label_type: value
-    value_label_font: 12
-    value_label_padding: 45
-    target_source: 'off'
-    target_label_type: both
-    target_label_font: 3
-    label_font_size: 3
-    spinner_type: needle
-    fill_color: "#0092E5"
-    background_color: "#CECECE"
-    spinner_color: "#282828"
-    range_color: "#ffffff"
-    gauge_fill_type: segment
-    fill_colors: ["#7FCDAE", "#ffed6f", "#EE7772"]
-    viz_trellis_by: none
-    trellis_rows: 2
-    trellis_cols: 2
-    angle: 90
-    cutout: 30
-    range_x: 1
-    range_y: 1
-    target_label_padding: 1.06
+        args: [count_of_delivery], _kind_hint: measure, _type_hint: number, is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -629,35 +486,8 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0%
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 0
     series_types: {}
+    defaults_version: 1
     listen:
       Region: data_intelligence_otc.country
       Currency Required: data_intelligence_otc.Currency_Required
