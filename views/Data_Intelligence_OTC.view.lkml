@@ -506,21 +506,18 @@ view: data_intelligence_otc {
   
   measure: InFullPercentage {
     type: number
-    value_format: "0%"
     sql: if(${count_of_deliveries}=0,0,round(${count_in_full_delivery}/${count_of_deliveries}*100,2))  ;;
   }
   
   
   measure: OTIFPercentage {
     type: number
-    value_format: "0%"
     sql: if(${count_of_deliveries}=0,0,round(${count_otif}/${count_of_deliveries}*100,2))  ;;
   }
   
   
   measure: LateDeliveryPercentage {
     type: number
-    value_format: "0%"
     sql: if(${count_of_deliveries}=0,0,round(${count_latedeliveries}/${count_of_deliveries}*100,2))  ;;
   }
   
