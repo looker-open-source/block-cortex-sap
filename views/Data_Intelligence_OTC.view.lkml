@@ -464,23 +464,67 @@ view: data_intelligence_otc {
     sql: ${TABLE}.OnTimeDelivery ;;
   }
 
+  dimension: Delivery {
+    type: yesno
+    sql:${actual_delivery_date} is not null  ;;
+  }
+  
+  measure: count_of_deliveries {
+    type: count_distinct
+    sql: ${delivery_number} ;;
+    filters: [Delivery: "Yes"]
+  }
+  
   measure: count_on_time_delivery {
     type: count_distinct
-    sql: ${delivery} ;;
-    filters: [on_time_delivery: "DeliveredOnTime"]
+    sql: ${delivery_number} ;;
+    filters: [OnTime: "Yes",Delivery: "Yes"]
   }
-
+  
   measure: count_in_full_delivery {
     type: count_distinct
-    sql: ${delivery} ;;
-    filters: [in_full_delivery: "DeliveredInFull"]
+    sql: ${delivery_number} ;;
+    filters: [InFull: "Yes", Delivery: "Yes"]
   }
-
+  
   measure: count_otif {
     type: count_distinct
-    sql: ${delivery} ;;
-    filters: [otif: "OTIF"]
+    sql: ${delivery_number} ;;
+    filters: [OnTime_InFull: "Yes", Delivery: "Yes"]
   }
+  
+  measure: count_latedeliveries {
+    type: count_distinct
+    sql: ${delivery_number} ;;
+    filters: [Late_Delivery: "Yes", Delivery: "Yes"]
+  }
+  
+  measure: OnTimePercentage {
+    type: number
+    sql: if(${count_of_deliveries}=0,0,round(${count_on_time_delivery}/${count_of_deliveries}*100,2))  ;;
+  }
+  
+  measure: InFullPercentage {
+    type: number
+    value_format: "0%"
+    sql: if(${count_of_deliveries}=0,0,round(${count_in_full_delivery}/${count_of_deliveries}*100,2))  ;;
+  }
+  
+  
+  measure: OTIFPercentage {
+    type: number
+    value_format: "0%"
+    sql: if(${count_of_deliveries}=0,0,round(${count_otif}/${count_of_deliveries}*100,2))  ;;
+  }
+  
+  
+  measure: LateDeliveryPercentage {
+    type: number
+    value_format: "0%"
+    sql: if(${count_of_deliveries}=0,0,round(${count_latedeliveries}/${count_of_deliveries}*100,2))  ;;
+  }
+  
+  
   dimension: OnTime_InFull {
     type: yesno
     sql: ${otif}="OTIF" ;;
