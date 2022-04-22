@@ -14,7 +14,7 @@ constant: FINANCE_DATASET {
 }
 
 constant: FUNCTION_DATASET {
-  value: "FUNCTION_DATASET"
+  value: "`project`.FUNCTION_DATASET"
   export: override_required
 }
 
