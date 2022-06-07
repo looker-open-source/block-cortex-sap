@@ -19,7 +19,7 @@ persist_with: cortex_default_datagroup
 # fields available to users for data analysis.
 # Explores should be purpose-built for specific use cases.
 
-# To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Cortex Infosys"
+# To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Cortex"
 
 # To create more sophisticated Explores that involve multiple views, you can use the join parameter.
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
