@@ -28,11 +28,11 @@ The datasets required by this block can be obtained by following the installatio
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
-- **Project**: This should be the GCP BigQuery project name where the SAP reporting dataset resides (not project id).
+- **GCP Project**: The GCP project name where the SAP reporting dataset resides in BigQuery (not project id).
 
-- **Reporting Dataset**: This should be the deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
+- **Reporting Dataset**: The deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
-- **ClientId/Constant**: This is the SAP Client number (mandt) the dashboards will utilize to display data. 
+- **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
 
 **(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
