@@ -30,7 +30,7 @@ The datasets required by this block can be obtained by following the installatio
 
 - **Project**: This should be the GCP BigQuery project name where the SAP reporting dataset resides (not project id).
 
-- **Reporting Dataset**: This should be the deployed data foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
+- **Reporting Dataset**: This should be the deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
 - **ClientId/Constant**: This is the SAP Client number (mandt) the dashboards will utilize to display data. 
 
