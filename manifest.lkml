@@ -3,23 +3,17 @@ constant: CONNECTION_NAME {
   export: override_required
 }
 
-constant: OTC_DATASET {
-  value: "`project`.OTC_DATASET"
+constant: GCP_PROJECT {
+  value: "my_gcp_project (project_name)"
   export: override_required
 }
 
-constant: FINANCE_DATASET {
-  value: "`project`.FINANCE_DATASET"
+constant: REPORTING_DATASET {
+  value: "my_reporting_dataset (_DS_REPORTING)"
   export: override_required
 }
-
-constant: FUNCTION_DATASET {
-  value: "`project`.FUNCTION_DATASET"
-  export: override_required
-}
-
 
 constant: CLIENT {
-  value: "client_id"
+  value: "sap_client_id (mandt)"
   export: override_required
 }

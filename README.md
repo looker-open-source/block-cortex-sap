@@ -28,13 +28,11 @@ The datasets required by this block can be obtained by following the installatio
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
-- **Dataset/Schema for OTC**: "OTC_DATASET", Set to the name of the OTC dataset using `project_id.name_of_dataset`. For example, _mygcpprojectname.OTC_
+- **Project**: This should be the GCP BigQuery project name where the SAP reporting dataset resides (not project id).
 
-- **Dataset/Schema for AR Dashboards**: "FINANCE_DATASET", Set to the name of the reporting dataset using `project_id.name_of_dataset`. For example, _mygcpprojectname.REPORTING_
+- **Reporting Dataset**: This should be the deployed data foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
-- **Dataset/Schema for Functions**: "FUNCTIONS_DATASET", Set to the name of the dataset which contains the SAP/Cortex Functions using `project_id.name_of_dataset`. For example, _`mygcpprojectname`.SAP_FUNCTIONS_
-
-- **ClientId/Constant**: In the manifest.lkml file,For OTC Dashboards please update the value of clientID
+- **ClientId/Constant**: This is the SAP Client number (mandt) the dashboards will utilize to display data. 
 
 **(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
