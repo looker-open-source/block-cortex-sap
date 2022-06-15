@@ -2,7 +2,7 @@
   "label": "Cortex Data Foundation for SAP - Operational Dashboards",
   "category_label": "Models",
   "branding": {
-    "image_uri": "https://marketplace-api.looker.com/block-icons/cortex_icon.png",
+    "image_uri": "https://marketplace-api.looker.com/block-icons/sap_icon.png",
     "tagline": "Common operational analytics dashboarding templates for data replicated from SAP S/4 or ERP into BigQuery leveraging Cortex Data Foundation content."
   },
 
