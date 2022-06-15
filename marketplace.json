@@ -23,7 +23,7 @@
   },
       "models": [
         {
-            "name": "cortex_sap",
+            "name": "cortex_sap_finance",
             "connection_constant": "CONNECTION_NAME"
         }
     ]
