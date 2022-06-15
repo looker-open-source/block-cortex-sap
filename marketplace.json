@@ -11,17 +11,14 @@
       "label": "Connection Name",
       "value_constraint": "connection"
     },
-    "OTC_DATASET": { 
-      "label": "Order to Cash Dataset"
-     },
-    "FINANCE_DATASET": {
-      "label": "Finance Dataset"
+    "GCP_PROJECT": {
+      "label": "my_gcp_project (project_name)"
     },
-    "FUNCTION_DATASET": {
-      "label": "Function Dataset"
+    "REPORTING_DATASET": {
+      "label": "my_reporting_dataset (_DS_REPORTING)"
     },
      "CLIENT": {
-      "label": "Client ID"
+      "label": "SAP Client ID"
     }  
   },
       "models": [
