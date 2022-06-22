@@ -15,7 +15,7 @@
     height: 2
   - title: Navigation Bar
     name: Navigation Bar
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -50,7 +50,7 @@
     height: 2
   - title: Sales Performance by Distribution Channel
     name: Sales Performance by Distribution Channel
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_pie
     fields: [data_intelligence_otc.distribution_channel, filtered_data_intelligence_otc_sum_sales_order_net_value_2]
@@ -137,7 +137,7 @@
     height: 7
   - title: Sales Performance by Top 10 Products
     name: Sales Performance by Top 10 Products
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.product, filtered_data_intelligence_otc_sum_sales_order_net_value]
@@ -232,7 +232,7 @@
     height: 7
   - title: Sales Performance by Division
     name: Sales Performance by Division
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_pie
     fields: [data_intelligence_otc.division, filtered_data_intelligence_otc_sum_sales_order_net_value_3]
@@ -304,7 +304,7 @@
     height: 7
   - title: Total Customers
     name: Total Customers
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: single_value
     fields: [count_of_order_created_by]
@@ -336,7 +336,7 @@
     height: 8
   - title: Avg Sales of Top 10 Products
     name: Avg Sales of Top 10 Products
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.product, average_of_sales_order_net_price_global_currency]
@@ -431,7 +431,7 @@
     height: 8
   - title: Avg Sales of Top 10 Customers
     name: Avg Sales of Top 10 Customers
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.customer_name1, average_of_sales_order_net_price_global_currency]
@@ -527,7 +527,7 @@
     height: 8
   - title: Sales Performance by Top 5 Sales Org
     name: Sales Performance by Top 5 Sales Org
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.sales_org, filtered_data_intelligence_otc_sum_sales_order_net_value_1]
@@ -618,7 +618,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_date
@@ -632,7 +632,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -646,7 +646,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -660,7 +660,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -674,7 +674,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -688,7 +688,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -702,7 +702,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

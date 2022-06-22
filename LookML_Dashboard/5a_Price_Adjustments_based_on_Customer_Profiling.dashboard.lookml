@@ -6,7 +6,7 @@
   elements:
   - title: Price Adjustments based on Customer Profiling
     name: Price Adjustments based on Customer Profiling
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_grid
     fields: [data_intelligence_otc.Sold_To_Party, data_intelligence_otc.sales_order,
@@ -95,7 +95,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_finance::billing_and_pricing?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::billing_and_pricing?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -112,7 +112,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -126,7 +126,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -140,7 +140,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -154,7 +154,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -168,7 +168,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -182,7 +182,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -195,7 +195,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required
@@ -211,7 +211,7 @@
       options:
         min: 0
         max: 2000
-    model: cortex_sap_finance
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_order_net_value_Global_Currency
