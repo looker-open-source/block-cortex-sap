@@ -12,10 +12,10 @@
       "value_constraint": "connection"
     },
     "GCP_PROJECT": {
-      "label": "my_gcp_project (project_name)"
+      "label": "GCP Project Name"
     },
     "REPORTING_DATASET": {
-      "label": "my_reporting_dataset (_DS_REPORTING)"
+      "label": "Reporting Dataset Name"
     },
      "CLIENT": {
       "label": "SAP Client ID"
