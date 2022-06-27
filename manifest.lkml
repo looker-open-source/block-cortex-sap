@@ -19,7 +19,7 @@ constant: CLIENT {
 }
 
 visualization: {
-  id: "report_table"
-  label: "Report Table"
+  id: "report_table_dev"
+  label: "Report Table Dev"
   file: "report_table.js"
 }
