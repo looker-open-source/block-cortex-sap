@@ -4,22 +4,16 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "stabby-stabby"
+  value: "GCP Project Name"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "1repo"
+  value: "Reporting Dataset Name"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "100"
+  value: "Client ID"
   export: override_required
-}
-
-visualization: {
-  id: "report_table"
-  label: "Report Table"
-  file: "report_table.js"
 }
