@@ -1,25 +1,25 @@
 constant: CONNECTION_NAME {
-  value: "CONNECTION_NAME"
+  value: "cortex"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "my_gcp_project (project_name)"
+  value: "stabby-stabby"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "my_reporting_dataset (_DS_REPORTING)"
+  value: "1repo"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "sap_client_id (mandt)"
+  value: "100"
   export: override_required
 }
 
 visualization: {
-  id: "radial_gauge"
-  label: "Radial Gauge"
+  id: "report_table"
+  label: "Report Table"
   file: "a.js"
 }
