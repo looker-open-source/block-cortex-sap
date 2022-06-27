@@ -17,3 +17,9 @@ constant: CLIENT {
   value: "sap_client_id (mandt)"
   export: override_required
 }
+
+visualization: {
+  id: "radial_gauge"
+  label: "Radial Gauge"
+  file: "a.js"
+}
