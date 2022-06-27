@@ -21,5 +21,5 @@ constant: CLIENT {
 visualization: {
   id: "report_table"
   label: "Report Table"
-  file: "a.js"
+  file: "report_table.js"
 }
