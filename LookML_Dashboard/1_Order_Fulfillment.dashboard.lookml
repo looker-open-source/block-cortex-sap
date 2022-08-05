@@ -114,8 +114,6 @@
       data_intelligence_otc.count_otif, data_intelligence_otc.creation_date_month,
       count_of_delivery]
     fill_fields: [data_intelligence_otc.creation_date_month]
-    filters:
-      data_intelligence_otc.creation_date_month: 3 months
     sorts: [data_intelligence_otc.creation_date_month desc]
     limit: 500
     column_limit: 50
