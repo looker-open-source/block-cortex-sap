@@ -229,7 +229,14 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    listen: {}
+    listen:
+      Region: data_intelligence_otc.country
+      Division: data_intelligence_otc.division
+      Currency: data_intelligence_otc.Currency_Required
+      Product: data_intelligence_otc.product
+      Sales Org: data_intelligence_otc.sales_org
+      Distribution Channel: data_intelligence_otc.distribution_channel
+      Year: data_intelligence_otc.creation_date_date
     row: 4
     col: 0
     width: 24
