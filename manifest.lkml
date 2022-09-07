@@ -17,3 +17,8 @@ constant: CLIENT {
   value: "Client ID"
   export: override_required
 }
+
+constant: Language {
+  value: "E"
+  export: override_required
+}
