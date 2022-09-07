@@ -20,6 +20,9 @@
      "CLIENT": {
       "label": "SAP Client ID"
     }  
+    "Language": {
+      "label": "SAP Language Key"
+    }  
   },
       "models": [
         {
