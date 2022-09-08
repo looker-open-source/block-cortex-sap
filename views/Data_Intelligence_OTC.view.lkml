@@ -28,6 +28,26 @@ view: data_intelligence_otc {
       label: "JPY"
       value: "JPY"
     }
+    allowed_value: {
+      label: "GBP"
+      value: "GBP"
+    }
+    allowed_value: {
+      label: "ARS"
+      value: "ARS"
+    }
+    allowed_value: {
+      label: "MXN"
+      value: "MXN"
+    }
+    allowed_value: {
+      label: "BRL"
+      value: "BRL"
+    }
+    allowed_value: {
+      label: "AED"
+      value: "AED"
+    }
   }
 
   dimension: delivered_qty {
