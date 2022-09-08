@@ -34,8 +34,6 @@ The datasets required by this block can be obtained by following the installatio
 
 - **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
 
-- **Language/Constant**: The SAP Language Key (Spras) the dashboards will utilize to display data. 
-
 **(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
 <h2><span style="color:#2d7eea">Additional Resources</span></h2>
