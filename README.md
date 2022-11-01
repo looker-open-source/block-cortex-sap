@@ -26,7 +26,7 @@ The datasets required by this block can be obtained by following the installatio
 <h2><span style="color:#2d7eea">Required Customizations</span></h2>
 >   ❕ Constant Values are configured during the Marketplace Installation process. To make changes to these values, please use the Marketplace "Manage" screen.
 
-- **Default Currency**: In the Looker User Profile, Set the value of "Default Value Currency Required" to the desired default currency.
+- **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
