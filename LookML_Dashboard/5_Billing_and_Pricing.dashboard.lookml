@@ -6,7 +6,7 @@
   elements:
   - title: Navigation Bar
     name: Navigation Bar
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -51,7 +51,7 @@
     height: 2
   - title: " Price Adjustments based on Product Availability"
     name: " Price Adjustments based on Product Availability"
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.product, data_intelligence_otc.average_list_price2,
@@ -157,7 +157,7 @@
     height: 2
   - title: Price Adjustments based on Customer Profiling
     name: Price Adjustments based on Customer Profiling
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.customer_name1, data_intelligence_otc.average_list_price1,
@@ -251,7 +251,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -265,7 +265,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -279,7 +279,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -293,7 +293,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -307,7 +307,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -321,7 +321,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -335,7 +335,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

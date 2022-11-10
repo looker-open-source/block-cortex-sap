@@ -6,7 +6,7 @@
   elements:
   - title: Navigation Bar
     name: Navigation Bar
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -41,7 +41,7 @@
     height: 2
   - title: Return Orders
     name: Return Orders
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: single_value
     fields: [data_intelligence_otc.Return_Order_Percentage]
@@ -107,7 +107,7 @@
     height: 4
   - title: Cancelled Orders
     name: Cancelled Orders
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: single_value
     fields: [data_intelligence_otc.Cancelled_Order_Percentage]
@@ -142,7 +142,7 @@
     height: 4
   - title: Order Vs Delivery Efficiency (Top 10 Products)
     name: Order Vs Delivery Efficiency (Top 10 Products)
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: looker_column
     fields: [data_intelligence_otc.avg_order_line_items, data_intelligence_otc.product,
@@ -221,7 +221,7 @@
     height: 11
   - title: Avg Fill Rate%
     name: Avg Fill Rate%
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: single_value
     fields: [filtered_data_intelligence_otc_average_fill_rate]
@@ -264,7 +264,7 @@
     height: 2
   - title: One Touch Order
     name: One Touch Order
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     type: single_value
     fields: [data_intelligence_otc.percentage_one_touch_order]
@@ -304,7 +304,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -318,7 +318,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -332,7 +332,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: [Region]
     field: data_intelligence_otc.sales_org
@@ -346,7 +346,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: [Region, Sales Org]
     field: data_intelligence_otc.distribution_channel
@@ -360,7 +360,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: [Region, Sales Org, Distribution Channel]
     field: data_intelligence_otc.division
@@ -374,7 +374,7 @@
       type: tag_list
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: [Region, Sales Org, Distribution Channel, Division]
     field: data_intelligence_otc.product
@@ -388,7 +388,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_demo
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

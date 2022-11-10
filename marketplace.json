@@ -1,5 +1,5 @@
 {
-  "label": "Cortex Data Foundation for SAP - Operational Dashboards",
+  "label": "Cortex Data Foundation for SAP - Operational Dashboards Demo",
   "category_label": "Models",
   "branding": {
     "image_uri": "https://marketplace-api.looker.com/block-icons/cortex_icon.png",
@@ -23,7 +23,7 @@
   },
       "models": [
         {
-            "name": "cortex_sap_operational",
+            "name": "cortex_sap_operational_demo",
             "connection_constant": "CONNECTION_NAME"
         }
     ]
