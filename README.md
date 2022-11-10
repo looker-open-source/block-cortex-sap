@@ -44,3 +44,4 @@ To learn more about LookML and how to develop visit:
 - [Looker User Guide](https://looker.com/guide)
 - [Looker Help Center](https://help.looker.com)
 - [Looker University](https://training.looker.com/)
+- [Looker Git connection](https://cloud.google.com/looker/docs/setting-up-git-connection)
