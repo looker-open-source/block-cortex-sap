@@ -14,7 +14,7 @@
     sorts: [data_intelligence_ar.Company_Name]
     limit: 500
     dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
-        value_format: "0.000,,\" M\"", value_format_name: !!null '',
+        value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00", value_format_name: !!null '',
         based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum}]
     x_axis_gridlines: false
@@ -51,10 +51,10 @@
         steps: 5
     y_axes: [{label: Overdue Amount, orientation: left, series: [{axisId: data_intelligence_ar.Over_Due_Amount,
             id: data_intelligence_ar.Over_Due_Amount, name: Over Due Amount}], showLabels: true,
-        showValues: true, valueFormat: "0.000,,\" M\"", unpinAxis: false, tickDensity: default,
+        showValues: true, valueFormat: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00", unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Company
-    label_value_format: 0.000,," M"
+    label_value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
     series_colors:
       data_intelligence_ar.Over_Due_Amount: "#ACE9F5"
     show_dropoff: false
