@@ -60,12 +60,12 @@
     dynamic_fields: [{measure: average_of_order_cycle_time_in_days, based_on: data_intelligence_otc.order_cycle_time_in_days,
         expression: '', label: Average of Order Cycle Time In Days, type: average,
         _kind_hint: measure, _type_hint: number}, {category: measure, expression: !!null '',
-        label: Filtered Data Intelligence Otc - Sum Sales Order Net Value, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value,
+        label: Filtered Data Intelligence Otc - Sum Sales Order Net Value,
+        based_on: data_intelligence_otc.sum_sales_order_net_value,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value,
         type: sum, _type_hint: sum}, {category: measure, expression: !!null '', label: Filtered
-          Data Intelligence Otc - Sum Sales Order Net Value 2, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value_2,
+          Data Intelligence Otc - Sum Sales Order Net Value 2,
+          based_on: data_intelligence_otc.sum_sales_order_net_value_2,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value_2,
         type: sum, _type_hint: sum}]
     value_labels: legend
@@ -146,8 +146,8 @@
     limit: 500
     column_limit: 50
     dynamic_fields: [{category: measure, expression: !!null '', label: Filtered Data
-          Intelligence Otc - Sum Sales Order Net Value, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value,
+          Intelligence Otc - Sum Sales Order Net Value,
+          based_on: data_intelligence_otc.sum_sales_order_net_value,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value,
         type: sum, _type_hint: sum}]
     x_axis_gridlines: false
@@ -185,7 +185,7 @@
     y_axes: [{label: Sales Order Value, orientation: left, series: [{axisId: filtered_data_intelligence_otc_sum_sales_order_net_value,
             id: filtered_data_intelligence_otc_sum_sales_order_net_value, name: Filtered
               Data Intelligence Otc - Sum Sales Order Net Value}], showLabels: true,
-        showValues: true, valueFormat: '0.0,,"M"', unpinAxis: false, tickDensity: default,
+        showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Product
     limit_displayed_rows_values:
@@ -240,12 +240,12 @@
     sorts: [data_intelligence_otc.division desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: !!null '', label: Filtered Data
-          Intelligence Otc - Sum Sales Order Net Value, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value,
+          Intelligence Otc - Sum Sales Order Net Value,
+          based_on: data_intelligence_otc.sum_sales_order_net_value,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value,
         type: sum, _type_hint: sum}, {category: measure, expression: !!null '', label: Filtered
-          Data Intelligence Otc - Sum Sales Order Net Value 3, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value_3,
+          Data Intelligence Otc - Sum Sales Order Net Value 3,
+          based_on: data_intelligence_otc.sum_sales_order_net_value_3,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value_3,
         type: sum, _type_hint: sum}]
     value_labels: legend
@@ -343,8 +343,7 @@
     filters: {}
     sorts: [average_of_sales_order_net_price_global_currency desc]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Average of Sales Order
-          Net Price Global Currency, value_format: '0.00,"K"', value_format_name: !!null '',
+    dynamic_fields: [{category: measure, expression: '', label: Average of Sales Order Net Price Global Currency,
         based_on: data_intelligence_otc.sales_order_net_price_Global_Currency, _kind_hint: measure,
         measure: average_of_sales_order_net_price_global_currency, type: average,
         _type_hint: average}]
@@ -439,8 +438,7 @@
       data_intelligence_otc.customer_name1: "-NULL"
     sorts: [average_of_sales_order_net_price_global_currency desc]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Average of Sales Order
-          Net Price Global Currency, value_format: '0.00,"K"', value_format_name: !!null '',
+    dynamic_fields: [{category: measure, expression: '', label: Average of Sales Order Net Price Global Currency,
         based_on: data_intelligence_otc.sales_order_net_price_Global_Currency, _kind_hint: measure,
         measure: average_of_sales_order_net_price_global_currency, type: average,
         _type_hint: average}]
@@ -535,12 +533,12 @@
     sorts: [filtered_data_intelligence_otc_sum_sales_order_net_value_1 desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: !!null '', label: Filtered Data
-          Intelligence Otc - Sum Sales Order Net Value, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value,
+          Intelligence Otc - Sum Sales Order Net Value,
+          based_on: data_intelligence_otc.sum_sales_order_net_value,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value,
         type: sum, _type_hint: sum}, {category: measure, expression: !!null '', label: Filtered
-          Data Intelligence Otc - Sum Sales Order Net Value 1, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_otc.sum_sales_order_net_value_1,
+          Data Intelligence Otc - Sum Sales Order Net Value 1,
+          based_on: data_intelligence_otc.sum_sales_order_net_value_1,
         _kind_hint: measure, measure: filtered_data_intelligence_otc_sum_sales_order_net_value_1,
         type: sum, _type_hint: sum}]
     x_axis_gridlines: false
@@ -578,8 +576,7 @@
     y_axes: [{label: Sales Order Value, orientation: left, series: [{axisId: filtered_data_intelligence_otc_sum_sales_order_net_value_1,
             id: filtered_data_intelligence_otc_sum_sales_order_net_value_1, name: Filtered
               Data Intelligence Otc - Sum Sales Order Net Value 1}], showLabels: true,
-        showValues: true, valueFormat: '0.0,,"M"', unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Sales Org
     limit_displayed_rows_values:
       show_hide: show

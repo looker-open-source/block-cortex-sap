@@ -9,7 +9,7 @@ constant: GCP_PROJECT {
 }
 
 constant: REPORTING_DATASET {
-  value: "GODEMOS_OTC"
+  value: "GODEMOS_REPORTING"
   export: override_required
 }
 

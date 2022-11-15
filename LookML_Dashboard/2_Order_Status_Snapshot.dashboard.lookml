@@ -50,9 +50,7 @@
     dynamic_fields: [{measure: count_of_delivery, based_on: data_intelligence_otc.delivery,
         expression: '', label: Count of Delivery, type: count_distinct, _kind_hint: measure,
         _type_hint: number}, {category: table_calculation, expression: "${data_intelligence_otc.count_return_order}/${count_of_delivery}",
-        label: Return Order %, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: return_order, _type_hint: number,
-        is_disabled: true}]
+        label: Return Order %, _kind_hint: measure, table_calculation: return_order, _type_hint: number, is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -62,7 +60,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0.00%
+    ##value_format: 0.00%
     hidden_fields: []
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -114,9 +112,7 @@
     limit: 500
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "${data_intelligence_otc.count_canceled_order}/${data_intelligence_otc.count}",
-        label: Cancelled Order %, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: cancelled_order, _type_hint: number,
-        is_disabled: true}]
+        label: Cancelled Order %, _kind_hint: measure, table_calculation: cancelled_order, _type_hint: number, is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -126,7 +122,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0.00%
+    ##value_format: 0.00%
     defaults_version: 1
     listen:
       Year: data_intelligence_otc.creation_date_date
@@ -278,7 +274,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0"%"
+    value_format: 0.00"%"
     series_types: {}
     defaults_version: 1
     listen:
