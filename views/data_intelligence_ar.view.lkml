@@ -417,8 +417,8 @@ view: data_intelligence_ar {
   dimension: Current_Date{
     type: date
     datatype: date
+    value_format: "YYYY-MM-DD"
     sql: current_date() ;;
-    html: {{ rendered_value | date: "%m-%d-%Y" }} ;;
   }
 
   measure: Current {

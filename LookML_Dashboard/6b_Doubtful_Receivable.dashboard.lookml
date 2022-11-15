@@ -13,8 +13,8 @@
     filters: {}
     sorts: [doubtful_amount desc]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Doubtful Amount, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Doubtful_Receivables_Global_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Doubtful Amount,
+        based_on: data_intelligence_ar.Doubtful_Receivables_Global_Currency,
         _kind_hint: measure, measure: doubtful_amount, type: sum, _type_hint: sum}]
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -45,9 +45,8 @@
     totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: sum_of_doubtful_receivables_global_currency,
             id: sum_of_doubtful_receivables_global_currency, name: Sum of Doubtful
-              Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '0.00,"K"',
+              Receivables Global Currency}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: 0.00,"K"
     defaults_version: 1
     listen:
       Company: data_intelligence_ar.Company_Name
@@ -66,7 +65,7 @@
     filters: {}
     limit: 500
     dynamic_fields: [{category: measure, expression: '', label: Doubtful Receivables,
-        value_format: '0.00,"K"', value_format_name: !!null '', based_on: data_intelligence_ar.Doubtful_Receivables_Global_Currency,
+        based_on: data_intelligence_ar.Doubtful_Receivables_Global_Currency,
         _kind_hint: measure, measure: doubtful_receivables, type: sum, _type_hint: sum}]
     custom_color_enabled: true
     show_single_value_title: true

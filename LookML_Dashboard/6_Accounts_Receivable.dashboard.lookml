@@ -14,10 +14,10 @@
     sorts: [data_intelligence_ar.Company_Name]
     limit: 500
     dynamic_fields: [{category: measure, expression: '', label: Total Receivable,
-        value_format: '0.00,"K"', value_format_name: !!null '', based_on: data_intelligence_ar.Accounts_Receivable_Local_Currency,
+        based_on: data_intelligence_ar.Accounts_Receivable_Local_Currency,
         _kind_hint: measure, measure: total_receivable, type: sum, _type_hint: sum},
-      {category: measure, expression: '', label: Total Receivable, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Accounts_Receivable_Global_Currency,
+      {category: measure, expression: '', label: Total Receivable,
+        based_on: data_intelligence_ar.Accounts_Receivable_Global_Currency,
         _kind_hint: measure, measure: total_receivable_1, type: sum, _type_hint: sum}]
     value_labels: legend
     label_type: labVal
@@ -107,11 +107,11 @@
       data_intelligence_ar.Past_Due_Interval: "-Due after Key Date"
     sorts: [data_intelligence_ar.Past_Due_Interval desc]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
+        based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum},
-      {category: measure, expression: '', label: Overdue Amount, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Global_Currency,
+      {category: measure, expression: '', label: Overdue Amount,
+        based_on: data_intelligence_ar.Open_and_Over_Due_Global_Currency,
         _kind_hint: measure, measure: overdue_amount_1, type: sum, _type_hint: sum}]
     value_labels: legend
     label_type: labVal
@@ -201,7 +201,6 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: Total Receivable
-    value_format: ''
     value_labels: legend
     label_type: labPer
     x_axis_gridlines: false
@@ -261,7 +260,6 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: ''
-    value_format: ''
     value_labels: legend
     label_type: labPer
     x_axis_gridlines: false
@@ -319,9 +317,9 @@
     sorts: [data_intelligence_ar.Posting_month desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: '', label: Total Receivable,
-        value_format: '', value_format_name: !!null '', based_on: data_intelligence_ar.Accounts_Receivable_Global_Currency,
+        based_on: data_intelligence_ar.Accounts_Receivable_Global_Currency,
         _kind_hint: measure, measure: total_receivable, type: sum, _type_hint: number},
-      {category: measure, expression: '', label: Total Sales, value_format: '', value_format_name: !!null '',
+      {category: measure, expression: '', label: Total Sales,
         based_on: data_intelligence_ar.Sales_Global_Currency, _kind_hint: measure,
         measure: total_sales, type: sum, _type_hint: number}]
     x_axis_gridlines: false
@@ -356,12 +354,11 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: data_intelligence_ar.Sum_of_Receivables,
             id: data_intelligence_ar.Sum_of_Receivables, name: Sum of Receivables},
           {axisId: data_intelligence_ar.Sum_of_Sales, id: data_intelligence_ar.Sum_of_Sales,
-            name: Sum of Sales}], showLabels: true, showValues: true, valueFormat: '0.00,,"M"',
+            name: Sum of Sales}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
     hidden_series: []
     hide_legend: false
-    label_value_format: 0.00,"K"
     series_types: {}
     series_colors:
       total_receivable: "#f56776"
@@ -402,7 +399,6 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: ''
     series_types: {}
     defaults_version: 1
     note_state: collapsed
@@ -435,7 +431,6 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: ''
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -518,8 +513,8 @@
         desc 4]
     limit: 500
     row_total: right
-    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
+        based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum}]
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -559,15 +554,13 @@
               10 Days}, {axisId: 11-20 Days - overdue_amount, id: 11-20 Days - overdue_amount,
             name: 11-20 Days}, {axisId: 21-30 Days - overdue_amount, id: 21-30 Days
               - overdue_amount, name: 21-30 Days}], showLabels: true, showValues: true,
-        valueFormat: '0,"K"', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Sold to Party Name
     limit_displayed_rows_values:
       show_hide: show
       first_last: first
       num_rows: '5'
     hidden_series: [Row Total - sum_of_open_and_over_due_local_currency]
-    label_value_format: 0.00,,"M"
     series_types: {}
     series_colors:
       "> 30 Days - overdue_amount": "#FDEC85"
@@ -629,12 +622,12 @@
     style_data_intelligence_ar.Current_Date: "#3A4245"
     show_title_data_intelligence_ar.Current_Date: true
     title_placement_data_intelligence_ar.Current_Date: above
-    value_format_data_intelligence_ar.Current_Date: mm-dd-yyyy
+    ##value_format_data_intelligence_ar.Current_Date: mm-dd-yyyy
     single_value_title: ''
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
-        font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
-          palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
+    ##conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
+    ##    font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
+    ##      palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
+    ##    strikethrough: false, fields: !!null ''}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
