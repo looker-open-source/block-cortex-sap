@@ -444,6 +444,7 @@ view: data_intelligence_ar {
   measure: Sum_of_Open_and_Over_Due_Local_Currency{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
@@ -472,6 +473,7 @@ view: data_intelligence_ar {
   measure: Sum_of_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
           {% if value < 0 %}
           {% assign abs_value = value | times: -1.0 %}
@@ -496,6 +498,7 @@ view: data_intelligence_ar {
   measure: Sum_of_Sales{
     type: sum
     sql: ${Sales_Global_Currency} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
           {% if value < 0 %}
           {% assign abs_value = value | times: -1.0 %}
@@ -520,6 +523,7 @@ view: data_intelligence_ar {
   measure: Total_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
@@ -548,6 +552,7 @@ view: data_intelligence_ar {
   measure: Total_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
@@ -576,6 +581,7 @@ view: data_intelligence_ar {
   measure: Sum_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
           {% if value < 0 %}
           {% assign abs_value = value | times: -1.0 %}
@@ -600,6 +606,7 @@ view: data_intelligence_ar {
   measure: OverDue_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
@@ -623,6 +630,7 @@ view: data_intelligence_ar {
   measure: Over_Due_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
@@ -646,6 +654,7 @@ view: data_intelligence_ar {
   measure: Due_Amount{
     type: number
     sql: ${Total_Receivables}-${OverDue_Amount} ;;
+    value_format_name: large_number_formatting
     html: <a href="#drillmenu" target="_self">
     {% if value < 0 %}
     {% assign abs_value = value | times: -1.0 %}
