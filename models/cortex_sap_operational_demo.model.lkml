@@ -15,8 +15,8 @@ datagroup: cortex_default_datagroup {
 persist_with: cortex_default_datagroup
 
 named_value_format: large_number_formatting {
-  value_format: "[>=1000000000]0.00,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
-  strict_value_format: yes
+  value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+  strict_value_format: no
 }
 
 # Explores allow you to join together different views (database tables) based on the
