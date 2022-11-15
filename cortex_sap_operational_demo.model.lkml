@@ -3,5 +3,5 @@
 # See the docs at: https://docs.looker.com/data-modeling/marketplace/customize-blocks  #
 ########################################################################################
 
-include: "models/cortex_sap_operational_demo.model.lkml"
+include: "//**/cortex_sap_operational_demo.model.lkml"
 ##include: "refinements.lkml"
