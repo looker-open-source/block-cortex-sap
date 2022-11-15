@@ -13,8 +13,9 @@
     filters: {}
     sorts: [data_intelligence_ar.Company_Name]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount, value_format: '$
-          0.00,"K"', value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
+        value_format: '$0.00,"K"', value_format_name: !!null '',
+        based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum}]
     x_axis_gridlines: false
     y_axis_gridlines: true
