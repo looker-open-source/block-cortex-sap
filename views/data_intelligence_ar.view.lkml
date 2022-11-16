@@ -59,6 +59,7 @@ view: data_intelligence_ar {
 
   dimension: Accounts_Receivable_Global_Currency {
     type: number
+    value_format_name: large_number_formatting
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
