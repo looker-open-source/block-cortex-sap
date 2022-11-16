@@ -4,8 +4,8 @@
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Account Receivable by Company
-    name: Account Receivable by Company
+  - title: Accounts Receivable by Company
+    name: Accounts Receivable by Company
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_pie
@@ -364,7 +364,7 @@
       total_receivable: "#f56776"
       total_sales: "#A5EF55"
     series_labels:
-      sum_of_accounts_receivable_local_currency: Account Receivables
+      sum_of_accounts_receivable_local_currency: Accounts Receivables
       sum_of_sales_local_currency: Sales
     x_axis_datetime_label: "%b %Y"
     swap_axes: false
@@ -471,18 +471,18 @@
     col: 12
     width: 6
     height: 3
-  - name: Key Account Receivable Indicators
+  - name: Key Accounts Receivable Indicators
     type: text
-    title_text: Key Account Receivable Indicators
+    title_text: Key Accounts Receivable Indicators
     subtitle_text: <font color="#c1c1c1">How much are we owed?</font>
     body_text: ''
     row: 2
     col: 0
     width: 24
     height: 2
-  - name: 'Account Receivable Breakdown '
+  - name: 'Accounts Receivable Breakdown '
     type: text
-    title_text: 'Account Receivable Breakdown '
+    title_text: 'Accounts Receivable Breakdown '
     subtitle_text: <font color="#c1c1c1"></font>
     body_text: ''
     row: 7

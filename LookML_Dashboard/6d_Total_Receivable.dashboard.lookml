@@ -4,8 +4,8 @@
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Account Receivable by Company
-    name: Account Receivable by Company
+  - title: Accounts Receivable by Company
+    name: Accounts Receivable by Company
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_column
