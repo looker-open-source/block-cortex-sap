@@ -1,15 +1,15 @@
 constant: CONNECTION_NAME {
-  value: "cortex-demo-environment-otc"
+  value: "cortex-central-demo-project"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "cortex-demo-environment"
+  value: "cortex-central-demo-project"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "GODEMOS_REPORTING"
+  value: "SAP_REPORTING"
   export: override_required
 }
 
