@@ -4,8 +4,8 @@
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Account Receivable by Company
-    name: Account Receivable by Company
+  - title: Accounts Receivable by Company
+    name: Accounts Receivable by Company
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_column
@@ -52,9 +52,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: data_intelligence_ar.OverDue_Amount,
             id: data_intelligence_ar.OverDue_Amount, name: OverDue Amount}, {axisId: data_intelligence_ar.Due_Amount,
             id: data_intelligence_ar.Due_Amount, name: Due Amount}], showLabels: true,
-        showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
-    label_value_format: 0.00,"K"
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_colors:
       data_intelligence_ar.OverDue_Amount: "#AEC8C1"
       data_intelligence_ar.Due_Amount: "#FDEC85"
@@ -124,7 +122,6 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: ''
     defaults_version: 1
     listen:
       Company: data_intelligence_ar.Company_Name

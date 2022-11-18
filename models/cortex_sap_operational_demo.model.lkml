@@ -14,6 +14,11 @@ datagroup: cortex_default_datagroup {
 
 persist_with: cortex_default_datagroup
 
+named_value_format: large_number_formatting {
+  value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+  strict_value_format: no
+}
+
 # Explores allow you to join together different views (database tables) based on the
 # relationships between fields. By joining a view into an Explore, you make those
 # fields available to users for data analysis.
@@ -83,5 +88,3 @@ explore: sales_orders {
 }
 
 explore: Navigation_Bar {}
-
-

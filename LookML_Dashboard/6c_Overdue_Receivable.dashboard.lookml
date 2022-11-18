@@ -13,8 +13,8 @@
     filters: {}
     sorts: [data_intelligence_ar.Company_Name]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount, value_format: '$
-          0.00,"K"', value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
+        based_on: data_intelligence_ar.Open_and_Over_Due_Local_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum}]
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -50,10 +50,8 @@
         steps: 5
     y_axes: [{label: Overdue Amount, orientation: left, series: [{axisId: data_intelligence_ar.Over_Due_Amount,
             id: data_intelligence_ar.Over_Due_Amount, name: Over Due Amount}], showLabels: true,
-        showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Company
-    label_value_format: 0.00,"K"
     series_colors:
       data_intelligence_ar.Over_Due_Amount: "#ACE9F5"
     show_dropoff: false
@@ -83,8 +81,8 @@
     fields: [data_intelligence_ar.OverDue_Amount]
     filters: {}
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount, value_format: '0.00,"K"',
-        value_format_name: !!null '', based_on: data_intelligence_ar.Open_and_Over_Due_Global_Currency,
+    dynamic_fields: [{category: measure, expression: '', label: Overdue Amount,
+        based_on: data_intelligence_ar.Open_and_Over_Due_Global_Currency,
         _kind_hint: measure, measure: overdue_amount, type: sum, _type_hint: sum}]
     custom_color_enabled: true
     show_single_value_title: true
@@ -95,7 +93,6 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: ''
     defaults_version: 1
     listen:
       Company: data_intelligence_ar.Company_Name

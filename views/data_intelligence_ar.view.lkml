@@ -59,6 +59,7 @@ view: data_intelligence_ar {
 
   dimension: Accounts_Receivable_Global_Currency {
     type: number
+    value_format_name: large_number_formatting
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
@@ -416,8 +417,9 @@ view: data_intelligence_ar {
 
   dimension: Current_Date{
     type: date
+    datatype: date
+    value_format: "YYYY-MM-DD"
     sql: current_date() ;;
-    html: {{ rendered_value | date: "%m-%d-%Y" }} ;;
   }
 
   measure: Current {
@@ -443,25 +445,7 @@ view: data_intelligence_ar {
   measure: Sum_of_Open_and_Over_Due_Local_Currency{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %}
-    ;;
+    value_format_name: large_number_formatting
     link: {
       label: "Overdue Recievables"
       url: "/dashboards/cortex_sap_operational_demo::overdue_receivables?"
@@ -471,73 +455,19 @@ view: data_intelligence_ar {
   measure: Sum_of_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
-    html: <a href="#drillmenu" target="_self">
-          {% if value < 0 %}
-          {% assign abs_value = value | times: -1.0 %}
-          {% assign pos_neg = '-' %}
-          {% else %}
-          {% assign abs_value = value | times: 1.0 %}
-          {% assign pos_neg = '' %}
-          {% endif %}
-
-          {% if abs_value >=1000000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-          {% elsif abs_value >=1000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-          {% elsif abs_value >=1000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-          {% else %}
-          {{pos_neg}}{{ abs_value }}
-          {% endif %}
-          ;;
+    value_format_name: large_number_formatting
   }
 
   measure: Sum_of_Sales{
     type: sum
     sql: ${Sales_Global_Currency} ;;
-    html: <a href="#drillmenu" target="_self">
-          {% if value < 0 %}
-          {% assign abs_value = value | times: -1.0 %}
-          {% assign pos_neg = '-' %}
-          {% else %}
-          {% assign abs_value = value | times: 1.0 %}
-          {% assign pos_neg = '' %}
-          {% endif %}
-
-          {% if abs_value >=1000000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-          {% elsif abs_value >=1000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-          {% elsif abs_value >=1000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-          {% else %}
-          {{pos_neg}}{{ abs_value }}
-          {% endif %}
-          ;;
+    value_format_name: large_number_formatting
   }
 
   measure: Total_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %}
-    ;;
+    value_format_name: large_number_formatting
     link: {
       label: "Total Recievables"
       url: "/dashboards/cortex_sap_operational_demo::total_receivable?"
@@ -547,25 +477,7 @@ view: data_intelligence_ar {
   measure: Total_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %}
-    ;;
+    value_format_name: large_number_formatting
     link: {
       label: "Doubtful Recievables"
       url: "/dashboards/cortex_sap_operational_demo::doubtful_receivable?"
@@ -575,94 +487,25 @@ view: data_intelligence_ar {
   measure: Sum_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
-    html: <a href="#drillmenu" target="_self">
-          {% if value < 0 %}
-          {% assign abs_value = value | times: -1.0 %}
-          {% assign pos_neg = '-' %}
-          {% else %}
-          {% assign abs_value = value | times: 1.0 %}
-          {% assign pos_neg = '' %}
-          {% endif %}
-
-          {% if abs_value >=1000000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-          {% elsif abs_value >=1000000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-          {% elsif abs_value >=1000 %}
-          {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-          {% else %}
-          {{pos_neg}}{{ abs_value }}
-          {% endif %}
-          ;;
+    value_format_name: large_number_formatting
   }
 
   measure: OverDue_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %};;
+    value_format_name: large_number_formatting
   }
 
   measure: Over_Due_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %};;
+    value_format_name: large_number_formatting
   }
 
   measure: Due_Amount{
     type: number
     sql: ${Total_Receivables}-${OverDue_Amount} ;;
-    html: <a href="#drillmenu" target="_self">
-    {% if value < 0 %}
-    {% assign abs_value = value | times: -1.0 %}
-    {% assign pos_neg = '-' %}
-    {% else %}
-    {% assign abs_value = value | times: 1.0 %}
-    {% assign pos_neg = '' %}
-    {% endif %}
-
-    {% if abs_value >=1000000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000000.0 | round: 2 }}B
-    {% elsif abs_value >=1000000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000000.0 | round: 2 }}M
-    {% elsif abs_value >=1000 %}
-    {{pos_neg}}{{ abs_value | divided_by: 1000.0 | round: 2 }}K
-    {% else %}
-    {{pos_neg}}{{ abs_value }}
-    {% endif %};;
+    value_format_name: large_number_formatting
   }
 
   measure: count {

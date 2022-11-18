@@ -269,6 +269,7 @@ view: data_intelligence_otc {
 
   measure: sum_delivered_value {
     type: sum
+    value_format_name: large_number_formatting
     sql: ${delivered_value_Global_Currency} ;;
     drill_fields: [delivery_number, delivery_line_item, material_number, delivery_date,actual_delivery_date, Sold_To_Party, Ship_To_Party, Bill_To_Party, sales_order,delivered_qty,Base_UoM, delivered_value_Local_Currency]
   }
@@ -462,13 +463,13 @@ view: data_intelligence_otc {
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_net_price {
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: sum
     sql: ${net_price} ;;
   }
 
   measure: average_net_price {
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${net_price} ;;
   }
@@ -488,37 +489,37 @@ view: data_intelligence_otc {
     type: yesno
     sql:${actual_delivery_date} is not null  ;;
   }
-  
+
   measure: count_of_deliveries {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [Delivery: "Yes"]
   }
-  
+
   measure: count_on_time_delivery {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [OnTime: "Yes",Delivery: "Yes"]
   }
-  
+
   measure: count_in_full_delivery {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [InFull: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: count_otif {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [OnTime_InFull: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: count_latedeliveries {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [Late_Delivery: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: OnTimePercentage {
     type: number
     value_format: "0%"
@@ -544,7 +545,7 @@ view: data_intelligence_otc {
     value_format: "0%"
     sql: if(${count_of_deliveries}=0,0,round(${count_latedeliveries}/${count_of_deliveries},2))  ;;
   }
-  
+
   dimension: OnTime_InFull {
     type: yesno
     sql: ${otif}="OTIF" ;;
@@ -611,6 +612,7 @@ view: data_intelligence_otc {
 
   measure: Total_Sales_Orders_AVG {
     type: average
+    value_format_name: large_number_formatting
     sql: ${Total_Sales_Orders} ;;
   }
 
@@ -693,6 +695,7 @@ view: data_intelligence_otc {
   }
   measure: Return_Order_Percentage {
     type: number
+    value_format_name: percent_2
     sql: ${count_return_order}/${count_of_delivery} ;;
     link: {
       label: "Returned Orders"
@@ -703,6 +706,7 @@ view: data_intelligence_otc {
 
   measure: Cancelled_Order_Percentage {
     type: number
+    value_format_name: percent_2
     sql: ${count_canceled_order}/${data_intelligence_otc.count} ;;
     link: {
       label: "Canceled Orders"
@@ -773,6 +777,7 @@ view: data_intelligence_otc {
   measure: sum_sales_order_net_value {
     hidden: no
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Product"
@@ -783,6 +788,7 @@ view: data_intelligence_otc {
   measure: sum_sales_order_net_value_1 {
     hidden: no
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Sales Organization"
@@ -793,6 +799,7 @@ view: data_intelligence_otc {
   measure: sum_sales_order_net_value_2 {
     hidden: no
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Distribution Channel"
@@ -803,6 +810,7 @@ view: data_intelligence_otc {
   measure: sum_sales_order_net_value_3 {
     hidden: no
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
       label: "Division"
@@ -834,6 +842,7 @@ view: data_intelligence_otc {
 
   measure: sum_sales_order_qty {
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_qty};;
     drill_fields: [sales_order,sales_order_line_item, material_number, sales_order_qty,
       list_price_Local_Currency, adjusted_price_Local_Currency, discount_Local_currency]
@@ -865,6 +874,7 @@ view: data_intelligence_otc {
 
   measure: sum_sales_order_value {
     type: sum
+    value_format_name: large_number_formatting
     sql: ${sales_order_value_Local_Currecny} ;;
     drill_fields: [sales_order,sales_order_line_item, material_number, sales_order_qty,
       list_price_Local_Currency, adjusted_price_Local_Currency, discount_Local_currency]
@@ -899,7 +909,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_variation_of_listprice_and_adjustedprice {
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${list_price_Global_currency}-${adjusted_price_Global_currency} ;;
     link: {
@@ -909,7 +919,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_list_price1{
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${list_price_Global_currency} ;;
     link: {
@@ -920,7 +930,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_adjusted_price{
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${adjusted_price_Global_currency} ;;
     link: {
@@ -931,7 +941,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_list_price2{
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${list_price_Global_currency} ;;
     link: {
@@ -942,7 +952,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_intercompany_price {
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${intercompany_price_Global_currency} ;;
     link: {
@@ -952,7 +962,7 @@ view: data_intelligence_otc {
   }
 
   measure: average_discount{
-    value_format: "0.00"
+    value_format_name: large_number_formatting
     type: average
     sql: ${discount_Global_currency} ;;
     link: {
