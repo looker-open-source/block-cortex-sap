@@ -6,7 +6,7 @@
   elements:
   - title: Sales Performance by Distribution Channel
     name: Sales Performance by Distribution Channel
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_grid
     fields: [data_intelligence_otc.distribution_channel, data_intelligence_otc.sales_org,
@@ -130,7 +130,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational_demo::sales_performance?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::sales_performance?">Home</a>'
     body_text: ''
     row: 12
     col: 0
@@ -147,7 +147,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -161,7 +161,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -175,7 +175,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -189,7 +189,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -203,7 +203,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -217,7 +217,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -230,7 +230,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

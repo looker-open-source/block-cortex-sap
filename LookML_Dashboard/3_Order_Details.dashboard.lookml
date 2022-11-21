@@ -6,7 +6,7 @@
   elements:
   - title: Sales Order Metrics
     name: Sales Order Metrics
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -29,7 +29,7 @@
     height: 2
   - title: Total Orders
     name: Total Orders
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: single_value
     fields: [data_intelligence_otc.count_incoming_order]
@@ -71,7 +71,7 @@
     height: 5
   - title: Blocked Orders
     name: Blocked Orders
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: single_value
     fields: [data_intelligence_otc.count_blocked_order]
@@ -131,7 +131,7 @@
     height: 5
   - title: Sales Order Quantity and Value
     name: Sales Order Quantity and Value
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_grid
     fields: [data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
@@ -231,7 +231,7 @@
     height: 2
   - title: Closed, Open and Canceled Orders
     name: Closed, Open and Canceled Orders
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_pie
     fields: [data_intelligence_otc.order_status, data_intelligence_otc.count]
@@ -264,7 +264,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.creation_date_year
@@ -278,7 +278,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.country
@@ -292,7 +292,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.sales_org
@@ -306,7 +306,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.distribution_channel
@@ -320,7 +320,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.division
@@ -334,7 +334,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.product
@@ -348,7 +348,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required

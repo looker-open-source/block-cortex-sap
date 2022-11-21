@@ -6,7 +6,7 @@
   elements:
   - title: Overdue Receivables by Company
     name: Overdue Receivables by Company
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.Over_Due_Amount]
@@ -67,7 +67,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational_demo::accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::accounts_receivable?">Home</a>'
     body_text: ''
     row: 21
     col: 0
@@ -75,7 +75,7 @@
     height: 2
   - title: Total Overdue Receivables
     name: Total Overdue Receivables
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.OverDue_Amount]
@@ -104,7 +104,7 @@
     height: 10
   - title: Overdue Receivables
     name: Overdue Receivables
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -176,7 +176,7 @@
       type: dropdown_menu
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -190,7 +190,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
@@ -204,7 +204,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Currency_Required

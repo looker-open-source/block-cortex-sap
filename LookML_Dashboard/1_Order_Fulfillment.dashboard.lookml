@@ -6,7 +6,7 @@
   elements:
   - title: Navigation Bar
     name: Navigation Bar
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: Navigation_Bar
     type: single_value
     fields: [Navigation_Bar.dash_nav]
@@ -48,10 +48,10 @@
     col: 0
     width: 24
     height: 2
-  - name: ' <a href="/dashboards/cortex_sap_operational_demo::delivery_performance?">Delivery
+  - name: ' <a href="/dashboards/cortex_sap_operational::delivery_performance?">Delivery
       Performance</a>'
     type: text
-    title_text: ' <a href="/dashboards/cortex_sap_operational_demo::delivery_performance?">Delivery
+    title_text: ' <a href="/dashboards/cortex_sap_operational::delivery_performance?">Delivery
       Performance</a>'
     body_text: ''
     row: 8
@@ -60,7 +60,7 @@
     height: 2
   - title: In Full %
     name: In Full %
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: single_value
     fields: [deliveries.InFullPercentage]
@@ -84,7 +84,7 @@
     height: 4
   - title: On Time %
     name: On Time %
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: single_value
     fields: [deliveries.OnTimePercentage]
@@ -108,7 +108,7 @@
     height: 4
   - title: OTIF %
     name: OTIF %
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: single_value
     fields: [deliveries.OTIFPercentage]
@@ -132,7 +132,7 @@
     height: 4
   - title: Late Delivery %
     name: Late Delivery %
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: single_value
     fields: [deliveries.LateDeliveryPercentage]
@@ -165,7 +165,7 @@
     height: 4
   - title: Avg Order To Delivery Cycle Time
     name: Avg Order To Delivery Cycle Time
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: looker_column
     fields: [average_of_order_cycle_time_2, materials_md.material_text_maktx]
@@ -219,7 +219,7 @@
     height: 7
   - title: On Time, In Full & OTIF
     name: On Time, In Full & OTIF
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     type: looker_line
     fields: [deliveries.date_created_erdat_month, deliveries.count_on_time_delivery,
@@ -286,7 +286,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: deliveries.date_created_erdat_date
@@ -299,7 +299,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: countries_md.country_name_landx
@@ -312,7 +312,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: sales_organizations_md.sales_org_name_vtext
@@ -325,7 +325,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: distribution_channels_md.distribution_channel_name_vtext
@@ -338,7 +338,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: deliveries.division_spart
@@ -351,7 +351,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
     field: materials_md.material_text_maktx
@@ -365,7 +365,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational_demo
+    model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
     field: data_intelligence_otc.Currency_Required
