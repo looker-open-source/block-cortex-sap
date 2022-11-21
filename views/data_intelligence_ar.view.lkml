@@ -59,8 +59,9 @@ view: data_intelligence_ar {
 
   dimension: Accounts_Receivable_Global_Currency {
     type: number
-    value_format_name: large_number_formatting
     sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    ##html: @{big_numbers} ;;
+    ##value_format_name: large_number_formatting
   }
 
   dimension: Sold_to_Party_Country {
@@ -329,7 +330,7 @@ view: data_intelligence_ar {
     #END;;
   }
 
-  measure: AccountsRecievables_Total_DSO {
+  measure: AccountsReceivables_Total_DSO {
     type: sum
     hidden: yes
     sql:
@@ -429,8 +430,8 @@ view: data_intelligence_ar {
 
   measure: Total_DSO {
     type: number
-    sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsRecievables_Total_DSO}/${Sales_Total_DSO})*{% parameter Day_Sales_Outstanding %}*30)) ;;
-    #sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsRecievables_Total_DSO}/${Sales_Total_DSO})*date_diff(DATE_SUB(${Current_Fiscal_Date_date},INTERVAL {% parameter Day_Sales_Outstanding %} MONTH ),${Current},days))) ;;
+    sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsReceivables_Total_DSO}/${Sales_Total_DSO})*{% parameter Day_Sales_Outstanding %}*30)) ;;
+    #sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsReceivables_Total_DSO}/${Sales_Total_DSO})*date_diff(DATE_SUB(${Current_Fiscal_Date_date},INTERVAL {% parameter Day_Sales_Outstanding %} MONTH ),${Current},days))) ;;
 
     link: {
       label: "Day Sales Outstanding"
@@ -439,15 +440,16 @@ view: data_intelligence_ar {
   }
   measure: DSO{
     type: number
-    sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsRecievables_Total_DSO}/${Sales_Total_DSO})*{% parameter Day_Sales_Outstanding %}*30)) ;;
+    sql: floor(if(${Sales_Total_DSO}=0,0,(${AccountsReceivables_Total_DSO}/${Sales_Total_DSO})*{% parameter Day_Sales_Outstanding %}*30)) ;;
   }
 
   measure: Sum_of_Open_and_Over_Due_Local_Currency{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
     link: {
-      label: "Overdue Recievables"
+      label: "Overdue Receivables"
       url: "/dashboards/cortex_sap_operational_demo::overdue_receivables?"
     }
   }
@@ -455,21 +457,24 @@ view: data_intelligence_ar {
   measure: Sum_of_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 
   measure: Sum_of_Sales{
     type: sum
     sql: ${Sales_Global_Currency} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 
   measure: Total_Receivables{
     type: sum
     sql: ${Accounts_Receivable_Global_Currency} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
     link: {
-      label: "Total Recievables"
+      label: "Total Receivables"
       url: "/dashboards/cortex_sap_operational_demo::total_receivable?"
       }
     }
@@ -477,9 +482,10 @@ view: data_intelligence_ar {
   measure: Total_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
     link: {
-      label: "Doubtful Recievables"
+      label: "Doubtful Receivables"
       url: "/dashboards/cortex_sap_operational_demo::doubtful_receivable?"
     }
   }
@@ -487,24 +493,28 @@ view: data_intelligence_ar {
   measure: Sum_Doubtful_Receivables{
     type: sum
     sql: ${Doubtful_Receivables_Global_Currency} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 
   measure: OverDue_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 
   measure: Over_Due_Amount{
     type: sum
     sql: ${Open_and_Over_Due_Global_Currency};;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 
   measure: Due_Amount{
     type: number
     sql: ${Total_Receivables}-${OverDue_Amount} ;;
+    html: @{big_numbers} ;;
     value_format_name: large_number_formatting
   }
 

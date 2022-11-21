@@ -90,14 +90,14 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 9
     col: 0
     width: 12
     height: 8
-  - title: Overdue Receivable by Days
-    name: Overdue Receivable by Days
+  - title: Overdue Receivables by Days
+    name: Overdue Receivables by Days
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_pie
@@ -177,14 +177,14 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 9
     col: 12
     width: 12
     height: 8
-  - title: Total Receivable
-    name: Total Receivable
+  - title: Total Receivables
+    name: Total Receivables
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: single_value
@@ -200,7 +200,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: Total Receivable
+    single_value_title: Total Receivables
     value_labels: legend
     label_type: labPer
     x_axis_gridlines: false
@@ -236,7 +236,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 4
     col: 0
@@ -298,7 +298,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 4
     col: 6
@@ -376,7 +376,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 19
     col: 0
@@ -408,7 +408,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 4
     col: 18
@@ -465,7 +465,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 4
     col: 12
@@ -498,8 +498,8 @@
     col: 0
     width: 24
     height: 2
-  - title: Top 5 Overdue Receivable Amount by Sold to Party
-    name: Top 5 Overdue Receivable Amount by Sold to Party
+  - title: Top 5 Overdue Receivables Amount by Sold to Party
+    name: Top 5 Overdue Receivables Amount by Sold to Party
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_column
@@ -575,7 +575,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 30
     col: 0
@@ -590,9 +590,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Overdue Receivable Breakdown
+  - name: Overdue Receivables Breakdown
     type: text
-    title_text: Overdue Receivable Breakdown
+    title_text: Overdue Receivables Breakdown
     subtitle_text: ''
     body_text: ''
     row: 7
@@ -661,7 +661,7 @@
       DSO Period: data_intelligence_ar.Day_Sales_Outstanding
       Currency: data_intelligence_ar.Currency_Required
       Company: data_intelligence_ar.Company_Name
-      Overdue Receivable Interval: data_intelligence_ar.Aging_Interval
+      Overdue Receivables Interval: data_intelligence_ar.Aging_Interval
       'Sold to Party ': data_intelligence_ar.Sold_to_Party_Name
     row: 0
     col: 19
@@ -710,8 +710,8 @@
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Day_Sales_Outstanding
-  - name: Overdue Receivable Interval
-    title: Overdue Receivable Interval
+  - name: Overdue Receivables Interval
+    title: Overdue Receivables Interval
     type: field_filter
     default_value: ''
     allow_multiple_values: true

@@ -4,8 +4,8 @@
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Overdue Receivable by Company
-    name: Overdue Receivable by Company
+  - title: Overdue Receivables by Company
+    name: Overdue Receivables by Company
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_column
@@ -49,7 +49,7 @@
       options:
         steps: 5
     y_axes: [{label: Overdue Amount, orientation: left, series: [{axisId: data_intelligence_ar.Over_Due_Amount,
-            id: data_intelligence_ar.Over_Due_Amount, name: Over Due Amount}], showLabels: true,
+            id: data_intelligence_ar.Over_Due_Amount, name: Overdue Amount}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Company
     series_colors:
@@ -73,8 +73,8 @@
     col: 0
     width: 24
     height: 2
-  - title: Total Overdue Receivable
-    name: Total Overdue Receivable
+  - title: Total Overdue Receivables
+    name: Total Overdue Receivables
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: single_value
@@ -102,8 +102,8 @@
     col: 18
     width: 6
     height: 10
-  - title: Overdue Receivable
-    name: Overdue Receivable
+  - title: Overdue Receivables
+    name: Overdue Receivables
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: looker_grid

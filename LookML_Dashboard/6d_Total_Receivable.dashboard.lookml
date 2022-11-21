@@ -53,6 +53,7 @@
             id: data_intelligence_ar.OverDue_Amount, name: OverDue Amount}, {axisId: data_intelligence_ar.Due_Amount,
             id: data_intelligence_ar.Due_Amount, name: Due Amount}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    label_value_format: '[>1000000]0.00,,"M";[>1000]0.00,"K";0.00'
     series_colors:
       data_intelligence_ar.OverDue_Amount: "#AEC8C1"
       data_intelligence_ar.Due_Amount: "#FDEC85"
@@ -105,8 +106,8 @@
     col: 0
     width: 24
     height: 10
-  - title: Total Receivable
-    name: Total Receivable
+  - title: Total Receivables
+    name: Total Receivables
     model: cortex_sap_operational_demo
     explore: data_intelligence_ar
     type: single_value
