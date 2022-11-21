@@ -110,6 +110,7 @@ view: deliveries {
 
   dimension: Order_Cycle_Time {
     type: number
+    value_format: "0.00"
     sql: IF(${actual_goods_movement_date_wadat_ist_date} IS NOT NULL,
     TIMESTAMP_DIFF(CAST(CONCAT(${date__proof_of_delivery___podat_date}, " ", ${confirmation_time_potim}) AS TIMESTAMP),
       CAST(CONCAT(${sales_orders.creation_date_erdat_date}, " ", ${sales_orders.creation_time_erzet}) AS TIMESTAMP), DAY), NULL) ;;
