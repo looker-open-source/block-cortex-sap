@@ -26,8 +26,6 @@ The datasets required by this block can be obtained by following the installatio
 <h2><span style="color:#2d7eea">Required Customizations</span></h2>
 >   ❕ Constant Values are configured during the Marketplace Installation process. To make changes to these values, please use the Marketplace "Manage" screen.
 
-- **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
-
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 
 - **GCP Project**: The GCP project name where the SAP reporting dataset resides in BigQuery (not project id).
@@ -35,6 +33,12 @@ The datasets required by this block can be obtained by following the installatio
 - **Reporting Dataset**: The deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
 - **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
+
+>   ❕ Required User Attributes
+
+- **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
+
+  NOTE - the dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency.
 
 **(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
