@@ -24,6 +24,7 @@ What does this Looker Block do for me?
 The datasets required by this block can be obtained by following the installation and configuration instructions for the [Google Cloud Cortex Framework](https://github.com/GoogleCloudPlatform/cortex-data-foundation) application. The related [Google Cloud Cortex Framework for SAP](https://github.com/llooker/cortex_data_foundation) LookML Block also leverages these same datasets.
 
 <h2><span style="color:#2d7eea">Required Customizations</span></h2>
+
 >   ❕ Constant Values are configured during the Marketplace Installation process. To make changes to these values, please use the Marketplace "Manage" screen.
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
