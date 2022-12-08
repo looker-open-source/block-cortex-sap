@@ -1,16 +1,17 @@
-- dashboard: sap_order_to_cash_o2c_04_b_sales_performance_by_divisionperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 04_b: Sales Performance by Division"
+- dashboard: sap_order_to_cash_o2c_02_a_cancelled_ordersperformance_tuning
+  title: "[SAP ORDER TO CASH] O2C 02_a: Cancelled Orders"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: igss5BgFxqD1sKW7M88XTy
+  preferred_slug: SglJRdRSOxWMsORDfmzrdO
   elements:
-  - title: New Tile
-    name: New Tile
+  - title: Untitled
+    name: Untitled
     model: cortex_infosys
-    explore: sales_orders
+    explore: data_intelligence_otc
     type: single_value
-    fields: [sales_orders.Sales_performance]
+    fields: [data_intelligence_otc.Order_status_snapshot]
+    sorts: [data_intelligence_otc.Order_status_snapshot]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: false
@@ -35,33 +36,27 @@
     rows_font_size: 12
     defaults_version: 1
     series_types: {}
-    listen:
-      Division: divisions_md.division_name_vtext
-      Product: materials_md.material_text_maktx
-      Region: countries_md.country_name_landx
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-    row: 10
+    hidden_fields: []
+    y_axes: []
+    listen: {}
+    row: 7
     col: 0
     width: 24
     height: 2
-  - title: Sales Performance by Division
-    name: Sales Performance by Division
+  - title: Canceled Orders
+    name: Canceled Orders
     model: cortex_infosys
     explore: sales_orders
     type: looker_grid
-    fields: [divisions_md.division_name_vtext, distribution_channels_md.distribution_channel_name_vtext,
-      sales_organizations_md.sales_org_name_vtext, sales_orders.sales_document_vbeln,
-      sales_orders.item_posnr, materials_md.material_text_maktx, sales_orders.base_unit_of_measure_meins,
-      currency_conversion_new.ukurs, sales_orders.sales_order_value_line_item_source_currency,
+    fields: [sales_orders.sales_document_vbeln, sales_orders.item_posnr, materials_md.material_text_maktx,
+      sales_orders.sales_order_status, sales_orders.cumulative_order_quantity_kwmeng,
+      sales_orders.base_unit_of_measure_meins, currency_conversion_new.ukurs, sales_orders.sales_order_value_line_item_source_currency,
       sales_orders.currency_waerk, sales_orders.sales_order_value_glob_curr, currency_conversion_new.tcurr,
-      sales_orders.cumulative_order_quantity_kwmeng, sales_orders.max_sold_to_party_name,
-      sales_orders.max_ship_to_party_name, sales_orders.max_bill_to_party_name]
-    filters: {}
-    sorts: [sales_organizations_md.sales_org_name_vtext]
-    limit: 5000
+      sales_orders.max_sold_to_party_name, sales_orders.max_ship_to_party_name, sales_orders.max_bill_to_party_name]
+    filters:
+      sales_orders.canceled_order: Canceled
+    sorts: [sales_orders.max_sold_to_party_name desc 0]
+    limit: 500
     column_limit: 50
     show_view_names: false
     show_row_numbers: true
@@ -83,56 +78,81 @@
     show_row_totals: true
     truncate_header: false
     series_labels:
-      distribution_channels_md.distribution_channel_name_vtext: Distribution Channel
-      sales_organizations_md.sales_org_name_vtext: Sales Org
-      sales_orders.division_spart: Division
       sales_orders.sales_document_vbeln: Sales Order
       sales_orders.item_posnr: Sales Order Line Item
+      materials_md.material_text_maktx: Product
       customers_md.name1_name1: Sold to Party
       customers_md.name2_name2: Ship to Party
       customers_md.name3_name3: Bill to Party
-      materials_md.material_text_maktx: Product
+      sales_orders.cumulative_order_quantity_kwmeng: Sales Order Qty
       sales_orders.base_unit_of_measure_meins: Base UoM
-      currency_conversion_new.ukurs: Exchange Rate Sales Value
       sales_orders.currency_waerk: Local Currency Key
-      sales_orders.Global_Currency: Global Currency
-      sales_orders.sales_order_netvalue_global_currency: Sales Orders Global Currency
-        Value
+      currency_conversion_new.ukurs: Exchange Rate Sales Value
       sales_orders.sales_order_value_line_item_source_currency: Sales Order Value
         Local Currency
       sales_orders.sales_order_value_glob_curr: Sales Order Value Global Currency
       currency_conversion_new.tcurr: Global Currency
-      sales_orders.cumulative_order_quantity_kwmeng: Sales Order Qty
-      divisions_md.division_name_vtext: Division
-      sales_orders.max_sold_to_party_name: Sold To Party
-      sales_orders.max_ship_to_party_name: Ship To Party
-      sales_orders.max_bill_to_party_name: Bill To Party
-    series_cell_visualizations:
-      sales_orders.sales_order_netvalue_global_currency:
-        is_active: false
+      sales_orders.max_sold_to_party_name: Sold to Party
+      sales_orders.max_ship_to_party_name: Ship to Party
+      sales_orders.max_bill_to_party_name: Bill to Party
+    series_value_format:
+      sales_orders.sales_order_value_glob_curr:
+        name: decimal_2
+        decimals: '2'
+        format_string: "#,##0.00"
+        label: Decimals (2)
+        label_prefix: Decimals
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
-    column_order: ["$$$_row_numbers_$$$", divisions_md.division_name_vtext, distribution_channels_md.distribution_channel_name_vtext,
-      sales_organizations_md.sales_org_name_vtext, sales_orders.sales_document_vbeln,
-      sales_orders.item_posnr, sales_orders.max_sold_to_party_name, sales_orders.max_ship_to_party_name,
-      sales_orders.max_bill_to_party_name, sales_orders.cumulative_order_quantity_kwmeng,
-      materials_md.material_text_maktx, sales_orders.base_unit_of_measure_meins, currency_conversion_new.ukurs,
-      sales_orders.sales_order_value_line_item_source_currency, sales_orders.currency_waerk,
-      sales_orders.sales_order_value_glob_curr, currency_conversion_new.tcurr]
+    series_types: {}
+    hidden_fields: []
+    y_axes: []
     pinned_columns:
       "$$$_row_numbers_$$$": left
-    series_column_widths: {}
+    column_order: ["$$$_row_numbers_$$$", sales_orders.sales_document_vbeln, sales_orders.item_posnr,
+      materials_md.material_text_maktx, sales_orders.max_sold_to_party_name, sales_orders.max_ship_to_party_name,
+      sales_orders.max_bill_to_party_name, sales_orders.sales_order_status, sales_orders.cumulative_order_quantity_kwmeng,
+      sales_orders.base_unit_of_measure_meins, currency_conversion_new.ukurs, sales_orders.sales_order_value_line_item_source_currency,
+      sales_orders.currency_waerk, sales_orders.sales_order_value_glob_curr, currency_conversion_new.tcurr]
+    series_column_widths:
+      materials_md.material_text_maktx: 187
+    series_cell_visualizations: {}
     listen:
-      Division: divisions_md.division_name_vtext
-      Product: materials_md.material_text_maktx
-      Region: countries_md.country_name_landx
       Year: sales_orders.creation_date_erdat_date
       Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
       Sales Org: sales_organizations_md.sales_org_name_vtext
       Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Division: divisions_md.division_name_vtext
+      Product: materials_md.material_text_maktx
     row: 0
     col: 0
     width: 24
-    height: 10
+    height: 7
   filters:
   - name: Year
     title: Year
