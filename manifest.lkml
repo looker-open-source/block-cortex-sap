@@ -4,7 +4,7 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "ipnet-cortex"
+  value: "ipnet-sap-cortex-demo"
   export: override_required
 }
 
