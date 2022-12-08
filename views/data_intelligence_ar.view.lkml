@@ -2,8 +2,7 @@
 view: data_intelligence_ar {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountingDocumentsReceivables`
-    ;;
+  sql_table_name: `@{FINANCE_DATASET}.AccountingDocumentsReceivables`;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
   parameter: Aging_Interval {
@@ -46,10 +45,10 @@ view: data_intelligence_ar {
 
   dimension: Past_Due_Interval{
     type: string
-    sql: if((date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)>0 and date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)<({% parameter Aging_Interval %}+1)),concat('1- ',({% parameter Aging_Interval %}),' Days'),
-        (if((date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)<(({% parameter Aging_Interval %}*2)+1)),concat(({% parameter Aging_Interval %}+1),'-',({% parameter Aging_Interval %}*2),' Days'),
-        (if((date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)<(({% parameter Aging_Interval %}*3)+1)),concat(({% parameter Aging_Interval %}*2+1),'-',({% parameter Aging_Interval %}*3),' Days'),
-        (if((date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)>(({% parameter Aging_Interval %}*3)+1)),concat('> ',({% parameter Aging_Interval %}*3),' Days'),'Due after Key Date' )) )) )) ) ;;
+    sql: if((date_diff(cast(current_date() as Date),${TABLE}.NetDueDate, DAY)>0 and date_diff(cast(current_date() as Date),${TABLE}.NetDueDate, DAY)<({% parameter Aging_Interval %}+1)),concat('1- ',({% parameter Aging_Interval %}),' Days'),
+        (if((date_diff(cast(current_date() as Date),${TABLE}.NetDueDate, DAY)<(({% parameter Aging_Interval %}*2)+1)),concat(({% parameter Aging_Interval %}+1),'-',({% parameter Aging_Interval %}*2),' Days'),
+        (if((date_diff(cast(current_date() as Date),${TABLE}.NetDueDate, DAY)<(({% parameter Aging_Interval %}*3)+1)),concat(({% parameter Aging_Interval %}*2+1),'-',({% parameter Aging_Interval %}*3),' Days'),
+        (if((date_diff(cast(current_date() as Date),${TABLE}.NetDueDate, DAY)>(({% parameter Aging_Interval %}*3)+1)),concat('> ',({% parameter Aging_Interval %}*3),' Days'),'Due after Key Date' )) )) )) ) ;;
   }
 
   dimension: Local_Currency_Key{
@@ -59,7 +58,7 @@ view: data_intelligence_ar {
 
   dimension: Accounts_Receivable_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Accounts_Receivable_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Accounts_Receivable_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Sold_to_Party_Country {
@@ -109,7 +108,7 @@ view: data_intelligence_ar {
 
   dimension: Bad_Debt_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Bad_Debt_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Bad_Debt_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Bad_Debt_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Bad_Debt_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Billing_Document {
@@ -157,7 +156,7 @@ view: data_intelligence_ar {
 
   dimension: Cleared_after_Due_date_Global_Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_after_Due_date_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_after_Due_date_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_after_Due_date_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_after_Due_date_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Cleared_on_or_before_Due_date_Local_Currency {
@@ -167,7 +166,7 @@ view: data_intelligence_ar {
 
   dimension: Cleared_on_or_before_Due_date_Global__Currency {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_on_or_before_Due_date_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_on_or_before_Due_date_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Cleared_on_or_before_Due_date_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Cleared_on_or_before_Due_date_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Client_ID {
@@ -207,7 +206,7 @@ view: data_intelligence_ar {
 
   dimension: Doubtful_Receivables_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Doubtful_Receivables_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Doubtful_Receivables_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Doubtful_Receivables_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Doubtful_Receivables_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Exchange_Rate_Type {
@@ -252,7 +251,7 @@ view: data_intelligence_ar {
 
   dimension: Open_and_Not_Due_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Not_Due_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Not_Due_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Not_Due_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Not_Due_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Open_and_Over_Due_Local_Currency{
@@ -262,7 +261,7 @@ view: data_intelligence_ar {
 
   dimension: Open_and_Over_Due_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Over_Due_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Over_Due_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Open_and_Over_Due_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Open_and_Over_Due_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension_group: Posting {
@@ -290,7 +289,7 @@ view: data_intelligence_ar {
 
   dimension: Sales_Global_Currency{
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Sales_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Sales_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Sales_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Sales_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Written_off_Amount_Local_Currency {
@@ -300,12 +299,12 @@ view: data_intelligence_ar {
 
   dimension: Written_off_Amount {
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Written_off_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Written_off_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Written_off_Amount_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${Posting_date},${Written_off_Amount_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: Days_in_Arrear {
     type: number
-    sql: date_diff(${Net_Due_date},cast({% parameter Key_Date %} as date),Day) ;;
+    sql: date_diff(${Net_Due_date},cast(current_date() as date),Day) ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
@@ -408,6 +407,11 @@ view: data_intelligence_ar {
       datatype: date
       sql:PARSE_DATE('%m/%Y',  Concat(cast(Cast(split(Current_Period,'|')[OFFSET(1)] as int) as string),'/',split(Current_Period,'|')[OFFSET(0)]));;
       }
+    measure: Min_period {
+      type: date
+      sql: min(${Current_Fiscal_Date_date}) ;;
+    }
+
 
   dimension: Global_Currency_Key {
     type: string
@@ -421,8 +425,19 @@ view: data_intelligence_ar {
   }
 
   measure: Current {
-    type: date
+    hidden: yes
+    type: max
     sql: ${Current_Date} ;;
+  }
+
+  measure: no_of_days {
+    hidden: yes
+    type: max
+    sql:
+    CASE
+      when CAST(${TABLE}.PostingDateInTheDocument_BUDAT as Date)<= CAST(CURRENT_DATE() as Date) and CAST(${TABLE}.PostingDateInTheDocument_BUDAT as Date)>= DATE_SUB(CAST(CURRENT_DATE() as Date),INTERVAL {% parameter Day_Sales_Outstanding %} MONTH )
+    THEN date_diff(current_date(),${Fiscal_Date_date},DAY)
+    END;;
   }
 
   measure: Total_DSO {
@@ -432,7 +447,7 @@ view: data_intelligence_ar {
 
     link: {
       label: "Day Sales Outstanding"
-      url: "/dashboards/cortex_sap_operational::day_sales_outstanding?"
+      url: "/dashboards/cortex_sap_finance::day_sales_outstanding?"
     }
   }
   measure: DSO{
@@ -464,7 +479,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Overdue Recievables"
-      url: "/dashboards/cortex_sap_operational::overdue_receivables?"
+      url: "/dashboards/cortex_sap_finance::overdue_receivables?"
     }
   }
 
@@ -540,7 +555,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Total Recievables"
-      url: "/dashboards/cortex_sap_operational::total_receivable?"
+      url: "/dashboards/cortex_sap_finance::total_receivable?"
       }
     }
 
@@ -568,7 +583,7 @@ view: data_intelligence_ar {
     ;;
     link: {
       label: "Doubtful Recievables"
-      url: "/dashboards/cortex_sap_operational::doubtful_receivable?"
+      url: "/dashboards/cortex_sap_finance::doubtful_receivable?"
     }
   }
 

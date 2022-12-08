@@ -10,7 +10,7 @@ view: distribution_channels_md {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Client Mandt" in Explore.
-
+  fields_hidden_by_default: yes
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
@@ -19,6 +19,7 @@ view: distribution_channels_md {
   dimension: distribution_channel_name_vtext {
     type: string
     sql: ${TABLE}.DistributionChannelName_VTEXT ;;
+    hidden: no
   }
 
   dimension: distribution_channel_vtweg {
