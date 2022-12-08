@@ -10,7 +10,7 @@ view: materials_md {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Acceptance At Origin Weora" in Explore.
-
+  fields_hidden_by_default: yes
   dimension: acceptance_at_origin_weora {
     type: string
     sql: ${TABLE}.AcceptanceAtOrigin_WEORA ;;
@@ -531,6 +531,7 @@ view: materials_md {
   dimension: material_text_maktx {
     type: string
     sql: ${TABLE}.MaterialText_MAKTX ;;
+    hidden: no
   }
 
   dimension: material_type_mtart {
