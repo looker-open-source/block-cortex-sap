@@ -1,5 +1,5 @@
 - dashboard: price_adjustments_based_on_product_availability
-  title: "[SAP OTC AR] 05_b: Price Adjustments based on Product Availability"
+  title: "[SAP ORDER TO CASH] O2C 05_b: Price Adjustments based on Product Availability"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -12,7 +12,8 @@
     fields: [data_intelligence_otc.product, data_intelligence_otc.sales_order, data_intelligence_otc.sales_order_line_item,
       data_intelligence_otc.sales_order_qty, data_intelligence_otc.sales_order_net_value_Global_Currency,
       data_intelligence_otc.customer_name1, data_intelligence_otc.list_price_Global_currency,
-      data_intelligence_otc.intercompany_price_Global_currency, data_intelligence_otc.discount_Global_currency]
+      data_intelligence_otc.adjusted_price_Global_currency, data_intelligence_otc.intercompany_price_Global_currency,
+      data_intelligence_otc.discount_Global_currency]
     filters: {}
     sorts: [data_intelligence_otc.product]
     limit: 5000
@@ -75,22 +76,45 @@
     series_types: {}
     listen:
       Currency Required: data_intelligence_otc.Currency_Required
-      Year: data_intelligence_otc.creation_date_year
       Region: data_intelligence_otc.country
       Sales Org: data_intelligence_otc.sales_org
       Distribution Channel: data_intelligence_otc.distribution_channel
       Division: data_intelligence_otc.division
       Product: data_intelligence_otc.product
       Sales Order Net Value: data_intelligence_otc.sales_order_net_value_Global_Currency
+      Year: data_intelligence_otc.creation_date_date
     row: 0
     col: 0
     width: 24
     height: 12
-  - name: ''
-    type: text
-    title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::billing_and_pricing?">Home</a>'
-    body_text: ''
+  - title: Untitled
+    name: Untitled
+    model: cortex_sap_operational
+    explore: data_intelligence_otc
+    type: single_value
+    fields: [data_intelligence_otc.billing_and_pricing]
+    sorts: [data_intelligence_otc.billing_and_pricing]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Currency Required: data_intelligence_otc.Currency_Required
+      Sales Org: data_intelligence_otc.sales_org
+      Region: data_intelligence_otc.country
+      Year: data_intelligence_otc.creation_date_date
+      Distribution Channel: data_intelligence_otc.distribution_channel
+      Division: data_intelligence_otc.division
+      Product: data_intelligence_otc.product
+      Sales Order Net Value: data_intelligence_otc.sales_order_net_value_Global_Currency
     row: 12
     col: 0
     width: 24
@@ -99,7 +123,7 @@
   - name: Year
     title: Year
     type: field_filter
-    default_value: 2022/01/01 to 2022/03/29
+    default_value: 2022/01/01 to 2022/04/22
     allow_multiple_values: true
     required: false
     ui_config:
@@ -109,7 +133,7 @@
     model: cortex_sap_operational
     explore: data_intelligence_otc
     listens_to_filters: []
-    field: data_intelligence_otc.creation_date_year
+    field: data_intelligence_otc.creation_date_date
   - name: Region
     title: Region
     type: field_filter
@@ -136,7 +160,7 @@
       options: []
     model: cortex_sap_operational
     explore: data_intelligence_otc
-    listens_to_filters: []
+    listens_to_filters: [Region]
     field: data_intelligence_otc.sales_org
   - name: Distribution Channel
     title: Distribution Channel
@@ -150,7 +174,7 @@
       options: []
     model: cortex_sap_operational
     explore: data_intelligence_otc
-    listens_to_filters: []
+    listens_to_filters: [Region, Sales Org]
     field: data_intelligence_otc.distribution_channel
   - name: Division
     title: Division
@@ -164,7 +188,7 @@
       options: []
     model: cortex_sap_operational
     explore: data_intelligence_otc
-    listens_to_filters: []
+    listens_to_filters: [Region, Sales Org, Distribution Channel]
     field: data_intelligence_otc.division
   - name: Product
     title: Product
@@ -178,12 +202,12 @@
       options: []
     model: cortex_sap_operational
     explore: data_intelligence_otc
-    listens_to_filters: []
+    listens_to_filters: [Region, Sales Org, Distribution Channel, Division]
     field: data_intelligence_otc.product
   - name: Currency Required
     title: Currency Required
     type: field_filter
-    default_value: "{{ _user_attributes['default_value_currency_required'] }}"
+    default_value: USD
     allow_multiple_values: true
     required: false
     ui_config:
