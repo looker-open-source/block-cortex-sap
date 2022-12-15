@@ -10,18 +10,21 @@ view: deliveries {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Account Assignment Category Knttp" in Explore.
-
+  fields_hidden_by_default: yes
   dimension: OnTimeDelivery {
     type: string
     sql: IF( ${date__proof_of_delivery___podat_date}<=${delivery_date_lfdat_date},
     'DeliveredOnTime',
     'NotDeliveredOnTime') ;;
+    hidden: no
   }
+
   dimension: InFullDelivery {
     type: string
     sql: IF(${sales_orders.cumulative_order_quantity_kwmeng}=${actual_quantity_delivered_in_sales_units_lfimg},
     'DeliveredInFull',
     'NotDeliverdInFull') ;;
+    hidden: no
   }
 
   dimension: LateDeliveries {
@@ -29,83 +32,122 @@ view: deliveries {
     sql: IF( ${date__proof_of_delivery___podat_date}>${delivery_date_lfdat_date},
     'Delayed',
     'NotDelayed') ;;
+    hidden: no
   }
   dimension: OnTime {
     type: yesno
     sql: ${OnTimeDelivery}="DeliveredOnTime" ;;
+    hidden: no
   }
 
   dimension:  InFull{
     type: yesno
     sql: ${InFullDelivery}="DeliveredInFull" ;;
+    hidden: no
   }
 
   dimension:  Late_Delivery{
     type: yesno
     sql: ${LateDeliveries}="Delayed" ;;
+    hidden: no
   }
 
   dimension: Delivery {
     type: yesno
     sql:${date__proof_of_delivery___podat_date} is not null  ;;
+    hidden: no
   }
+
+  measure: count_of_delivery {
+    type: count_distinct
+    sql: ${delivery_vbeln} ;;
+    hidden: no
+  }
+
 
   measure: count_on_time_delivery {
     type: count_distinct
-    sql: ${delivery_vbeln} ;;
+    #sql: ${delivery_vbeln} || ${delivery_item_posnr} ;;
+    sql: ${delivery_vbeln};;
     filters: [OnTime: "Yes",Delivery: "Yes"]
+    hidden: no
   }
 
   measure: count_in_full_delivery {
     type: count_distinct
-    sql: ${delivery_vbeln} ;;
+    sql: ${delivery_vbeln}  ;;
     filters: [InFull:"Yes",Delivery: "Yes"]
+    hidden: no
   }
 
   measure: count_otif {
     type: count_distinct
     sql: ${delivery_vbeln} ;;
     filters: [OnTime: "Yes",InFull: "Yes",Delivery: "Yes"]
+    hidden: no
   }
 
   measure: count_latedeliveries {
     type: count_distinct
     sql: ${delivery_vbeln} ;;
     filters: [Late_Delivery: "Yes", Delivery: "Yes"]
+    hidden: no
   }
 
   measure: count_of_deliveries {
     type: count_distinct
+    #sql: ${delivery_vbeln} || ${delivery_item_posnr};;
     sql: ${delivery_vbeln} ;;
     filters: [Delivery: "Yes"]
+    hidden: no
   }
 
   measure: OnTimePercentage {
     type: number
     sql: if(${count_of_deliveries}=0,0,${count_on_time_delivery}/${count_of_deliveries});;
-    #html:<a href="https://cortex.cloud.looker.com/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
-    #html:<a href="/dashboards/cortex_infosys::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
+    hidden: no
+
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    link: {
+      label: "Delivery Performance"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+    }
   }
 
   measure: InFullPercentage {
     type: number
     sql: if(${count_of_deliveries}=0,0,${count_in_full_delivery}/${count_of_deliveries})  ;;
-    #html:<a href="https://cortex.cloud.looker.com/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
-    #html:<a href="/dashboards/cortex_infosys::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
+    hidden: no
+    link: {
+      label: "Delivery Performance"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+    }
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    #html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
   measure: OTIFPercentage {
     type: number
     sql: if(${count_of_deliveries}=0,0,${count_otif}/${count_of_deliveries})  ;;
-    #html:<a href="https://cortex.cloud.looker.com/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
-    #html:<a href="/dashboards/cortex_infosys::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
+    hidden: no
+    link: {
+      label: "Delivery Performance"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+    }
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    #html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
   measure: LateDeliveryPercentage {
     type: number
     sql: if(${count_of_deliveries}=0,0,${count_latedeliveries}/${count_of_deliveries})  ;;
-    #html:<a href="https://cortex.cloud.looker.com/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
-    #html:<a href="/dashboards/cortex_infosys::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
+    hidden: no
+    link: {
+      label: "Delivery Performance"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+    }
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    #html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&Region={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
   dimension: Order_Cycle_Time {
@@ -113,6 +155,13 @@ view: deliveries {
     sql: IF(${actual_goods_movement_date_wadat_ist_date} IS NOT NULL,
     TIMESTAMP_DIFF(CAST(CONCAT(${date__proof_of_delivery___podat_date}, " ", ${confirmation_time_potim}) AS TIMESTAMP),
       CAST(CONCAT(${sales_orders.creation_date_erdat_date}, " ", ${sales_orders.creation_time_erzet}) AS TIMESTAMP), DAY), NULL) ;;
+    hidden: no
+  }
+
+  dimension: delivered_value {
+    type: number
+    sql: ${actual_quantity_delivered_in_sales_units_lfimg}*${net_price_netpr} ;;
+    hidden: no
   }
 
   dimension: account_assignment_category_knttp {
@@ -141,6 +190,7 @@ view: deliveries {
   dimension: actual_quantity_delivered_in_sales_units_lfimg {
     type: number
     sql: ${TABLE}.ActualQuantityDelivered_InSalesUnits_LFIMG ;;
+    hidden: no
   }
 
   dimension: actual_quantity_delivered_in_stock_keeping_units_lgmng {
@@ -655,6 +705,7 @@ view: deliveries {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.Date__proofOfDelivery___PODAT ;;
+    hidden: no
   }
 
   dimension_group: date_created_erdat {
@@ -670,6 +721,7 @@ view: deliveries {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.DateCreated_ERDAT ;;
+    hidden: no
   }
 
   dimension: date_for_inter_company_billing_pioiv {
@@ -785,6 +837,7 @@ view: deliveries {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.DeliveryDate_LFDAT ;;
+    hidden: no
   }
 
   dimension: delivery_delay {
@@ -815,7 +868,15 @@ view: deliveries {
   dimension: delivery_item_posnr {
     type: string
     sql: ${TABLE}.DeliveryItem_POSNR ;;
+    hidden: no
   }
+
+
+  measure: count_delivery_item_posnr  {
+    type: number
+    sql: count(${delivery_item_posnr}) ;;
+  }
+
 
   dimension: delivery_priority_lprio {
     type: string
@@ -846,6 +907,7 @@ view: deliveries {
     type: string
     sql: ${TABLE}.Delivery_VBELN ;;
     primary_key: yes
+    hidden: no
   }
 
   dimension: delivery_version_at_confirmation_spe_version {
@@ -2754,8 +2816,24 @@ view: deliveries {
     sql: ${TABLE}.YearOfDeliveryDate_LFDAT ;;
   }
 
+  dimension: delivered_value_global_currency {
+    value_format: "0.0"
+    type: number
+    sql: ${delivered_value} ;;
+    hidden: no
+  }
+
   measure: count {
     type: count
     drill_fields: []
+  }
+
+################################### Blocked Orders ###############################################
+
+  dimension: blocked_orders {
+    type: string
+    sql: if(${delivery_block_document_header_lifsk } IS NULL
+      AND ${billing_block_in_sd_document_faksk} IS NULL,'NotBlocked','Blocked' )  ;;
+    hidden: no
   }
 }

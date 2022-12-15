@@ -10,7 +10,7 @@ view: countries_md {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Alternative Country Key Landa" in Explore.
-
+  fields_hidden_by_default: yes
   dimension: alternative_country_key_landa {
     type: string
     sql: ${TABLE}.AlternativeCountryKey_LANDA ;;
@@ -65,6 +65,7 @@ view: countries_md {
   dimension: country_name_landx {
     type: string
     sql: ${TABLE}.CountryName_LANDX ;;
+    hidden: no
   }
 
   dimension: country_version_flag_xland {
