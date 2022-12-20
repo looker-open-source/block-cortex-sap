@@ -1,58 +1,30 @@
-- dashboard: order_status_snapshot
-  title: "[SAP OTC AR] 02: Order Status Snapshot"
+- dashboard: sap_order_to_cash_o2c_02_order_status_snapshot
+  title: "[SAP ORDER TO CASH] O2C 02: Order Status Snapshot"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
+  preferred_slug: 7yeTGw3NJb448nhSCCGtGE
   elements:
-  - title: Navigation Bar
-    name: Navigation Bar
-    model: cortex_sap_operational
-    explore: Navigation_Bar
-    type: single_value
-    fields: [Navigation_Bar.dash_nav]
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    defaults_version: 1
-    series_types: {}
-    listen: {}
-    row: 0
+  - name: Order Status Snapshot
+    type: text
+    title_text: Order Status Snapshot
+    subtitle_text: <font color="#c1c1c1">How healthy is Order Fulfillment?</font>
+    body_text: ''
+    row: 2
     col: 0
     width: 24
     height: 2
-  - title: Return Orders
-    name: Return Orders
+  - title: Avg Fill Rate %
+    name: Avg Fill Rate %
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     type: single_value
-    fields: [data_intelligence_otc.Return_Order_Percentage]
-    limit: 5000
+    fields: [sales_orders.fill_rate]
+    limit: 500
     column_limit: 50
-    dynamic_fields: [{measure: count_of_delivery, based_on: data_intelligence_otc.delivery,
-        expression: '', label: Count of Delivery, type: count_distinct, _kind_hint: measure,
-        _type_hint: number}, {category: table_calculation, expression: "${data_intelligence_otc.count_return_order}/${count_of_delivery}",
-        label: Return Order %, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: return_order, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields: [{measure: average_of_fill_rate, based_on: sales_orders.fill_rate,
+        expression: '', label: Average of Fill Rate, type: average, _kind_hint: measure,
+        _type_hint: number, id: MHtgohgUyM}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -62,61 +34,30 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0.00%
-    hidden_fields: []
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    value_format: ''
     defaults_version: 1
-    series_types: {}
+    hidden_fields: []
+    y_axes: []
     listen:
-      Year: data_intelligence_otc.creation_date_date
-      Region: data_intelligence_otc.country
-      Distribution Channel: data_intelligence_otc.distribution_channel
-      Division: data_intelligence_otc.division
-      Sales Org: data_intelligence_otc.sales_org
-      'Currency ': data_intelligence_otc.Currency_Required
-      Product: data_intelligence_otc.product
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
     row: 4
-    col: 12
+    col: 6
     width: 6
     height: 4
   - title: Cancelled Orders
     name: Cancelled Orders
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     type: single_value
-    fields: [data_intelligence_otc.Cancelled_Order_Percentage]
+    fields: [sales_orders.canceled_order_percentage]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${data_intelligence_otc.count_canceled_order}/${data_intelligence_otc.count}",
-        label: Cancelled Order %, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: cancelled_order, _type_hint: number,
-        is_disabled: true}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -126,28 +67,62 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0.00%
+    value_format: 0.00"%"
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
-      Year: data_intelligence_otc.creation_date_date
-      Region: data_intelligence_otc.country
-      Distribution Channel: data_intelligence_otc.distribution_channel
-      Division: data_intelligence_otc.division
-      Sales Org: data_intelligence_otc.sales_org
-      'Currency ': data_intelligence_otc.Currency_Required
-      Product: data_intelligence_otc.product
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
     row: 4
     col: 18
+    width: 6
+    height: 4
+  - title: Return Order
+    name: Return Order
+    model: cortex_sap_operational
+    explore: sales_orders
+    type: single_value
+    fields: [sales_orders.Return_Order_Percentage]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    value_format: 0.00"%"
+    defaults_version: 1
+    hidden_fields: []
+    y_axes: []
+    listen:
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
+    row: 4
+    col: 12
     width: 6
     height: 4
   - title: Order Vs Delivery Efficiency (Top 10 Products)
     name: Order Vs Delivery Efficiency (Top 10 Products)
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     type: looker_column
-    fields: [data_intelligence_otc.avg_order_line_items, data_intelligence_otc.product,
-      data_intelligence_otc.average_deliveries_sales_orders]
-    sorts: [data_intelligence_otc.avg_order_line_items desc]
+    fields: [materials_md.material_text_maktx, sales_orders.count_sales_orders_line_item,
+      deliveries.count_delivery_item_posnr]
+    sorts: [sales_orders.count_sales_orders_line_item desc 0]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -167,7 +142,7 @@
     stacking: ''
     limit_displayed_rows: true
     legend_position: center
-    point_style: circle_outline
+    point_style: none
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -177,97 +152,37 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    color_application:
-      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
-      palette_id: 93f8aeb4-3f4a-4cd7-8fee-88c3417516a1
-      options:
-        steps: 5
     x_axis_label: Product
     limit_displayed_rows_values:
       show_hide: show
       first_last: first
       num_rows: '10'
-    series_types: {}
     series_colors:
-      data_intelligence_otc.avg_order_line_items: "#ACE9F5"
+      sales_orders.count_sales_orders_line_item: "#ACE9F5"
+      deliveries.count_delivery_item_posnr: "#7CC8FA"
     series_labels:
-      data_intelligence_otc.average_deliveries_sales_orders: Average Delivery Items
-      data_intelligence_otc.avg_order_line_items: Average Order Line Items
-    show_null_points: true
-    interpolation: linear
+      sales_orders.count_sales_orders_line_item: Total Sales Order Line Item
+      deliveries.count_delivery_item_posnr: Total Delivery Line Item
     defaults_version: 1
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    value_labels: legend
-    label_type: labPer
     listen:
-      Year: data_intelligence_otc.creation_date_date
-      Region: data_intelligence_otc.country
-      Distribution Channel: data_intelligence_otc.distribution_channel
-      Division: data_intelligence_otc.division
-      Sales Org: data_intelligence_otc.sales_org
-      'Currency ': data_intelligence_otc.Currency_Required
-      Product: data_intelligence_otc.product
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
     row: 8
     col: 0
     width: 24
-    height: 11
-  - title: Avg Fill Rate%
-    name: Avg Fill Rate%
-    model: cortex_sap_operational
-    explore: data_intelligence_otc
-    type: single_value
-    fields: [filtered_data_intelligence_otc_average_fill_rate]
-    limit: 5000
-    dynamic_fields: [{category: measure, expression: !!null '', label: Filtered Data
-          Intelligence Otc - Average Fill Rate, value_format: 0.00"%", value_format_name: !!null '',
-        based_on: data_intelligence_otc.average_fill_rate, _kind_hint: measure, measure: filtered_data_intelligence_otc_average_fill_rate,
-        type: average, _type_hint: average}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    value_format: ''
-    defaults_version: 1
-    listen:
-      Year: data_intelligence_otc.creation_date_date
-      Region: data_intelligence_otc.country
-      Distribution Channel: data_intelligence_otc.distribution_channel
-      Division: data_intelligence_otc.division
-      Sales Org: data_intelligence_otc.sales_org
-      'Currency ': data_intelligence_otc.Currency_Required
-      Product: data_intelligence_otc.product
-    row: 4
-    col: 6
-    width: 6
-    height: 4
-  - name: Order Status Snapshot
-    type: text
-    title_text: Order Status Snapshot
-    subtitle_text: <font color="#c1c1c1">How healthy is Order Fulfillment?</font>
-    body_text: ''
-    row: 2
-    col: 0
-    width: 24
-    height: 2
+    height: 8
   - title: One Touch Order
     name: One Touch Order
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     type: single_value
-    fields: [data_intelligence_otc.percentage_one_touch_order]
+    fields: [sales_orders.one_touch_order_percentage, sales_orders.count_one_touch_order,
+      sales_orders.count_total_orders]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -278,26 +193,59 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: 0"%"
+    value_format: 0.00"%"
     series_types: {}
     defaults_version: 1
+    hidden_fields: [sales_orders.count_one_touch_order, sales_orders.count_total_orders]
     listen:
-      Division: data_intelligence_otc.division
-      Region: data_intelligence_otc.country
-      Distribution Channel: data_intelligence_otc.distribution_channel
-      Year: data_intelligence_otc.creation_date_year
-      Sales Org: data_intelligence_otc.sales_org
-      'Currency ': data_intelligence_otc.Currency_Required
-      Product: data_intelligence_otc.product
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
     row: 4
     col: 0
     width: 6
     height: 4
+  - title: New Tile
+    name: New Tile
+    model: cortex_sap_operational
+    explore: sales_orders
+    type: single_value
+    fields: [sales_orders.dash_nav]
+    filters: {}
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Year: sales_orders.creation_date_erdat_date
+      Division: divisions_md.division_name_vtext
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Product: materials_md.material_text_maktx
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   filters:
   - name: Year
     title: Year
     type: field_filter
-    default_value: 2022/01/01 to 2022/03/29
+    default_value: 2022/01/01 to 2022/04/22
     allow_multiple_values: true
     required: false
     ui_config:
@@ -305,9 +253,22 @@
       display: inline
       options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     listens_to_filters: []
-    field: data_intelligence_otc.creation_date_year
+    field: sales_orders.creation_date_erdat_date
+  - name: Currency
+    title: Currency
+    type: field_filter
+    default_value: USD
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: dropdown_menu
+      display: inline
+    model: cortex_sap_operational
+    explore: sales_orders
+    listens_to_filters: []
+    field: currency_conversion_new.tcurr
   - name: Region
     title: Region
     type: field_filter
@@ -317,11 +278,10 @@
     ui_config:
       type: checkboxes
       display: popover
-      options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     listens_to_filters: []
-    field: data_intelligence_otc.country
+    field: countries_md.country_name_landx
   - name: Sales Org
     title: Sales Org
     type: field_filter
@@ -333,9 +293,9 @@
       display: popover
       options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
-    listens_to_filters: [Region]
-    field: data_intelligence_otc.sales_org
+    explore: sales_orders
+    listens_to_filters: []
+    field: sales_organizations_md.sales_org_name_vtext
   - name: Distribution Channel
     title: Distribution Channel
     type: field_filter
@@ -347,9 +307,9 @@
       display: popover
       options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
-    listens_to_filters: [Region, Sales Org]
-    field: data_intelligence_otc.distribution_channel
+    explore: sales_orders
+    listens_to_filters: []
+    field: distribution_channels_md.distribution_channel_name_vtext
   - name: Division
     title: Division
     type: field_filter
@@ -359,11 +319,10 @@
     ui_config:
       type: checkboxes
       display: popover
-      options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
-    listens_to_filters: [Region, Sales Org, Distribution Channel]
-    field: data_intelligence_otc.division
+    explore: sales_orders
+    listens_to_filters: []
+    field: divisions_md.division_name_vtext
   - name: Product
     title: Product
     type: field_filter
@@ -371,24 +330,10 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: tag_list
-      display: inline
+      type: checkboxes
+      display: popover
       options: []
     model: cortex_sap_operational
-    explore: data_intelligence_otc
-    listens_to_filters: [Region, Sales Org, Distribution Channel, Division]
-    field: data_intelligence_otc.product
-  - name: 'Currency '
-    title: 'Currency '
-    type: field_filter
-    default_value: "{{ _user_attributes['default_value_currency_required'] }}"
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: inline
-      options: []
-    model: cortex_sap_operational
-    explore: data_intelligence_otc
+    explore: sales_orders
     listens_to_filters: []
-    field: data_intelligence_otc.Currency_Required
+    field: materials_md.material_text_maktx
