@@ -1,10 +1,44 @@
-- dashboard: sap_order_to_cash_02c_01_order_fulfillment_performance_tuning
-  title: "[SAP ORDER TO CASH] 02C 01: Order Fulfillment"
+- dashboard: order_fulfillment
+  title: "[SAP OTC AR] 01: Order Fulfillment"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: lHbnrTBMjvg1YjLyNL9x92
   elements:
+  - title: Navigation Bar
+    name: Navigation Bar
+    model: cortex_sap_operational
+    explore: Navigation_Bar
+    type: single_value
+    fields: [Navigation_Bar.dash_nav]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    defaults_version: 1
+    series_types: {}
+    listen: {}
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - name: Order Fulfillment
     type: text
     title_text: Order Fulfillment
@@ -14,12 +48,11 @@
     col: 0
     width: 24
     height: 2
-  - name: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
-      Performance</a>
+  - name: ' <a href="/dashboards/cortex_sap_operational::delivery_performance?">Delivery
+      Performance</a>'
     type: text
-    title_text: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
-      Performance</a>
-    subtitle_text: ''
+    title_text: ' <a href="/dashboards/cortex_sap_operational::delivery_performance?">Delivery
+      Performance</a>'
     body_text: ''
     row: 8
     col: 0
@@ -43,16 +76,8 @@
     conditional_formatting_include_nulls: false
     value_format: 0.00%
     defaults_version: 1
-    hidden_fields: []
-    y_axes: []
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 4
     col: 6
     width: 6
@@ -75,16 +100,8 @@
     conditional_formatting_include_nulls: false
     value_format: 0.00%
     defaults_version: 1
-    hidden_fields: []
-    y_axes: []
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 4
     col: 0
     width: 6
@@ -107,16 +124,8 @@
     conditional_formatting_include_nulls: false
     value_format: 0.00%
     defaults_version: 1
-    hidden_fields: []
-    y_axes: []
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 4
     col: 12
     width: 6
@@ -148,16 +157,8 @@
     limit_displayed_rows: false
     defaults_version: 1
     series_types: {}
-    hidden_fields: []
-    y_axes: []
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 4
     col: 18
     width: 6
@@ -167,17 +168,16 @@
     model: cortex_sap_operational
     explore: sales_orders
     type: looker_column
-    fields: [average_of_order_cycle_time_1, materials_md.material_text_maktx]
+    fields: [average_of_order_cycle_time_2, materials_md.material_text_maktx]
     filters:
-      deliveries.Order_Cycle_Time: NOT NULL
-    sorts: [average_of_order_cycle_time_1 desc]
+      average_of_order_cycle_time_2: ">0"
+    sorts: [materials_md.material_text_maktx]
     limit: 500
     dynamic_fields: [{measure: average_of_order_cycle_time, based_on: deliveries.Order_Cycle_Time,
         expression: '', label: Average of Order Cycle Time, type: average, _kind_hint: measure,
-        _type_hint: number, id: cy7lHmcwoH}, {category: measure, expression: '', label: Average
-          of Order Cycle Time, value_format: !!null '', value_format_name: decimal_2,
-        based_on: deliveries.Order_Cycle_Time, _kind_hint: measure, measure: average_of_order_cycle_time_1,
-        type: average, _type_hint: number}]
+        _type_hint: number, id: cy7lHmcwoH}, {measure: average_of_order_cycle_time_2,
+        based_on: deliveries.Order_Cycle_Time, expression: '', label: Average of Order
+          Cycle Time, type: average, _kind_hint: measure, _type_hint: number, id: ro6GfqDwBY}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -193,7 +193,7 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: true
+    limit_displayed_rows: false
     legend_position: center
     point_style: none
     show_value_labels: false
@@ -210,21 +210,9 @@
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Product
-    limit_displayed_rows_values:
-      show_hide: show
-      first_last: first
-      num_rows: '10'
-    label_value_format: '0.00'
     defaults_version: 1
-    hidden_fields: []
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 17
     col: 0
     width: 24
@@ -272,7 +260,6 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: []
     x_axis_label: Month
     series_colors:
       on_time: "#ffe22c"
@@ -283,53 +270,16 @@
     hidden_fields: [deliveries.count_on_time_delivery, deliveries.count_in_full_delivery,
       deliveries.count_otif, deliveries.count_of_deliveries]
     listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
+      Year: deliveries.date_created_erdat_date
     row: 10
     col: 0
     width: 24
     height: 7
-  - title: Untitled
-    name: Untitled
-    model: cortex_sap_operational
-    explore: sales_orders
-    type: single_value
-    fields: [sales_orders.dash_nav]
-    limit: 500
-    column_limit: 50
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    series_types: {}
-    defaults_version: 1
-    listen:
-      Year: sales_orders.creation_date_erdat_date
-      Currency: currency_conversion_new.tcurr
-      Region: countries_md.country_name_landx
-      Sales Org: sales_organizations_md.sales_org_name_vtext
-      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
-      Product: materials_md.material_text_maktx
-      Division: divisions_md.division_name_vtext
-    row: 0
-    col: 0
-    width: 24
-    height: 2
   filters:
   - name: Year
     title: Year
     type: field_filter
-    default_value: 2022/01/01 to 2022/04/22
+    default_value: 2022/01/01 to 2022/03/29
     allow_multiple_values: true
     required: false
     ui_config:
@@ -339,20 +289,7 @@
     model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
-    field: sales_orders.creation_date_erdat_date
-  - name: Currency
-    title: Currency
-    type: field_filter
-    default_value: USD
-    allow_multiple_values: true
-    required: true
-    ui_config:
-      type: dropdown_menu
-      display: inline
-    model: cortex_sap_operational
-    explore: sales_orders
-    listens_to_filters: []
-    field: currency_conversion_new.tcurr
+    field: deliveries.date_created_erdat_date
   - name: Region
     title: Region
     type: field_filter
@@ -404,7 +341,7 @@
     model: cortex_sap_operational
     explore: sales_orders
     listens_to_filters: []
-    field: divisions_md.division_name_vtext
+    field: deliveries.division_spart
   - name: Product
     title: Product
     type: field_filter
@@ -418,3 +355,17 @@
     explore: sales_orders
     listens_to_filters: []
     field: materials_md.material_text_maktx
+  - name: Currency Required
+    title: Currency Required
+    type: field_filter
+    default_value: "{{ _user_attributes['default_value_currency_required'] }}"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: inline
+      options: []
+    model: cortex_sap_operational
+    explore: data_intelligence_otc
+    listens_to_filters: []
+    field: data_intelligence_otc.Currency_Required

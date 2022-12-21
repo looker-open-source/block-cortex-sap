@@ -1,11 +1,11 @@
-- dashboard: returned_orders
-  title: "[SAP OTC AR] 02_c: Returned Orders"
+- dashboard: canceled_orders
+  title: "[SAP OTC AR] 02_a: Canceled Orders"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   elements:
-  - title: Returned Orders
-    name: Returned Orders
+  - title: Canceled Orders
+    name: Canceled Orders
     model: cortex_sap_operational
     explore: data_intelligence_otc
     type: looker_grid
@@ -16,9 +16,9 @@
       data_intelligence_otc.sales_order_value_Local_Currecny, data_intelligence_otc.Local_Currency_Key,
       data_intelligence_otc.Sales_Order_Value_Global_Currency, data_intelligence_otc.Global_Currency]
     filters:
-      data_intelligence_otc.return_order: "-NotReturned"
+      data_intelligence_otc.canceled_order: Canceled
     sorts: [data_intelligence_otc.sales_order]
-    limit: 5000
+    limit: 500
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -47,14 +47,12 @@
       data_intelligence_otc.Bill_To_Party: 120
       data_intelligence_otc.order_status: 120
       data_intelligence_otc.sales_order_qty: 120
-      data_intelligence_otc.Exchange_Rate_Sales_Value: 120
       data_intelligence_otc.Base_UoM: 120
-      data_intelligence_otc.sales_order_net_value_Global_Currency: 120
+      data_intelligence_otc.Exchange_Rate_Sales_Value: 120
+      data_intelligence_otc.Sales_Order_Value_Global_Currency: 120
       data_intelligence_otc.Global_Currency: 120
       data_intelligence_otc.Local_Currency_Key: 120
-      data_intelligence_otc.sales_order_net_value_Local_Currency: 120
       data_intelligence_otc.sales_order_value_Local_Currecny: 120
-      data_intelligence_otc.Sales_Order_Value_Global_Currency: 120
     series_text_format:
       data_intelligence_otc.sales_order:
         align: left
@@ -72,21 +70,17 @@
         align: left
       data_intelligence_otc.sales_order_qty:
         align: right
-      data_intelligence_otc.Exchange_Rate_Sales_Value:
-        align: right
       data_intelligence_otc.Base_UoM:
         align: left
-      data_intelligence_otc.sales_order_net_value_Global_Currency:
-        align: left
+      data_intelligence_otc.Exchange_Rate_Sales_Value:
+        align: right
+      data_intelligence_otc.Sales_Order_Value_Global_Currency:
+        align: right
       data_intelligence_otc.Global_Currency:
         align: left
       data_intelligence_otc.Local_Currency_Key:
         align: left
-      data_intelligence_otc.sales_order_net_value_Local_Currency:
-        align: left
       data_intelligence_otc.sales_order_value_Local_Currecny:
-        align: right
-      data_intelligence_otc.Sales_Order_Value_Global_Currency:
         align: right
     x_axis_gridlines: false
     y_axis_gridlines: true
