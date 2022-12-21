@@ -14,10 +14,10 @@
     col: 0
     width: 24
     height: 2
-  - name: <a href="https://cortexcloudlookercom/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
+  - name: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
       Performance</a>
     type: text
-    title_text: <a href="https://cortex.cloud.looker.com/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
+    title_text: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
       Performance</a>
     subtitle_text: ''
     body_text: ''
