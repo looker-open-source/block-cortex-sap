@@ -10,7 +10,7 @@ view: sales_organizations_md {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Client Mandt" in Explore.
-  fields_hidden_by_default: yes
+
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
@@ -59,7 +59,6 @@ view: sales_organizations_md {
   dimension: sales_org_name_vtext {
     type: string
     sql: ${TABLE}.SalesOrgName_VTEXT ;;
-    hidden: no
   }
 
   dimension: sales_org_vkorg {

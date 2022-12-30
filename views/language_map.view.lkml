@@ -49,4 +49,5 @@ view: language_map{
     type: string
     sql: ${TABLE}.Looker_Locale ;;
   }
+
 }
