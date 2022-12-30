@@ -35,11 +35,6 @@ explore: data_intelligence_ar {
 sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
 }
 
-explore:  data_intelligence_otc{
-  sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
-}
-
-
 explore: sales_orders {
 
   join: language_map {
@@ -191,6 +186,3 @@ explore: sales_orders {
     sql_always_where: ${client_mandt}='{{ _user_attributes['client_id_rep'] }}' ;;
 
   }
-
-explore: Navigation_Bar {}
-

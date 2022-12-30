@@ -5,44 +5,6 @@
   description: ''
   preferred_slug: SglJRdRSOxWMsORDfmzrdO
   elements:
-  - title: Untitled
-    name: Untitled
-    model: cortex_sap_operational
-    explore: data_intelligence_otc
-    type: single_value
-    fields: [data_intelligence_otc.Order_status_snapshot]
-    sorts: [data_intelligence_otc.Order_status_snapshot]
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: false
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    defaults_version: 1
-    series_types: {}
-    hidden_fields: []
-    y_axes: []
-    listen: {}
-    row: 7
-    col: 0
-    width: 24
-    height: 2
   - title: Canceled Orders
     name: Canceled Orders
     model: cortex_sap_operational
@@ -142,17 +104,47 @@
       materials_md.material_text_maktx: 187
     series_cell_visualizations: {}
     listen:
-      Year: sales_orders.creation_date_erdat_date
       Currency: currency_conversion_new.tcurr
       Region: countries_md.country_name_landx
       Sales Org: sales_organizations_md.sales_org_name_vtext
       Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
       Division: divisions_md.division_name_vtext
+      Year: sales_orders.creation_date_erdat_date
       Product: materials_md.material_text_maktx
     row: 0
     col: 0
     width: 24
-    height: 7
+    height: 11
+  - title: Untitled
+    name: Untitled
+    model: cortex_sap_operational
+    explore: sales_orders
+    type: single_value
+    fields: [sales_orders.order_snapshot]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Currency: currency_conversion_new.tcurr
+      Region: countries_md.country_name_landx
+      Sales Org: sales_organizations_md.sales_org_name_vtext
+      Distribution Channel: distribution_channels_md.distribution_channel_name_vtext
+      Division: divisions_md.division_name_vtext
+      Year: sales_orders.creation_date_erdat_date
+      Product: materials_md.material_text_maktx
+    row: 11
+    col: 0
+    width: 24
+    height: 2
   filters:
   - name: Year
     title: Year
@@ -161,7 +153,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: day_range_picker
+      type: relative_timeframes
       display: inline
       options: []
     model: cortex_sap_operational
@@ -181,6 +173,32 @@
     explore: sales_orders
     listens_to_filters: []
     field: currency_conversion_new.tcurr
+  - name: Division
+    title: Division
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: cortex_sap_operational
+    explore: sales_orders
+    listens_to_filters: []
+    field: divisions_md.division_name_vtext
+  - name: Product
+    title: Product
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: cortex_sap_operational
+    explore: sales_orders
+    listens_to_filters: []
+    field: materials_md.material_text_maktx
   - name: Region
     title: Region
     type: field_filter
@@ -220,29 +238,3 @@
     explore: sales_orders
     listens_to_filters: []
     field: distribution_channels_md.distribution_channel_name_vtext
-  - name: Division
-    title: Division
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: cortex_sap_operational
-    explore: sales_orders
-    listens_to_filters: []
-    field: divisions_md.division_name_vtext
-  - name: Product
-    title: Product
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: cortex_sap_operational
-    explore: sales_orders
-    listens_to_filters: []
-    field: materials_md.material_text_maktx

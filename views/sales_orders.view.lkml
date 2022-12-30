@@ -1957,12 +1957,9 @@ view: sales_orders {
     type: number
     value_format: "0%"
     sql: avg(${confirmed_quantity_bmeng}/${cumulative_order_quantity_kwmeng}) ;;
-    #drill_fields: [sales_document_vbeln,item_posnr,materials_md.material_text_maktx,requested_delivery_date_vdatu_date,deliveries.date__proof_of_delivery___podat_date,customers_md.name1_name1,customers_md.name2_name2,customers_md.name3_name3,cumulative_order_quantity_kwmeng,base_unit_of_measure_meins,cumulative_confirmed_quantity_kbmeng,fill_rate]
     drill_fields: [sales_document_vbeln,item_posnr,materials_md.material_text_maktx,requested_delivery_date_vdatu_date,deliveries.date__proof_of_delivery___podat_date,customers_md.name1_name1,customers_md.name2_name2,customers_md.name3_name3,confirmed_quantity_bmeng,cumulative_order_quantity_kwmeng,base_unit_of_measure_meins,fill_rate]
     hidden: no
   }
-
-
 
   ##################################################### Return Orders  ############################################################
   dimension: return_order {
@@ -2037,17 +2034,6 @@ view: sales_orders {
     hidden: no
   }
 
-
-  # measure: count_sales_order_status  {
-  #  type: count_distinct
-  #  sql: ${sales_document_vbeln} ;;
-  #  filters: [sales_order_status :"Status"]
-  #}
-
-  # measure: sales_order_value_local_currency {
-  #   type: sum
-  #   sql: (${net_price_netpr} * ${cumulative_order_quantity_kwmeng}) OVER(PARTITION BY ${client_mandt},${sales_document_vbeln},${item_posnr})) ;;
-  # }
   #################################################### One Touch Order ############################
   measure: count_one_touch_order {
     type: count_distinct
@@ -2069,7 +2055,6 @@ view: sales_orders {
       label: "One Touch Order Detailed Report"
       url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_b_one_touch_orderperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
-    #html:<a href="/dashboards/173?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">{{value}}%</a> ;;
   }
   #***************************************** Billing & Pricing (Sales Order Pricing view) *******************************************#
 
@@ -2106,7 +2091,7 @@ view: sales_orders {
     sql: ${list_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2143,7 +2128,7 @@ view: sales_orders {
     sql: ${adjusted_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2162,7 +2147,7 @@ view: sales_orders {
     sql: ${list_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2180,7 +2165,7 @@ view: sales_orders {
     sql: ${intercompany_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2229,6 +2214,16 @@ view: sales_orders {
     sql: ${sales_order_netvalue_local_currency} * ${currency_conversion_new.ukurs} ;;
     hidden: no
   }
+
+  measure: sales_order_netvalue_glob_curr_1 {
+    type: sum_distinct
+    sql_distinct_key: ${sales_document_vbeln} ;;
+    sql: ${sales_order_netvalue_glob_curr} ;;
+    value_format : "0.00"
+    hidden: no
+  }
+
+
   measure: sales_order_netvalue_global_currency_product {
     type: number
     value_format_name: "Greek_Number_Format"
@@ -2278,7 +2273,6 @@ view: sales_orders {
 
   measure: count {
     type: count
-    #drill_fields: [name_of_orderer_bname]
     hidden: no
   }
   ##################################################### Blocked Orders ###############################################
@@ -2352,7 +2346,7 @@ view: sales_orders {
       <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_order_status_snapshot?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&ampCurrency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">Order Status Snapshot</a>
       <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_03_order_detailsperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&ampCurrency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">Order Details</a>
       <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_04_sales_performanceperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&ampCurrency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">Sales Performance</a>
-      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing_v2?Year=2022%2F01%2F01%20to%202022%2F04%2F22&ampRegion=&Sales%20Org=&Distribution%20Channel=&Division=&Product=&ampCurrency=USD">Billing and Pricing</a>
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&ampCurrency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">Billing and Pricing</a>
       </nav>
       </div>
       <div style="background-color: #FFFFFF; height:500px;width:100%"></div>;;
@@ -2390,7 +2384,7 @@ view: sales_orders {
     type: string
     hidden: no
     sql: "Home" ;;
-    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing_v2?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">{{value}}</a></nav>  ;;
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&ampCurrency={{ _filters['currency_conversion_new.tcurr']| url_encode }}">{{value}}</a></nav>  ;;
   }
 
 }
