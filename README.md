@@ -35,9 +35,11 @@ The datasets required by this block can be obtained by following the installatio
 
 - **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
 
->   ❕ Required User Attribute "client_id_rep" is configured separately within the Looker instance
+>   ❕ Required User Attributes are configured separately within the Looker instance
 
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
+
+- **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
 
   NOTE - the dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency.
 
