@@ -39,7 +39,9 @@ The datasets required by this block can be obtained by following the installatio
 
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
 
-  NOTE - the dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency.
+- **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
+  
+  NOTE - The dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency. Some calculations perform better with BI Engine Optimization feature in Looker. It can be enabled via Looker admin --> Labs
 
 **(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
