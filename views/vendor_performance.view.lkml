@@ -1,0 +1,1159 @@
+view: vendor_performance {
+  sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.VendorPerformance` ;;
+  fields_hidden_by_default: yes
+
+  measure: average_amount_in_local_currency_dmbtr {
+    type: average
+    sql: ${amount_in_local_currency_dmbtr} ;;
+  }
+
+  dimension: amount_in_target_currency_dmbtr {
+    type: number
+    sql: ${TABLE}.AmountInTargetCurrency_DMBTR ;;
+  }
+
+  dimension: client_mandt {
+    type: string
+    primary_key: yes
+    sql: ${TABLE}.Client_MANDT ;;
+    hidden: no
+  }
+
+  dimension: vendor_cycle_time_in_days {
+    type: number
+    sql: ${TABLE}.VendorCycleTimeInDays;;
+    hidden: no
+  }
+
+  measure: avg_vendor_cycle_time_in_days {
+    type: average
+    sql: ${TABLE}.VendorCycleTimeInDays;;
+    #value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  dimension: goods_receipt {
+    type: number
+    sql: ${TABLE}.GoodsReceiptCount ;;
+  }
+
+  measure: sum_goods_receipt {
+    type: sum
+    sql: ${goods_receipt} ;;
+  }
+
+  measure: sum_vendor_cycle_time {
+    type: sum
+    sql: ${vendor_cycle_time_in_days} ;;
+  }
+
+  measure: vendor_lead_time {
+    type: number
+    sql: ${sum_vendor_cycle_time}/${count_item} ;;
+  }
+
+  measure: vendor_lead_time1 {
+    type: number
+    sql: ceiling(${vendor_lead_time}) ;;
+  }
+
+
+  dimension: Key_date {
+    type: date
+    sql: ${purchasing_document_date_bedat_date} - 365 ;;
+    hidden: no
+  }
+
+  measure: PR_Count{
+    type: number
+    sql: 0 ;;
+  }
+
+
+  dimension: start_date_1 {
+    type :  date
+    sql: ${purchasing_document_date_bedat_date} ;;
+  }
+
+  filter: temp_key_date {
+    type: date
+    suggest_dimension: purchasing_document_date_bedat_date
+    hidden: no
+  }
+
+
+  dimension: Key_date_result {
+    type: yesno
+    hidden: no
+    sql:   (vendor_performance.PurchasingDocumentDate_BEDAT ) <= ( SELECT
+
+          DISTINCT (vendor_performance.PurchasingDocumentDate_BEDAT ) AS vendor_performance_purchasing_document_date_bedat_date,
+
+      FROM `@{GCP_PROJECT}.@{REPORTING_DATASET}.VendorPerformance`
+      AS vendor_performance
+      WHERE  {%  condition temp_key_date %} TIMESTAMP(${purchasing_document_date_bedat_date}) {% endcondition %}
+      )
+
+      AND
+
+      (vendor_performance.PurchasingDocumentDate_BEDAT ) >= (
+
+      SELECT
+
+      DISTINCT (vendor_performance.PurchasingDocumentDate_BEDAT )-365 AS vendor_performance_purchasing_document_date_bedat_date,
+
+      FROM `@{GCP_PROJECT}.@{REPORTING_DATASET}.VendorPerformance`
+      AS vendor_performance
+      WHERE  {%  condition temp_key_date %} TIMESTAMP(${purchasing_document_date_bedat_date}) {% endcondition %}
+      );;
+  }
+
+  dimension_group: PO_Creation_Date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.CreatedOn_AEDAT ;;
+  }
+
+  dimension: invoice_date {
+    type: string
+    sql: if(${transactionevent_type_vgabe} = '2',${PO_Creation_Date_date},${PO_Creation_Date_date}) ;;
+    hidden: no
+  }
+
+  dimension_group: Actual_Receipt_Date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.PostingDateInTheDocument_BUDAT ;;
+    hidden: no
+  }
+
+  dimension: company_bukrs {
+    type: string
+    sql: ${TABLE}.Company_BUKRS ;;
+  }
+
+  dimension: company_text_butxt {
+    type: string
+    sql: ${TABLE}.CompanyText_BUTXT ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: country_key_land1 {
+    type: string
+    label: "Vendor Country"
+    sql: ${TABLE}.CountryKey_LAND1 ;;
+    hidden: no
+  }
+
+  dimension: currency_key_waers {
+    type: string
+    sql: ${TABLE}.CurrencyKey_WAERS ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: currency_key_waers2 {
+    type: string
+    sql: ${TABLE}.CurrencyKey_WAERS ;;
+    hidden: no
+  }
+
+  dimension: currency_key_waers3 {
+    type: string
+    sql: ${TABLE}.CurrencyKey_WAERS ;;
+  }
+
+  dimension: currency_key_waers4 {
+    type: string
+    sql: ${TABLE}.CurrencyKey_WAERS ;;
+  }
+
+
+  dimension: delivery_completed_flag_elikz {
+    type: string
+    sql: ${TABLE}.DeliveryCompletedFlag_ELIKZ ;;
+  }
+
+  dimension: document_number_ebeln {
+    type: string
+    primary_key: yes
+    sql: ${TABLE}.DocumentNumber_EBELN ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: goods_receipt_amount_in_source_currency {
+    type: number
+    sql: ${TABLE}.GoodsReceiptAmountInSourceCurrency ;;
+  }
+
+####################### currency conversion ########################
+
+  dimension: goods_receipt_amount_in_global_currency {
+    type: number
+    sql: ${TABLE}.GoodsReceiptAmountInSourceCurrency * ${currency_conversion_new.ukurs} ;;
+  }
+
+  measure: sum_goods_receipt_amount_in_global_currency{
+    type: sum
+    sql: ${goods_receipt_amount_in_global_currency} ;;
+  }
+
+#####################################################################
+
+  dimension: goods_receipt_amount_in_source_currency_1 {
+    type: number
+    sql: ${transactionevent_type_vgabe} = "1" ;;
+  }
+
+  measure: sum_goods_receipt_amount_in_source_currency {
+    type: sum
+    sql: ${goods_receipt_amount_in_source_currency} ;;
+    filters: [transactionevent_type_vgabe: "1"]
+  }
+
+  measure: sum_po_currency {
+    type: sum
+    sql: ${net_order_valuein_pocurrency_netwr} ;;
+  }
+
+  measure: sum_po_global_currency {
+    type: sum
+    sql: ${net_order_valuein_globalcurr} ;;
+  }
+
+
+  dimension: goods_receipt_amount_in_target_currency {
+    type: number
+    sql: ${TABLE}.GoodsReceiptAmountInTargetCurrency ;;
+  }
+
+  dimension: goods_receipt_quantity {
+    type: number
+    sql: ${TABLE}.GoodsReceiptQuantity ;;
+    hidden: no
+  }
+
+  dimension: material_number {
+    type: string
+    sql: ${TABLE}.MaterialNumber_MATNR ;;
+  }
+
+  dimension: material_type {
+    type: string
+    sql: ${TABLE}.MaterialType_MTART ;;
+  }
+
+  dimension: material_group {
+    type: string
+    sql: ${TABLE}.MaterialGroup_MATKL ;;
+  }
+
+  dimension_group: item_delivery_date_eindt {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.ItemDeliveryDate_EINDT ;;
+    hidden: no
+  }
+
+  dimension_group: Schedule_line_date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.OrderDateOfScheduleLine_BEDAT ;;
+    hidden: no
+  }
+
+  dimension_group: Requested_delivery_date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.ItemDeliveryDate_EINDT ;;
+    hidden: no
+  }
+
+  dimension_group: Invoice_date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.InvoiceDate ;;
+    hidden: no
+  }
+
+  dimension_group: purchase_doc_date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.CreatedOn_AEDAT ;;
+    hidden: no
+  }
+
+  dimension: po_status {
+    type: string
+    sql: ${TABLE}.Status_STATU ;;
+  }
+
+  dimension: invoice_amount_in_target_currency {
+    type: number
+    sql: ${TABLE}.InvoiceAmountInTargetCurrency ;;
+  }
+
+  dimension: invoice_quantity {
+    type: number
+    sql: ${TABLE}.InvoiceQuantity ;;
+    hidden: no
+  }
+
+  dimension: item_ebelp {
+    type: string
+    primary_key: yes
+    sql: ${TABLE}.Item_EBELP ;;
+    hidden: no
+  }
+
+  measure: count_item {
+    type: count_distinct
+    sql: ${item_ebelp} ;;
+  }
+
+  dimension: item_in_material_document_buzei {
+    type: string
+    sql: ${TABLE}.ItemInMaterialDocument_BUZEI ;;
+  }
+
+  dimension: material_document_year_gjahr {
+    type: string
+    sql: ${TABLE}.MaterialDocumentYear_GJAHR ;;
+  }
+
+  dimension: movement_type__inventory_management___bwart {
+    type: string
+    sql: ${TABLE}.MovementType__inventoryManagement___BWART ;;
+  }
+
+  dimension: name1 {
+    type: string
+    label: "Vendor Name"
+    sql: ${TABLE}.NAME1 ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: net_order_valuein_pocurrency_netwr {
+    type: number
+    sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  dimension: net_order_valuein_globalcurr {
+    type: number
+    sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR * ${currency_conversion_new.ukurs};;
+  }
+
+
+  dimension: number_of_material_document_belnr {
+    type: string
+    sql: ${TABLE}.NumberOfMaterialDocument_BELNR ;;
+  }
+
+  dimension: overdelivery_tolerance_limit {
+    type: number
+    sql: ${TABLE}.OverdeliveryToleranceLimit ;;
+  }
+
+
+  dimension: poquantity_menge {
+    type: number
+    sql: ${TABLE}.POQuantity_MENGE ;;
+    hidden: no
+  }
+
+  measure: poquantity {
+    type: number
+    sql: ${poquantity_menge} ;;
+
+  }
+
+  dimension_group: posting_date_in_the_document_budat {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.PostingDateInTheDocument_BUDAT ;;
+  }
+
+  dimension_group: purchasing_document_date_bedat {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.PurchasingDocumentDate_BEDAT ;;
+    hidden: no
+  }
+
+
+  dimension: purchasing_group_ekgrp {
+    type: string
+    sql: ${TABLE}.PurchasingGroup_EKGRP ;;
+  }
+
+
+  dimension: purchasing_group_text_eknam {
+    type: string
+    label: "Purchase Group"
+    sql: ${TABLE}.PurchasingGroupText_EKNAM ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: purchasing_organization_ekorg {
+    type: string
+    sql: ${TABLE}.PurchasingOrganization_EKORG ;;
+  }
+
+  dimension: purchasing_organization_text_ekotx {
+    type: string
+    label: "Purchase Organization"
+    sql: ${TABLE}.PurchasingOrganizationText_EKOTX ;;
+    suggest_persist_for: "10 minutes"
+    hidden: no
+  }
+
+  dimension: rejected_quantity {
+    type: number
+    sql: ${TABLE}.RejectedQuantity ;;
+  }
+
+  dimension: sequential_number_of_account_assignment_zekkn {
+    type: string
+    sql: ${TABLE}.SequentialNumberOfAccountAssignment_ZEKKN ;;
+  }
+
+  dimension: target_currency_tcurr {
+    type: string
+    sql: ${TABLE}.TargetCurrency_TCURR ;;
+  }
+
+  dimension: transactionevent_type_vgabe {
+    type: string
+    sql: ${TABLE}.TransactioneventType_VGABE ;;
+  }
+
+  dimension: underdelivery_tolerance_limit {
+    type: number
+    sql: ${TABLE}.UnderdeliveryToleranceLimit ;;
+  }
+
+  dimension: uo_m_meins {
+    type: string
+    sql: ${TABLE}.UoM_MEINS ;;
+    hidden: no
+  }
+
+  dimension: uo_m_meins2 {
+    type: string
+    sql: ${TABLE}.UoM_MEINS ;;
+    hidden: no
+  }
+
+  dimension: uo_m_meins3 {
+    type: string
+    sql: ${TABLE}.UoM_MEINS ;;
+    hidden: no
+  }
+
+  dimension: vendor_account_number_lifnr {
+    type: string
+    sql: ${TABLE}.VendorAccountNumber_LIFNR ;;
+    hidden: no
+  }
+
+  measure: Active_Vendor{
+    type: count_distinct
+    sql: ${name1};;
+  }
+
+  measure: Active_Vendor_1{
+    type: count_distinct
+    sql: ${name1};;
+    hidden: no
+  }
+
+
+  measure: vendor_cycle_time_in_days_1 {
+    type: sum_distinct
+    sql: ${TABLE}.VendorCycleTimeInDays;;
+    required_fields: [vendor_cycle_time_in_days,name1]
+  }
+
+
+  dimension: vendor_in_full_delivery {
+    type: string
+    sql: ${TABLE}.VendorInFullDelivery ;;
+  }
+
+  dimension: vendor_invoice_accuracy {
+    type: string
+    sql: ${TABLE}.VendorInvoiceAccuracy ;;
+  }
+
+  dimension: vendor_on_time_delivery {
+    type: string
+    sql: ${TABLE}.VendorOnTimeDelivery ;;
+  }
+
+  dimension: vendor_on_time_in_full_delivery {
+    type: string
+    sql: ${TABLE}.VendorOnTimeInFullDelivery ;;
+  }
+
+  measure: count_otif {
+    type: count
+    filters: [vendor_on_time_in_full_delivery: "OTIF"]
+  }
+
+  measure: otif {
+    type: count
+    filters: [vendor_on_time_in_full_delivery: "OTIF, NotOTIF"]
+  }
+
+  # dimension: vendor_quality {
+  #   type: string
+  #   sql: ${TABLE}.VendorQuality ;;
+  # }
+
+  measure: count {
+    type: count
+  }
+
+  ######################################## Total amount ####################################################
+
+  dimension: amount_in_local_currency_dmbtr {
+    type: number
+    sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
+  }
+
+  measure: total_spend {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+  }
+
+  measure: total_spend_global_curr{
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    hidden: no
+    }
+
+  ######################################## Invoive Amount ####################################################
+
+  dimension: invoice_amount_in_source_currency_1 {
+    type: number
+    sql: ${TABLE}.InvoiceAmountInSourceCurrency ;;
+  }
+
+######################################## invoice amount currency conversion  #################################
+
+  dimension: invoice_amount_in_source_currency {
+    type: number
+    label: "Spend"
+    sql: ${TABLE}.InvoiceAmountInSourceCurrency ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: invoice_amount_in_source_currency_cal {
+    type: number
+    label: "Spend_test"
+    sql: ${TABLE}.InvoiceAmountInSourceCurrency ;;
+    required_fields: [invoice_amount_in_source_currency]
+  }
+
+  measure: invoice_amount {
+    type: number
+    label: "Invoice Amount"
+    sql: ${TABLE}.InvoiceAmountInSourceCurrency ;;
+    required_fields: [invoice_amount_in_source_currency]
+  }
+
+  dimension: Spend_Global_Curr {
+    type: number
+    sql: ${invoice_amount_in_source_currency} * ${currency_conversion_new.ukurs} ;;
+  }
+
+  measure: sum_invoice_amount {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    hidden: no
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_invoice_amount_global_currency {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+  }
+
+  ######################################## Open PO Count ####################################################
+
+  dimension: past_due_or_open_items {
+    type: string
+    sql: ${TABLE}.PastDueOrOpenItems ;;
+  }
+
+  measure: count_past_due {
+    type: count
+    filters: [past_due_or_open_items: "PastDue"]
+    hidden: no
+  }
+
+  measure: count_past_due_SP {
+    type: count
+    filters: [past_due_or_open_items: "PastDue"]
+  }
+
+  measure: open {
+    type: count
+    filters: [past_due_or_open_items: "Open"]
+  }
+
+  measure: open_SP {
+    type: count
+    filters: [past_due_or_open_items: "Open"]
+  }
+
+  measure: count_open_po {
+    type: count
+    filters: [past_due_or_open_items: "Open"]
+  }
+
+  measure: count_open_po_1 {
+    type: count
+    filters: [past_due_or_open_items: "Open"]
+  }
+
+  measure: count_open_po_2 {
+    type: count
+    filters: [past_due_or_open_items: "PastDue"]
+  }
+
+  measure: PO_Count {
+    type: number
+    sql: ${count_open_po_1} + ${count_open_po_2} ;;
+  }
+
+  measure: sum_spend_by_purchase_org {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_purchase_org_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_purchase_org_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_purchase_org_1_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+  }
+
+  measure: sum_spend_by_purchase_grp_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_purchase_grp_1_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+  }
+
+  measure: sum_spend_by_vendor_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  dimension: spend_by_vendor_globalcurr {
+    type: number
+    sql: ${invoice_amount_in_source_currency} * ${currency_conversion_new.ukurs};;
+  }
+
+  measure: sum_spend_by_vendor1_globalcurr {
+    type: sum
+    sql: ${spend_by_vendor_globalcurr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_country_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_country_1_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+  }
+
+  measure: sum_spend_by_purchase_grp {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_purchase_grp_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_country {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_country_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_material_type {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+  }
+
+  measure: sum_spend_by_material_type_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_material_type_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+  }
+
+  measure: sum_spend_by_material_type1_global_curr {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+  }
+
+  measure: sum_spend_by_material {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_month {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_spend_by_month_global_currency {
+    type: sum
+    sql: ${Spend_Global_Curr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: sum_spend_by_month_1 {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+  }
+
+
+  measure: sum_spend_by_vendor {
+    type: sum
+    sql: ${invoice_amount_in_source_currency} ;;
+  }
+
+  measure: sum_spend_by_vendor_globalcurr {
+    type: sum
+    sql: ${spend_by_vendor_globalcurr} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+    link: {
+      label: "Spend by Top Vendors"
+      url: "/dashboards/cortex_sap_operational::spend_by_top_vendors?Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}&Target+Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Invoice+Date={{ _filters['vendor_performance.Invoice_date_date']| url_encode }}"
+    }
+  }
+
+  measure: AccurateInvoice_Count {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice"]
+  }
+
+  measure: InaccurateInvoice_Count {
+    type: count
+    filters: [vendor_invoice_accuracy: " InaccurateInvoice"]
+  }
+
+  measure: invoice_count {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice,  InaccurateInvoice" ]
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  measure: invoice_count_purchase_org {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice,  InaccurateInvoice" ]
+  }
+
+  measure: invoice_count_purchase_grp {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice,  InaccurateInvoice" ]
+  }
+
+  measure: invoice_count_vendor {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice, InaccurateInvoice" ]
+  }
+
+  measure: Invoice_Accuracy {
+    type: number
+    sql: ${AccurateInvoice_Count} / NULLIF(${AccurateInvoice_Count} + ${InaccurateInvoice_Count}, 0) ;;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: Invoice_Accuracy_rep {
+    type: number
+    sql: ${AccurateInvoice_Count}/ NULLIF(${AccurateInvoice_Count} + ${InaccurateInvoice_Count}, 0) ;;
+    value_format: "0.0%"
+  }
+
+  measure: Notdelayed_count{
+    type: count
+    filters: [vendor_on_time_delivery: "NotDelayed"]
+  }
+
+  dimension: plant {
+    type: string
+    sql: ${TABLE}.Plant_WERKS ;;
+  }
+
+  #################################   Purchase Price Currency Conversion   #########
+
+  dimension: Purchase_Price1 {
+    type: number
+    sql: ${TABLE}.NetPrice_NETPR ;;
+  }
+
+  dimension: purchase_price_glob_curr {
+    type: number
+    sql: ${Purchase_Price1} * ${currency_conversion_new.ukurs} ;;
+  }
+
+
+  measure: sum_Purchase_price_global_currency {
+    type: sum
+    value_format_name: Greek_Number_Format
+    sql: ${purchase_price_glob_curr} ;;
+    hidden: no
+  }
+
+  dimension: Purchase_price {
+    type: number
+    sql: ${Purchase_Price1} ;;
+  }
+
+  measure: sum_Purchase_price {
+    type: sum
+    sql: ${Purchase_price} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  ##################  Standard Price Currency Conversion ##############
+
+  dimension: standard_price_glob_curr {
+    type: number
+    sql: (${Standard_Price} * ${currency_conversion_new.ukurs}) ;;
+  }
+
+  measure: sum_standard_price {
+    type: sum
+    sql: ${material_valuation.standard_price_stprs} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+  measure: sum_Standard_Price_global_currency {
+    type: sum
+    value_format_name: Greek_Number_Format
+    sql: ${standard_price_glob_curr};;
+    hidden: no
+  }
+
+  dimension: Standard_Price {
+    type: number
+    sql: ${material_valuation.standard_price_stprs};;
+  }
+
+  ###################### Purchase variance currency conversion ###########
+
+  dimension:  Purchase_Variance_glob_curr{
+    type: number
+    sql:   ${Purchase_Variance} * ${currency_conversion_new.ukurs};;
+    hidden: no
+  }
+
+  measure:  sum_Purchase_Variance_global_currency{
+    type: sum
+    value_format_name: Greek_Number_Format
+    sql:    ${Purchase_Variance_glob_curr};;
+  }
+
+  dimension:  Purchase_Variance{
+    type: number
+    sql:    (( ${Purchase_price} - ${Standard_Price} ) * ${poquantity_menge}) ;;
+  }
+
+  measure: purchase_variance_local_curr {
+    type: sum
+    sql: ${Purchase_Variance} ;;
+    value_format_name: Greek_Number_Format
+  }
+
+
+  dimension: Invoice_status {
+    type: string
+    sql: if(${vendor_invoice_accuracy} = "AccurateInvoice","Accurate","Inaccurate") ;;
+  }
+
+  dimension: On_Time{
+    type: yesno
+    sql: ${vendor_on_time_delivery} = "NotDelayed";;
+    hidden: no
+  }
+
+  measure: Delayed_count{
+    type: count
+    filters: [vendor_on_time_delivery: "Delayed"]
+  }
+
+  measure: Vendor_Ontime {
+    type: number
+    sql:  ${Notdelayed_count}/NULLIF((${Delayed_count}+${Notdelayed_count}),0);;
+    hidden: no
+    value_format: "0.0%"
+    link: {
+      label: "Delivery Performance Trend"
+      url: "/dashboards/cortex_sap_operational::delivery_performance_trend?Target+Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Purchase+Order+Date={{ _filters['vendor_performance.purchasing_document_date_bedat_date']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}"
+   }
+  }
+
+  measure:  total_delivered{
+    type: count
+    filters:  [vendor_on_time_delivery: "Delayed, NotDelayed"]
+  }
+
+  measure: Vendor_Ontime_late {
+    type: number
+    sql:  ${Delayed_count}/NULLIF((${Delayed_count}+${Notdelayed_count}),0);;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+
+  measure: Vendor_Ontime_del {
+    type: number
+    sql:  ${Notdelayed_count}/NULLIF((${Delayed_count}+${Notdelayed_count}),0);;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: Vendor_Ontime_vendor {
+    type: number
+    sql:  ${Notdelayed_count}/NULLIF((${Delayed_count}+${Notdelayed_count}),0);;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: Rejected_count {
+    type: count
+    filters: [is_rejected: "yes"]
+  }
+
+
+  dimension: is_rejected {
+    type: yesno
+    sql: ${TABLE}.IsRejected;;
+    hidden: no
+  }
+
+  measure: NotRejected_count {
+    type: count
+    filters: [is_rejected: "no"]
+  }
+
+  measure: Rejection_rate_vendor {
+    type: number
+    sql: ${Rejected_count}/NULLIF((${NotRejected_count} + ${Rejected_count}),0) ;;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: total_rejected {
+    type: count
+    filters: [is_rejected: "yes, no"]
+  }
+
+  measure: Rejection_rate {
+    type: number
+    sql: ${Rejected_count}/NULLIF((${NotRejected_count} + ${Rejected_count}),0) ;;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: Rejection_rate_rep {
+    type: number
+    sql: ${Rejected_count}/NULLIF((${NotRejected_count} + ${Rejected_count}),0) ;;
+    value_format: "0.0%"
+  }
+
+
+  dimension: is_delivered {
+    type: yesno
+    # sql: If(${TABLE}.DeliveredOrNotDelivered="Delivered",'Yes','No') ;;
+    sql: ${TABLE}.IsDelivered ;;
+    hidden: no
+  }
+
+  measure: Rejection_rate_del {
+    type: number
+    sql: ${Rejected_count}/NULLIF((${NotRejected_count} + ${Rejected_count}),0) ;;
+    value_format: "0.0%"
+  }
+
+  measure: Infull_count {
+    type: count
+    filters: [vendor_in_full_delivery: "DeliveredInFull"]
+  }
+
+  dimension: In_full {
+    type: yesno
+    sql: ${vendor_in_full_delivery} = "DeliveredInFull"  ;;
+    hidden: no
+  }
+
+  measure: NotInfull_count {
+    type: count
+    filters: [vendor_in_full_delivery: "NotDeliveredInFull"]
+  }
+
+  measure: total_infull {
+    type: count
+    filters: [vendor_in_full_delivery: "DeliveredInFull, NotDeliveredInFull"]
+  }
+
+  measure: Infull_rate_vendor {
+    type: number
+    sql: ${Infull_count}/NULLIF((${NotInfull_count} + ${Infull_count}),0) ;;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+  measure: Infull_rate {
+    type: number
+    sql: ${Infull_count}/NULLIF((${NotInfull_count} + ${Infull_count}),0) ;;
+    value_format: "0.0%"
+  }
+
+  measure: Infull_rate_del {
+    type: number
+    sql: ${Infull_count}/NULLIF((${NotInfull_count} + ${Infull_count}),0) ;;
+    value_format: "0.0%"
+    hidden: no
+  }
+
+}

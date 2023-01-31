@@ -186,3 +186,102 @@ explore: sales_orders {
     sql_always_where: ${client_mandt}='{{ _user_attributes['client_id_rep'] }}' ;;
 
   }
+
+  ########################################### Finanace Dashboards ########################################################################
+
+explore: vendor_performance {
+  sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+  always_filter: { filters: [material_types_md.language_key_spras: "E"]}
+  join: language_map {
+    fields: []
+    type: left_outer
+    sql_on: ${language_map.looker_locale}='{{ _user_attributes['locale'] }}' ;;
+    relationship: many_to_one
+  }
+  join: materials_md {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance.material_number}=${materials_md.material_number_matnr} and ${vendor_performance.client_mandt}=${materials_md.client_mandt} ;;
+  }
+  join: material_types_md {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance.material_type}=${material_types_md.material_type_mtart} and ${vendor_performance.client_mandt}=${material_types_md.client_mandt} ;;
+  }
+  join: material_groups_md {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance. material_group}=${material_groups_md. material_group_matkl} and ${vendor_performance.client_mandt}=${material_groups_md.client_mandt} ;;
+  }
+
+  join: material_valuation {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${material_valuation.client_mandt} = ${vendor_performance.client_mandt} and ${material_valuation.material_number_matnr} = ${vendor_performance.material_number} and ${vendor_performance.plant}= ${material_valuation.valuation_area_bwkey};;
+  }
+
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance.client_mandt} = ${currency_conversion_new.mandt}
+    and ${vendor_performance.currency_key_waers} = ${currency_conversion_new.fcurr}
+    and ${vendor_performance.Invoice_date_date} = ${currency_conversion_new.conv_date}
+    and ${currency_conversion_new.kurst} = "M" ;;
+   }
+  }
+
+explore: accountspayable {
+  sql_always_where: ${accountspayable.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${accountspayable.client_mandt} = ${currency_conversion_new.mandt}
+          and ${accountspayable.Currency} = ${currency_conversion_new.fcurr}
+          and ${accountspayable.posting_date_in_the_document_budat} = ${currency_conversion_new.conv_date}
+          and ${currency_conversion_new.kurst} = "M";;
+  }
+}
+
+explore: accountspayable_apt {
+  sql_always_where: ${accountspayable_apt.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${accountspayable_apt.client_mandt} = ${currency_conversion_new.mandt}
+          and ${accountspayable_apt.currency_key_waers} = ${currency_conversion_new.fcurr}
+          and ${accountspayable_apt.posting_date_in_the_document_budat} = ${currency_conversion_new.conv_date}
+          and ${currency_conversion_new.kurst} = "M";;
+  }
+}
+
+explore: accountspayable_cdu {
+  sql_always_where: ${accountspayable_cdu.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${accountspayable_cdu.client_mandt} = ${currency_conversion_new.mandt}
+          and ${accountspayable_cdu.currency_key_waers} = ${currency_conversion_new.fcurr}
+          and ${accountspayable_cdu.posting_date_in_the_document_budat_date} = ${currency_conversion_new.conv_date}
+          and ${currency_conversion_new.kurst} = "M";;
+  }
+
+}
+
+explore: days_payable_outstanding {
+  sql_always_where: ${days_payable_outstanding.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+  join: accountspayable {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${accountspayable.client_mandt} = ${days_payable_outstanding.client_mandt} and
+      ${accountspayable.company_code_bukrs} = ${days_payable_outstanding.company_code_bukrs};;
+  }
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${days_payable_outstanding.client_mandt} = ${currency_conversion_new.mandt} ;;
+  }
+}
+
+########################################### Finanace Dashboards End ########################################################################
