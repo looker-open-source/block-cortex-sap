@@ -8,14 +8,14 @@
   - title: Total Due Amount
     name: Total Due Amount
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: single_value
-    fields: [accountpayables.sum_overdue_amount_conv_drill]
+    fields: [accountspayable.sum_overdue_amount_conv_drill]
     limit: 500
-    dynamic_fields: [{measure: count_of_accounts_payable_turnover, based_on: accountpayables.accounts_payable_turnover,
+    dynamic_fields: [{measure: count_of_accounts_payable_turnover, based_on: accountspayable.accounts_payable_turnover,
         expression: '', label: Count of Accounts Payable Turnover, type: count_distinct,
         _kind_hint: measure, _type_hint: number}, {measure: sum_of_overdue_amount,
-        based_on: accountpayables.overdue_amount, expression: '', label: Sum of Overdue
+        based_on: accountspayable.overdue_amount, expression: '', label: Sum of Overdue
           Amount, type: sum, _kind_hint: measure, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
@@ -71,8 +71,8 @@
     note_text: Total balance due to all vendors as of today in the target currency
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 2
     col: 0
     width: 8
@@ -80,13 +80,13 @@
   - title: Past Due Amount
     name: Past Due Amount
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: single_value
-    fields: [accountpayables.sum_overdue_on_past_due_date_conv_drill]
+    fields: [accountspayable.sum_overdue_on_past_due_date_conv_drill]
     limit: 500
     column_limit: 50
     dynamic_fields: [{category: measure, expression: '', label: Sum of Overdue on
-          Past Due Date, based_on: accountpayables.overdue_on_past_due_date, _kind_hint: measure,
+          Past Due Date, based_on: accountspayable.overdue_on_past_due_date, _kind_hint: measure,
         measure: sum_of_overdue_on_past_due_date, type: sum, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
@@ -115,8 +115,8 @@
       target currency
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 2
     col: 8
     width: 8
@@ -124,9 +124,9 @@
   - title: Accounts Payable by Vendor
     name: Accounts Payable by Vendor
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: looker_pie
-    fields: [accountpayables.name1, accountpayables.sum_overdue_amount_2_conv_drill]
+    fields: [accountspayable.name1, accountspayable.sum_overdue_amount_2_conv_drill]
     filters: {}
     limit: 5
     value_labels: legend
@@ -141,8 +141,8 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    y_axes: [{label: Amount Due, orientation: bottom, series: [{axisId: accountpayables.sum_overdue_amount2,
-            id: accountpayables.sum_overdue_amount2, name: Sum Overdue Amount2}],
+    y_axes: [{label: Amount Due, orientation: bottom, series: [{axisId: accountspayable.sum_overdue_amount2,
+            id: accountspayable.sum_overdue_amount2, name: Sum Overdue Amount2}],
         showLabels: true, showValues: true, valueFormat: '0, \K', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     show_y_axis_labels: true
@@ -196,8 +196,8 @@
     note_text: Vendors with the highest balances due as of today
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 12
     col: 0
     width: 12
@@ -205,19 +205,19 @@
   - title: Upcoming Payments and Penalties
     name: Upcoming Payments and Penalties
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: looker_bar
-    fields: [accountpayables.name1, accountpayables.sum_late_payments_conv_drill,
-      accountpayables.sum_potential_penalty_payments_conv_drill, accountpayables.sum_upcoming_payments_conv_drill]
+    fields: [accountspayable.name1, accountspayable.sum_late_payments_conv_drill,
+      accountspayable.sum_potential_penalty_payments_conv_drill, accountspayable.sum_upcoming_payments_conv_drill]
     filters: {}
-    sorts: [accountpayables.sum_late_payments_conv_drill desc 0]
+    sorts: [accountspayable.sum_late_payments_conv_drill desc 0]
     limit: 5
     column_limit: 50
-    dynamic_fields: [{measure: sum_of_upcoming_payments, based_on: accountpayables.upcoming_payments,
+    dynamic_fields: [{measure: sum_of_upcoming_payments, based_on: accountspayable.upcoming_payments,
         expression: '', label: Sum of Upcoming Payments, type: sum, _kind_hint: measure,
-        _type_hint: number}, {measure: sum_of_potential_penalty, based_on: accountpayables.potential_penalty,
+        _type_hint: number}, {measure: sum_of_potential_penalty, based_on: accountspayable.potential_penalty,
         expression: '', label: Sum of Potential Penalty, type: sum, _kind_hint: measure,
-        _type_hint: number}, {measure: sum_of_late_payments, based_on: accountpayables.late_payments,
+        _type_hint: number}, {measure: sum_of_late_payments, based_on: accountspayable.late_payments,
         expression: '', label: Sum of Late Payments, type: sum, _kind_hint: measure,
         _type_hint: number}]
     x_axis_gridlines: false
@@ -253,11 +253,11 @@
       options:
         steps: 5
         reverse: false
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: accountpayables.sum_late_payments_conv_drill,
-            id: accountpayables.sum_late_payments_conv_drill, name: Late Payments},
-          {axisId: accountpayables.sum_potential_penalty_payments_conv_drill, id: accountpayables.sum_potential_penalty_payments_conv_drill,
-            name: Potential Penalties}, {axisId: accountpayables.sum_upcoming_payments_conv_drill,
-            id: accountpayables.sum_upcoming_payments_conv_drill, name: Upcoming Payments}],
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: accountspayable.sum_late_payments_conv_drill,
+            id: accountspayable.sum_late_payments_conv_drill, name: Late Payments},
+          {axisId: accountspayable.sum_potential_penalty_payments_conv_drill, id: accountspayable.sum_potential_penalty_payments_conv_drill,
+            name: Potential Penalties}, {axisId: accountspayable.sum_upcoming_payments_conv_drill,
+            id: accountspayable.sum_upcoming_payments_conv_drill, name: Upcoming Payments}],
         showLabels: true, showValues: true, maxValue: !!null '', minValue: !!null '',
         valueFormat: '', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
@@ -272,19 +272,19 @@
     label_value_format: ''
     series_types: {}
     series_colors:
-      accountpayables.sum_late_payments_conv_drill: "#E52592"
-      accountpayables.sum_upcoming_payments_conv_drill: "#1A73E8"
-      accountpayables.sum_potential_penalty_payments_conv_drill: "#F9AB00"
+      accountspayable.sum_late_payments_conv_drill: "#E52592"
+      accountspayable.sum_upcoming_payments_conv_drill: "#1A73E8"
+      accountspayable.sum_potential_penalty_payments_conv_drill: "#F9AB00"
     series_labels:
       sum_of_upcoming_payments: Upcoming Payments
       sum_of_potential_penalty: Potential Penalty
       sum_of_late_payments: Late Payments
-      accountpayables.sum_upcoming_payments: Upcoming Payments
-      accountpayables.Sum_late_payments: Late  Payments
-      accountpayables.sum_potential_penalty_payments: Potential Penalties
-      accountpayables.sum_late_payments_conv_drill: Late Payments
-      accountpayables.sum_upcoming_payments_conv_drill: Upcoming Payments
-      accountpayables.sum_potential_penalty_payments_conv_drill: Potential Penalties
+      accountspayable.sum_upcoming_payments: Upcoming Payments
+      accountspayable.Sum_late_payments: Late  Payments
+      accountspayable.sum_potential_penalty_payments: Potential Penalties
+      accountspayable.sum_late_payments_conv_drill: Late Payments
+      accountspayable.sum_upcoming_payments_conv_drill: Upcoming Payments
+      accountspayable.sum_potential_penalty_payments_conv_drill: Potential Penalties
     label_color: []
     x_axis_label_rotation_bar: 0
     leftAxisLabelVisible: false
@@ -354,8 +354,8 @@
       which penalties may be applicable as of today in the target currency
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 12
     col: 12
     width: 12
@@ -363,22 +363,22 @@
   - title: Parked and Blocked Invoices
     name: Parked and Blocked Invoices
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: looker_grid
-    fields: [accountpayables.company_text_butxt, accountpayables.blocked_invoice,
-      accountpayables.blocked_invoice_amount, accountpayables.parked_invoice, accountpayables.parked_invoice_amount,
-      accountpayables.blocked_invoice_amount_global_currency, accountpayables.parked_invoice_amount_global_currency,
+    fields: [accountspayable.company_text_butxt, accountspayable.blocked_invoice,
+      accountspayable.blocked_invoice_amount, accountspayable.parked_invoice, accountspayable.parked_invoice_amount,
+      accountspayable.blocked_invoice_amount_global_currency, accountspayable.parked_invoice_amount_global_currency,
       currency_conversion_new.fcurr, currency_conversion_new.tcurr, currency, global_currency]
     filters:
-      accountpayables.blocked_invoice_amount: not 0
-      accountpayables.parked_invoice_amount: not 0
-    sorts: [accountpayables.blocked_invoice desc 0]
+      accountspayable.blocked_invoice_amount: not 0
+      accountspayable.parked_invoice_amount: not 0
+    sorts: [accountspayable.blocked_invoice desc 0]
     limit: 500
     column_limit: 50
     total: true
-    dynamic_fields: [{measure: list_of_company_text_butxt, based_on: accountpayables.company_text_butxt,
+    dynamic_fields: [{measure: list_of_company_text_butxt, based_on: accountspayable.company_text_butxt,
         expression: '', label: List of Company Text Butxt, type: list, _kind_hint: measure,
-        _type_hint: list}, {category: dimension, expression: "${accountpayables.Currency}",
+        _type_hint: list}, {category: dimension, expression: "${accountspayable.Currency}",
         label: Currency, value_format: !!null '', value_format_name: !!null '', dimension: currency,
         _kind_hint: dimension, _type_hint: string}, {category: dimension, expression: "${currency_conversion_new.tcurr}",
         label: Global Currency, value_format: !!null '', value_format_name: !!null '',
@@ -401,33 +401,33 @@
     show_sql_query_menu_options: false
     pinned_columns:
       "$$$_row_numbers_$$$": left
-    column_order: ["$$$_row_numbers_$$$", accountpayables.company_text_butxt, accountpayables.parked_invoice,
-      accountpayables.parked_invoice_amount, currency, accountpayables.parked_invoice_amount_global_currency,
-      global_currency, accountpayables.blocked_invoice, accountpayables.blocked_invoice_amount,
-      currency_conversion_new.fcurr, accountpayables.blocked_invoice_amount_global_currency,
+    column_order: ["$$$_row_numbers_$$$", accountspayable.company_text_butxt, accountspayable.parked_invoice,
+      accountspayable.parked_invoice_amount, currency, accountspayable.parked_invoice_amount_global_currency,
+      global_currency, accountspayable.blocked_invoice, accountspayable.blocked_invoice_amount,
+      currency_conversion_new.fcurr, accountspayable.blocked_invoice_amount_global_currency,
       currency_conversion_new.tcurr]
     show_totals: true
     show_row_totals: true
     truncate_header: false
     series_labels:
-      accountpayables.company_text_butxt: Company Code
-      accountpayables.blocked_invoice: Blocked Invoices
-      accountpayables.blocked_invoice_amount: Blocked Invoice Amount
-      accountpayables.parked_invoice: Parked Invoices
-      accountpayables.parked_invoice_amount: Parked Invoice Amount
+      accountspayable.company_text_butxt: Company Code
+      accountspayable.blocked_invoice: Blocked Invoices
+      accountspayable.blocked_invoice_amount: Blocked Invoice Amount
+      accountspayable.parked_invoice: Parked Invoices
+      accountspayable.parked_invoice_amount: Parked Invoice Amount
       currency_conversion_new.ukurs: Exchange Rate
       currency_conversion_new.tcurr: Global Currency
       currency_conversion_new.fcurr: Currency
     series_cell_visualizations:
-      accountpayables.blocked_invoice:
+      accountspayable.blocked_invoice:
         is_active: false
-      accountpayables.blocked_invoice_amount:
+      accountspayable.blocked_invoice_amount:
         is_active: true
-      accountpayables.parked_invoice_amount:
+      accountspayable.parked_invoice_amount:
         is_active: true
-      accountpayables.blocked_invoice_amount_global_currency:
+      accountspayable.blocked_invoice_amount_global_currency:
         is_active: true
-      accountpayables.parked_invoice_amount_global_currency:
+      accountspayable.parked_invoice_amount_global_currency:
         is_active: true
     series_value_format: {}
     truncate_column_names: false
@@ -442,8 +442,8 @@
       as of today in the target currency
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 18
     col: 12
     width: 12
@@ -451,13 +451,13 @@
   - title: Accounts Payable Aging
     name: Accounts Payable Aging
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     type: looker_column
-    fields: [accountpayables.Past_Due_Interval, accountpayables.sum_overdue_amount_1_conv_drill]
-    pivots: [accountpayables.Past_Due_Interval]
-    sorts: [accountpayables.Past_Due_Interval]
+    fields: [accountspayable.Past_Due_Interval, accountspayable.sum_overdue_amount_1_conv_drill]
+    pivots: [accountspayable.Past_Due_Interval]
+    sorts: [accountspayable.Past_Due_Interval]
     limit: 500
-    dynamic_fields: [{measure: sum_of_overdue_amount, based_on: accountpayables.overdue_amount,
+    dynamic_fields: [{measure: sum_of_overdue_amount, based_on: accountspayable.overdue_amount,
         expression: '', label: Sum of Overdue Amount, type: sum, _kind_hint: measure,
         _type_hint: number}]
     x_axis_gridlines: false
@@ -492,16 +492,16 @@
       palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
       options:
         steps: 5
-    y_axes: [{label: Amount Due, orientation: left, series: [{axisId: accountpayables.sum_overdue_amount_1_conv_drill,
-            id: aNot OverDue - accountpayables.sum_overdue_amount_1_conv_drill, name: aNot
-              OverDue}, {axisId: accountpayables.sum_overdue_amount_1_conv_drill,
-            id: b1- 30 Days - accountpayables.sum_overdue_amount_1_conv_drill, name: b1-
-              30 Days}, {axisId: accountpayables.sum_overdue_amount_1_conv_drill,
-            id: c31-60 Days - accountpayables.sum_overdue_amount_1_conv_drill, name: c31-60
-              Days}, {axisId: accountpayables.sum_overdue_amount_1_conv_drill, id: d61-90
-              Days - accountpayables.sum_overdue_amount_1_conv_drill, name: d61-90
-              Days}, {axisId: accountpayables.sum_overdue_amount_1_conv_drill, id: e>
-              90 Days - accountpayables.sum_overdue_amount_1_conv_drill, name: e>
+    y_axes: [{label: Amount Due, orientation: left, series: [{axisId: accountspayable.sum_overdue_amount_1_conv_drill,
+            id: aNot OverDue - accountspayable.sum_overdue_amount_1_conv_drill, name: aNot
+              OverDue}, {axisId: accountspayable.sum_overdue_amount_1_conv_drill,
+            id: b1- 30 Days - accountspayable.sum_overdue_amount_1_conv_drill, name: b1-
+              30 Days}, {axisId: accountspayable.sum_overdue_amount_1_conv_drill,
+            id: c31-60 Days - accountspayable.sum_overdue_amount_1_conv_drill, name: c31-60
+              Days}, {axisId: accountspayable.sum_overdue_amount_1_conv_drill, id: d61-90
+              Days - accountspayable.sum_overdue_amount_1_conv_drill, name: d61-90
+              Days}, {axisId: accountspayable.sum_overdue_amount_1_conv_drill, id: e>
+              90 Days - accountspayable.sum_overdue_amount_1_conv_drill, name: e>
               90 Days}], showLabels: true, showValues: true, valueFormat: '', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Age
@@ -510,24 +510,24 @@
     label_value_format: ''
     series_types: {}
     series_colors:
-      aNot OverDue - accountpayables.sum_overdue_amount_1: "#1A73E8"
-      aNot OverDue - accountpayables.sum_overdue_amount_1_conv_drill: "#1A73E8"
+      aNot OverDue - accountspayable.sum_overdue_amount_1: "#1A73E8"
+      aNot OverDue - accountspayable.sum_overdue_amount_1_conv_drill: "#1A73E8"
     series_labels:
       1- 30 Days - sum_of_overdue_amount: OverDue 1-30 Days
       31-60 Days - sum_of_overdue_amount: OverDue 31-60 Days
       61-90 Days - sum_of_overdue_amount: OverDue 61-90 Days
       "> 90 Days - sum_of_overdue_amount": OverDue 90 Days
-      "> 90 Days - accountpayables.sum_overdue_amount_1": OverDue 90 Days
-      aNot OverDue - accountpayables.sum_overdue_amount_1: Not Overdue
-      b1- 30 Days - accountpayables.sum_overdue_amount_1: 1-30 Days
-      c31-60 Days - accountpayables.sum_overdue_amount_1: 31-60 Days
-      d61-90 Days - accountpayables.sum_overdue_amount_1: 61-90 Days
-      e> 90 Days - accountpayables.sum_overdue_amount_1: ">90 Days"
-      aNot OverDue - accountpayables.sum_overdue_amount_1_conv_drill: Not Overdue
-      b1- 30 Days - accountpayables.sum_overdue_amount_1_conv_drill: 1-30 Days Overdue
-      c31-60 Days - accountpayables.sum_overdue_amount_1_conv_drill: 31-60 Days Overdue
-      d61-90 Days - accountpayables.sum_overdue_amount_1_conv_drill: 61-90 Days Overdue
-      e> 90 Days - accountpayables.sum_overdue_amount_1_conv_drill: ">90 Days Overdue"
+      "> 90 Days - accountspayable.sum_overdue_amount_1": OverDue 90 Days
+      aNot OverDue - accountspayable.sum_overdue_amount_1: Not Overdue
+      b1- 30 Days - accountspayable.sum_overdue_amount_1: 1-30 Days
+      c31-60 Days - accountspayable.sum_overdue_amount_1: 31-60 Days
+      d61-90 Days - accountspayable.sum_overdue_amount_1: 61-90 Days
+      e> 90 Days - accountspayable.sum_overdue_amount_1: ">90 Days"
+      aNot OverDue - accountspayable.sum_overdue_amount_1_conv_drill: Not Overdue
+      b1- 30 Days - accountspayable.sum_overdue_amount_1_conv_drill: 1-30 Days Overdue
+      c31-60 Days - accountspayable.sum_overdue_amount_1_conv_drill: 31-60 Days Overdue
+      d61-90 Days - accountspayable.sum_overdue_amount_1_conv_drill: 61-90 Days Overdue
+      e> 90 Days - accountspayable.sum_overdue_amount_1_conv_drill: ">90 Days Overdue"
     label_color: ["#80868B"]
     defaults_version: 1
     value_labels: legend
@@ -539,8 +539,8 @@
       the target currency
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Company Code: accountspayable.company_text_butxt
+      Vendor Name: accountspayable.name1
     row: 4
     col: 8
     width: 8
@@ -548,14 +548,14 @@
   - title: Cash Discount Utilization Trend
     name: Cash Discount Utilization Trend
     model: cortex_sap_operational
-    explore: accountpayables_cdu
+    explore: accountspayable_cdu
     type: looker_line
-    fields: [accountpayables_cdu.Cash_Discount_Utilization, accountpayables_cdu.posting_date_in_the_document_budat_month]
-    fill_fields: [accountpayables_cdu.posting_date_in_the_document_budat_month]
+    fields: [accountspayable_cdu.Cash_Discount_Utilization, accountspayable_cdu.posting_date_in_the_document_budat_month]
+    fill_fields: [accountspayable_cdu.posting_date_in_the_document_budat_month]
     filters:
-      accountpayables_cdu.posting_date_in_the_document_budat_month: 12 months ago
+      accountspayable_cdu.posting_date_in_the_document_budat_month: 12 months ago
         for 12 months
-    sorts: [accountpayables_cdu.posting_date_in_the_document_budat_month]
+    sorts: [accountspayable_cdu.posting_date_in_the_document_budat_month]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -586,8 +586,8 @@
       palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
       options:
         steps: 5
-    y_axes: [{label: '', orientation: left, series: [{axisId: accountpayables_cdu.Cash_Discount_Utilization,
-            id: accountpayables_cdu.Cash_Discount_Utilization, name: Cash Discount
+    y_axes: [{label: '', orientation: left, series: [{axisId: accountspayable_cdu.Cash_Discount_Utilization,
+            id: accountspayable_cdu.Cash_Discount_Utilization, name: Cash Discount
               Utilization}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
@@ -597,7 +597,7 @@
     label_value_format: ''
     series_types: {}
     series_colors:
-      accountpayables_cdu.Cash_Discount_Utilization: "#e668a7"
+      accountspayable_cdu.Cash_Discount_Utilization: "#e668a7"
     label_color: ["#80868B"]
     x_axis_datetime_label: "%Y/%m"
     x_axis_label_rotation: -50
@@ -617,8 +617,8 @@
       the last 12 months
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables_cdu.company_text_butxt
-      Vendor Name: accountpayables_cdu.name1
+      Company Code: accountspayable_cdu.company_text_butxt
+      Vendor Name: accountspayable_cdu.name1
     row: 18
     col: 0
     width: 12
@@ -665,10 +665,10 @@
   - title: Accounts Payable Turnover
     name: Accounts Payable Turnover
     model: cortex_sap_operational
-    explore: accountpayables_apt
+    explore: accountspayable_apt
     type: single_value
-    fields: [accountpayables_apt.doc_fiscal_period, accountpayables_apt.turnover]
-    sorts: [accountpayables_apt.doc_fiscal_period desc]
+    fields: [accountspayable_apt.doc_fiscal_period, accountspayable_apt.turnover]
+    sorts: [accountspayable_apt.doc_fiscal_period desc]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -689,8 +689,8 @@
       previous fiscal period
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables_apt.company_text_butxt
-      Vendor Name: accountpayables_apt.vendor_name
+      Company Code: accountspayable_apt.company_text_butxt
+      Vendor Name: accountspayable_apt.vendor_name
     row: 2
     col: 16
     width: 8
@@ -698,10 +698,10 @@
   - title: Accounts Payable Turnover Trend
     name: Accounts Payable Turnover Trend
     model: cortex_sap_operational
-    explore: accountpayables_apt
+    explore: accountspayable_apt
     type: looker_line
-    fields: [accountpayables_apt.turnover, accountpayables_apt.fiscal_period]
-    sorts: [accountpayables_apt.fiscal_period]
+    fields: [accountspayable_apt.turnover, accountspayable_apt.fiscal_period]
+    sorts: [accountspayable_apt.fiscal_period]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -737,9 +737,9 @@
       num_rows: '12'
     label_value_format: ''
     series_colors:
-      accountpayables_apt.turnover: "#ae77cc"
+      accountspayable_apt.turnover: "#ae77cc"
     series_labels:
-      accountpayables_apt.turnover: Turnover (in days)
+      accountspayable_apt.turnover: Turnover (in days)
     x_axis_datetime_label: "%b-%y"
     defaults_version: 1
     hidden_fields: []
@@ -749,8 +749,8 @@
       is paid off
     listen:
       Target Currency: currency_conversion_new.tcurr
-      Company Code: accountpayables_apt.company_text_butxt
-      Vendor Name: accountpayables_apt.vendor_name
+      Company Code: accountspayable_apt.company_text_butxt
+      Vendor Name: accountspayable_apt.vendor_name
     row: 4
     col: 16
     width: 8
@@ -803,7 +803,7 @@
     defaults_version: 1
     listen:
       Company Code: days_payable_outstanding.company_text_butxt
-      Vendor Name: accountpayables.name1
+      Vendor Name: accountspayable.name1
     row: 4
     col: 0
     width: 8
@@ -820,7 +820,7 @@
       display: inline
       options: []
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     listens_to_filters: []
     field: currency_conversion_new.tcurr
   - name: Company Code
@@ -834,9 +834,9 @@
       display: popover
       options: []
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     listens_to_filters: []
-    field: accountpayables.company_text_butxt
+    field: accountspayable.company_text_butxt
   - name: Vendor Name
     title: Vendor Name
     type: field_filter
@@ -847,6 +847,6 @@
       type: tag_list
       display: popover
     model: cortex_sap_operational
-    explore: accountpayables
+    explore: accountspayable
     listens_to_filters: []
-    field: accountpayables.name1
+    field: accountspayable.name1
