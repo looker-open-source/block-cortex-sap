@@ -1,5 +1,5 @@
 - dashboard: accounts_payable_aging
-  title:  "[SAP ACCOUNTS PAYABLES] 07a: Accounts Payable Aging"
+  title:  "[SAP ACCOUNTS PAYABLE] 07a: Accounts Payable Aging"
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
