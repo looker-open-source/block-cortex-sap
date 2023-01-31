@@ -407,7 +407,7 @@ view: accountspayable {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_sap_operational::accounts_payable_aging?Target+Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Vendor+Name={{ _filters['accountpayables.name1']| url_encode }}&Company+Code={{ _filters['accountpayables.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::accounts_payable_aging?Target+Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Vendor+Name={{ _filters['accountspayable.name1']| url_encode }}&Company+Code={{ _filters['accountspayable.company_text_butxt']| url_encode }}"
     }
   }
 
