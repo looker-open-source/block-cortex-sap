@@ -541,9 +541,9 @@
       Target Currency: currency_conversion_new.tcurr
       Company Code: accountspayable.company_text_butxt
       Vendor Name: accountspayable.name1
-    row: 4
-    col: 8
-    width: 8
+    row: 5
+    col: 0
+    width: 12
     height: 6
   - title: Cash Discount Utilization Trend
     name: Cash Discount Utilization Trend
@@ -638,7 +638,7 @@
     subtitle_text: <font color="#c1c1c1">How much are we overdue and how quickly do
       we typically take to pay?</font>
     body_text: ''
-    row: 10
+    row: 4
     col: 0
     width: 24
     height: 1
@@ -751,62 +751,9 @@
       Target Currency: currency_conversion_new.tcurr
       Company Code: accountspayable_apt.company_text_butxt
       Vendor Name: accountspayable_apt.vendor_name
-    row: 4
-    col: 16
-    width: 8
-    height: 6
-  - title: DPO Trend
-    name: DPO Trend
-    model: cortex_sap_operational
-    explore: days_payable_outstanding
-    type: looker_line
-    fields: [days_payable_outstanding.sum_days_payable_outstanding, days_payable_outstanding.Month_Year]
-    sorts: [days_payable_outstanding.Month_Year]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: true
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: ordinal
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    x_axis_label: Month
-    x_axis_zoom: true
-    y_axis_zoom: true
-    limit_displayed_rows_values:
-      show_hide: show
-      first_last: last
-      num_rows: '12'
-    series_types: {}
-    series_colors:
-      days_payable_outstanding.sum_days_payable_outstanding: "#E52592"
-    series_labels:
-      days_payable_outstanding.sum_days_payable_outstanding: Days Payable Outstanding
-        (in days)
-    defaults_version: 1
-    listen:
-      Company Code: days_payable_outstanding.company_text_butxt
-      Vendor Name: accountspayable.name1
-    row: 4
-    col: 0
-    width: 8
+    row: 5
+    col: 12
+    width: 12
     height: 6
   filters:
   - name: Target Currency
