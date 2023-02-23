@@ -1,12 +1,13 @@
-- dashboard: day_sales_outstanding
-  title: "[SAP OTC AR] 06_a: Day Sales Outstanding"
+- dashboard: sap_finance_ar_06_a_days_sales_outstanding
+  title: "[SAP FINANCE] AR 06_a: Days Sales Outstanding"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
+  preferred_slug: HIqTur1Hcb6x8EWPRQJQ3L
   elements:
   - title: 'Day Sales Outstanding by Company '
     name: 'Day Sales Outstanding by Company '
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.DSO]
@@ -41,14 +42,17 @@
     show_silhouette: false
     totals_color: "#808080"
     color_application:
-      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
-      palette_id: 93f8aeb4-3f4a-4cd7-8fee-88c3417516a1
+      collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
+      palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
       options:
         steps: 5
+    y_axes: []
     x_axis_label: Company
+    x_axis_zoom: true
+    y_axis_zoom: true
     series_types: {}
     series_colors:
-      data_intelligence_ar.DSO: "#FD9577"
+      data_intelligence_ar.DSO: "#FF8168"
     show_row_numbers: true
     transpose: false
     truncate_text: true
@@ -63,24 +67,26 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
     listen:
       Day Sales Outstanding: data_intelligence_ar.Day_Sales_Outstanding
       Company: data_intelligence_ar.Company_Name
       Sold to Party: data_intelligence_ar.Sold_to_Party_Name
-      Currency: data_intelligence_ar.Currency_Required
+      Currency: currency_conversion_new.tcurr
     row: 0
     col: 0
     width: 19
     height: 10
   - title: Day Sales Outstanding by Customer
     name: Day Sales Outstanding by Customer
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
       data_intelligence_ar.Sold_to_Party_Number, data_intelligence_ar.Sold_to_Party_Name,
       data_intelligence_ar.DSO]
     filters:
+      data_intelligence_ar.Currency_Required: USD
       data_intelligence_ar.Sold_to_Party_Number: "-0001000004"
     sorts: [data_intelligence_ar.DSO desc]
     limit: 500
@@ -130,11 +136,12 @@
     x_axis_label: Customers
     series_types: {}
     defaults_version: 1
+    hidden_fields: []
     listen:
       Day Sales Outstanding: data_intelligence_ar.Day_Sales_Outstanding
       Company: data_intelligence_ar.Company_Name
       Sold to Party: data_intelligence_ar.Sold_to_Party_Name
-      Currency: data_intelligence_ar.Currency_Required
+      Currency: currency_conversion_new.tcurr
     row: 10
     col: 0
     width: 24
@@ -142,7 +149,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_infosys::sap_finance_ar_06_accounts_receivable?">Home</a>'
     body_text: ''
     row: 23
     col: 0
@@ -150,7 +157,7 @@
     height: 2
   - title: Avg Day Sales Outstanding
     name: Avg Day Sales Outstanding
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Total_DSO]
@@ -167,16 +174,31 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Day Sales Outstanding: data_intelligence_ar.Day_Sales_Outstanding
       Sold to Party: data_intelligence_ar.Sold_to_Party_Name
       Company: data_intelligence_ar.Company_Name
-      Currency: data_intelligence_ar.Currency_Required
+      Currency: currency_conversion_new.tcurr
     row: 0
     col: 19
     width: 5
     height: 10
   filters:
+  - name: Currency
+    title: Currency
+    type: field_filter
+    default_value: USD
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: inline
+    model: cortex_infosys
+    explore: data_intelligence_ar
+    listens_to_filters: []
+    field: currency_conversion_new.tcurr
   - name: Company
     title: Company
     type: field_filter
@@ -187,7 +209,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -201,7 +223,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
@@ -215,21 +237,7 @@
       type: advanced
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_infosys
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Day_Sales_Outstanding
-  - name: Currency
-    title: Currency
-    type: field_filter
-    default_value: "{{ _user_attributes['default_value_currency_required'] }}"
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: inline
-      options: []
-    model: cortex_sap_operational
-    explore: data_intelligence_ar
-    listens_to_filters: []
-    field: data_intelligence_ar.Currency_Required
