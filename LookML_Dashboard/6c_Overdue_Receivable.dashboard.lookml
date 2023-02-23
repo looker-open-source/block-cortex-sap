@@ -7,7 +7,7 @@
   elements:
   - title: Over Due Receivable by Company
     name: Over Due Receivable by Company
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.OverDue_Amount]
@@ -73,7 +73,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_infosys::sap_finance_ar_06_accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::sap_finance_ar_06_accounts_receivable?">Home</a>'
     body_text: ''
     row: 21
     col: 0
@@ -81,7 +81,7 @@
     height: 2
   - title: Total Over Due Receivable
     name: Total Over Due Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.OverDue_Amount]
@@ -123,7 +123,7 @@
     height: 10
   - title: Over Due Receivable
     name: Over Due Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -217,7 +217,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -231,7 +231,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -245,7 +245,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name

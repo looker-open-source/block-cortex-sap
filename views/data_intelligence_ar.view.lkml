@@ -489,7 +489,7 @@ view: data_intelligence_ar {
 
     link: {
       label: "Day Sales Outstanding"
-      url: "/dashboards/cortex_infosys::sap_finance_ar_06_a_days_sales_outstanding?"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ar_06_a_days_sales_outstanding?"
     }
   }
   measure: DSO{
@@ -504,7 +504,7 @@ view: data_intelligence_ar {
     value_format_name: Greek_Number_Format
     link: {
       label: "Overdue Receivables"
-      url: "/dashboards/cortex_infosys::sap_finance_ar_06_c_overdue_receivables?"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ar_06_c_overdue_receivables?"
     }
   }
 
@@ -526,7 +526,7 @@ view: data_intelligence_ar {
     value_format_name: Greek_Number_Format
     link: {
       label: "Total Receivables"
-      url: "/dashboards/cortex_infosys::sap_finance_ar_06_d_total_receivables?"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ar_06_d_total_receivables?"
       }
     }
 
@@ -536,7 +536,7 @@ view: data_intelligence_ar {
     value_format_name: Greek_Number_Format
     link: {
       label: "Doubtful Receivables"
-      url: "/dashboards/cortex_infosys::sap_finance_ar_06_b_doubtful_receivables?"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ar_06_b_doubtful_receivables?"
     }
   }
 

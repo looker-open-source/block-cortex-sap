@@ -7,7 +7,7 @@
   elements:
   - title: Doubtful Receivable by Company
     name: Doubtful Receivable by Company
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, doubtful_amount]
@@ -69,7 +69,7 @@
     height: 11
   - title: Total Doubtful Receivable
     name: Total Doubtful Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Sum_Doubtful_Receivables]
@@ -104,7 +104,7 @@
     height: 11
   - title: Doubtful Receivable
     name: Doubtful Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -185,7 +185,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_infosys::sap_finance_ar_06_accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::sap_finance_ar_06_accounts_receivable?">Home</a>'
     body_text: ''
     row: 19
     col: 0
@@ -201,7 +201,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -215,7 +215,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -229,7 +229,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name

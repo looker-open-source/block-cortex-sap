@@ -7,7 +7,7 @@
   elements:
   - title: Account Receivable by Company
     name: Account Receivable by Company
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_pie
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.Sum_of_Receivables]
@@ -95,7 +95,7 @@
     height: 8
   - title: Over Due Receivable by Days
     name: Over Due Receivable by Days
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_pie
     fields: [data_intelligence_ar.Past_Due_Interval, data_intelligence_ar.OverDue_Amount]
@@ -168,7 +168,7 @@
     height: 8
   - title: Total Receivable
     name: Total Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Total_Receivables]
@@ -233,7 +233,7 @@
     height: 3
   - title: Total Over Due Receivable
     name: Total Over Due Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Sum_of_Open_and_Over_Due_global_Currency]
@@ -301,7 +301,7 @@
     height: 3
   - title: ''
     name: ''
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_line
     fields: [data_intelligence_ar.Posting_month, data_intelligence_ar.Sum_of_Receivables,
@@ -384,7 +384,7 @@
     height: 9
   - title: Total Doubtful Receivable
     name: Total Doubtful Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Total_Doubtful_Receivables]
@@ -422,7 +422,7 @@
     height: 3
   - title: Avg Day Sales Outstanding
     name: Avg Day Sales Outstanding
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Total_DSO]
@@ -508,7 +508,7 @@
     height: 2
   - title: Top 5 Over Due Receivable Amount by Sold to Party
     name: Top 5 Over Due Receivable Amount by Sold to Party
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Past_Due_Interval, data_intelligence_ar.Sold_to_Party_Name,
@@ -612,7 +612,7 @@
     height: 2
   - title: Current Date
     name: Current Date
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Current_Date]
@@ -689,7 +689,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -703,7 +703,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -717,7 +717,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
@@ -731,7 +731,7 @@
       type: advanced
       display: popover
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Day_Sales_Outstanding
@@ -748,7 +748,7 @@
       - '30'
       - '20'
       - '10'
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Aging_Interval

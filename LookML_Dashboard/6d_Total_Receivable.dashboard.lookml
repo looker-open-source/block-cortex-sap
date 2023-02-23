@@ -7,7 +7,7 @@
   elements:
   - title: Account Receivable by Company
     name: Account Receivable by Company
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.Total_Receivables,
@@ -75,7 +75,7 @@
     height: 10
   - title: Accounts Receivable
     name: Accounts Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -131,7 +131,7 @@
     height: 10
   - title: Total Receivable
     name: Total Receivable
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Sum_of_Receivables]
@@ -164,7 +164,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_infosys::sap_finance_ar_06_accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::sap_finance_ar_06_accounts_receivable?">Home</a>'
     body_text: ''
     row: 20
     col: 0
@@ -180,7 +180,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -194,7 +194,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -208,7 +208,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_infosys
+    model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
