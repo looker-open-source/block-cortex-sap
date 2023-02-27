@@ -52,7 +52,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: data_intelligence_ar.OverDue_Amount,
             id: data_intelligence_ar.OverDue_Amount, name: OverDue Amount}, {axisId: data_intelligence_ar.Due_Amount,
             id: data_intelligence_ar.Due_Amount, name: Due Amount}], showLabels: true,
-        showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
+        showValues: true, valueFormat: '', unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     label_value_format: ''
     series_colors:

@@ -356,7 +356,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: data_intelligence_ar.Sum_of_Receivables,
             id: data_intelligence_ar.Sum_of_Receivables, name: Sum of Receivables},
           {axisId: data_intelligence_ar.Sum_of_Sales, id: data_intelligence_ar.Sum_of_Sales,
-            name: Sum of Sales}], showLabels: true, showValues: true, valueFormat: '0.00,,"M"',
+            name: Sum of Sales}], showLabels: true, showValues: true, valueFormat: '',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
     hidden_series: []
@@ -559,7 +559,7 @@
               10 Days}, {axisId: 11-20 Days - overdue_amount, id: 11-20 Days - overdue_amount,
             name: 11-20 Days}, {axisId: 21-30 Days - overdue_amount, id: 21-30 Days
               - overdue_amount, name: 21-30 Days}], showLabels: true, showValues: true,
-        valueFormat: '0,"K"', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: '', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     x_axis_label: Sold to Party Name
     limit_displayed_rows_values:

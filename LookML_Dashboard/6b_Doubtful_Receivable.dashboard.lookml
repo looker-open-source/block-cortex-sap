@@ -45,7 +45,7 @@
     totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: sum_of_doubtful_receivables_global_currency,
             id: sum_of_doubtful_receivables_global_currency, name: Sum of Doubtful
-              Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '0.00,"K"',
+              Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     label_value_format: ''
     defaults_version: 1
