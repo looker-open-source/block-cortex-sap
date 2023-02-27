@@ -32,17 +32,7 @@ named_value_format: Greek_Number_Format {
 }
 
 explore: data_intelligence_ar {
-  sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
-  
-  join: currency_conversion_new {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${data_intelligence_ar.Client_ID}=${currency_conversion_new.mandt}
-        and ${data_intelligence_ar.Local_Currency_Key}=${currency_conversion_new.fcurr}
-        and ${data_intelligence_ar.Posting_date_date}=${currency_conversion_new.conv_date}
-        and ${currency_conversion_new.kurst} = "M";;
-  }
-
+sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
 }
 
 explore: sales_orders {
