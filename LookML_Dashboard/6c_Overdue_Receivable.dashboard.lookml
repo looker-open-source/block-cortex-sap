@@ -53,7 +53,7 @@
         showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Company
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     series_colors:
       data_intelligence_ar.Over_Due_Amount: "#ACE9F5"
     show_dropoff: false

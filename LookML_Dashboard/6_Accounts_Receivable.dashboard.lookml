@@ -361,7 +361,7 @@
     x_axis_label: Month
     hidden_series: []
     hide_legend: false
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     series_types: {}
     series_colors:
       total_receivable: "#f56776"
@@ -567,7 +567,7 @@
       first_last: first
       num_rows: '5'
     hidden_series: [Row Total - sum_of_open_and_over_due_local_currency]
-    label_value_format: 0.00,,"M"
+    label_value_format: ''
     series_types: {}
     series_colors:
       "> 30 Days - overdue_amount": "#FDEC85"

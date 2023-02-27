@@ -47,7 +47,7 @@
             id: sum_of_doubtful_receivables_global_currency, name: Sum of Doubtful
               Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '0.00,"K"',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     defaults_version: 1
     listen:
       Company: data_intelligence_ar.Company_Name

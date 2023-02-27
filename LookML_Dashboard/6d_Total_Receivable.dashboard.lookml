@@ -54,7 +54,7 @@
             id: data_intelligence_ar.Due_Amount, name: Due Amount}], showLabels: true,
         showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     series_colors:
       data_intelligence_ar.OverDue_Amount: "#AEC8C1"
       data_intelligence_ar.Due_Amount: "#FDEC85"
