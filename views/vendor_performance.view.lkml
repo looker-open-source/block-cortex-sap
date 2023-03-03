@@ -81,6 +81,27 @@ view: vendor_performance {
     hidden: no
   }
 
+  ## New approach Feb 2023
+
+  dimension: language_key {
+    type: string
+    sql: ${TABLE}.LanguageKey_SPRAS ;;
+    hidden: no
+  }
+
+  dimension: material_description {
+    type: string
+    sql: ${TABLE}.MaterialText_MAKTX;;
+    hidden: no
+  }
+
+  dimension: material_type_description {
+    type: string
+    sql: ${TABLE}.DescriptionOfMaterialType_MTBEZ;;
+    hidden: no
+  }
+
+  ##########
 
   dimension: Key_date_result {
     type: yesno
@@ -170,7 +191,13 @@ view: vendor_performance {
     suggest_persist_for: "10 minutes"
     hidden: no
   }
-
+  #################### Feb 2023 Target Currency ####################
+  dimension: target_currency_tcurr {
+    type: string
+    sql: ${TABLE}.TargetCurrency_TCURR ;;
+    hidden: no
+  }
+  ##################### End ##############################
   dimension: currency_key_waers2 {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
@@ -261,6 +288,7 @@ view: vendor_performance {
   dimension: material_type {
     type: string
     sql: ${TABLE}.MaterialType_MTART ;;
+    hidden: no
   }
 
   dimension: material_group {
@@ -356,7 +384,30 @@ view: vendor_performance {
   dimension: invoice_amount_in_target_currency {
     type: number
     sql: ${TABLE}.InvoiceAmountInTargetCurrency ;;
+    hidden: no
   }
+
+#################################### Feb 2023 TC aggregation ######################
+  measure: sum_invoice_amount_in_target_currency {
+    type: sum
+    sql: ${invoice_amount_in_target_currency} ;;
+    value_format_name: Greek_Number_Format
+    hidden: no
+  }
+
+  #####################################Spend by Top Vendors####################################################
+
+  measure: sum_invoice_amount_in_target_currency_by_top_vendor {
+    type: sum
+    sql: ${invoice_amount_in_target_currency} ;;
+    value_format_name: Greek_Number_Format
+    link: {
+      label: "Spend by Top Vendors"
+      url: "/dashboards/412?Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}&Target+Currency={{ _filters['vendor_performance.target_currency_tcurr']| url_encode }}&Invoice+Date={{ _filters['vendor_performance.Invoice_date_date']| url_encode }}"
+    }
+    hidden: no
+  }
+  ################################### End of TC aggregation ##########################
 
   dimension: invoice_quantity {
     type: number
@@ -399,6 +450,13 @@ view: vendor_performance {
     hidden: no
   }
 
+  ######################## Feb 2023 Total Vendors Count ############################
+  measure: count_vendors {
+    type: count_distinct
+    sql: ${name1} ;;
+    hidden: no
+  }
+  ######################## Total Vendors Count ####################################
   dimension: net_order_valuein_pocurrency_netwr {
     type: number
     sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
@@ -504,11 +562,6 @@ view: vendor_performance {
     sql: ${TABLE}.SequentialNumberOfAccountAssignment_ZEKKN ;;
   }
 
-  dimension: target_currency_tcurr {
-    type: string
-    sql: ${TABLE}.TargetCurrency_TCURR ;;
-  }
-
   dimension: transactionevent_type_vgabe {
     type: string
     sql: ${TABLE}.TransactioneventType_VGABE ;;
@@ -565,11 +618,6 @@ view: vendor_performance {
   dimension: vendor_in_full_delivery {
     type: string
     sql: ${TABLE}.VendorInFullDelivery ;;
-  }
-
-  dimension: vendor_invoice_accuracy {
-    type: string
-    sql: ${TABLE}.VendorInvoiceAccuracy ;;
   }
 
   dimension: vendor_on_time_delivery {
@@ -935,11 +983,56 @@ view: vendor_performance {
     sql: ${Purchase_Price1} * ${currency_conversion_new.ukurs} ;;
   }
 
-
   measure: sum_Purchase_price_global_currency {
     type: sum
     value_format_name: Greek_Number_Format
     sql: ${purchase_price_glob_curr} ;;
+    hidden: no
+  }
+
+  # New approach- Feb 2023
+  dimension: net_price_in_target_currency_netpr {
+    type: number
+    value_format_name: Greek_Number_Format
+    label: "Purchase Price in TC"
+    sql: ${TABLE}.NetPriceInTargetCurrency_NETPR ;;
+  }
+
+  measure: sum_net_price_in_target_currency_netpr {
+    type: sum
+    value_format_name: Greek_Number_Format
+    label: "Sum Purchase Price in TC"
+    sql: ${net_price_in_target_currency_netpr} ;;
+    hidden: no
+  }
+
+  dimension: purchase_price_variance {
+    type: number
+    value_format_name: Greek_Number_Format
+    sql: (${net_price_in_target_currency_netpr} - ${standard_price_glob_curr}) * ${poquantity_menge} ;;
+  }
+
+  measure: sum_purchase_price_variance {
+    type: sum
+    value_format_name: Greek_Number_Format
+    label: "Purchase Price Variance in TC"
+    sql: ${purchase_price_variance} ;;
+    hidden: no
+  }
+
+
+
+  ###############################Count Of Cleared Invoices##################################################################
+
+  dimension: vendor_invoice_accuracy {
+    type: string
+    sql: ${TABLE}.VendorInvoiceAccuracy ;;
+    hidden: no
+  }
+
+  measure: count_cleared_invoices {
+    type: count
+    filters: [vendor_invoice_accuracy: "AccurateInvoice, InaccurateInvoice"]
     hidden: no
   }
 
@@ -976,7 +1069,7 @@ view: vendor_performance {
 
   dimension: Standard_Price {
     type: number
-    sql: ${material_valuation.standard_price_stprs};;
+    sql: ${material_valuation.standard_price};;
   }
 
   ###################### Purchase variance currency conversion ###########
@@ -1015,6 +1108,19 @@ view: vendor_performance {
     sql: ${vendor_on_time_delivery} = "NotDelayed";;
     hidden: no
   }
+#################################Spend by Top Vendors Detailed Report######################################
+
+  dimension: net_order_valuein_target_currency_netwr {
+    type: number
+    sql: ${TABLE}.NetOrderValueinTargetCurrency_NETWR ;;
+    hidden: no
+  }
+
+  dimension: exchange_rate_ukurs {
+    type: number
+    sql: ${TABLE}.ExchangeRate_UKURS ;;
+    hidden: no
+  }
 
   measure: Delayed_count{
     type: count
@@ -1028,7 +1134,7 @@ view: vendor_performance {
     value_format: "0.0%"
     link: {
       label: "Delivery Performance Trend"
-      url: "/dashboards/cortex_sap_operational::delivery_performance_trend?Target+Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Purchase+Order+Date={{ _filters['vendor_performance.purchasing_document_date_bedat_date']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_vp_09_a_delivery_performance_trend?Target+Currency={{ _filters['target_currency_tcurr']| url_encode }}&Purchase+Order+Date={{ _filters['vendor_performance.purchasing_document_date_bedat_date']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}"
    }
   }
 
