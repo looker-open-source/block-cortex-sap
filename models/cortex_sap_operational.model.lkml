@@ -29,7 +29,7 @@ include: "/LookML_Dashboard/*.dashboard.lookml"
 
 named_value_format: Greek_Number_Format {
   #value_format: "[>=1000000000]0.0,,,\"B\";[>=1000000]0.0,,\"M\";[>=1000]0.0,\"K\";0.0"
-  value_format: "[<=1000]0.0;[<=999999]0.0,\"K\";[<=999999999]0.0,,\"M\";0.0,,,\"B\""
+  value_format: "[<=1000]0.0;[<=999999]0.0,\"K\";[<=999999999]0.0,,\"M\";[>=1000000000]0.0,,,\"B\""
 }
 
 explore: data_intelligence_ar {
