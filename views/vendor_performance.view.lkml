@@ -191,13 +191,13 @@ view: vendor_performance {
     suggest_persist_for: "10 minutes"
     hidden: no
   }
-  #################### Feb 2023 Target Currency ####################
+  
   dimension: target_currency_tcurr {
     type: string
     sql: ${TABLE}.TargetCurrency_TCURR ;;
     hidden: no
   }
-  ##################### End ##############################
+  
   dimension: currency_key_waers2 {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
@@ -387,7 +387,7 @@ view: vendor_performance {
     hidden: no
   }
 
-#################################### Feb 2023 TC aggregation ######################
+
   measure: sum_invoice_amount_in_target_currency {
     type: sum
     sql: ${invoice_amount_in_target_currency} ;;
@@ -403,11 +403,11 @@ view: vendor_performance {
     value_format_name: Greek_Number_Format
     link: {
       label: "Spend by Top Vendors"
-      url: "/dashboards/412?Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}&Target+Currency={{ _filters['vendor_performance.target_currency_tcurr']| url_encode }}&Invoice+Date={{ _filters['vendor_performance.Invoice_date_date']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_sa_08_a_spend_by_top_vendors?Company+Code={{ _filters['vendor_performance.company_text_butxt']| url_encode }}&Purchasing+Organization={{ _filters['vendor_performance.purchasing_organization_text_ekotx']| url_encode }}&Purchasing+Group={{ _filters['vendor_performance.purchasing_group_text_eknam']| url_encode }}&Vendor+Name={{ _filters['vendor_performance.name1']| url_encode }}&Vendor+Country={{ _filters['vendor_performance.country_key_land1']| url_encode }}&Target+Currency={{ _filters['vendor_performance.target_currency_tcurr']| url_encode }}&Invoice+Date={{ _filters['vendor_performance.Invoice_date_date']| url_encode }}"
     }
     hidden: no
   }
-  ################################### End of TC aggregation ##########################
+ 
 
   dimension: invoice_quantity {
     type: number
@@ -450,13 +450,12 @@ view: vendor_performance {
     hidden: no
   }
 
-  ######################## Feb 2023 Total Vendors Count ############################
   measure: count_vendors {
     type: count_distinct
     sql: ${name1} ;;
     hidden: no
   }
-  ######################## Total Vendors Count ####################################
+  
   dimension: net_order_valuein_pocurrency_netwr {
     type: number
     sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
