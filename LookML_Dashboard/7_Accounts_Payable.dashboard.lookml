@@ -66,9 +66,9 @@
     note_display: hover
     note_text: Total balance due to all vendors as of today in the target currency
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 2
     col: 0
     width: 8
@@ -98,9 +98,9 @@
     note_text: Total balance due to all vendors that is overdue as of today in the
       target currency
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 2
     col: 8
     width: 8
@@ -158,9 +158,9 @@
       payments compared to all cash discounts available, whether taken or lost, over
       the last 12 months
     listen:
+      Vendor Name: accounts_payable_overview_v2.name1
       Target Currency: accounts_payable_overview_v2.target_currency_tcurr
       Company Code: accounts_payable_overview_v2.company_text_butxt
-      Vendor Name: accounts_payable_overview_v2.name1
     row: 18
     col: 0
     width: 12
@@ -185,9 +185,9 @@
     note_display: hover
     note_text: Vendors with the highest balances due as of today
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 12
     col: 0
     width: 12
@@ -253,9 +253,9 @@
     note_text: Upcoming payments due within the next two weeks and late payments to
       which penalties may be applicable as of today in the target currency
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 12
     col: 12
     width: 12
@@ -319,9 +319,9 @@
       and the number of invoices and amount of invoices that are blocked for payment
       as of today in the target currency
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 18
     col: 12
     width: 12
@@ -389,12 +389,12 @@
     note_text: Aging analysis of balances due and overdue to vendors as of today in
       the target currency
     listen:
+      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
-      Vendor Name: accounts_payable_v2.name1
     row: 5
-    col: 0
-    width: 12
+    col: 8
+    width: 8
     height: 6
   - title: Accounts Payable Turnover
     name: Accounts Payable Turnover
@@ -445,9 +445,9 @@
     note_text: How many times we paid off the average accounts payable amount in the
       previous fiscal period
     listen:
+      Vendor Name: accounts_payable_turnover_v2.name1
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
       Company Code: accounts_payable_turnover_v2.company_text_butxt
-      Vendor Name: accounts_payable_turnover_v2.name1
     row: 2
     col: 16
     width: 8
@@ -457,9 +457,8 @@
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: looker_line
-    fields: [accounts_payable_turnover_v2.turnover, accounts_payable_turnover_v2.doc_fiscal_period_group_month]
-    fill_fields: [accounts_payable_turnover_v2.doc_fiscal_period_group_month]
-    sorts: [accounts_payable_turnover_v2.doc_fiscal_period_group_month]
+    fields: [accounts_payable_turnover_v2.turnover, accounts_payable_turnover_v2.fiscal_period]
+    sorts: [accounts_payable_turnover_v2.fiscal_period]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -514,12 +513,78 @@
     note_text: How many times per fiscal period the average accounts payable amount
       is paid off
     listen:
+      Vendor Name: accounts_payable_turnover_v2.name1
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
       Company Code: accounts_payable_turnover_v2.company_text_butxt
-      Vendor Name: accounts_payable_turnover_v2.name1
     row: 5
-    col: 12
-    width: 12
+    col: 16
+    width: 8
+    height: 6
+  - title: Days Payable Outstanding
+    name: Days Payable Outstanding
+    model: cortex_sap_operational
+    explore: days_payable_outstanding_v2
+    type: looker_line
+    fields: [sum_of_days_payable_outstanding_in_target_currency, days_payable_outstanding_v2.Month_Year]
+    filters: {}
+    sorts: [days_payable_outstanding_v2.Month_Year]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{measure: sum_of_days_payable_outstanding_in_target_currency,
+        based_on: days_payable_outstanding_v2.days_payable_outstanding_in_target_currency,
+        expression: '', label: Sum of Days Payable Outstanding In Target Currency,
+        type: sum, _kind_hint: measure, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    x_axis_label: Month
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: last
+      num_rows: '12'
+    series_types: {}
+    series_colors:
+      sum_of_days_payable_outstanding_in_target_currency: "#FF8168"
+    series_labels:
+      sum_of_days_payable_outstanding_in_target_currency: Days Payable Outstanding
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: Average number of days a company takes to pay to its vendors (by month)
+    listen:
+      Target Currency: days_payable_outstanding_v2.target_currency_tcurr
+      Company Code: days_payable_outstanding_v2.company_text_butxt
+    row: 5
+    col: 0
+    width: 8
     height: 6
   filters:
   - name: Target Currency

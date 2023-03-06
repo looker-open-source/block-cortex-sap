@@ -463,7 +463,7 @@ view: accounts_payable_v2 {
   measure: sum_overdue_amount_conv_drill  {
     type: sum
     sql: ${overdue_amount_in_target_currency} + ${outstanding_but_not_overdue_in_target_currency};;
-    value_format_name: Greek_Number_Format
+    value_format: "0.0"
     hidden: no
     }
 
@@ -495,7 +495,7 @@ view: accounts_payable_v2 {
   measure: sum_past_overdue_amount_conv_drill {
     type: sum
     sql: ${overdue_on_past_date_in_target_currency} ;;
-    value_format_name: Greek_Number_Format
+    value_format: "0.0"
     hidden: no
   }
 

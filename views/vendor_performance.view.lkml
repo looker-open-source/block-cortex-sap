@@ -19,6 +19,28 @@ view: vendor_performance {
     hidden: no
   }
 
+  dimension: fiscal_year {
+    type: string
+    sql: ${TABLE}.FiscalYear ;;
+  }
+
+  dimension: fiscal_period {
+    type: string
+    sql: ${TABLE}.FiscalPeriod ;;
+  }
+
+  dimension: month_year{
+    type: string
+    hidden: no
+    primary_key: yes
+    sql: concat(${fiscal_year},"/",${fiscal_period}) ;;
+  }
+
+  dimension: fiscalyear_variant_periv {
+    type: string
+    sql: ${TABLE}.FiscalyearVariant_PERIV ;;
+  }
+
   dimension: vendor_cycle_time_in_days {
     type: number
     sql: ${TABLE}.VendorCycleTimeInDays;;
@@ -81,7 +103,7 @@ view: vendor_performance {
     hidden: no
   }
 
-  ## New approach Feb 2023
+ 
 
   dimension: language_key {
     type: string
@@ -101,33 +123,6 @@ view: vendor_performance {
     hidden: no
   }
 
-  ##########
-
-  dimension: Key_date_result {
-    type: yesno
-    hidden: no
-    sql:   (vendor_performance.PurchasingDocumentDate_BEDAT ) <= ( SELECT
-
-          DISTINCT (vendor_performance.PurchasingDocumentDate_BEDAT ) AS vendor_performance_purchasing_document_date_bedat_date,
-
-      FROM `@{GCP_PROJECT}.@{REPORTING_DATASET}.VendorPerformance`
-      AS vendor_performance
-      WHERE  {%  condition temp_key_date %} TIMESTAMP(${purchasing_document_date_bedat_date}) {% endcondition %}
-      )
-
-      AND
-
-      (vendor_performance.PurchasingDocumentDate_BEDAT ) >= (
-
-      SELECT
-
-      DISTINCT (vendor_performance.PurchasingDocumentDate_BEDAT )-365 AS vendor_performance_purchasing_document_date_bedat_date,
-
-      FROM `@{GCP_PROJECT}.@{REPORTING_DATASET}.VendorPerformance`
-      AS vendor_performance
-      WHERE  {%  condition temp_key_date %} TIMESTAMP(${purchasing_document_date_bedat_date}) {% endcondition %}
-      );;
-  }
 
   dimension_group: PO_Creation_Date {
     type: time
@@ -282,6 +277,7 @@ view: vendor_performance {
 
   dimension: material_number {
     type: string
+    primary_key: yes
     sql: ${TABLE}.MaterialNumber_MATNR ;;
   }
 
@@ -391,11 +387,11 @@ view: vendor_performance {
   measure: sum_invoice_amount_in_target_currency {
     type: sum
     sql: ${invoice_amount_in_target_currency} ;;
-    value_format_name: Greek_Number_Format
+    #value_format_name: Greek_Number_Format
     hidden: no
   }
 
-  #####################################Spend by Top Vendors####################################################
+  
 
   measure: sum_invoice_amount_in_target_currency_by_top_vendor {
     type: sum
@@ -407,7 +403,7 @@ view: vendor_performance {
     }
     hidden: no
   }
- 
+  ################################### End of TC aggregation ##########################
 
   dimension: invoice_quantity {
     type: number
@@ -450,12 +446,13 @@ view: vendor_performance {
     hidden: no
   }
 
+  
   measure: count_vendors {
     type: count_distinct
     sql: ${name1} ;;
     hidden: no
   }
-  
+  ######################## Total Vendors Count ####################################
   dimension: net_order_valuein_pocurrency_netwr {
     type: number
     sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
@@ -967,6 +964,7 @@ view: vendor_performance {
 
   dimension: plant {
     type: string
+    primary_key: yes
     sql: ${TABLE}.Plant_WERKS ;;
   }
 
@@ -989,7 +987,26 @@ view: vendor_performance {
     hidden: no
   }
 
-  # New approach- Feb 2023
+
+  dimension: standard_cost {
+    type: number
+    sql: ${materials_valuation_v2.standard_cost_stprs} ;;
+  }
+
+  dimension: standard_cost_tc {
+    type: number
+    label: "Standard Price in TC"
+    sql: ${standard_cost} * ${exchange_rate_ukurs} ;;
+  }
+
+  measure: sum_standard_cost {
+    type: sum
+    value_format_name: Greek_Number_Format
+    label: "Sum Standard Price in TC"
+    sql: ${standard_cost_tc} ;;
+    hidden: no
+  }
+
   dimension: net_price_in_target_currency_netpr {
     type: number
     value_format_name: Greek_Number_Format
@@ -1008,7 +1025,7 @@ view: vendor_performance {
   dimension: purchase_price_variance {
     type: number
     value_format_name: Greek_Number_Format
-    sql: (${net_price_in_target_currency_netpr} - ${standard_price_glob_curr}) * ${poquantity_menge} ;;
+    sql: (${net_price_in_target_currency_netpr} - ${standard_cost_tc}) * ${poquantity_menge} ;;
   }
 
   measure: sum_purchase_price_variance {

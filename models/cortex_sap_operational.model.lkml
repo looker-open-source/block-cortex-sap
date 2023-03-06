@@ -28,8 +28,7 @@ persist_with: cortex_default_datagroup
 include: "/LookML_Dashboard/*.dashboard.lookml"
 
 named_value_format: Greek_Number_Format {
-  #value_format: "[>=1000000000]0.0,,,\"B\";[>=1000000]0.0,,\"M\";[>=1000]0.0,\"K\";0.0"
-  value_format: "[<=1000]0.0;[<=999999]0.0,\"K\";[<=999999999]0.0,,\"M\";[>=1000000000]0.0,,,\"B\""
+  value_format: "[>=1000000000]0.0,,,\"B\";[>=1000000]0.0,,\"M\";[>=1000]0.0,\"K\";0.0"
 }
 
 explore: data_intelligence_ar {
@@ -193,62 +192,36 @@ explore: sales_orders {
 explore: vendor_performance {
   sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
     and ${vendor_performance.language_key} = '{{ _user_attributes['language'] }}';;
+
+  join: materials_valuation_v2 {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance.client_mandt} = ${materials_valuation_v2.client_mandt}
+    and ${vendor_performance.material_number} = ${materials_valuation_v2.material_number_matnr}
+    and ${vendor_performance.plant} = ${materials_valuation_v2.valuation_area_bwkey}
+    and ${vendor_performance.month_year} = ${materials_valuation_v2.month_year}
+    and ${materials_valuation_v2.valuation_type_bwtar} = ''
+    ;;
+    }
+}
+
+explore: days_payable_outstanding_v2 {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+explore: materials_valuation_v2 {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+explore: inventory_metrics_overview {
   
-  join: language_map {
-    fields: []
-    type: left_outer
-    sql_on: ${language_map.looker_locale}='{{ _user_attributes['locale'] }}' ;;
-    relationship: many_to_one
-  }
-  join: materials_md {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${vendor_performance.material_number}=${materials_md.material_number_matnr}
-      and ${vendor_performance.client_mandt}=${materials_md.client_mandt}
-      and ${materials_md.language_spras} = ${language_map.language_key};;
-  }
-  join: material_types_md {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${vendor_performance.material_type}=${material_types_md.material_type_mtart}
-      and ${vendor_performance.client_mandt}=${material_types_md.client_mandt}
-      and ${material_types_md.language_key_spras} = ${language_map.language_key};;
-  }
-  join: material_groups_md {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${vendor_performance. material_group}=${material_groups_md. material_group_matkl}
-      and ${vendor_performance.client_mandt}=${material_groups_md.client_mandt} ;;
-  }
+  sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+      and ${inventory_metrics_overview.language_spras} = '{{ _user_attributes['language'] }}';;
+}
 
-  join: material_valuation {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${material_valuation.client_mandt} = ${vendor_performance.client_mandt}
-      and ${material_valuation.material_number_matnr} = ${vendor_performance.material_number}
-      and ${vendor_performance.plant}= ${material_valuation.valuation_area_bwkey};;
-  }
-
-  join: currency_conversion_new {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${vendor_performance.client_mandt} = ${currency_conversion_new.mandt}
-      and ${vendor_performance.currency_key_waers} = ${currency_conversion_new.fcurr}
-      and ${vendor_performance.Invoice_date_date} = ${currency_conversion_new.conv_date}
-      and ${currency_conversion_new.kurst} = "M" ;;
-   }
-  }
-
-explore: accountspayable {
-  sql_always_where: ${accountspayable.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
-  join: currency_conversion_new {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${accountspayable.client_mandt} = ${currency_conversion_new.mandt}
-          and ${accountspayable.Currency} = ${currency_conversion_new.fcurr}
-          and ${accountspayable.posting_date_in_the_document_budat} = ${currency_conversion_new.conv_date}
-          and ${currency_conversion_new.kurst} = "M";;
-  }
+explore: inventory_by_plant {
+    sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+      and ${inventory_by_plant.language_spras} = '{{ _user_attributes['language'] }}';;
 }
 
 explore: accounts_payable_v2 {
@@ -267,19 +240,6 @@ explore: accounts_payable_turnover_v2 {
   sql_always_where: ${accounts_payable_turnover_v2.client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
 }
 
-explore: days_payable_outstanding {
-  sql_always_where: ${days_payable_outstanding.client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
-  join: accountspayable {
-    type: left_outer
-    relationship: one_to_many
-    sql_on: ${accountspayable.client_mandt} = ${days_payable_outstanding.client_mandt} and
-      ${accountspayable.company_code_bukrs} = ${days_payable_outstanding.company_code_bukrs};;
-  }
-  join: currency_conversion_new {
-    type: left_outer
-    relationship: one_to_many
-    sql_on: ${days_payable_outstanding.client_mandt} = ${currency_conversion_new.mandt} ;;
-  }
-}
+
 
 ########################################### Finanace Dashboards End ########################################################################
