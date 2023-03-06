@@ -147,9 +147,9 @@
       Purchasing Group: vendor_performance.purchasing_group_text_eknam
       Vendor Name: vendor_performance.name1
       Purchase Order Date: vendor_performance.purchasing_document_date_bedat_date
-      Material: materials_md.material_text_maktx
       Material Type: vendor_performance.material_type_description
       Vendor Number: vendor_performance.vendor_account_number_lifnr
+      Material: vendor_performance.material_description
     row: 8
     col: 0
     width: 24
@@ -301,9 +301,9 @@
       Purchasing Group: vendor_performance.purchasing_group_text_eknam
       Vendor Country: vendor_performance.country_key_land1
       Purchase Order Date: vendor_performance.purchasing_document_date_bedat_date
-      Material: materials_md.material_text_maktx
       Material Type: vendor_performance.material_type_description
       Vendor Number: vendor_performance.vendor_account_number_lifnr
+      Material: vendor_performance.material_description
     row: 0
     col: 0
     width: 24
