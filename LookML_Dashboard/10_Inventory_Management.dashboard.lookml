@@ -1,5 +1,5 @@
 - dashboard: inventory_management_
-  title: '[SAP SUPPLY CHAIN] IM 10: Inventory Management '
+  title: '[SAP SUPPLY CHAIN] IM 10: Inventory Management'
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

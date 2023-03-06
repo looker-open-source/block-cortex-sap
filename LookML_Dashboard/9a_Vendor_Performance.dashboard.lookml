@@ -146,10 +146,10 @@
       Purchasing Organization: vendor_performance.purchasing_organization_text_ekotx
       Purchasing Group: vendor_performance.purchasing_group_text_eknam
       Vendor Name: vendor_performance.name1
-      'Vendor Number ': vendor_performance.vendor_account_number_lifnr
       Purchase Order Date: vendor_performance.purchasing_document_date_bedat_date
-      Material Type: material_types_md.description_of_material_type_mtbez
       Material: materials_md.material_text_maktx
+      Material Type: vendor_performance.material_type_description
+      Vendor Number: vendor_performance.vendor_account_number_lifnr
     row: 8
     col: 0
     width: 24
@@ -300,10 +300,10 @@
       Vendor Name: vendor_performance.name1
       Purchasing Group: vendor_performance.purchasing_group_text_eknam
       Vendor Country: vendor_performance.country_key_land1
-      'Vendor Number ': vendor_performance.vendor_account_number_lifnr
       Purchase Order Date: vendor_performance.purchasing_document_date_bedat_date
-      Material Type: material_types_md.description_of_material_type_mtbez
       Material: materials_md.material_text_maktx
+      Material Type: vendor_performance.material_type_description
+      Vendor Number: vendor_performance.vendor_account_number_lifnr
     row: 0
     col: 0
     width: 24
@@ -334,8 +334,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Purchasing Organization, Purchasing Group, Vendor Country,
-      Vendor Name, 'Vendor Number ', Material Type, Material]
+    listens_to_filters: [Vendor Country, Vendor Name, Material Type Description, Material,
+      Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
     field: vendor_performance.company_text_butxt
   - name: Purchasing Organization
     title: Purchasing Organization
@@ -348,8 +348,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Group, Vendor Country, Vendor Name,
-      'Vendor Number ', Material Type, Material]
+    listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
+        Description, Material, Material Type, Vendor Number, Purchasing Group]
     field: vendor_performance.purchasing_organization_text_ekotx
   - name: Purchasing Group
     title: Purchasing Group
@@ -362,8 +362,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Vendor Country, Vendor
-        Name, 'Vendor Number ', Material Type, Material]
+    listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
+        Description, Material, Material Type, Vendor Number, Purchasing Organization]
     field: vendor_performance.purchasing_group_text_eknam
   - name: Vendor Country
     title: Vendor Country
@@ -376,8 +376,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
-      Vendor Name, 'Vendor Number ', Material Type, Material]
+    listens_to_filters: [Company Code, Vendor Name, Material Type Description, Material,
+      Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
     field: vendor_performance.country_key_land1
   - name: Vendor Name
     title: Vendor Name
@@ -390,11 +390,11 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
-      Vendor Country, 'Vendor Number ', Material Type, Material]
+    listens_to_filters: [Company Code, Vendor Country, Material Type Description,
+      Material, Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
     field: vendor_performance.name1
-  - name: 'Vendor Number '
-    title: 'Vendor Number '
+  - name: Vendor Number
+    title: Vendor Number
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -404,8 +404,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
-      Vendor Country, Vendor Name, Material Type, Material]
+    listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
+        Description, Material, Material Type, Purchasing Group, Purchasing Organization]
     field: vendor_performance.vendor_account_number_lifnr
   - name: Material Type
     title: Material Type
@@ -418,9 +418,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
-      Vendor Country, Vendor Name, 'Vendor Number ', Material]
-    field: material_types_md.description_of_material_type_mtbez
+    listens_to_filters: [Vendor Number, Purchasing Group, Purchasing Organization]
+    field: vendor_performance.material_type_description
   - name: Material
     title: Material
     type: field_filter
@@ -430,9 +429,8 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
-      Vendor Country, Vendor Name, 'Vendor Number ', Material Type]
-    field: materials_md.material_text_maktx
+    listens_to_filters: [Material Type, Vendor Number, Purchasing Group, Purchasing
+        Organization]
+    field: vendor_performance.material_description

@@ -214,8 +214,14 @@ explore: materials_valuation_v2 {
 }
 
 explore: inventory_metrics_overview {
+    join: inventory_by_plant {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
+            ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
+  }
   
-  sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+    sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
       and ${inventory_metrics_overview.language_spras} = '{{ _user_attributes['language'] }}';;
 }
 
