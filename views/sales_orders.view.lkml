@@ -1956,7 +1956,7 @@ view: sales_orders {
   measure: fill_rate{
     type: number
     value_format: "0%"
-    sql: avg(${confirmed_quantity_bmeng}/${cumulative_order_quantity_kwmeng}) ;;
+    sql: avg(NULLIF(${confirmed_quantity_bmeng},0)/NULLIF(${cumulative_order_quantity_kwmeng},0)) ;;
     drill_fields: [sales_document_vbeln,item_posnr,materials_md.material_text_maktx,requested_delivery_date_vdatu_date,deliveries.date__proof_of_delivery___podat_date,customers_md.name1_name1,customers_md.name2_name2,customers_md.name3_name3,confirmed_quantity_bmeng,cumulative_order_quantity_kwmeng,base_unit_of_measure_meins,fill_rate]
     hidden: no
   }
@@ -1987,7 +1987,7 @@ view: sales_orders {
 
   measure: Return_Order_Percentage {
     type: number
-    sql:if(${deliveries.count_of_delivery}=0,0,round(${count_return_order}/${deliveries.count_of_delivery}*100,2)) ;;
+    sql:if(${deliveries.count_of_delivery}=0,0,round(${count_return_order}/NULLIF(${deliveries.count_of_delivery},0)*100,2)) ;;
     link: {
       label: "Return Order Detailed Report"
       url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_c_returned_ordersperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
@@ -2011,7 +2011,7 @@ view: sales_orders {
 
   measure: canceled_order_percentage {
     type: number
-    sql: if(${count_total_orders}=0,0,round(${count_canceled_order}/${count_total_orders}*100,2)) ;;
+    sql: if(${count_total_orders}=0,0,round(${count_canceled_order}/NULLIF(${count_total_orders},0)*100,2)) ;;
     link: {
       label: "Cancelled Order Detailed Report"
       url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_a_cancelled_ordersperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
@@ -2049,7 +2049,7 @@ view: sales_orders {
 
   measure: one_touch_order_percentage {
     type: number
-    sql: if(${count_total_orders}=0,0,round(${count_one_touch_order}/${count_total_orders}*100,2)) ;;
+    sql: if(${count_total_orders}=0,0,round(${count_one_touch_order}/NULLIF(${count_total_orders},0)*100,2)) ;;
     hidden: no
     link: {
       label: "One Touch Order Detailed Report"

@@ -102,7 +102,7 @@ view: deliveries {
 
   measure: OnTimePercentage {
     type: number
-    sql: if(${count_of_deliveries}=0,0,${count_on_time_delivery}/${count_of_deliveries});;
+    sql: if(${count_of_deliveries}=0,0,${count_on_time_delivery}/NULLIF(${count_of_deliveries},0));;
     hidden: no
     link: {
       label: "Delivery Performance"
@@ -112,7 +112,7 @@ view: deliveries {
 
   measure: InFullPercentage {
     type: number
-    sql: if(${count_of_deliveries}=0,0,${count_in_full_delivery}/${count_of_deliveries})  ;;
+    sql: if(${count_of_deliveries}=0,0,${count_in_full_delivery}/NULLIF(${count_of_deliveries},0))  ;;
     hidden: no
     link: {
       label: "Delivery Performance"
@@ -122,7 +122,7 @@ view: deliveries {
 
   measure: OTIFPercentage {
     type: number
-    sql: if(${count_of_deliveries}=0,0,${count_otif}/${count_of_deliveries})  ;;
+    sql: if(${count_of_deliveries}=0,0,${count_otif}/NULLIF(${count_of_deliveries},0))  ;;
     hidden: no
     link: {
       label: "Delivery Performance"
@@ -132,7 +132,7 @@ view: deliveries {
 
   measure: LateDeliveryPercentage {
     type: number
-    sql: if(${count_of_deliveries}=0,0,${count_latedeliveries}/${count_of_deliveries})  ;;
+    sql: if(${count_of_deliveries}=0,0,${count_latedeliveries}/NULLIF(${count_of_deliveries},0))  ;;
     hidden: no
     link: {
       label: "Delivery Performance"
