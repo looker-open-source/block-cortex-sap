@@ -6,30 +6,6 @@ view: inventory_metrics_overview {
       ;;
   }
   fields_hidden_by_default: yes
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Amount In Local Currency Dmbtr" in Explore.
-
-  # parameter: posting_date {
-  #   type: date
-  #   convert_tz: no
-  # }
-
-
-  # dimension: Current_date {
-  #   type: date
-  #   sql: now() ;;
-  # }
-
-  # measure: Current_date_filter {
-  #   type: date
-  #   sql: MAX(${posting_date}) ;;
-  #   convert_tz: no
-
-  # }
 
   dimension: amount_in_local_currency_dmbtr {
     type: number
@@ -164,7 +140,6 @@ view: inventory_metrics_overview {
 
   dimension: material_group_matkl {
     type: string
-    label: "Material Group"
     sql: ${TABLE}.MaterialGroup_MATKL ;;
     hidden: no
   }
@@ -191,13 +166,13 @@ view: inventory_metrics_overview {
 
   dimension: material_name {
     type: string
+    label: "Material"
     sql: ${TABLE}.MaterialText_MAKTX ;;
     hidden: no
   }
 
   dimension: material_type_mtart {
     type: string
-    label: "Material Type"
     sql: ${TABLE}.MaterialType_MTART ;;
     hidden: no
   }

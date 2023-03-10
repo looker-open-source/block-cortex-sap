@@ -1,5 +1,5 @@
 - dashboard: stock_value_details
-  title: "[SAP SUPPLY CHAIN] IM 10_a:Stock Value Details"
+  title: "[SUPPLY CHAIN] IM 07_a: Stock Value Details"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -226,7 +226,7 @@
       options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: []
+    listens_to_filters: [Country, Plant, Stock Type, Material Type, Material]
     field: inventory_by_plant.company_code_bukrs
   - name: Country
     title: Country
@@ -240,7 +240,7 @@
       options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Company Code]
+    listens_to_filters: [Company Code, Plant, Stock Type, Material Type, Material]
     field: inventory_by_plant.country_key_land1
   - name: Plant
     title: Plant
@@ -251,10 +251,9 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: []
+    listens_to_filters: [Country, Stock Type, Material Type, Material]
     field: inventory_by_plant.plant_name_name2
   - name: Stock Type
     title: Stock Type
@@ -265,10 +264,9 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: []
+    listens_to_filters: [Country, Plant, Material Type, Material]
     field: inventory_by_plant.stock_characteristic
   - name: Material Type
     title: Material Type
@@ -279,10 +277,9 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: []
+    listens_to_filters: [Country, Plant, Stock Type, Material]
     field: inventory_by_plant.description_of_material_type_mtbez
   - name: Material
     title: Material
@@ -293,8 +290,7 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: []
+    listens_to_filters: [Country, Plant, Stock Type, Material Type]
     field: inventory_by_plant.material_text_maktx

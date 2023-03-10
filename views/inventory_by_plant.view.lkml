@@ -6,22 +6,6 @@ view: inventory_by_plant {
   }
   fields_hidden_by_default: yes
 
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
-
-  # parameter: posting_date {
-  #   type: date
-  #   convert_tz: no
-  # }
-
-  # dimension: select_date {
-  #   type: date
-  #   datatype: date
-  #   sql: ${posting_date} ;;
-  # }
-
-
   dimension: amount_in_local_currency_dmbtr {
     type: number
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
@@ -245,7 +229,7 @@ view: inventory_by_plant {
 
   dimension: material_text_maktx {
     type: string
-    label: "Material Text"
+    label: "Material Name"
     sql: ${TABLE}.MaterialText_MAKTX ;;
     hidden: no
   }

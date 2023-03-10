@@ -1,5 +1,5 @@
 - dashboard: inventory_management_
-  title: '[SAP SUPPLY CHAIN] IM 10: Inventory Management'
+  title: "[SAP SUPPLY CHAIN] IM 07: Inventory Management"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -37,12 +37,12 @@
     note_text: 'Distribution of inventory value across all stock categories '
     listen:
       Plant: inventory_by_plant.plant_name_name2
-      Material: inventory_by_plant.material_text_maktx
       Currency: inventory_by_plant.target_currency
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
       Company Code: inventory_by_plant.company_code_bukrs
       Country: inventory_by_plant.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_by_plant.material_text_maktx
     row: 8
     col: 0
     width: 14
@@ -80,12 +80,12 @@
     note_text: Total value of Dead or Obsolete stock which can not be used now
     listen:
       Plant: inventory_by_plant.plant_name_name2
-      Material: inventory_by_plant.material_text_maktx
       Currency: inventory_by_plant.target_currency
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
       Company Code: inventory_by_plant.company_code_bukrs
       Country: inventory_by_plant.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_by_plant.material_text_maktx
     row: 12
     col: 14
     width: 10
@@ -117,11 +117,11 @@
     note_text: Total value of stock for which consumption is very less
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
-      Material: inventory_metrics_overview.material_text_maktx
       Currency: inventory_metrics_overview.target_currency
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_metrics_overview.material_text_maktx
     row: 8
     col: 14
     width: 10
@@ -235,7 +235,6 @@
       on Inventory Quantity)
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
     row: 2
@@ -313,12 +312,12 @@
     note_text: "Monthly trend of Inventory value\n\n"
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
-      Material: inventory_metrics_overview.material_text_maktx
       Currency: inventory_metrics_overview.target_currency
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_metrics_overview.material_text_maktx
     row: 16
     col: 0
     width: 12
@@ -405,12 +404,12 @@
     note_text: Monthly trend of Material Stock Value
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
-      Material: inventory_metrics_overview.material_text_maktx
       Currency: inventory_metrics_overview.target_currency
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_metrics_overview.material_text_maktx
     row: 16
     col: 12
     width: 12
@@ -699,15 +698,15 @@
         desc 0]
     listen:
     - Plant: inventory_metrics_overview.plant_name2_name2
-      Material: inventory_metrics_overview.material_text_maktx
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_metrics_overview.material_text_maktx
     - Plant: inventory_metrics_overview.plant_name2_name2
-      Material: inventory_metrics_overview.material_text_maktx
-      Material Type: inventory_metrics_overview.material_type_mtart
       Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
+      Material Type: inventory_by_plant.description_of_material_type_mtbez
+      Material: inventory_metrics_overview.material_text_maktx
     row: 2
     col: 0
     width: 12
@@ -811,7 +810,6 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
     listens_to_filters: []
