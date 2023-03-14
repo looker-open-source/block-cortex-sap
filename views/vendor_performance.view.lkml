@@ -103,8 +103,6 @@ view: vendor_performance {
     hidden: no
   }
 
- 
-
   dimension: language_key {
     type: string
     sql: ${TABLE}.LanguageKey_SPRAS ;;
@@ -123,7 +121,7 @@ view: vendor_performance {
     hidden: no
   }
 
-
+  
   dimension_group: PO_Creation_Date {
     type: time
     timeframes: [
@@ -391,7 +389,7 @@ view: vendor_performance {
     hidden: no
   }
 
-  
+  #####################################Spend by Top Vendors####################################################
 
   measure: sum_invoice_amount_in_target_currency_by_top_vendor {
     type: sum
@@ -446,13 +444,14 @@ view: vendor_performance {
     hidden: no
   }
 
-  
   measure: count_vendors {
     type: count_distinct
     sql: ${name1} ;;
     hidden: no
   }
+
   ######################## Total Vendors Count ####################################
+
   dimension: net_order_valuein_pocurrency_netwr {
     type: number
     sql: ${TABLE}.NetOrderValueinPOCurrency_NETWR ;;
@@ -987,16 +986,21 @@ view: vendor_performance {
     hidden: no
   }
 
-
   dimension: standard_cost {
     type: number
-    sql: ${materials_valuation_v2.standard_cost_stprs} ;;
+    sql:
+    CASE
+      WHEN ${material_type} = 'FERT' OR ${material_type} = 'HALB'
+        THEN COALESCE(${materials_valuation_v2.standard_cost_stprs}, ${Purchase_Price1})
+      WHEN ${material_type} = 'ROH' OR ${material_type} = 'HIBE'
+        THEN COALESCE(${materials_valuation_v2.moving_average_price_verpr}, ${Purchase_Price1})
+    END ;;
   }
 
   dimension: standard_cost_tc {
     type: number
     label: "Standard Price in TC"
-    sql: ${standard_cost} * ${exchange_rate_ukurs} ;;
+    sql: ${standard_cost}*${exchange_rate_ukurs} ;;
   }
 
   measure: sum_standard_cost {
@@ -1025,7 +1029,7 @@ view: vendor_performance {
   dimension: purchase_price_variance {
     type: number
     value_format_name: Greek_Number_Format
-    sql: (${net_price_in_target_currency_netpr} - ${standard_cost_tc}) * ${poquantity_menge} ;;
+    sql: abs((${net_price_in_target_currency_netpr} - ${standard_cost_tc}) * ${poquantity_menge}) ;;
   }
 
   measure: sum_purchase_price_variance {
