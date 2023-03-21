@@ -1,5 +1,5 @@
 - dashboard: total_receivable
-  title: "[SAP OTC AR] 06_d: Total Receivable"
+  title: "Accounts Total Receivable"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

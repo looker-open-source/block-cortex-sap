@@ -1,5 +1,5 @@
 - dashboard: stock_value_details
-  title: "[SUPPLY CHAIN] IM 10_a: Stock Value Details"
+  title: "Inventory Stock Value Details"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

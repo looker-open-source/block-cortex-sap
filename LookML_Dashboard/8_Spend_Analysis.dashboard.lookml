@@ -1,5 +1,5 @@
 - dashboard: sap_finance_sa_08_spend_analysis
-  title: "[SAP FINANCE] SA 08: Spend Analysis"
+  title: "Spend Analysis"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

@@ -1,5 +1,5 @@
 - dashboard: doubtful_receivable
-  title: "[SAP OTC AR] 06_b: Doubtful Receivable"
+  title: "Accounts Doubtful Receivable"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

@@ -1,5 +1,5 @@
 - dashboard: sap_finance_vp_09_vendor_performance
-  title: "[SAP FINANCE] VP 09: Vendor Performance"
+  title: "Vendor Performance"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

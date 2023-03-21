@@ -1,5 +1,5 @@
 - dashboard: sap_finance_sa_08_a_spend_by_top_vendors
-  title: "[SAP FINANCE] SA 08_a: Spend by Top Vendors"
+  title: "Spend Analysis by Top Vendors"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -18,21 +18,10 @@
       vendor_performance.uo_m_meins, vendor_performance.net_order_valuein_pocurrency_netwr,
       vendor_performance.currency_key_waers, vendor_performance.net_order_valuein_target_currency_netwr,
       vendor_performance.target_currency_tcurr, vendor_performance.invoice_amount_in_target_currency,
-      target_currency, vendor_performance.exchange_rate_ukurs]
+      vendor_performance.exchange_rate_ukurs, vendor_performance.invoice_amount_in_source_currency]
     sorts: [vendor_performance.purchase_doc_date_date desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: dimension, expression: "${vendor_performance.net_order_valuein_pocurrency_netwr}*\
-          \ ${currency_conversion_new.ukurs}", label: PO Amount Global Currency, value_format: !!null '',
-        value_format_name: Greek_Number_Format, dimension: po_amount_global_currency,
-        _kind_hint: dimension, _type_hint: number}, {category: dimension, expression: "${vendor_performance.invoice_amount_in_source_currency}*${currency_conversion_new.ukurs}",
-        label: Total Spend Global Currency, value_format: !!null '', value_format_name: Greek_Number_Format,
-        dimension: total_spend_global_currency, _kind_hint: dimension, _type_hint: number},
-      {category: dimension, expression: "${currency_conversion_new.tcurr}", label: Global
-          Currency, value_format: !!null '', value_format_name: !!null '', dimension: global_currency,
-        _kind_hint: dimension, _type_hint: string}, {category: dimension, expression: "${vendor_performance.target_currency_tcurr}",
-        label: Target Currency, value_format: !!null '', value_format_name: !!null '',
-        dimension: target_currency, _kind_hint: dimension, _type_hint: string}]
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -54,10 +43,10 @@
       vendor_performance.name1, vendor_performance.vendor_account_number_lifnr, vendor_performance.document_number_ebeln,
       vendor_performance.item_ebelp, vendor_performance.material_type_description,
       vendor_performance.material_description, vendor_performance.purchase_doc_date_date,
-      vendor_performance.poquantity_menge, vendor_performance.uo_m_meins, vendor_performance.net_order_valuein_pocurrency_netwr,
-      vendor_performance.currency_key_waers, vendor_performance.invoice_amount_in_target_currency,
-      target_currency, vendor_performance.net_order_valuein_target_currency_netwr,
-      vendor_performance.target_currency_tcurr, vendor_performance.exchange_rate_ukurs]
+      vendor_performance.poquantity_menge, vendor_performance.uo_m_meins, vendor_performance.currency_key_waers,
+      vendor_performance.net_order_valuein_pocurrency_netwr, vendor_performance.invoice_amount_in_source_currency,
+      vendor_performance.target_currency_tcurr, vendor_performance.net_order_valuein_target_currency_netwr,
+      vendor_performance.invoice_amount_in_target_currency, vendor_performance.exchange_rate_ukurs]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -79,6 +68,7 @@
       vendor_performance.target_currency_tcurr: Target Currency
       vendor_performance.invoice_amount_in_target_currency: Total Spend (TC)
       vendor_performance.exchange_rate_ukurs: Exchange Rate
+      vendor_performance.invoice_amount_in_source_currency: Total Spend
     truncate_column_names: false
     defaults_version: 1
     series_types: {}

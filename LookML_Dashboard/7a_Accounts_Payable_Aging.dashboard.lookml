@@ -1,5 +1,5 @@
 - dashboard: sap_finance_ap_07_a_accounts_payable_aging
-  title: "[SAP FINANCE] AP 07_a: Accounts Payable Aging"
+  title: "Accounts Payable Aging"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

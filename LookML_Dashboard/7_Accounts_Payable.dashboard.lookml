@@ -1,5 +1,5 @@
 - dashboard: sap_finance_ap_07_accounts_payable
-  title: "[SAP FINANCE] AP 07: Accounts Payable"
+  title: "Accounts Payable"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

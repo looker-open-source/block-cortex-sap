@@ -1,5 +1,5 @@
 - dashboard: overdue_receivables
-  title: "[SAP OTC AR] 06_c: Overdue Receivables"
+  title: "Accounts Overdue Receivables"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

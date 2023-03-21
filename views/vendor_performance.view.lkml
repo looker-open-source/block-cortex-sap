@@ -385,7 +385,7 @@ view: vendor_performance {
   measure: sum_invoice_amount_in_target_currency {
     type: sum
     sql: ${invoice_amount_in_target_currency} ;;
-    #value_format_name: Greek_Number_Format
+    value_format_name: Greek_Number_Format
     hidden: no
   }
 

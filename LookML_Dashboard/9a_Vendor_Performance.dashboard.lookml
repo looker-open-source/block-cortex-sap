@@ -1,5 +1,5 @@
 - dashboard: sap_finance_vp_09_a_delivery_performance_trend
-  title: "[SAP FINANCE] VP 09_a: Delivery Performance Trend"
+  title: "Vendor Delivery Performance Trend"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
