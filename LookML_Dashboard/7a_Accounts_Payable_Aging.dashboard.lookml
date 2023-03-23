@@ -12,8 +12,6 @@
     type: looker_column
     fields: [accounts_payable_v2.Past_Due_Interval, accounts_payable_v2.sum_overdue_amount_conv_drill_1]
     pivots: [accounts_payable_v2.Past_Due_Interval]
-    filters:
-      accounts_payable_v2.company_code_bukrs: C002
     sorts: [accounts_payable_v2.Past_Due_Interval]
     limit: 500
     column_limit: 50
@@ -58,6 +56,9 @@
     series_colors:
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
+    series_labels:
+      aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not OverDue
+      e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "> 90 Days"
     label_color: ["#80868B"]
     hidden_pivots: {}
     defaults_version: 1
@@ -201,6 +202,18 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
+    column_order: ["$$$_row_numbers_$$$", accounts_payable_v2.company_text_butxt,
+      accounts_payable_v2.name1, accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr,
+      accounts_payable_v2.accounting_document_number_belnr, accounts_payable_v2.number_of_line_item_within_accounting_document_buzei,
+      accounts_payable_v2.posting_date_in_the_document_budat_date, accounts_payable_v2.currency_key_waers,
+      accounts_payable_v2.overdue_amount_in_source_currency, accounts_payable_v2.outstanding_but_not_overdue_in_source_currency,
+      accounts_payable_v2.source_past_overdue_but_not_overdue, accounts_payable_v2.source_past_overdue_1_to_30day,
+      accounts_payable_v2.source_past_overdue_31_to_60day, accounts_payable_v2.source_past_overdue_61_to_90day,
+      accounts_payable_v2.source_past_overdue_greater_than_90day, accounts_payable_v2.target_currency_tcurr,
+      accounts_payable_v2.overdue_amount_in_target_currency, accounts_payable_v2.outstanding_but_not_overdue_in_target_currency,
+      accounts_payable_v2.past_overdue_but_not_overdue, accounts_payable_v2.past_overdue_1_to_30day,
+      accounts_payable_v2.past_overdue_61_to_90day, accounts_payable_v2.past_overdue_31_to_60day,
+      accounts_payable_v2.past_overdue_greater_than_90day, accounts_payable_v2.exchange_rate_ukurs]
     show_totals: true
     show_row_totals: true
     truncate_header: false
@@ -232,7 +245,22 @@
       accounts_payable_v2.source_past_overdue_greater_than_90day: Overdue > 90 days
       accounts_payable_v2.source_past_overdue_but_not_overdue: Outstanding but Not
         Overdue
-      accounts_payable_v2.target_currency_tcurr: Target Currency(TC)
+      accounts_payable_v2.target_currency_tcurr: Target Currency (TC)
+    series_value_format:
+      accounts_payable_v2.past_overdue_greater_than_90day: "#,##0.00"
+      accounts_payable_v2.past_overdue_61_to_90day: "#,##0.00"
+      accounts_payable_v2.past_overdue_31_to_60day: "#,##0.00"
+      accounts_payable_v2.past_overdue_but_not_overdue: "#,##0.00"
+      accounts_payable_v2.past_overdue_1_to_30day: "#,##0.00"
+      accounts_payable_v2.outstanding_but_not_overdue_in_target_currency: "#,##0.00"
+      accounts_payable_v2.overdue_amount_in_target_currency: "#,##0.00"
+      accounts_payable_v2.source_past_overdue_greater_than_90day: "#,##0.00"
+      accounts_payable_v2.source_past_overdue_61_to_90day: "#,##0.00"
+      accounts_payable_v2.source_past_overdue_31_to_60day: "#,##0.00"
+      accounts_payable_v2.source_past_overdue_1_to_30day: "#,##0.00"
+      accounts_payable_v2.source_past_overdue_but_not_overdue: "#,##0.00"
+      accounts_payable_v2.outstanding_but_not_overdue_in_source_currency: "#,##0.00"
+      accounts_payable_v2.overdue_amount_in_source_currency: "#,##0.00"
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -260,18 +288,6 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    column_order: ["$$$_row_numbers_$$$", accounts_payable_v2.company_text_butxt,
-      accounts_payable_v2.name1, accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr,
-      accounts_payable_v2.accounting_document_number_belnr, accounts_payable_v2.number_of_line_item_within_accounting_document_buzei,
-      accounts_payable_v2.posting_date_in_the_document_budat_date, accounts_payable_v2.currency_key_waers,
-      accounts_payable_v2.overdue_amount_in_source_currency, accounts_payable_v2.outstanding_but_not_overdue_in_source_currency,
-      accounts_payable_v2.source_past_overdue_but_not_overdue, accounts_payable_v2.source_past_overdue_1_to_30day,
-      accounts_payable_v2.source_past_overdue_31_to_60day, accounts_payable_v2.source_past_overdue_61_to_90day,
-      accounts_payable_v2.source_past_overdue_greater_than_90day, accounts_payable_v2.target_currency_tcurr,
-      accounts_payable_v2.overdue_amount_in_target_currency, accounts_payable_v2.outstanding_but_not_overdue_in_target_currency,
-      accounts_payable_v2.past_overdue_but_not_overdue, accounts_payable_v2.past_overdue_1_to_30day,
-      accounts_payable_v2.past_overdue_61_to_90day, accounts_payable_v2.past_overdue_31_to_60day,
-      accounts_payable_v2.past_overdue_greater_than_90day, accounts_payable_v2.exchange_rate_ukurs]
     hidden_fields: [accounts_payable_v2.company_code_bukrs]
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
@@ -281,7 +297,7 @@
     row: 7
     col: 0
     width: 24
-    height: 5
+    height: 6
   filters:
   - name: Target Currency
     title: Target Currency

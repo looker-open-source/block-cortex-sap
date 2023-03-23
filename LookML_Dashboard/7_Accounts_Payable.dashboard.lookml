@@ -171,6 +171,7 @@
     explore: accounts_payable_v2
     type: looker_pie
     fields: [accounts_payable_v2.sum_overdue_amount_conv_drill_2, accounts_payable_v2.name1]
+    filters: {}
     sorts: [accounts_payable_v2.sum_overdue_amount_conv_drill_2 desc 0]
     limit: 5
     column_limit: 50
@@ -578,7 +579,10 @@
     defaults_version: 1
     note_state: collapsed
     note_display: hover
-    note_text: Average number of days a company takes to pay to its vendors (by month)
+    note_text: 'Average number of days taken to pay vendors by fiscal period of the
+      settlement date.
+
+      '
     listen:
       Target Currency: days_payable_outstanding_v2.target_currency_tcurr
       Company Code: days_payable_outstanding_v2.company_text_butxt

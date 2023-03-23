@@ -581,7 +581,8 @@
       display: popover
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: []
+    listens_to_filters: [Purchasing Organization, Purchasing Group, Vendor Country,
+      Vendor Name]
     field: vendor_performance.company_text_butxt
   - name: Purchasing Organization
     title: Purchasing Organization
@@ -595,7 +596,7 @@
       options: []
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code]
+    listens_to_filters: [Company Code, Purchasing Group, Vendor Country, Vendor Name]
     field: vendor_performance.purchasing_organization_text_ekotx
   - name: Purchasing Group
     title: Purchasing Group
@@ -606,9 +607,11 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization]
+    listens_to_filters: [Company Code, Purchasing Organization, Vendor Country, Vendor
+        Name]
     field: vendor_performance.purchasing_group_text_eknam
   - name: Vendor Country
     title: Vendor Country
@@ -619,9 +622,11 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group]
+    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
+      Vendor Name]
     field: vendor_performance.country_key_land1
   - name: Vendor Name
     title: Vendor Name
@@ -632,8 +637,9 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: vendor_performance
-    listens_to_filters: [Vendor Country, Company Code, Purchasing Organization, Purchasing
-        Group]
+    listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
+      Vendor Country]
     field: vendor_performance.name1

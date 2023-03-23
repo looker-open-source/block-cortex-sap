@@ -69,6 +69,22 @@
       vendor_performance.invoice_amount_in_target_currency: Total Spend (TC)
       vendor_performance.exchange_rate_ukurs: Exchange Rate
       vendor_performance.invoice_amount_in_source_currency: Total Spend
+    series_column_widths:
+      vendor_performance.purchasing_organization_text_ekotx: 134
+      vendor_performance.purchasing_group_text_eknam: 112
+      vendor_performance.country_key_land1: 82
+      vendor_performance.name1: 215
+      vendor_performance.vendor_account_number_lifnr: 89
+      vendor_performance.document_number_ebeln: 95
+      vendor_performance.item_ebelp: 102
+      vendor_performance.material_type_description: 118
+      vendor_performance.material_description: 159
+      vendor_performance.purchase_doc_date_date: 109
+    series_value_format:
+      vendor_performance.invoice_amount_in_source_currency: "#,##0.00"
+      vendor_performance.invoice_amount_in_target_currency: "#,##0.00"
+      vendor_performance.net_order_valuein_target_currency_netwr: "#,##0.00"
+      vendor_performance.net_order_valuein_pocurrency_netwr: "#,##0.00"
     truncate_column_names: false
     defaults_version: 1
     series_types: {}
