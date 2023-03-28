@@ -228,6 +228,13 @@ explore: inventory_metrics_overview {
 explore: inventory_by_plant {
     sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
       and ${inventory_by_plant.language_spras} = '{{ _user_attributes['language'] }}';;
+
+    join: inventory_metrics_overview {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
+      ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
+  }
 }
 
 explore: accounts_payable_v2 {

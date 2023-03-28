@@ -6,39 +6,11 @@ view: inventory_metrics_overview {
       ;;
   }
   fields_hidden_by_default: yes
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Amount In Local Currency Dmbtr" in Explore.
-
-  # parameter: posting_date {
-  #   type: date
-  #   convert_tz: no
-  # }
-
-
-  # dimension: Current_date {
-  #   type: date
-  #   sql: now() ;;
-  # }
-
-  # measure: Current_date_filter {
-  #   type: date
-  #   sql: MAX(${posting_date}) ;;
-  #   convert_tz: no
-
-  # }
-
+  
   dimension: amount_in_local_currency_dmbtr {
     type: number
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
   }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_amount_in_local_currency_dmbtr {
     type: sum
@@ -76,7 +48,9 @@ view: inventory_metrics_overview {
 
   dimension: company_text_butxt {
     type: string
+    label: "Company Name"
     sql: ${TABLE}.CompanyText_BUTXT ;;
+    hidden: no
   }
 
   dimension: target_currency {
@@ -270,7 +244,7 @@ view: inventory_metrics_overview {
     hidden: no
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Code={{ _filters['inventory_metrics_overview.company_code_bukrs']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 
@@ -353,7 +327,7 @@ view: inventory_metrics_overview {
     #label: "Inventory Value"
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Code={{ _filters['inventory_metrics_overview.company_code_bukrs']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 

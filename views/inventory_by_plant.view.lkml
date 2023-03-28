@@ -6,6 +6,7 @@ view: inventory_by_plant {
   }
   fields_hidden_by_default: yes
 
+
   dimension: amount_in_local_currency_dmbtr {
     type: number
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
@@ -178,7 +179,7 @@ view: inventory_by_plant {
     hidden: no
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Code={{ _filters['inventory_by_plant.company_code_bukrs']| url_encode }}&Currency={{ _filters['inventory_by_plant.target_currency']| url_encode }}&Plant={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.target_currency']| url_encode }}&Plant={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 
@@ -204,7 +205,7 @@ view: inventory_by_plant {
     value_format_name: Greek_Number_Format
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Code+={{ _filters['inventory_by_plant.company_code_bukrs']| url_encode }}&Currency={{ _filters['inventory_by_plant.currency_key_waers']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.currency_key_waers']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}"
     }
     #required_fields: [inventory_value]
     #drill_fields: [company_code_bukrs,plant_name_name2,storage_location_text_lgobe,material_number_matnr,material_text_maktx,description_of_material_type_mtbez,stock_characteristic,quantity_menge,base_unit_of_measure_meins,inventory_value,currency_key_waers]
@@ -403,7 +404,7 @@ view: inventory_by_plant {
     #label: "Inventory Value"
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Code+={{ _filters['inventory_by_plant.company_code_bukrs']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 

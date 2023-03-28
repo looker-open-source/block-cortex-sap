@@ -1,5 +1,5 @@
 - dashboard: sap_supply_chain_im_10_inventory_management
-  title: Inventory Management
+  title: "Inventory Management"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -38,11 +38,11 @@
     listen:
       Plant: inventory_by_plant.plant_name_name2
       Currency: inventory_by_plant.target_currency
-      Company Code: inventory_by_plant.company_code_bukrs
       Country: inventory_by_plant.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_by_plant.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 8
     col: 0
     width: 14
@@ -81,11 +81,11 @@
     listen:
       Plant: inventory_by_plant.plant_name_name2
       Currency: inventory_by_plant.target_currency
-      Company Code: inventory_by_plant.company_code_bukrs
       Country: inventory_by_plant.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_by_plant.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 12
     col: 14
     width: 10
@@ -120,10 +120,10 @@
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_metrics_overview.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 8
     col: 14
     width: 10
@@ -244,8 +244,8 @@
       on Inventory Quantity)
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 2
     col: 12
     width: 12
@@ -322,11 +322,11 @@
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_metrics_overview.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 16
     col: 0
     width: 12
@@ -341,6 +341,7 @@
     pivots: [inventory_metrics_overview.material_type]
     fill_fields: [inventory_metrics_overview.month_end_month]
     filters:
+      inventory_metrics_overview.company_code_bukrs: C001
       inventory_metrics_overview.month_end_month: 12 months ago for 12 months
     sorts: [inventory_metrics_overview.material_type, inventory_metrics_overview.month_end_month]
     limit: 12
@@ -414,11 +415,11 @@
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_metrics_overview.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 16
     col: 12
     width: 12
@@ -707,15 +708,15 @@
         desc 0]
     listen:
     - Plant: inventory_metrics_overview.plant_name2_name2
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_metrics_overview.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     - Plant: inventory_metrics_overview.plant_name2_name2
-      Company Code: inventory_metrics_overview.company_code_bukrs
       Country: inventory_metrics_overview.country_key_land1
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_metrics_overview.material_text_maktx
+      Company Name: inventory_metrics_overview.company_text_butxt
     row: 2
     col: 0
     width: 12
@@ -743,19 +744,19 @@
     explore: inventory_by_plant
     listens_to_filters: []
     field: inventory_by_plant.target_currency
-  - name: Company Code
-    title: Company Code
+  - name: Company Name
+    title: Company Name
     type: field_filter
-    default_value: C001
+    default_value: CYMBAL US01 US EAST
     allow_multiple_values: true
     required: true
     ui_config:
       type: tag_list
       display: popover
     model: cortex_sap_operational
-    explore: inventory_by_plant
-    listens_to_filters: [Country, Plant, Stock Type, Material Type, Material]
-    field: inventory_by_plant.company_code_bukrs
+    explore: inventory_metrics_overview
+    listens_to_filters: [Country, Plant, Material Type, Stock Type, Material]
+    field: inventory_metrics_overview.company_text_butxt
   - name: Country
     title: Country
     type: field_filter
@@ -765,9 +766,10 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: inventory_metrics_overview
-    listens_to_filters: [Company Code, Plant, Stock Type, Material Type, Material]
+    listens_to_filters: [Company Name, Plant, Material Type, Stock Type, Material]
     field: inventory_by_plant.country_key_land1
   - name: Plant
     title: Plant
@@ -778,9 +780,10 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Country, Stock Type, Material Type, Material]
+    listens_to_filters: [Company Name, Country, Material Type, Stock Type, Material]
     field: inventory_by_plant.plant_name_name2
   - name: Stock Type
     title: Stock Type
@@ -791,9 +794,10 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Country, Plant, Material Type, Material]
+    listens_to_filters: [Company Name, Country, Plant, Material Type, Material]
     field: inventory_by_plant.stock_characteristic
   - name: Material Type
     title: Material Type
@@ -804,9 +808,10 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Country, Plant, Stock Type, Material]
+    listens_to_filters: [Company Name, Country, Plant, Stock Type, Material]
     field: inventory_by_plant.description_of_material_type_mtbez
   - name: Material
     title: Material
@@ -819,5 +824,5 @@
       display: popover
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Country, Plant, Stock Type, Material Type]
+    listens_to_filters: [Company Name, Country, Plant, Material Type, Stock Type]
     field: inventory_by_plant.material_text_maktx
