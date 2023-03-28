@@ -6,6 +6,30 @@ view: inventory_metrics_overview {
       ;;
   }
   fields_hidden_by_default: yes
+  # No primary key is defined for this view. In order to join this view in an Explore,
+  # define primary_key: yes on a dimension that has no repeated values.
+
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Amount In Local Currency Dmbtr" in Explore.
+
+  # parameter: posting_date {
+  #   type: date
+  #   convert_tz: no
+  # }
+
+
+  # dimension: Current_date {
+  #   type: date
+  #   sql: now() ;;
+  # }
+
+  # measure: Current_date_filter {
+  #   type: date
+  #   sql: MAX(${posting_date}) ;;
+  #   convert_tz: no
+
+  # }
 
   dimension: amount_in_local_currency_dmbtr {
     type: number
@@ -99,7 +123,7 @@ view: inventory_metrics_overview {
     sql:  ${days_of_supply} ;;
     label: "Days Of Supply"
     value_format: "0"
-    filters: [days_of_supply : ">0"]
+    filters: [days_of_supply : ">=0"]
     drill_fields: [material_group_name_wgbez,material_type,material_number_matnr,material_text_maktx,average_days_of_supply]
     hidden: no
   }
@@ -114,7 +138,7 @@ view: inventory_metrics_overview {
     sql: ${TABLE}.FiscalYear ;;
   }
 
-  dimension: inventory_trun {
+  dimension: inventory_turn {
     type: number
     sql: ${TABLE}.InventoryTurnByMonth ;;
   }
@@ -122,15 +146,15 @@ view: inventory_metrics_overview {
   measure: average_inventory_turn {
     type: average
     label: "Inventory Turn"
-    sql: ${inventory_trun} ;;
+    sql: ${inventory_turn} ;;
     hidden: no
-    filters: [inventory_trun: ">0"]
+    filters: [inventory_turn: ">=0"]
     drill_fields: [material_group_name_wgbez,plant_name2_name2,material_text_maktx,average_inventory_turn]
   }
 
   measure: sum_inventory_turn {
     type: number
-    sql: sum(${inventory_trun}) ;;
+    sql: sum(${inventory_turn}) ;;
   }
 
   dimension: language_spras {

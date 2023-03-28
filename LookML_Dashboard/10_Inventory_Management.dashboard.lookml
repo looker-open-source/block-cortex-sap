@@ -1,5 +1,5 @@
-- dashboard: inventory_management_
-  title: "Inventory Management"
+- dashboard: sap_supply_chain_im_10_inventory_management
+  title: Inventory Management
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -97,6 +97,8 @@
     type: single_value
     fields: [inventory_metrics_overview.sum_slow_moving_inventory_target_currency,
       inventory_metrics_overview.sum_inventory_value_target_currency]
+    filters:
+      inventory_metrics_overview.month_end_month: last month
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -137,6 +139,7 @@
       inventory_metrics_overview.material_type: Finished Product
     sorts: [sum_of_quantity_menge_2 desc]
     limit: 10
+    column_limit: 50
     dynamic_fields: [{measure: sum_of_quantity_menge_2, based_on: inventory_metrics_overview.quantity_menge,
         expression: '', label: Sum of Quantity Menge, type: sum, _kind_hint: measure,
         _type_hint: number}]
@@ -180,9 +183,15 @@
           - "#ffb5b2"
           - "#fed7ff"
           - "#ffc1b5"
+      inventory_metrics_overview.average_days_of_supply:
+        is_active: true
     series_text_format:
       inventory_metrics_overview.material_number_matnr:
         bg_color: "#fffefa"
+      inventory_metrics_overview.average_days_of_supply:
+        fg_color: "#1A73E8"
+        underline: true
+        bold: true
     limit_displayed_rows_values:
       show_hide: show
       first_last: first
