@@ -1,5 +1,5 @@
 - dashboard: day_sales_outstanding
-  title: "Accounts Day Sales Outstanding"
+  title: "Accounts Receivable - Days Sales Outstanding"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

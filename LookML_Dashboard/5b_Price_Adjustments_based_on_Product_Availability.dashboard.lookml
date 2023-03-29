@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 05_b: Price Adjustments based on Product Availability"
+  title: "Sales Price Adjustments based on Product Availability"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

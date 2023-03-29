@@ -1,5 +1,5 @@
 - dashboard: overdue_receivables
-  title: "Accounts Overdue Receivables"
+  title: "Accounts Receivable - Overdue Receivables"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

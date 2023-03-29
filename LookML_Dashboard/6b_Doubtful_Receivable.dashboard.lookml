@@ -1,5 +1,5 @@
 - dashboard: doubtful_receivable
-  title: "Accounts Doubtful Receivable"
+  title: "Accounts Receivable - Doubtful Receivables"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

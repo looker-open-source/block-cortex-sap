@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_04_a_sales_performance_by_distribution_channelperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 04_a: Sales Performance by Distribution Channel"
+  title: "Sales Performance by Distribution Channel"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

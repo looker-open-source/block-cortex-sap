@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_02_a_cancelled_ordersperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 02_a: Canceled Orders"
+  title: "Sales Order Cancellations"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

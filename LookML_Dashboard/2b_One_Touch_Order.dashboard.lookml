@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_02_b_one_touch_orderperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 02_b: One Touch Order"
+  title: "Sales Order One Touch Orders"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

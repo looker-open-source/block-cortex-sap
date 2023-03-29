@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_05_a_price_adjustments_based_on_customer_profilingperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 05_a: Price Adjustments based on Customer Profiling"
+  title: "Sales Price Adjustments based on Customer Profiling"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
