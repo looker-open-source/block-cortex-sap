@@ -33,7 +33,7 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: white
+    table_theme: editable
     limit_displayed_rows: false
     enable_conditional_formatting: false
     header_text_alignment: left
@@ -90,30 +90,33 @@
       vendor_performance.material_description: Material
       vendor_performance.material_type_description: Material Type
     series_column_widths:
-      vendor_performance.purchasing_organization_text_ekotx: 240
-      vendor_performance.purchasing_group_text_eknam: 240
-      vendor_performance.company_text_butxt: 240
-      vendor_performance.vendor_account_number_lifnr: 240
-      vendor_performance.name1: 240
-      vendor_performance.document_number_ebeln: 240
-      vendor_performance.item_ebelp: 150
+      vendor_performance.purchasing_organization_text_ekotx: 109
+      vendor_performance.purchasing_group_text_eknam: 139
+      vendor_performance.company_text_butxt: 146
+      vendor_performance.vendor_account_number_lifnr: 93
+      vendor_performance.name1: 221
+      vendor_performance.document_number_ebeln: 92
+      vendor_performance.item_ebelp: 81
       materials_md.material_text_maktx: 240
-      vendor_performance.Actual_Receipt_Date_date: 150
-      vendor_performance.Requested_delivery_date_date: 150
+      vendor_performance.Actual_Receipt_Date_date: 84
+      vendor_performance.Requested_delivery_date_date: 82
       vendor_performance.PO_Creation_Date_date: 240
-      vendor_performance.Invoice_date_date: 150
-      vendor_performance.poquantity_menge: 120
-      vendor_performance.invoice_quantity: 120
-      vendor_performance.uo_m_meins3: 120
-      vendor_performance.On_Time: 120
+      vendor_performance.Invoice_date_date: 91
+      vendor_performance.poquantity_menge: 78
+      vendor_performance.invoice_quantity: 84
+      vendor_performance.uo_m_meins3: 75
+      vendor_performance.On_Time: 98
       vendor_performance.Delivery: 240
-      vendor_performance.country_key_land1: 150
-      vendor_performance.Schedule_line_date_date: 150
-      vendor_performance.item_delivery_date_eindt_date: 150
-      vendor_performance.uo_m_meins: 120
-      vendor_performance.goods_receipt_quantity: 120
-      vendor_performance.uo_m_meins2: 120
+      vendor_performance.country_key_land1: 84
+      vendor_performance.Schedule_line_date_date: 87
+      vendor_performance.item_delivery_date_eindt_date: 90
+      vendor_performance.uo_m_meins: 95
+      vendor_performance.goods_receipt_quantity: 86
+      vendor_performance.uo_m_meins2: 91
       vendor_performance.DeliveredorNot: 120
+      vendor_performance.material_description: 194
+      vendor_performance.material_type_description: 129
+      vendor_performance.purchasing_document_date_bedat_date: 98
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true

@@ -341,7 +341,6 @@
     pivots: [inventory_metrics_overview.material_type]
     fill_fields: [inventory_metrics_overview.month_end_month]
     filters:
-      inventory_metrics_overview.company_code_bukrs: C001
       inventory_metrics_overview.month_end_month: 12 months ago for 12 months
     sorts: [inventory_metrics_overview.material_type, inventory_metrics_overview.month_end_month]
     limit: 12

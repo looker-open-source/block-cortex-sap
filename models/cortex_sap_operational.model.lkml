@@ -242,6 +242,10 @@ explore: accounts_payable_v2 {
   sql_always_where: ${accounts_payable_v2.client_mandt} =  '{{ _user_attributes['client_id_rep'] }}';;
 }
 
+explore: cash_discount_utilization {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+}
+
 
 explore: accounts_payable_overview_v2 {
 

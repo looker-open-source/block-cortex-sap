@@ -66,9 +66,9 @@
     note_display: hover
     note_text: Total balance due to all vendors as of today in the target currency
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 2
     col: 0
     width: 8
@@ -98,73 +98,13 @@
     note_text: Total balance due to all vendors that is overdue as of today in the
       target currency
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 2
     col: 8
     width: 8
     height: 2
-  - title: Cash Discount Utilization Trend
-    name: Cash Discount Utilization Trend
-    model: cortex_sap_operational
-    explore: accounts_payable_overview_v2
-    type: looker_line
-    fields: [accounts_payable_overview_v2.Cash_Discount_Utilization, accounts_payable_overview_v2.posting_date_in_the_document_budat_month_month]
-    fill_fields: [accounts_payable_overview_v2.posting_date_in_the_document_budat_month_month]
-    filters:
-      accounts_payable_overview_v2.posting_date_in_the_document_budat_month_month: 12
-        months
-    sorts: [accounts_payable_overview_v2.posting_date_in_the_document_budat_month_month]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: ordinal
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    x_axis_label: Month
-    x_axis_zoom: true
-    y_axis_zoom: true
-    font_size: '10'
-    series_colors:
-      accounts_payable_overview_v2.Cash_Discount_Utilization: "#E52592"
-    label_color: ["#80868B"]
-    x_axis_datetime_label: "%Y/%m"
-    x_axis_label_rotation: -50
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: The utilization efficiency achieved by taking cash discounts for early
-      payments compared to all cash discounts available, whether taken or lost, over
-      the last 12 months
-    listen:
-      Vendor Name: accounts_payable_overview_v2.name1
-      Target Currency: accounts_payable_overview_v2.target_currency_tcurr
-      Company Code: accounts_payable_overview_v2.company_text_butxt
-    row: 18
-    col: 0
-    width: 12
-    height: 6
   - title: Accounts Payable by Vendor
     name: Accounts Payable by Vendor
     model: cortex_sap_operational
@@ -186,9 +126,9 @@
     note_display: hover
     note_text: Vendors with the highest balances due as of today
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 12
     col: 0
     width: 12
@@ -254,9 +194,9 @@
     note_text: Upcoming payments due within the next two weeks and late payments to
       which penalties may be applicable as of today in the target currency
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 12
     col: 12
     width: 12
@@ -320,9 +260,9 @@
       and the number of invoices and amount of invoices that are blocked for payment
       as of today in the target currency
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 18
     col: 12
     width: 12
@@ -390,9 +330,9 @@
     note_text: Aging analysis of balances due and overdue to vendors as of today in
       the target currency
     listen:
-      Vendor Name: accounts_payable_v2.name1
       Target Currency: accounts_payable_v2.target_currency_tcurr
       Company Code: accounts_payable_v2.company_text_butxt
+      Vendor Name: accounts_payable_v2.name1
     row: 5
     col: 8
     width: 8
@@ -421,7 +361,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: '#,##0.0 "days"'
+    value_format: "#,##0.0"
     conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
         font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
           palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
@@ -446,9 +386,9 @@
     note_text: How many times we paid off the average accounts payable amount in the
       previous fiscal period
     listen:
-      Vendor Name: accounts_payable_turnover_v2.name1
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
       Company Code: accounts_payable_turnover_v2.company_text_butxt
+      Vendor Name: accounts_payable_turnover_v2.name1
     row: 2
     col: 16
     width: 8
@@ -505,7 +445,7 @@
     series_colors:
       accounts_payable_turnover_v2.turnover: "#9334E6"
     series_labels:
-      accounts_payable_turnover_v2.turnover: Turnover (in days)
+      accounts_payable_turnover_v2.turnover: Turnover
     x_axis_datetime_label: "%Y-%m"
     x_axis_label_rotation: -60
     defaults_version: 1
@@ -514,9 +454,9 @@
     note_text: How many times per fiscal period the average accounts payable amount
       is paid off
     listen:
-      Vendor Name: accounts_payable_turnover_v2.name1
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
       Company Code: accounts_payable_turnover_v2.company_text_butxt
+      Vendor Name: accounts_payable_turnover_v2.name1
     row: 5
     col: 16
     width: 8
@@ -580,7 +520,7 @@
     note_state: collapsed
     note_display: hover
     note_text: 'Average number of days taken to pay vendors by fiscal period of the
-      settlement date.
+      settlement date
 
       '
     listen:
@@ -589,6 +529,69 @@
     row: 5
     col: 0
     width: 8
+    height: 6
+  - title: Cash Discount Utilization Trend
+    name: Cash Discount Utilization Trend
+    model: cortex_sap_operational
+    explore: cash_discount_utilization
+    type: looker_line
+    fields: [cash_discount_utilization.posting_date_in_the_document_budat_month, cash_discount_utilization.Cash_Discount_Utilization]
+    fill_fields: [cash_discount_utilization.posting_date_in_the_document_budat_month]
+    filters:
+      cash_discount_utilization.posting_date_in_the_document_budat_month: 12 months
+    sorts: [cash_discount_utilization.posting_date_in_the_document_budat_month]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    x_axis_label: Month
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: last
+      num_rows: '12'
+    series_types: {}
+    series_colors:
+      cash_discount_utilization.Cash_Discount_Utilization: "#E52592"
+    label_color: ["#80868B"]
+    x_axis_datetime_label: "%Y/%m"
+    x_axis_label_rotation: -50
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: The utilization efficiency achieved by taking cash discounts for early
+      payments compared to all cash discounts available, whether taken or lost, over
+      the last 12 months
+    listen:
+      Target Currency: cash_discount_utilization.target_currency_tcurr
+      Company Code: cash_discount_utilization.company_text_butxt
+      Vendor Name: cash_discount_utilization.name1
+    row: 18
+    col: 0
+    width: 12
     height: 6
   filters:
   - name: Target Currency
