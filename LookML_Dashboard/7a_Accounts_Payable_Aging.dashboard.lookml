@@ -10,9 +10,11 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: looker_column
-    fields: [accounts_payable_v2.Past_Due_Interval, accounts_payable_v2.sum_overdue_amount_conv_drill_1]
-    pivots: [accounts_payable_v2.Past_Due_Interval]
-    sorts: [accounts_payable_v2.Past_Due_Interval]
+    fields: [accounts_payable_v2.sum_past_overdue_not_overdue, accounts_payable_v2.sum_past_overdue_1_to_30days,
+      accounts_payable_v2.sum_past_overdue_31_to_60days, accounts_payable_v2.sum_past_overdue_61_to_90days,
+      accounts_payable_v2.sum_past_overdue_greater_than_90days]
+    filters:
+      accounts_payable_v2.account_type_koart: K
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -57,8 +59,20 @@
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
     series_labels:
-      aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not OverDue
+      aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "> 90 Days"
+      c31-60 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: 31-60 Days
+      d61-90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: 61-90 Days
+      accounts_payable_v2.sum_past_overdue_not_overdue_drill: Not Overdue
+      accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill: 1 to 30 Days
+      accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill: 31 to 60 Days
+      accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill: 61 to 90 Days
+      accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill: "> 90 Days"
+      accounts_payable_v2.sum_past_overdue_not_overdue: Not Overdue
+      accounts_payable_v2.sum_past_overdue_1_to_30days: 1 to 30 Days
+      accounts_payable_v2.sum_past_overdue_31_to_60days: 31 to 60 Days
+      accounts_payable_v2.sum_past_overdue_61_to_90days: 61 to 90 Days
+      accounts_payable_v2.sum_past_overdue_greater_than_90days: "> 90 Days"
     label_color: ["#80868B"]
     hidden_pivots: {}
     defaults_version: 1
@@ -68,9 +82,9 @@
       the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
       Vendor Number: accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 0
     col: 0
     width: 12
@@ -80,10 +94,10 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: looker_bar
-    fields: [accounts_payable_v2.name1, accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill,
-      accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill, accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill,
-      accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill, accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill,
-      accounts_payable_v2.sum_overdue_amount_conv_drill]
+    fields: [accounts_payable_v2.name1, accounts_payable_v2.sum_overdue_amount_conv_drill,
+      accounts_payable_v2.sum_past_overdue_not_overdue, accounts_payable_v2.sum_past_overdue_1_to_30days,
+      accounts_payable_v2.sum_past_overdue_31_to_60days, accounts_payable_v2.sum_past_overdue_61_to_90days,
+      accounts_payable_v2.sum_past_overdue_greater_than_90days]
     filters:
       accounts_payable_v2.account_type_koart: K
     sorts: [accounts_payable_v2.sum_overdue_amount_conv_drill desc]
@@ -118,7 +132,7 @@
     totals_color: "#808080"
     color_application:
       collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
-      palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
+      palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
       options:
         steps: 5
     y_axes: [{label: '', orientation: bottom, series: [{axisId: accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill,
@@ -138,15 +152,18 @@
     y_axis_zoom: true
     font_size: '10'
     series_types: {}
-    series_colors:
-      accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill: "#1A73E8"
+    series_colors: {}
     series_labels:
       accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill: Not Overdue
-      accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill: 1-30 Days Overdue
-      accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill: 31-60 Days Overdue
-      accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill: 61-90 Days Overdue
-      accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill: ">90 Days\
-        \ Overdue"
+      accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill: 1 to 30 Days
+      accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill: "> 90 Days"
+      accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill: 31 to 60 Days
+      accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill: 61 to 90 Days
+      accounts_payable_v2.sum_past_overdue_not_overdue: Not Overdue
+      accounts_payable_v2.sum_past_overdue_1_to_30days: 1 to 30 Days
+      accounts_payable_v2.sum_past_overdue_31_to_60days: 31 to 60 Days
+      accounts_payable_v2.sum_past_overdue_61_to_90days: 61 to 90 Days
+      accounts_payable_v2.sum_past_overdue_greater_than_90days: "> 90 Days"
     defaults_version: 1
     hidden_pivots: {}
     hidden_fields: [accounts_payable_v2.sum_overdue_amount_conv_drill]
@@ -156,9 +173,9 @@
       today in the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
       Vendor Number: accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 0
     col: 12
     width: 12
@@ -291,9 +308,9 @@
     hidden_fields: [accounts_payable_v2.company_code_bukrs]
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
       Vendor Number: accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 7
     col: 0
     width: 24
@@ -312,8 +329,8 @@
     explore: accounts_payable_v2
     listens_to_filters: []
     field: accounts_payable_v2.target_currency_tcurr
-  - name: Company Code
-    title: Company Code
+  - name: Company Name
+    title: Company Name
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -336,7 +353,7 @@
       display: popover
     model: cortex_sap_operational
     explore: accounts_payable_v2
-    listens_to_filters: [Company Code, Vendor Number]
+    listens_to_filters: [Company Name, Vendor Number]
     field: accounts_payable_v2.name1
   - name: Vendor Number
     title: Vendor Number
@@ -349,5 +366,5 @@
       display: popover
     model: cortex_sap_operational
     explore: accounts_payable_v2
-    listens_to_filters: [Company Code, Vendor Name]
+    listens_to_filters: [Company Name, Vendor Name]
     field: accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr

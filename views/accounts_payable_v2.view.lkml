@@ -1,15 +1,7 @@
-# The name of this view in Looker is "Accounts Payable"
 view: accounts_payable_v2 {
-  # The sql_table_name parameter indicates the underlying database table
-  # to be used for all fields in this view.
+  
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountsPayable`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Account Number of Vendor or Creditor Lifnr" in Explore.
 
   parameter: Aging_Interval {
     type: number
@@ -41,10 +33,6 @@ view: accounts_payable_v2 {
     type: number
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR * -1;;
   }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_amount_in_local_currency_dmbtr {
     type: sum
@@ -93,12 +81,6 @@ view: accounts_payable_v2 {
     type: number
     sql: ${TABLE}.CashDiscountReceivedInTargetCurrency ;;
   }
-
-
-
-
-  # Dates and timestamps can be represented in Looker using a dimension group of type: time.
-  # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
   dimension_group: clearing_date_augdt {
     type: time
@@ -391,8 +373,6 @@ view: accounts_payable_v2 {
   }
 
 
-
-
   dimension:  past_overdue_but_not_overdue{
     type: number
     sql: if(${Past_Due_Interval}='aNot OverDue',(${overdue_amount_in_target_currency}),0) ;;
@@ -419,9 +399,14 @@ view: accounts_payable_v2 {
 
   measure:  sum_past_overdue_1_to_30days_conv_drill{
     type: sum
-    sql: ${past_overdue_1_to_30day} ;;
+    sql: ${overdue_amount_in_target_currency} ;;
+    filters: [Past_Due_Interval: "b1- 30 Days"]
     value_format_name: Greek_Number_Format
     hidden: no
+    link: {
+      label: "Accounts Payable Aging"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+    }
   }
 
   measure:  sum_past_overdue_31_to_60days{
@@ -434,9 +419,14 @@ view: accounts_payable_v2 {
 
   measure:  sum_past_overdue_31_to_60days_conv_drill{
     type: sum
-    sql: ${past_overdue_31_to_60day}  ;;
+    sql: ${overdue_amount_in_target_currency} ;;
+    filters: [Past_Due_Interval: "c31-60 Days"]
     value_format_name: Greek_Number_Format
     hidden: no
+    link: {
+      label: "Accounts Payable Aging"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+    }
   }
 
   measure:  sum_past_overdue_61_to_90days{
@@ -449,9 +439,14 @@ view: accounts_payable_v2 {
 
   measure:  sum_past_overdue_61_to_90days_conv_drill{
     type: sum
-    sql: ${past_overdue_61_to_90day}  ;;
+    sql: ${overdue_amount_in_target_currency} ;;
+    filters: [Past_Due_Interval: "d61-90 Days"]
     value_format_name: Greek_Number_Format
     hidden: no
+    link: {
+      label: "Accounts Payable Aging"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+    }
   }
 
   measure:  sum_past_overdue_greater_than_90days{
@@ -464,17 +459,32 @@ view: accounts_payable_v2 {
 
   measure:  sum_past_overdue_greater_than_90days_conv_drill{
     type: sum
-    sql: ${past_overdue_greater_than_90day} ;;
+    sql: ${overdue_amount_in_target_currency} ;;
+    filters: [Past_Due_Interval: "e> 90 Days"]
     value_format_name: Greek_Number_Format
     hidden: no
+    link: {
+      label: "Accounts Payable Aging"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+    }
   }
 
   measure:  sum_past_overdue_not_overdue{
     type: sum
-    sql: ${overdue_amount_in_target_currency} ;;
-    filters: [Past_Due_Interval: "aNot OverDue"]
+    sql: ${outstanding_but_not_overdue_in_target_currency};;
     value_format_name: Greek_Number_Format
     hidden: no
+  }
+
+  measure:  sum_past_overdue_not_overdue_drill{
+    type: sum
+    sql: ${outstanding_but_not_overdue_in_target_currency};;
+    value_format_name: Greek_Number_Format
+    hidden: no
+    link: {
+      label: "Accounts Payable Aging"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+    }
   }
 
 
@@ -490,10 +500,6 @@ view: accounts_payable_v2 {
     sql: ${overdue_amount_in_target_currency};;
     value_format_name: Greek_Number_Format
     hidden: no
-    link: {
-      label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Code={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
-    }
   }
 
   measure: sum_overdue_amount_conv_drill_2 {
@@ -607,8 +613,6 @@ view: accounts_payable_v2 {
     value_format_name: Greek_Number_Format
     hidden: no
   }
-
-
 
   dimension: purchase_in_source_currency {
     type: number

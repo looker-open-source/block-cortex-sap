@@ -1,15 +1,7 @@
-# The name of this view in Looker is "Accounts Payable Turnover"
 view: accounts_payable_turnover_v2 {
-  # The sql_table_name parameter indicates the underlying database table
-  # to be used for all fields in this view.
+
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountsPayableTurnover`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Account Number of Vendor or Creditor Lifnr" in Explore.
 
   dimension: account_number_of_vendor_or_creditor_lifnr {
     type: string
@@ -55,21 +47,19 @@ view: accounts_payable_turnover_v2 {
     hidden: no
   }
 
-
-
-  # measure: turnover_distinct {
-  #   type: number
-  #   sql: distinct(${accounts_payable_turnover_in_target_currency}) ;;
-  #   #required_fields: [accounts_payable_turnover_in_target_currency]
-  # }
-
   measure: turnover {
     type: average
     value_format: "0.0"
-    sql: ${accounts_payable_turnover_in_target_currency} ;;
+    sql: NULLIF(${accounts_payable_turnover_in_target_currency},0) ;;
     sql_distinct_key: ${fiscal_period} ;;
-    #sql_distinct_key: ${doc_fisc_period},${accounts_payable_turnover_in_target_currency},${company_text_butxt} ;;
     required_fields: [doc_fisc_period]
+    hidden: no
+  }
+
+  measure: turnover_in_days {
+    type: number
+    value_format: "0.0"
+    sql: 30.4/${turnover} ;;
     hidden: no
   }
 
@@ -79,9 +69,6 @@ view: accounts_payable_turnover_v2 {
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
   }
 
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_amount_in_local_currency_dmbtr {
     type: sum

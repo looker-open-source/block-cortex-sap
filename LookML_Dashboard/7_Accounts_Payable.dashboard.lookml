@@ -67,8 +67,8 @@
     note_text: Total balance due to all vendors as of today in the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 2
     col: 0
     width: 8
@@ -99,8 +99,8 @@
       target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 2
     col: 8
     width: 8
@@ -127,8 +127,8 @@
     note_text: Vendors with the highest balances due as of today
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 12
     col: 0
     width: 12
@@ -195,8 +195,8 @@
       which penalties may be applicable as of today in the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 12
     col: 12
     width: 12
@@ -261,8 +261,8 @@
       as of today in the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 18
     col: 12
     width: 12
@@ -272,9 +272,11 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: looker_column
-    fields: [accounts_payable_v2.Past_Due_Interval, accounts_payable_v2.sum_overdue_amount_conv_drill_1]
-    pivots: [accounts_payable_v2.Past_Due_Interval]
-    sorts: [accounts_payable_v2.Past_Due_Interval]
+    fields: [accounts_payable_v2.sum_past_overdue_not_overdue_drill, accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill,
+      accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill, accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill,
+      accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill]
+    filters:
+      accounts_payable_v2.account_type_koart: K
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -322,6 +324,11 @@
       aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: ">90 Days\
         \ Overdue"
+      accounts_payable_v2.sum_past_overdue_not_overdue_drill: Not Overdue
+      accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill: 1 to 30 Days
+      accounts_payable_v2.sum_past_overdue_31_to_60days_conv_drill: 31 to 60 Days
+      accounts_payable_v2.sum_past_overdue_61_to_90days_conv_drill: 61 to 90 Days
+      accounts_payable_v2.sum_past_overdue_greater_than_90days_conv_drill: "> 90 Days"
     label_color: ["#80868B"]
     hidden_pivots: {}
     defaults_version: 1
@@ -331,18 +338,18 @@
       the target currency
     listen:
       Target Currency: accounts_payable_v2.target_currency_tcurr
-      Company Code: accounts_payable_v2.company_text_butxt
       Vendor Name: accounts_payable_v2.name1
+      Company Name: accounts_payable_v2.company_text_butxt
     row: 5
     col: 8
     width: 8
     height: 6
-  - title: Accounts Payable Turnover
-    name: Accounts Payable Turnover
+  - title: Accounts Payable Turnover in Days
+    name: Accounts Payable Turnover in Days
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: single_value
-    fields: [accounts_payable_turnover_v2.turnover, accounts_payable_turnover_v2.doc_fiscal_period_group_month]
+    fields: [accounts_payable_turnover_v2.doc_fiscal_period_group_month, accounts_payable_turnover_v2.turnover_in_days]
     fill_fields: [accounts_payable_turnover_v2.doc_fiscal_period_group_month]
     filters: {}
     sorts: [accounts_payable_turnover_v2.doc_fiscal_period_group_month desc]
@@ -387,8 +394,8 @@
       previous fiscal period
     listen:
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
-      Company Code: accounts_payable_turnover_v2.company_text_butxt
       Vendor Name: accounts_payable_turnover_v2.name1
+      Company Name: accounts_payable_turnover_v2.company_text_butxt
     row: 2
     col: 16
     width: 8
@@ -398,7 +405,7 @@
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: looker_line
-    fields: [accounts_payable_turnover_v2.turnover, accounts_payable_turnover_v2.fiscal_period]
+    fields: [accounts_payable_turnover_v2.fiscal_period, accounts_payable_turnover_v2.turnover_in_days]
     sorts: [accounts_payable_turnover_v2.fiscal_period]
     limit: 500
     column_limit: 50
@@ -444,19 +451,21 @@
       num_rows: '12'
     series_colors:
       accounts_payable_turnover_v2.turnover: "#9334E6"
+      accounts_payable_turnover_v2.turnover_in_days: "#9334E6"
     series_labels:
       accounts_payable_turnover_v2.turnover: Turnover
     x_axis_datetime_label: "%Y-%m"
     x_axis_label_rotation: -60
     defaults_version: 1
+    hidden_pivots: {}
     note_state: collapsed
     note_display: hover
     note_text: How many times per fiscal period the average accounts payable amount
       is paid off
     listen:
       Target Currency: accounts_payable_turnover_v2.target_currency_tcurr
-      Company Code: accounts_payable_turnover_v2.company_text_butxt
       Vendor Name: accounts_payable_turnover_v2.name1
+      Company Name: accounts_payable_turnover_v2.company_text_butxt
     row: 5
     col: 16
     width: 8
@@ -525,7 +534,7 @@
       '
     listen:
       Target Currency: days_payable_outstanding_v2.target_currency_tcurr
-      Company Code: days_payable_outstanding_v2.company_text_butxt
+      Company Name: days_payable_outstanding_v2.company_text_butxt
     row: 5
     col: 0
     width: 8
@@ -587,8 +596,8 @@
       the last 12 months
     listen:
       Target Currency: cash_discount_utilization.target_currency_tcurr
-      Company Code: cash_discount_utilization.company_text_butxt
       Vendor Name: cash_discount_utilization.name1
+      Company Name: cash_discount_utilization.company_text_butxt
     row: 18
     col: 0
     width: 12
@@ -607,8 +616,8 @@
     explore: accounts_payable_v2
     listens_to_filters: []
     field: accounts_payable_v2.target_currency_tcurr
-  - name: Company Code
-    title: Company Code
+  - name: Company Name
+    title: Company Name
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -631,5 +640,5 @@
       display: popover
     model: cortex_sap_operational
     explore: accounts_payable_v2
-    listens_to_filters: [Company Code]
+    listens_to_filters: [Company Name]
     field: accounts_payable_v2.name1
