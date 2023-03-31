@@ -344,16 +344,15 @@
     col: 8
     width: 8
     height: 6
-  - title: Accounts Payable Turnover in Days
-    name: Accounts Payable Turnover in Days
+  - title: Accounts Payable Turnover
+    name: Accounts Payable Turnover
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: single_value
-    fields: [accounts_payable_turnover_v2.doc_fiscal_period_group_month, accounts_payable_turnover_v2.turnover_in_days]
-    fill_fields: [accounts_payable_turnover_v2.doc_fiscal_period_group_month]
+    fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period]
     filters: {}
-    sorts: [accounts_payable_turnover_v2.doc_fiscal_period_group_month desc]
-    limit: 12
+    sorts: [accounts_payable_turnover_v2.fiscal_period desc]
+    limit: 1
     column_limit: 50
     dynamic_fields: [{measure: average_of_accounts_payable_turnover_in_target_currency,
         based_on: accounts_payable_turnover_v2.accounts_payable_turnover_in_target_currency,
@@ -368,7 +367,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    value_format: "#,##0.0"
+    value_format: '#,##0.0 "days"'
     conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
         font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
           palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
@@ -388,6 +387,7 @@
     hidden_pivots: {}
     defaults_version: 1
     series_types: {}
+    hidden_fields: [accounts_payable_turnover_v2.fiscal_period]
     note_state: collapsed
     note_display: hover
     note_text: How many times we paid off the average accounts payable amount in the

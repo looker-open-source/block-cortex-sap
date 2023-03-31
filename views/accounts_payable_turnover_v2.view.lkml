@@ -3,6 +3,8 @@ view: accounts_payable_turnover_v2 {
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountsPayableTurnover`
     ;;
 
+  fields_hidden_by_default: yes
+
   dimension: account_number_of_vendor_or_creditor_lifnr {
     type: string
     sql: ${TABLE}.AccountNumberOfVendorOrCreditor_LIFNR ;;
@@ -26,19 +28,6 @@ view: accounts_payable_turnover_v2 {
   dimension: accounts_payable_turnover_in_target_currency {
     type: number
     sql: (${TABLE}.AccountsPayableTurnoverInTargetCurrency * -1);;
-  }
-
-  dimension: doc_fiscal_period_cast {
-    type: date
-    sql: concat(LEFT(${doc_fisc_period},4),"-",RIGHT(${doc_fisc_period},2),"-01") ;;
-  }
-
-  dimension_group: doc_fiscal_period_group {
-    type: time
-    convert_tz: no
-    timeframes: [month, year]
-    sql: ${doc_fiscal_period_cast};;
-    hidden: no
   }
 
   dimension: fiscal_period {
@@ -108,6 +97,7 @@ view: accounts_payable_turnover_v2 {
   dimension: company_text_butxt {
     type: string
     sql: ${TABLE}.CompanyText_BUTXT ;;
+    hidden: no
   }
 
   dimension: currency_key_waers {
@@ -171,6 +161,7 @@ view: accounts_payable_turnover_v2 {
   dimension: target_currency_tcurr {
     type: string
     sql: ${TABLE}.TargetCurrency_TCURR ;;
+    hidden: no
   }
 
   dimension: total_purchases_in_source_currency {
