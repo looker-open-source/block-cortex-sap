@@ -39,10 +39,10 @@
       Plant: inventory_by_plant.plant_name_name2
       Currency: inventory_by_plant.target_currency
       Country: inventory_by_plant.country_key_land1
+      Company Name: inventory_by_plant.company_text_butxt
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_by_plant.material_text_maktx
-      Company Name: inventory_metrics_overview.company_text_butxt
     row: 8
     col: 0
     width: 14
@@ -82,10 +82,10 @@
       Plant: inventory_by_plant.plant_name_name2
       Currency: inventory_by_plant.target_currency
       Country: inventory_by_plant.country_key_land1
+      Company Name: inventory_by_plant.company_text_butxt
       Stock Type: inventory_by_plant.stock_characteristic
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Material: inventory_by_plant.material_text_maktx
-      Company Name: inventory_metrics_overview.company_text_butxt
     row: 12
     col: 14
     width: 10
@@ -121,9 +121,9 @@
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
       Country: inventory_metrics_overview.country_key_land1
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
-      Material: inventory_metrics_overview.material_text_maktx
       Company Name: inventory_metrics_overview.company_text_butxt
+      Material Type: inventory_metrics_overview.material_type
+      Material: inventory_metrics_overview.material_text_maktx
     row: 8
     col: 14
     width: 10
@@ -135,8 +135,6 @@
     type: looker_grid
     fields: [sum_of_quantity_menge_2, inventory_metrics_overview.material_group_name_wgbez,
       inventory_metrics_overview.average_days_of_supply]
-    filters:
-      inventory_metrics_overview.material_type: ''
     sorts: [sum_of_quantity_menge_2 desc]
     limit: 10
     column_limit: 50
@@ -246,6 +244,7 @@
       Plant: inventory_metrics_overview.plant_name2_name2
       Country: inventory_metrics_overview.country_key_land1
       Company Name: inventory_metrics_overview.company_text_butxt
+      Material Type: inventory_metrics_overview.material_type
     row: 2
     col: 12
     width: 12
@@ -323,10 +322,9 @@
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
       Country: inventory_metrics_overview.country_key_land1
-      Stock Type: inventory_by_plant.stock_characteristic
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
-      Material: inventory_metrics_overview.material_text_maktx
       Company Name: inventory_metrics_overview.company_text_butxt
+      Material Type: inventory_metrics_overview.material_type
+      Material: inventory_metrics_overview.material_text_maktx
     row: 16
     col: 0
     width: 12
@@ -415,10 +413,9 @@
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
       Country: inventory_metrics_overview.country_key_land1
-      Stock Type: inventory_by_plant.stock_characteristic
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
-      Material: inventory_metrics_overview.material_text_maktx
       Company Name: inventory_metrics_overview.company_text_butxt
+      Material Type: inventory_metrics_overview.material_type
+      Material: inventory_metrics_overview.material_text_maktx
     row: 16
     col: 12
     width: 12
@@ -504,7 +501,6 @@
       type: looker_column
       fields: [inventory_metrics_overview.sum_inventory_value, inventory_metrics_overview.material_group_name_wgbez]
       filters:
-        inventory_metrics_overview.material_type: ''
         inventory_metrics_overview.plant_name2_name2: ''
         inventory_metrics_overview.country_key_land1: ''
         inventory_metrics_overview.month_end_month: 6 months ago for 6 months
@@ -608,7 +604,6 @@
       fields: [inventory_metrics_overview.material_group_name_wgbez, inventory_metrics_overview.month_end_month,
         inventory_metrics_overview.average_inventory_turn]
       filters:
-        inventory_metrics_overview.material_type: ''
         inventory_metrics_overview.month_end_month: 6 months ago for 6 months
       sorts: [inventory_metrics_overview.material_group_name_wgbez, inventory_metrics_overview.month_end_month]
       limit: 2000
@@ -708,13 +703,9 @@
     listen:
     - Plant: inventory_metrics_overview.plant_name2_name2
       Country: inventory_metrics_overview.country_key_land1
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
-      Material: inventory_metrics_overview.material_text_maktx
       Company Name: inventory_metrics_overview.company_text_butxt
     - Plant: inventory_metrics_overview.plant_name2_name2
       Country: inventory_metrics_overview.country_key_land1
-      Material Type: inventory_by_plant.description_of_material_type_mtbez
-      Material: inventory_metrics_overview.material_text_maktx
       Company Name: inventory_metrics_overview.company_text_butxt
     row: 2
     col: 0
@@ -768,7 +759,7 @@
       options: []
     model: cortex_sap_operational
     explore: inventory_metrics_overview
-    listens_to_filters: [Company Name, Plant, Material Type, Stock Type, Material]
+    listens_to_filters: [Plant, Material Type, Stock Type, Material, Company Name]
     field: inventory_by_plant.country_key_land1
   - name: Plant
     title: Plant
@@ -782,7 +773,7 @@
       options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Company Name, Country, Material Type, Stock Type, Material]
+    listens_to_filters: [Country, Material Type, Stock Type, Material, Company Name]
     field: inventory_by_plant.plant_name_name2
   - name: Stock Type
     title: Stock Type
@@ -793,10 +784,9 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Company Name, Country, Plant, Material Type, Material]
+    listens_to_filters: [Country, Plant, Material Type, Material, Company Name]
     field: inventory_by_plant.stock_characteristic
   - name: Material Type
     title: Material Type
@@ -807,11 +797,10 @@
     ui_config:
       type: tag_list
       display: popover
-      options: []
     model: cortex_sap_operational
-    explore: inventory_by_plant
-    listens_to_filters: [Company Name, Country, Plant, Stock Type, Material]
-    field: inventory_by_plant.description_of_material_type_mtbez
+    explore: inventory_metrics_overview
+    listens_to_filters: [Company Name]
+    field: inventory_metrics_overview.material_type
   - name: Material
     title: Material
     type: field_filter
@@ -823,5 +812,5 @@
       display: popover
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Company Name, Country, Plant, Material Type, Stock Type]
+    listens_to_filters: [Country, Plant, Material Type, Stock Type, Company Name]
     field: inventory_by_plant.material_text_maktx

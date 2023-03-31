@@ -84,7 +84,7 @@
       Plant: inventory_by_plant.plant_name_name2
       Material: inventory_by_plant.material_text_maktx
       Currency: inventory_by_plant.target_currency
-      Company Name: inventory_metrics_overview.company_text_butxt
+      Company Name: inventory_by_plant.company_text_butxt
     row: 0
     col: 0
     width: 24
@@ -100,7 +100,7 @@
       inventory_by_plant.currency_key_waers, inventory_by_plant.description_of_material_type_mtbez,
       inventory_by_plant.quantity_menge, inventory_by_plant.stock_characteristic,
       inventory_by_plant.inventory_value_target_currency, inventory_by_plant.exchange_rate,
-      inventory_by_plant.target_currency, inventory_metrics_overview.company_text_butxt]
+      inventory_by_plant.target_currency, inventory_by_plant.company_text_butxt]
     filters:
       inventory_by_plant.week_end_date: today
     sorts: [inventory_by_plant.plant_name_name2]
@@ -124,12 +124,12 @@
     show_sql_query_menu_options: false
     pinned_columns:
       "$$$_row_numbers_$$$": left
-    column_order: ["$$$_row_numbers_$$$", inventory_metrics_overview.company_text_butxt,
-      inventory_by_plant.plant_name_name2, inventory_by_plant.storage_location_text_lgobe,
-      inventory_by_plant.description_of_material_type_mtbez, inventory_by_plant.material_text_maktx,
-      inventory_by_plant.batch_number_charg, inventory_by_plant.stock_characteristic,
-      inventory_by_plant.quantity_menge, inventory_by_plant.base_unit_of_measure_meins,
-      inventory_by_plant.inventory_value, inventory_by_plant.currency_key_waers, inventory_by_plant.inventory_value_target_currency,
+    column_order: ["$$$_row_numbers_$$$", inventory_by_plant.company_text_butxt, inventory_by_plant.plant_name_name2,
+      inventory_by_plant.storage_location_text_lgobe, inventory_by_plant.description_of_material_type_mtbez,
+      inventory_by_plant.material_text_maktx, inventory_by_plant.batch_number_charg,
+      inventory_by_plant.stock_characteristic, inventory_by_plant.quantity_menge,
+      inventory_by_plant.base_unit_of_measure_meins, inventory_by_plant.inventory_value,
+      inventory_by_plant.currency_key_waers, inventory_by_plant.inventory_value_target_currency,
       inventory_by_plant.target_currency, inventory_by_plant.exchange_rate]
     show_totals: true
     show_row_totals: true
@@ -195,7 +195,7 @@
       Material Type: inventory_by_plant.description_of_material_type_mtbez
       Stock Type: inventory_by_plant.stock_characteristic
       Currency: inventory_by_plant.target_currency
-      Company Name: inventory_metrics_overview.company_text_butxt
+      Company Name: inventory_by_plant.company_text_butxt
     row: 6
     col: 0
     width: 24
@@ -226,7 +226,7 @@
     model: cortex_sap_operational
     explore: inventory_by_plant
     listens_to_filters: [Country, Plant, Stock Type, Material Type, Material]
-    field: inventory_metrics_overview.company_text_butxt
+    field: inventory_by_plant.company_text_butxt
   - name: Country
     title: Country
     type: field_filter

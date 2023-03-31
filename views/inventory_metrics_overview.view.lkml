@@ -1,12 +1,10 @@
-# The name of this view in Looker is "Inventory Metrics Overview"
-
 view: inventory_metrics_overview {
   derived_table: {
     sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryKeyMetrics`
       ;;
   }
   fields_hidden_by_default: yes
-  
+
   dimension: amount_in_local_currency_dmbtr {
     type: number
     sql: ${TABLE}.AmountInLocalCurrency_DMBTR ;;
@@ -177,8 +175,8 @@ view: inventory_metrics_overview {
 
   dimension: material_type {
     type: string
-    label: "Material Type"
     sql: ${TABLE}.DescriptionOfMaterialType_MTBEZ ;;
+    hidden: no
   }
 
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
@@ -244,7 +242,7 @@ view: inventory_metrics_overview {
     hidden: no
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_by_plant.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 
@@ -257,8 +255,6 @@ view: inventory_metrics_overview {
     type: number
     sql: ${TABLE}.AvgInventoryByMonth ;;
   }
-
-
 
   measure: sum_inventory_value {
     type: sum
@@ -312,46 +308,6 @@ view: inventory_metrics_overview {
     sql: ${TABLE}.ValueOfTotalValuatedStock_SALK3 ;;
   }
 
-
-  ###################### Fields to be deleted for CC old logic ###############
-  dimension: inventory_value_global_currency {
-    type: number
-    sql: ${TABLE}.InventoryValue * ${currency_conversion_new.ukurs}  ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  measure: inventory_value_global_currency_conv{
-    type: sum
-    sql: ${inventory_value_global_currency} ;;
-    value_format_name: Greek_Number_Format
-    #label: "Inventory Value"
-    link: {
-      label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
-    }
-  }
-
-  dimension: slow_moving_inventory_global_currency {
-    type: number
-    sql: ${slow_moving_inventory} * ${currency_conversion_new.ukurs};;
-  }
-
-  measure: slow_moving_inventory_global_curr  {
-    type: sum
-    sql: ${slow_moving_inventory_global_currency} ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  measure: sum_of_slow_moving_inventory  {
-    type: sum
-    label: "Slow Moving Inventory"
-    filters: [slow_moving_inventory_global_currency : ">0"]
-    sql: ${slow_moving_inventory_global_currency} ;;
-    #value_format: "0.00"
-    value_format_name: Greek_Number_Format
-    drill_fields: [material_name,sum_of_slow_moving_inventory]
-  }
-############################## End of old logic for CC #############################
   measure: count {
     type: count
     drill_fields: []

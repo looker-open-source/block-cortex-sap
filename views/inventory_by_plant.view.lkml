@@ -1,11 +1,8 @@
-# The name of this view in Looker is "Inventory By Plant"
 view: inventory_by_plant {
   derived_table: {
     sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant`;;
-    #WHERE CompanyCode_BUKRS ='C001';;
   }
   fields_hidden_by_default: yes
-
 
   dimension: amount_in_local_currency_dmbtr {
     type: number
@@ -32,11 +29,6 @@ view: inventory_by_plant {
     type: average
     sql: ${amount_in_local_currency_dmbtr} ;;
   }
-
-  # dimension : Current_date{
-  #   type: date
-  #   sql: now() ;;
-  # }
 
   dimension: target_currency {
     type: string
@@ -114,6 +106,13 @@ view: inventory_by_plant {
     hidden: no
   }
 
+  dimension: company_text_butxt {
+    type: string
+    label: "Company Name"
+    sql: ${TABLE}.CompanyText_BUTXT ;;
+    hidden: no
+  }
+
   dimension: country_key_land1 {
     type: string
     sql: ${TABLE}.CountryKey_LAND1 ;;
@@ -179,7 +178,7 @@ view: inventory_by_plant {
     hidden: no
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.target_currency']| url_encode }}&Plant={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_by_plant.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.target_currency']| url_encode }}&Plant={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
     }
   }
 
@@ -205,7 +204,7 @@ view: inventory_by_plant {
     value_format_name: Greek_Number_Format
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.currency_key_waers']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_by_plant.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.currency_key_waers']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}"
     }
     #required_fields: [inventory_value]
     #drill_fields: [company_code_bukrs,plant_name_name2,storage_location_text_lgobe,material_number_matnr,material_text_maktx,description_of_material_type_mtbez,stock_characteristic,quantity_menge,base_unit_of_measure_meins,inventory_value,currency_key_waers]
@@ -349,93 +348,6 @@ view: inventory_by_plant {
     hidden: no
   }
 
-  # dimension: select_date {
-  #   type: date
-  #   sql: {% parameter posting_date %} ;;
-  # }
-
-  # dimension: previous_week_select_date {
-  #   type: date
-  #   sql: datetime_add(${select_date}, interval -1 week) ;;
-  # }
-
-  # dimension: week_end_posting_date {
-  #   type: date
-  #   datatype: date
-  #   sql: FORMAT_DATE('%F', DATE_TRUNC(${select_date} , WEEK(SATURDAY))) ;;
-  # }
-
-  # dimension: week_end_of_posting_date{
-  #   type: yesno
-  #   sql: if(${week_end_date} = ${select_date}) ;;
-  # }
-
-###################### Fields to be deleted for CC old logic ###############
-  dimension:  obsolete_value_glob_curr{
-    type: number
-    sql: ${obsolete_value} * ${currency_conversion_new.ukurs} ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  measure: obsolete_global_currency {
-    type: sum
-    sql: ${obsolete_value_glob_curr} ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  measure: obsolete_inventory_value {
-    type: sum
-    sql: ${obsolete_value_glob_curr};;
-    filters: [obsolete_value_glob_curr: ">0"]
-    value_format_name: Greek_Number_Format
-    drill_fields: [material_name,obsolete_inventory_value]
-  }
-
-  dimension: inventory_value_global_currency {
-    type: number
-    sql: ${TABLE}.InventoryValue * ${currency_conversion_new.ukurs}  ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  measure: inventory_value_global_currency_conv{
-    type: sum
-    sql: ${inventory_value_global_currency} ;;
-    value_format_name: Greek_Number_Format
-    #label: "Inventory Value"
-    link: {
-      label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}&Material+Type={{ _filters['inventory_by_plant.description_of_material_type_mtbez']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}"
-    }
-  }
-
-  measure: inventory_value_global_currency_conv_1{
-    type: sum
-    sql: ${inventory_value_global_currency} ;;
-    #label: "Inventory Value"
-    value_format_name: Greek_Number_Format
-    drill_fields: [company_code_bukrs,plant_name_name2,storage_location_text_lgobe,material_number_matnr,material_text_maktx,description_of_material_type_mtbez,stock_characteristic,quantity_menge,base_unit_of_measure_meins,inventory_value,currency_key_waers]
-  }
-
-  measure: inventory_value_global_currency_conv1{
-    type: sum
-    #label: "Inventory Value"
-    sql: ${inventory_value_global_currency} ;;
-    value_format_name: Greek_Number_Format
-  }
-
-  dimension: obsolete_inventory_global_currency {
-    type: number
-    sql: ${TABLE}.ObsoleteStock * ${currency_conversion_new.ukurs} ;;
-  }
-
-  measure: obsolete_inventory_global_curr {
-    type: sum
-    label: "Obsolete Inventory"
-    sql: ${obsolete_inventory_global_currency} ;;
-    value_format_name: Greek_Number_Format
-  }
-
-############################ end ###########################################
   measure: count {
     type: count
     drill_fields: []
