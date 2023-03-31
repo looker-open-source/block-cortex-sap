@@ -1,6 +1,6 @@
 view: cash_discount_utilization {
   derived_table: {
-    sql: select * from `kittycorn-dev-infy.repo_ecc_23Mar.CashDiscountUtilization`
+    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.CashDiscountUtilization`
       ;;
   }
 
