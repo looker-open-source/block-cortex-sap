@@ -136,7 +136,7 @@
     fields: [sum_of_quantity_menge_2, inventory_metrics_overview.material_group_name_wgbez,
       inventory_metrics_overview.average_days_of_supply]
     filters:
-      inventory_metrics_overview.material_type: Finished Product
+      inventory_metrics_overview.material_type: ''
     sorts: [sum_of_quantity_menge_2 desc]
     limit: 10
     column_limit: 50
@@ -504,7 +504,7 @@
       type: looker_column
       fields: [inventory_metrics_overview.sum_inventory_value, inventory_metrics_overview.material_group_name_wgbez]
       filters:
-        inventory_metrics_overview.material_type: Finished Product
+        inventory_metrics_overview.material_type: ''
         inventory_metrics_overview.plant_name2_name2: ''
         inventory_metrics_overview.country_key_land1: ''
         inventory_metrics_overview.month_end_month: 6 months ago for 6 months
@@ -608,7 +608,7 @@
       fields: [inventory_metrics_overview.material_group_name_wgbez, inventory_metrics_overview.month_end_month,
         inventory_metrics_overview.average_inventory_turn]
       filters:
-        inventory_metrics_overview.material_type: Finished Product
+        inventory_metrics_overview.material_type: ''
         inventory_metrics_overview.month_end_month: 6 months ago for 6 months
       sorts: [inventory_metrics_overview.material_group_name_wgbez, inventory_metrics_overview.month_end_month]
       limit: 2000
