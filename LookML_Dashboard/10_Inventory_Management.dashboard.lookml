@@ -116,7 +116,7 @@
     hidden_pivots: {}
     note_state: collapsed
     note_display: hover
-    note_text: Total value of stock for which consumption is very less
+    note_text: Slow moving stock as a % of total stock value
     listen:
       Plant: inventory_metrics_overview.plant_name2_name2
       Currency: inventory_metrics_overview.target_currency
