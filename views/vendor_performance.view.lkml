@@ -993,7 +993,7 @@ view: vendor_performance {
       WHEN ${material_type} = 'FERT' OR ${material_type} = 'HALB'
         THEN COALESCE(${materials_valuation_v2.standard_cost_stprs}, ${Purchase_Price1})
       WHEN ${material_type} = 'ROH' OR ${material_type} = 'HIBE'
-        THEN COALESCE(${materials_valuation_v2.moving_average_price_verpr}, ${Purchase_Price1})
+        THEN COALESCE(${materials_valuation_v2.moving_average_price}, ${Purchase_Price1})
     END ;;
   }
 
