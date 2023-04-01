@@ -34,9 +34,9 @@ view: materials_valuation_v2 {
     sql: ${TABLE}.PriceUnit_PEINH ;;
   }
 
-  dimension: posting_period_lfmon {
+  dimension: posting_period {
     type: string
-    sql: ${TABLE}.PostingPeriod_LFMON ;;
+    sql: ${TABLE}.PostingPeriod ;;
   }
 
   dimension: fiscal_year {
@@ -47,7 +47,7 @@ view: materials_valuation_v2 {
   dimension: month_year {
     type: string
     hidden: no
-    sql: concat(${fiscal_year},"/",${posting_period_lfmon}) ;;
+    sql: concat(${fiscal_year},"/",${posting_period}) ;;
   }
 
   dimension: price_control_indicator_vprsv {
@@ -65,9 +65,9 @@ view: materials_valuation_v2 {
     sql: ${TABLE}.ValueOfTotalValuatedStock_SALK3 ;;
   }
 
-  dimension: moving_average_price_verpr {
+  dimension: moving_average_price {
     type: number
-    sql: ${TABLE}.MovingAveragePrice_VERPR ;;
+    sql: ${TABLE}.MovingAveragePrice ;;
   }
 
   dimension: currency_key_waers {
@@ -82,12 +82,12 @@ view: materials_valuation_v2 {
       valuation_type_bwtar,
       valuation_area_bwkey,
       price_unit_peinh,
-      posting_period_lfmon,
+      posting_period,
       fiscal_year,
       price_control_indicator_vprsv,
       standard_cost_stprs,
       value_of_total_valuated_stock_salk3,
-      moving_average_price_verpr,
+      moving_average_price,
       currency_key_waers
     ]
   }
