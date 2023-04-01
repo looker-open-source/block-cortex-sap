@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_02c_01_order_fulfillment_performance_tuning
-  title: "[SAP ORDER TO CASH] 02C 01: Order Fulfillment"
+  title: "Sales Order Fulfillment"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

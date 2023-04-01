@@ -10,18 +10,20 @@ There are several high-level dashboards included:
 - **3. Order Details** - Find all the information about your order in one place and their status.
 - **4. Sales Performance** - Review the sales performance of Products, Division, Sales organization and Distribution channel.
 - **5. Billing and Pricing** - All the information related to the customer and products focused on price variations.
-- **6. Accounts Receivable** - Insights into AR by Company, Overdue Accounts, and Sales Outstanding values.
 
-These 6 dashboards are accompanied by 14 supplemental dashboards with pertinent drill information. The dashboards have been organized by relationship to one of the 6 primary dashboards.
+These 5 dashboards are accompanied by 14 supplemental dashboards with pertinent drill information. The dashboards have been organized by relationship to one of the 5 primary dashboards.
 (For example, dashboards related to "1. Order Fullfillment" will have titles following this pattern "1_a" "1_b").
 
-<h2><span style="color:#2d7eea">Data Foundation Account Receivables</span></h2>
+<h2><span style="color:#2d7eea">Data Foundation Finance</span></h2>
 
 What does this Looker Block do for me?
-- **Account Receivables Dashboard** - Find all the information regarding the companies finance such as Account Receivables, Overdue Receivables, Day Sales Outstanding and Sales
+- **Accounts Receivable Dashboard** - Find all the information regarding the companies finance such as Accounts Receivable, Overdue Receivables, Day Sales Outstanding.
+- **Accounts Payable Dashboard** - Find all the information regarding the companies finance such as Accounts Payables, Accounts Payalable Turnover, Overdue Payables, Accounts Payable Aging and Cash Discount Utilization.
+- **Vendor Performance Dashboard** - Find all the information regarding the Vendor Performance in terms of delivery and other important indicators like Vendor Lead time , Purchase price variance , Purchase Order status.
+- **Spend Analysis Dashboard** - Find all the information regarding the major indicators like Total Spend, Spend Analysis, Total number of Suppliers to check spend across different Purchase orgs, Purchase groups, Vendor Countries, Material Types.
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
-The datasets required by this block can be obtained by following the installation and configuration instructions for the [Google Cloud Cortex Framework](https://github.com/GoogleCloudPlatform/cortex-data-foundation) application. The related [Google Cloud Cortex Framework for SAP](https://github.com/llooker/cortex_data_foundation) LookML Block also leverages these same datasets.
+The datasets required by this block can be obtained by following the installation and configuration instructions for the <a href="https://github.com/GoogleCloudPlatform/cortex-data-foundation">Google Cloud Cortex Framework</a> application. The related <a href="https://github.com/llooker/cortex_data_foundation">Google Cloud Cortex Framework for SAP</a> LookML Block also leverages these same datasets.
 
 <h2><span style="color:#2d7eea">Required Customizations</span></h2>
 
@@ -34,6 +36,8 @@ The datasets required by this block can be obtained by following the installatio
 - **Reporting Dataset**: The deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
 - **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
+
+- **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
 
 >   ❕ Required User Attributes are configured separately within the Looker instance
 

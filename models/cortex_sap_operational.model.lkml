@@ -186,3 +186,77 @@ explore: sales_orders {
     sql_always_where: ${client_mandt}='{{ _user_attributes['client_id_rep'] }}' ;;
 
   }
+
+  ########################################### Finanace Dashboards ########################################################################
+
+explore: vendor_performance {
+  sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+    and ${vendor_performance.language_key} = '{{ _user_attributes['language'] }}';;
+
+  join: materials_valuation_v2 {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${vendor_performance.client_mandt} = ${materials_valuation_v2.client_mandt}
+    and ${vendor_performance.material_number} = ${materials_valuation_v2.material_number_matnr}
+    and ${vendor_performance.plant} = ${materials_valuation_v2.valuation_area_bwkey}
+    and ${vendor_performance.month_year} = ${materials_valuation_v2.month_year}
+    and ${materials_valuation_v2.valuation_type_bwtar} = ''
+    ;;
+    }
+}
+
+explore: days_payable_outstanding_v2 {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+explore: materials_valuation_v2 {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+explore: inventory_metrics_overview {
+    join: inventory_by_plant {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
+            ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
+  }
+  
+    sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+      and ${inventory_metrics_overview.language_spras} = '{{ _user_attributes['language'] }}';;
+}
+
+explore: inventory_by_plant {
+    sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+      and ${inventory_by_plant.language_spras} = '{{ _user_attributes['language'] }}';;
+
+    join: inventory_metrics_overview {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
+      ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
+  }
+}
+
+explore: accounts_payable_v2 {
+
+  sql_always_where: ${accounts_payable_v2.client_mandt} =  '{{ _user_attributes['client_id_rep'] }}';;
+}
+
+explore: cash_discount_utilization {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+}
+
+
+explore: accounts_payable_overview_v2 {
+
+  sql_always_where: ${accounts_payable_overview_v2.client_mandt} =  '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+explore: accounts_payable_turnover_v2 {
+
+  sql_always_where: ${accounts_payable_turnover_v2.client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
+
+
+
+########################################### Finanace Dashboards End ########################################################################

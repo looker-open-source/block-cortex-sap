@@ -1,5 +1,5 @@
 - dashboard: accounts_receivable
-  title: "[SAP OTC AR] 06: Accounts Receivable"
+  title: "Accounts Receivable"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -356,12 +356,12 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: data_intelligence_ar.Sum_of_Receivables,
             id: data_intelligence_ar.Sum_of_Receivables, name: Sum of Receivables},
           {axisId: data_intelligence_ar.Sum_of_Sales, id: data_intelligence_ar.Sum_of_Sales,
-            name: Sum of Sales}], showLabels: true, showValues: true, valueFormat: '0.00,,"M"',
+            name: Sum of Sales}], showLabels: true, showValues: true, valueFormat: '',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
     hidden_series: []
     hide_legend: false
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     series_types: {}
     series_colors:
       total_receivable: "#f56776"
@@ -559,7 +559,7 @@
               10 Days}, {axisId: 11-20 Days - overdue_amount, id: 11-20 Days - overdue_amount,
             name: 11-20 Days}, {axisId: 21-30 Days - overdue_amount, id: 21-30 Days
               - overdue_amount, name: 21-30 Days}], showLabels: true, showValues: true,
-        valueFormat: '0,"K"', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: '', unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     x_axis_label: Sold to Party Name
     limit_displayed_rows_values:
@@ -567,7 +567,7 @@
       first_last: first
       num_rows: '5'
     hidden_series: [Row Total - sum_of_open_and_over_due_local_currency]
-    label_value_format: 0.00,,"M"
+    label_value_format: ''
     series_types: {}
     series_colors:
       "> 30 Days - overdue_amount": "#FDEC85"

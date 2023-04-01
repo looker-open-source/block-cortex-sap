@@ -1,5 +1,5 @@
 - dashboard: overdue_receivables
-  title: "[SAP OTC AR] 06_c: Overdue Receivables"
+  title: "Accounts Receivable - Overdue Receivables"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -50,10 +50,10 @@
         steps: 5
     y_axes: [{label: Overdue Amount, orientation: left, series: [{axisId: data_intelligence_ar.Over_Due_Amount,
             id: data_intelligence_ar.Over_Due_Amount, name: Over Due Amount}], showLabels: true,
-        showValues: true, valueFormat: '0,"K"', unpinAxis: false, tickDensity: default,
+        showValues: true, valueFormat: '', unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Company
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     series_colors:
       data_intelligence_ar.Over_Due_Amount: "#ACE9F5"
     show_dropoff: false

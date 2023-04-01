@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_03_order_detailsperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 03: Order Details"
+  title: "Sales Order Details"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

@@ -1,5 +1,5 @@
 - dashboard: doubtful_receivable
-  title: "[SAP OTC AR] 06_b: Doubtful Receivable"
+  title: "Accounts Receivable - Doubtful Receivables"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -45,9 +45,9 @@
     totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: sum_of_doubtful_receivables_global_currency,
             id: sum_of_doubtful_receivables_global_currency, name: Sum of Doubtful
-              Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '0.00,"K"',
+              Receivables Global Currency}], showLabels: true, showValues: true, valueFormat: '',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: 0.00,"K"
+    label_value_format: ''
     defaults_version: 1
     listen:
       Company: data_intelligence_ar.Company_Name

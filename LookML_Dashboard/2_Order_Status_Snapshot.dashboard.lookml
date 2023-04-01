@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_02_order_status_snapshot
-  title: "[SAP ORDER TO CASH] O2C 02: Order Status Snapshot"
+  title: "Sales Order Status Snapshot"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

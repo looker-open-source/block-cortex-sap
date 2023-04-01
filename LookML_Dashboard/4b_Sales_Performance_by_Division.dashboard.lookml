@@ -1,5 +1,5 @@
 - dashboard: sap_order_to_cash_o2c_04_b_sales_performance_by_divisionperformance_tuning
-  title: "[SAP ORDER TO CASH] O2C 04_b: Sales Performance by Division"
+  title: "Sales Performance by Division"
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
