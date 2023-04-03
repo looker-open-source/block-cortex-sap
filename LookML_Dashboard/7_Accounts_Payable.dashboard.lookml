@@ -306,6 +306,11 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    color_application:
+      collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
+      palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
+      options:
+        steps: 5
     y_axes: [{label: Amount Due, orientation: left, series: [{axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             id: aNot OverDue - accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             name: aNot OverDue}, {axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
@@ -320,6 +325,7 @@
     series_colors:
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
+      accounts_payable_v2.sum_past_overdue_not_overdue_drill: "#f0e3e6"
     series_labels:
       aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: ">90 Days\
@@ -501,7 +507,7 @@
     stacking: ''
     limit_displayed_rows: true
     legend_position: center
-    point_style: none
+    point_style: circle
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
