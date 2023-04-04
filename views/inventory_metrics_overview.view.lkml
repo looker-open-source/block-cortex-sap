@@ -115,13 +115,23 @@ view: inventory_metrics_overview {
     sql: ${TABLE}.InventoryTurnByMonth ;;
   }
 
+  measure: details {
+    type: sum
+    sql: 0 ;;
+    drill_fields: [material_group_name_wgbez,plant_name2_name2,material_text_maktx,average_inventory_turn]
+  }
+
+
   measure: average_inventory_turn {
     type: average
     label: "Inventory Turn"
     sql: ${inventory_turn} ;;
     hidden: no
     filters: [inventory_turn: ">=0"]
-    drill_fields: [material_group_name_wgbez,plant_name2_name2,material_text_maktx,average_inventory_turn]
+    link: {
+      label: "{{ inventory_metrics_overview.material_group_name_wgbez._value }}"
+      url: "{{details._link}}"
+    }
   }
 
   measure: sum_inventory_turn {
