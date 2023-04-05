@@ -325,7 +325,7 @@
     series_colors:
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
-      accounts_payable_v2.sum_past_overdue_not_overdue_drill: "#f0e3e6"
+      accounts_payable_v2.sum_past_overdue_not_overdue_drill: "#1A73E8"
     series_labels:
       aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: ">90 Days\
