@@ -100,13 +100,12 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: looker_bar
-    fields: [accounts_payable_v2.name1, accounts_payable_v2.sum_overdue_amount_conv_drill,
-      accounts_payable_v2.sum_past_overdue_not_overdue, accounts_payable_v2.sum_past_overdue_1_to_30days,
-      accounts_payable_v2.sum_past_overdue_31_to_60days, accounts_payable_v2.sum_past_overdue_61_to_90days,
-      accounts_payable_v2.sum_past_overdue_greater_than_90days]
+    fields: [accounts_payable_v2.name1, accounts_payable_v2.total_due, accounts_payable_v2.sum_past_overdue_not_overdue,
+      accounts_payable_v2.sum_past_overdue_1_to_30days, accounts_payable_v2.sum_past_overdue_31_to_60days,
+      accounts_payable_v2.sum_past_overdue_61_to_90days, accounts_payable_v2.sum_past_overdue_greater_than_90days]
     filters:
       accounts_payable_v2.account_type_koart: K
-    sorts: [accounts_payable_v2.sum_overdue_amount_conv_drill desc]
+    sorts: [accounts_payable_v2.total_due desc]
     limit: 5
     column_limit: 50
     x_axis_gridlines: false
@@ -173,7 +172,7 @@
       accounts_payable_v2.sum_past_overdue_greater_than_90days: "> 90 Days"
     defaults_version: 1
     hidden_pivots: {}
-    hidden_fields: [accounts_payable_v2.sum_overdue_amount_conv_drill]
+    hidden_fields: [accounts_payable_v2.total_due]
     note_state: collapsed
     note_display: hover
     note_text: Aging analysis of highest balances due and overdue to vendors as of

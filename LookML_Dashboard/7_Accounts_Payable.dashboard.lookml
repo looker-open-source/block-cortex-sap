@@ -49,7 +49,7 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: single_value
-    fields: [accounts_payable_v2.sum_overdue_amount_conv_drill]
+    fields: [accounts_payable_v2.total_due]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -62,6 +62,8 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     note_state: collapsed
     note_display: hover
     note_text: Total balance due to all vendors as of today in the target currency
