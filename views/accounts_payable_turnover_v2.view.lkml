@@ -30,9 +30,17 @@ view: accounts_payable_turnover_v2 {
     sql: (${TABLE}.AccountsPayableTurnoverInTargetCurrency * -1);;
   }
 
-  dimension: fiscal_period {
-    type: string
-    sql: concat(LEFT(${doc_fisc_period},4),"/",RIGHT(${doc_fisc_period},2)) ;;
+  dimension: fiscal_period_to_date{
+    type: date
+    sql: concat(LEFT(${doc_fisc_period},4),"-",RIGHT(${doc_fisc_period},2),"-01") ;;
+  }
+
+  dimension_group: fiscal_period {
+    type: time
+    datatype: date
+    timeframes: [month, year]
+    sql: ${fiscal_period_to_date} ;;
+    convert_tz: no
     hidden: no
   }
 
