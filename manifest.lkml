@@ -1,10 +1,10 @@
 constant: CONNECTION_NAME {
-  value: "cortex-saad"
+  value: "sap-cortex-demo"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "techhub-sap-salesforce-looker"
+  value: "cortex-sap-demo-7070"
   export: override_required
 }
 
@@ -21,5 +21,4 @@ constant: CLIENT {
 constant: FUNCTION_DATASET {
   value: "SAP_REPORTING"
   export: override_required
-
 }
