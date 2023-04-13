@@ -44,6 +44,8 @@ The datasets required by this block can be obtained by following the installatio
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
 
 - **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
+
+- **Language**: In the Looker User Profile, create and set the value of name = language, label = "Default Value for language Required" to the desired default language.
   
   NOTE - The dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency. Some calculations perform better with BI Engine Optimization feature in Looker. It can be enabled via Looker admin --> Labs
 
