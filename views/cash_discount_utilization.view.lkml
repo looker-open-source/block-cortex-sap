@@ -25,6 +25,7 @@ view: cash_discount_utilization {
     type: string
     label: "Company Name"
     sql: ${TABLE}.CompanyText_BUTXT ;;
+    hidden: no
   }
 
   dimension: account_number_of_vendor_or_creditor_lifnr {
@@ -35,6 +36,7 @@ view: cash_discount_utilization {
   dimension: name1 {
     type: string
     sql: ${TABLE}.NAME1 ;;
+    hidden: no
   }
 
   dimension: accounting_document_number_belnr {
@@ -92,6 +94,7 @@ view: cash_discount_utilization {
   dimension: cash_discount_received_in_target_currency {
     type: number
     sql: ${TABLE}.CashDiscountReceivedInTargetCurrency ;;
+    hidden: no
   }
 
   dimension: target_cash_discount_in_source_currency {
@@ -102,6 +105,7 @@ view: cash_discount_utilization {
   dimension: target_cash_discount_in_target_currency {
     type: number
     sql: ${TABLE}.TargetCashDiscountInTargetCurrency ;;
+    hidden: no
   }
 
   measure: Cash_Discount_Utilization {

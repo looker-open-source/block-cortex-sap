@@ -38,11 +38,28 @@ view: days_payable_outstanding_v2 {
     sql: ${TABLE}.FiscalPeriod ;;
   }
 
-  dimension: Month_Year {
-    type: string
-    sql: concat(${fiscal_year},"/",${fiscal_period}) ;;
+  dimension: fiscal_period_to_date {
+    type: date
+    sql: concat(${fiscal_year},"-",${fiscal_period},"-01") ;;
+  }
+
+  dimension_group: fiscal_date {
+    type: time
+    datatype: date
+    timeframes: [month, year]
+    sql: ${fiscal_period_to_date} ;;
+    convert_tz: no
     hidden: no
   }
+
+  dimension: Month_Year {
+    type: date
+    datatype: date
+    sql: concat(${fiscal_year},"/",${fiscal_period});;
+    html:{{ rendered_value | date: "Y%m%d" }};;
+    hidden: no
+  }
+
 
   dimension: target_currency_tcurr {
     type: string

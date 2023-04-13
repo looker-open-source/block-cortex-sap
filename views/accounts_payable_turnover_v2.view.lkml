@@ -48,7 +48,7 @@ view: accounts_payable_turnover_v2 {
     type: average
     value_format: "0.0"
     sql: NULLIF(${accounts_payable_turnover_in_target_currency},0) ;;
-    sql_distinct_key: ${fiscal_period} ;;
+    sql_distinct_key: ${fiscal_period_month} ;;
     required_fields: [doc_fisc_period]
     hidden: no
   }
