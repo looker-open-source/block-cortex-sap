@@ -200,7 +200,7 @@
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: USD
+    default_value: "{{ _user_attributes['default_value_currency_required'] }}"
     allow_multiple_values: true
     required: false
     ui_config:

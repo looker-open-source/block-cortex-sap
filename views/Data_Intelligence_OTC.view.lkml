@@ -1,10 +1,10 @@
 # The name of this view in Looker is "Data Intelligence Otc"
-
+# connection: "@{CONNECTION_NAME2}"
 view: data_intelligence_otc {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.OrderToCash`
-    ;;
+  #sql_table_name: `@{DATASET}.OrderToCash`;;
+  sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.OrderToCash`;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
   # Here's what a typical dimension looks like in LookML.
@@ -29,6 +29,7 @@ view: data_intelligence_otc {
       value: "JPY"
     }
   }
+
 
   dimension: delivered_qty {
     type: number
@@ -58,7 +59,7 @@ view: data_intelligence_otc {
 
   dimension: billing_block{
     type: string
-    sql: ${TABLE}.BillingBlockInSdDocument_FAKSK ;;
+    sql: ${TABLE}.BillingBlockReasonDescription ;;
   }
 
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
@@ -95,9 +96,14 @@ view: data_intelligence_otc {
   }
 
   measure: count_blocked_order {
-    type: count
+    type: count_distinct
+    sql: ${sales_orders_number} ;;
     filters: [blocked_order : "Blocked"]
     drill_fields:[sales_order, sales_order_line_item, product, delivery_block,billing_block,Sold_To_Party,Blocked_Order_Quantity, Base_UoM,Exchange_Rate_Sales_Value,blocked_order_value_Local_Currency,Local_Currency_Key,blocked_order_value_Global_Currency,Global_Currency]
+
+    #drill_fields:[sales_orders, order_line_items, product_category, delivery_block_document_header,billing_block_in_sd_document,SoldToParty, customer_number, blocked_quantity, BaseUoM, blocked_value,blocked_order_value_Local_Currency,Local_Currency_Key]
+    #filters: [blocked_order : "Blocked"]
+#>>>>>>> branch 'main' of ssh://benschuler%40google.com@source.developers.google.com:2022/p/kittycorn-dev-inf/r/looker-repo
   }
 
   dimension: blocked_order_value_Local_Currency {
@@ -109,14 +115,14 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_of_blocked_order_Value{
     value_format: "0.00"
     type: number
-    sql: ${blocked_order_value_Local_Currency}/${blocked_order_value_Global_Currency};;
+    sql: if(${blocked_order_value_Global_Currency}=0,0,${blocked_order_value_Local_Currency}/${blocked_order_value_Global_Currency});;
   }
 
   dimension: blocked_order_value_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${blocked_order_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${blocked_order_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${blocked_order_value_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${blocked_order_value_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: blocked_order_quantity {
@@ -141,10 +147,11 @@ view: data_intelligence_otc {
 
   measure: count_canceled_order {
     type: count
+    #sql: ${sales_orders_number} ;;
     #sql: ${canceled_order} ;;
     filters: [canceled_order : "Canceled"]
 
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    #drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
 
   dimension: city {
@@ -237,14 +244,14 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_of_Delivered_Value{
     value_format: "0.00"
     type: number
-    sql: ${delivered_value_Local_Currency}/${delivered_value_Global_Currency};;
+    sql: if(${delivered_value_Global_Currency}=0,0,${delivered_value_Local_Currency}/${delivered_value_Global_Currency});;
   }
 
   dimension: delivered_value_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${delivered_value_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${actual_delivery_date},${delivered_value_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   measure: sum_delivered_value {
@@ -257,7 +264,7 @@ view: data_intelligence_otc {
 
   dimension: delivery_block{
     type: string
-    sql: ${TABLE}.DeliveryBlock_documentHeader_LIFSK ;;
+    sql: ${TABLE}.DeliveryBlockReasonDescription ;;
   }
 
   dimension: Ship_To_Party {
@@ -308,6 +315,11 @@ view: data_intelligence_otc {
 
   dimension:  division{
     type: string
+    sql:  ${TABLE}.DivisionDescription;;
+  }
+
+  dimension:  division_number{
+    type: string
     sql:  ${TABLE}.Division;;
   }
 
@@ -346,7 +358,7 @@ view: data_intelligence_otc {
     else "Not Relevant" END;;
   }
 
-  dimension: order_status {
+  dimension: sales_order_status {
     type: string
     sql: if(${canceled_order}="Canceled","Canceled",if(${open_orders}="OpenOrder","Open","Closed")) ;;
   }
@@ -369,14 +381,14 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_Billing_net_value{
     value_format: "0.00"
     type: number
-    sql: ${billing_Net_Value_Local_Currecy}/${billing_Net_Value_Local_Currecy};;
+    sql: if(${billing_Net_Value_Local_Currecy}=0,0,${billing_Net_Value_Local_Currecy}/${billing_Net_Value_Local_Currecy});;
   }
 
   dimension: billing_Net_Value_Global_Currecy {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${billing_Net_Value_Local_Currecy},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${billing_Net_Value_Local_Currecy},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${billing_Net_Value_Local_Currecy})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   dimension: in_full_delivery {
@@ -394,9 +406,12 @@ view: data_intelligence_otc {
   measure: count_incoming_order {
     type: count
     #sql: ${incoming_order} ;;
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
     #drill_fields: [sales_orders, order_line_items, material_number, requesteddeliverydate_date,actual_delivery_date, SoldToParty, ShipToParty, BillToParty, customer_number, delivery_number,billing_document, delivery_status,order_status, sales_order_qty, BaseUoM, sales_order_value]
-  }
+    link: {
+      label: "Explore All Orders"
+      url: "{{ link }}&limit=1000000"
+    }}
 
   dimension: intercompany_price_Local_currency {
     value_format: "0.00"
@@ -407,14 +422,14 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_intercompany_price{
     value_format: "0.00"
     type: number
-    sql: ${intercompany_price_Local_currency}/${list_price_Global_currency};;
+    sql: if(${list_price_Global_currency}=0,0,${intercompany_price_Local_currency}/${list_price_Global_currency});;
   }
 
   dimension: intercompany_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${intercompany_price_Local_currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${intercompany_price_Local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},cast(${intercompany_price_Local_currency} as numeric))),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
   dimension: late_deliveries {
     type: string
@@ -468,63 +483,71 @@ view: data_intelligence_otc {
     type: yesno
     sql:${actual_delivery_date} is not null  ;;
   }
-  
+
   measure: count_of_deliveries {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [Delivery: "Yes"]
   }
-  
+
   measure: count_on_time_delivery {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [OnTime: "Yes",Delivery: "Yes"]
   }
-  
+
   measure: count_in_full_delivery {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [InFull: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: count_otif {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [OnTime_InFull: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: count_latedeliveries {
     type: count_distinct
     sql: ${delivery_number} ;;
     filters: [Late_Delivery: "Yes", Delivery: "Yes"]
   }
-  
+
   measure: OnTimePercentage {
     type: number
-    value_format: "0%"
-    sql: if(${count_of_deliveries}=0,0,round(${count_on_time_delivery}/${count_of_deliveries},2))  ;;
+    sql: if(${count_of_deliveries}=0,0,round(${count_on_time_delivery}/${count_of_deliveries}*100,2))  ;;
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
   measure: InFullPercentage {
     type: number
     value_format: "0%"
-    sql: if(${count_of_deliveries}=0,0,round(${count_in_full_delivery}/${count_of_deliveries},2))  ;;
+    sql: if(${count_of_deliveries}=0,0,round(${count_in_full_delivery}/${count_of_deliveries}*100,2))  ;;
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
 
   measure: OTIFPercentage {
     type: number
     value_format: "0%"
-    sql: if(${count_of_deliveries}=0,0,round(${count_otif}/${count_of_deliveries},2))  ;;
+    sql: if(${count_of_deliveries}=0,0,round(${count_otif}/${count_of_deliveries}*100,2))  ;;
+    #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
 
   measure: LateDeliveryPercentage {
     type: number
     value_format: "0%"
-    sql: if(${count_of_deliveries}=0,0,round(${count_latedeliveries}/${count_of_deliveries},2))  ;;
+    sql: if(${count_of_deliveries}=0,0,round(${count_latedeliveries}/${count_of_deliveries}*100,2))  ;;
+   #html:<a href="/dashboards/168?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::delivery_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
-  
+
+
   dimension: OnTime_InFull {
     type: yesno
     sql: ${otif}="OTIF" ;;
@@ -554,7 +577,7 @@ view: data_intelligence_otc {
   measure:count_open_orders {
     type: count
     filters: [open_orders: "OpenOrder"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,sales_order_value_Local_Currecny]
     #drill_fields: [sales_order_number,creation_date_date, material_number, confirmed_order_quantity,sales_order_net_price, shipping_location, requesteddeliverydate_date]
   }
 
@@ -606,7 +629,7 @@ view: data_intelligence_otc {
 
   measure: avg_order_line_items {
     type: number
-    sql: round(${count_sales_orders_line_item}/${Total_Sales_Orders_AVG},2) ;;
+    sql: if(${Total_Sales_Orders_AVG}=0,0,round(${count_sales_orders_line_item}/${Total_Sales_Orders_AVG},2)) ;;
   }
 
   dimension: delivery {
@@ -621,7 +644,7 @@ view: data_intelligence_otc {
 
   measure: average_deliveries_sales_orders {
     type: number
-    sql: round(${count_deliveries_sales_orders}/${Total_Delevery_Order_AVG},2) ;;
+    sql: if(${Total_Delevery_Order_AVG}=0,0,round(${count_deliveries_sales_orders}/${Total_Delevery_Order_AVG},2)) ;;
   }
 
   dimension: otif {
@@ -669,25 +692,29 @@ view: data_intelligence_otc {
   measure: count_return_order {
     type: count
     filters: [return_order : "Returned"]
-    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
+    drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,sales_order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,sales_order_value_Local_Currecny,Local_Currency_Key,Sales_Order_Value_Global_Currency,Global_Currency]
   }
   measure: Return_Order_Percentage {
     type: number
-    sql: ${count_return_order}/${count_of_delivery} ;;
-    link: {
-      label: "Returned Orders"
-      url: "/dashboards/cortex_sap_operational::returned_orders?"
-    }
+    sql:if(${count_of_delivery}=0,0,round(${count_return_order}/${count_of_delivery}*100,2)) ;;
+    #html:<a href="/dashboards/177?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::returned_orders?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
+    #link: {
+    #  label: "Returned Orders"
+      #url: "/dashboards/177?Distribution+Channel={{ distribution_channel._value }}&Sales+Org={{ sales_org._value }}&Division={{ division._value }}&Product={{ product._value }}&AMPRegion={{ country._value }}"
+     # url: "/dashboards/177?"
+    #}
     #drill_fields: [sales_order,sales_order_line_item,product, Sold_To_Party, Ship_To_Party, Bill_To_Party,order_status,sales_order_qty,Base_UoM,Exchange_Rate_Sales_Value,Sales_Order_Value_Global_Currency,Global_Currency,sales_order_value_Local_Currecny,Local_Currency_Key]
   }
-
+  dimension: return_order_status{
+    type: string
+    sql: ${TABLE}.ReturnOrderDescription ;;
+  }
   measure: Cancelled_Order_Percentage {
     type: number
-    sql: ${count_canceled_order}/${data_intelligence_otc.count} ;;
-    link: {
-      label: "Canceled Orders"
-      url: "/dashboards/cortex_sap_operational::canceled_orders?"
-    }
+    sql: if(${data_intelligence_otc.count}=0,0,round(${count_canceled_order}/${data_intelligence_otc.count}*100,2)) ;;
+    #html:<a href="/dashboards/178?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::canceled_orders?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
 
   }
 
@@ -705,8 +732,8 @@ view: data_intelligence_otc {
   dimension: Rebate_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Rebate_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Rebate_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Rebate_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${Rebate_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Rebate_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: Tax_Amount_Local_Currency {
@@ -718,14 +745,14 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_Tax_Amount{
     value_format: "0.00"
     type: number
-    sql: ${Tax_Amount_Local_Currency}/${list_price_Global_currency};;
+    sql: if(${list_price_Global_currency}=0,0,${Tax_Amount_Local_Currency}/${list_price_Global_currency});;
   }
 
   dimension: Tax_Amount_Global_Currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Tax_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${Tax_Amount_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${Tax_Amount_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${Tax_Amount_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},${Tax_Amount_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
 
@@ -739,7 +766,7 @@ view: data_intelligence_otc {
   dimension: sales_order_net_price_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_price_local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_price_local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_price_local_currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
 
@@ -755,9 +782,9 @@ view: data_intelligence_otc {
     type: sum
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
-      label: "Product"
-      url: "/dashboards/cortex_sap_operational::sales_performance_by_product?"
-    }
+      label: "Sales Performance by Product"
+      url:"/dashboards/cortex_sap_operational::sales_performance_by_product?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
+   }
   }
 
   measure: sum_sales_order_net_value_1 {
@@ -765,8 +792,8 @@ view: data_intelligence_otc {
     type: sum
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
-      label: "Sales Organization"
-      url: "/dashboards/cortex_sap_operational::sales_performance_by_sales_org?"
+      label: "Sales Performance by Sales_Org"
+      url:"/dashboards/cortex_sap_operational::sales_performance_by_sales_org?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
     }
   }
 
@@ -775,8 +802,8 @@ view: data_intelligence_otc {
     type: sum
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
-      label: "Distribution Channel"
-      url: "/dashboards/cortex_sap_operational::sales_performance_by_distribution_channel?"
+      label: "Sales Performance by Distribution Channel"
+      url:"/dashboards/cortex_sap_operational::sales_performance_by_distribution_channel?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
     }
   }
 
@@ -785,21 +812,21 @@ view: data_intelligence_otc {
     type: sum
     sql: ${sales_order_net_value_Global_Currency} ;;
     link: {
-      label: "Division"
-      url: "/dashboards/cortex_sap_operational::sales_performance_by_division?"
+      label: "Sales Performance by Division"
+      url:"/dashboards/cortex_sap_operational::sales_performance_by_division?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
     }
   }
 
   dimension: Exchange_Rate_Sales_Net_Value{
     value_format: "0.00"
     type: number
-    sql: ${sales_order_net_value_Local_Currency}/${sales_order_net_value_Global_Currency};;
+    sql: if(${sales_order_net_value_Global_Currency}=0,0,${sales_order_net_value_Local_Currency}/${sales_order_net_value_Global_Currency});;
   }
 
   dimension: sales_order_net_value_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_net_value_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${sales_order_net_value_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_net_value_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: delivery_sales_order {
@@ -834,13 +861,13 @@ view: data_intelligence_otc {
   dimension: Exchange_Rate_Sales_Value{
     value_format: "0.00"
     type: number
-    sql: ${sales_order_value_Local_Currecny}/${Sales_Order_Value_Global_Currency};;
+    sql: if(${Sales_Order_Value_Global_Currency}=0,0,${sales_order_value_Local_Currecny}/${Sales_Order_Value_Global_Currency});;
   }
 
   dimension: Sales_Order_Value_Global_Currency {
     value_format: "0.00"
     type: number
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${sales_order_value_Local_Currecny},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${sales_order_value_Local_Currecny},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${creation_date_date},${sales_order_value_Local_Currecny})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
   }
 
   measure: sum_sales_order_value {
@@ -882,10 +909,10 @@ view: data_intelligence_otc {
     value_format: "0.00"
     type: average
     sql: ${list_price_Global_currency}-${adjusted_price_Global_currency} ;;
-    link: {
-      label: "Customer focused Price Variations"
-      url: "/dashboards/cortex_sap_operational::customer_based_pricing_variations?"
-    }
+    # link: {
+    #   label: "Price Adjustments based on Customer Profiling"
+    #   url:"/dashboards/cortex_sap_operational::price_adjustments_based_on_customer_profiling?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
+    # }
   }
 
   measure: average_list_price1{
@@ -893,33 +920,27 @@ view: data_intelligence_otc {
     type: average
     sql: ${list_price_Global_currency} ;;
     link: {
-      label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_customer_profiling?"
+      label: "Price Adjustments based on Product Availability"
+      url:"/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
     }
+  }
 
+    measure: average_list_price2{
+      value_format: "0.00"
+      type: average
+      sql: ${list_price_Global_currency} ;;
+      link: {
+        label: "Price Adjustments based on Customer Profiling"
+        url:"/dashboards/cortex_sap_operational::price_adjustments_based_on_customer_profiling?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
+      }
   }
 
   measure: average_adjusted_price{
     value_format: "0.00"
     type: average
     sql: ${adjusted_price_Global_currency} ;;
-    link: {
-      label: "Price Adjustments based on Customer Profiling"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_customer_profiling?"
-    }
-
   }
 
-  measure: average_list_price2{
-    value_format: "0.00"
-    type: average
-    sql: ${list_price_Global_currency} ;;
-    link: {
-      label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?"
-    }
-
-  }
 
   measure: average_intercompany_price {
     value_format: "0.00"
@@ -927,19 +948,14 @@ view: data_intelligence_otc {
     sql: ${intercompany_price_Global_currency} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?"
+      url:"/dashboards/cortex_sap_operational::price_adjustments_based_on_product_availability?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}"
     }
-  }
+   }
 
   measure: average_discount{
     value_format: "0.00"
     type: average
     sql: ${discount_Global_currency} ;;
-    link: {
-      label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::product_based_pricing_variations?"
-    }
-
   }
 
   dimension: Exchange_Rate_Billing{
@@ -951,8 +967,8 @@ view: data_intelligence_otc {
   dimension: list_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${list_price_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${list_price_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${list_price_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${list_price_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${list_price_Local_Currency} as numeric))),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: adjusted_price_Local_Currency {
@@ -964,8 +980,8 @@ view: data_intelligence_otc {
   dimension: adjusted_price_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${adjusted_price_Local_Currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${adjusted_price_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${adjusted_price_Local_Currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${adjusted_price_Local_Currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${adjusted_price_Local_Currency} as numeric))),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: discount_Local_currency {
@@ -977,8 +993,8 @@ view: data_intelligence_otc {
   dimension: discount_Global_currency {
     value_format: "0.00"
     type: number
-    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${discount_Local_currency})),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
-    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric))),ifnull(CAST(`@{GCP_PROJECT}`.@{REPORTING_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    #sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %}  ,${discount_Local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},${Exchange_Rate_Type} ,${Local_Currency_Key},{% parameter Currency_Required %},${billing_date},${discount_Local_currency})),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
+    sql: Round(if(${Local_Currency_Key}={% parameter Currency_Required %},${discount_Local_currency},@{FUNCTION_DATASET}.Currency_Conversion( ${Client_ID},'M',${Local_Currency_Key},{% parameter Currency_Required %},${billing_date_for_billing_index_and_printout_date},cast(${discount_Local_currency} as numeric))),ifnull(CAST(@{FUNCTION_DATASET}.Currency_Decimal({% parameter Currency_Required %}) AS int),2)) ;;
     }
 
   dimension: delivery_date {
@@ -998,7 +1014,7 @@ view: data_intelligence_otc {
 
   dimension:Local_Currency_Key_Billing{
     type: string
-    sql: ${TABLE}.BillingDOcumentCurrency_WAERK ;;
+    sql: ${TABLE}.BillingDOcumentCurrencRK ;;
   }
 
 
@@ -1031,29 +1047,98 @@ view: data_intelligence_otc {
 
   measure: percentage_one_touch_order {
     type: number
-    sql: ${count_one_touch_order}/${count_incoming_order}*100 ;;
-    link: {
-      label: "One Touch Order"
-      url: "/dashboards/cortex_sap_operational::one_touch_order?"
-    }
+    sql: if(${count_incoming_order}=0,0,round(${count_one_touch_order}/${count_incoming_order}*100,2)) ;;
+    #html:<a href="/dashboards/173?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}">{{value}}%</a> ;;
+    html:<a href="/dashboards/cortex_sap_operational::one_touch_order?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}%</a> ;;
   }
 
 
   dimension: One_Touch_Order_Count {
     type: number
     sql: ${TABLE}.OneTouchOrderCount ;;
-    link: {
-      label: "One Touch Order"
-      url: "/dashboards/cortex_sap_operational::one_touch_order?"
-    }
+
+
+
   }
 
   dimension: Client_ID {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
   }
+
+  dimension: Language{
+    type: string
+    sql: ${TABLE}.CustomerLanguage ;;
+  }
   measure: count {
     type: count
     drill_fields: []
   }
+  measure: dash_nav {
+    hidden: no
+    label: "Navigation Bar"
+    type: string
+    sql: "";;
+    html:
+    <div style="background-color: #FFFFFF; height:525px;width:100%"></div>
+      <div style="background-color: #FFFFFF; border: solid 1px #4285F4; border-radius: 5px; padding: 5px 10px; height: 60px; width:100%">
+        <nav style="font-size: 18px; color: #4285F4">
+
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_02c_01_order_fulfillment_performance_tuning?">Order Fulfillment</a>
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_order_status_snapshot?">Order Status Snapshot</a>
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_03_order_detailsperformance_tuning?">Order Details</a>
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_04_sales_performanceperformance_tuning?">Sales Performance</a>
+      <a style="padding: 5px; float: center; line-height: 40px; margin-left: 8px; color: #4285F4" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing_v2?Year=2022%2F01%2F01%20to%202022%2F04%2F22&ampRegion=&Sales%20Org=&Distribution%20Channel=&Division=&Product=&ampCurrency=USD">Billing and Pricing</a>
+        </nav>
+      </div>
+    <div style="background-color: #FFFFFF; height:500px;width:100%"></div>;;
+  }
+
+  measure: Sales_performance{
+    type: string
+    sql: "Home" ;;
+
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_04_sales_performanceperformance_tuning?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+  #  html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sales_performance?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&ampRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+  }
+
+  measure: Order_details{
+    type: string
+    sql: "Home" ;;
+
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_03_order_detailsperformance_tuning?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+   # html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::order_details?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&ampRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+  }
+
+  measure: Order_fulfillment{
+    type: string
+    sql: "Home" ;;
+
+  #  html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::order_fulfillment?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_02c_01_order_fulfillment_performance_tuning?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&ampRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+    }
+
+  measure: Order_status_snapshot{
+    type: string
+    sql: "Home" ;;
+
+    #html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::order_status_snapshot?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&AMPRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_02_order_status_snapshot?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&ampRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+  }
+
+  measure: billing_and_pricing{
+    type: string
+    sql: "Home" ;;
+
+    html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_billing_and_pricing_v2?Year=2022%2F01%2F01%20to%202022%2F04%2F22&ampRegion=&Sales%20Org=&Distribution%20Channel=&Division=&Product=&ampCurrency=USD">Home</nav>  ;;
+
+  #  html:<nav style="font-size: 20px; color: #4285F4"><a style="padding: 5px; float: center; line-height: 40px" href="/dashboards/cortex_sap_operational::billing_and_pricing?Distribution+Channel={{ _filters['data_intelligence_otc.distribution_channel']| url_encode }}&Sales+Org={{ _filters['data_intelligence_otc.sales_org']| url_encode }}&Division={{ _filters['data_intelligence_otc.division']| url_encode  }}&Product={{ _filters['data_intelligence_otc.product']| url_encode }}&ampRegion={{ _filters['data_intelligence_otc.country']| url_encode }}&Year={{ _filters['data_intelligence_otc.creation_date_date']| url_encode }}">{{value}}</a></nav>  ;;
+  }
+
 }
