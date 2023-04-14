@@ -30,9 +30,13 @@ view: accounts_payable_turnover_v2 {
     sql: (${TABLE}.AccountsPayableTurnoverInTargetCurrency * -1);;
   }
 
+  dimension: doc_fisc_period {
+    type: string
+    sql: ${TABLE}.DocFiscPeriod ;;
+  }
+
   dimension: fiscal_period_to_date{
-    type: date
-    sql: concat(LEFT(${doc_fisc_period},4),"-",RIGHT(${doc_fisc_period},2),"-01") ;;
+    sql: DATE(CAST(LEFT(${doc_fisc_period},4) AS INT64),CAST(RIGHT(${doc_fisc_period},2) AS INT64),01) ;;
   }
 
   dimension_group: fiscal_period {
@@ -111,11 +115,6 @@ view: accounts_payable_turnover_v2 {
   dimension: currency_key_waers {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
-  }
-
-  dimension: doc_fisc_period {
-    type: string
-    sql: ${TABLE}.DocFiscPeriod ;;
   }
 
   dimension: name1 {

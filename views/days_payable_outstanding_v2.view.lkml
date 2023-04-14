@@ -39,8 +39,7 @@ view: days_payable_outstanding_v2 {
   }
 
   dimension: fiscal_period_to_date {
-    type: date
-    sql: concat(${fiscal_year},"-",${fiscal_period},"-01") ;;
+    sql: DATE(CAST(${fiscal_year} AS INT64),CAST(${fiscal_period} AS INT64),01) ;;
   }
 
   dimension_group: fiscal_date {
@@ -51,15 +50,6 @@ view: days_payable_outstanding_v2 {
     convert_tz: no
     hidden: no
   }
-
-  dimension: Month_Year {
-    type: date
-    datatype: date
-    sql: concat(${fiscal_year},"/",${fiscal_period});;
-    html:{{ rendered_value | date: "Y%m%d" }};;
-    hidden: no
-  }
-
 
   dimension: target_currency_tcurr {
     type: string
