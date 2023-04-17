@@ -17,10 +17,15 @@ These 5 dashboards are accompanied by 14 supplemental dashboards with pertinent 
 <h2><span style="color:#2d7eea">Data Foundation Finance</span></h2>
 
 What does this Looker Block do for me?
-- **Accounts Receivable Dashboard** - Find all the information regarding the companies finance such as Accounts Receivable, Overdue Receivables, Day Sales Outstanding.
-- **Accounts Payable Dashboard** - Find all the information regarding the companies finance such as Accounts Payables, Accounts Payalable Turnover, Overdue Payables, Accounts Payable Aging and Cash Discount Utilization.
+- **Accounts Receivable Dashboard** - Find all the information regarding the companies' finance such as Accounts Receivable, Overdue Receivables, Day Sales Outstanding.
+- **Accounts Payable Dashboard** - Find all the information regarding the companies' finance such as Accounts Payables, Accounts Payalable Turnover, Overdue Payables, Accounts Payable Aging and Cash Discount Utilization.
 - **Vendor Performance Dashboard** - Find all the information regarding the Vendor Performance in terms of delivery and other important indicators like Vendor Lead time , Purchase price variance , Purchase Order status.
 - **Spend Analysis Dashboard** - Find all the information regarding the major indicators like Total Spend, Spend Analysis, Total number of Suppliers to check spend across different Purchase orgs, Purchase groups, Vendor Countries, Material Types.
+
+<h2><span style="color:#2d7eea">Data Foundation Inventory</span></h2>
+
+What does this Looker Block do for me?
+- **Inventory Management** - This block gives the high level information to Inventory Manager about various stock categories and other important Key Performance Indicators including Inventory Turn, Days of Supply, Obsolete Inventory and Slow Moving Inventory.
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
 The datasets required by this block can be obtained by following the installation and configuration instructions for the <a href="https://github.com/GoogleCloudPlatform/cortex-data-foundation">Google Cloud Cortex Framework</a> application. The related <a href="https://github.com/llooker/cortex_data_foundation">Google Cloud Cortex Framework for SAP</a> LookML Block also leverages these same datasets.
@@ -44,8 +49,6 @@ The datasets required by this block can be obtained by following the installatio
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
 
 - **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
-
-- **Language**: In the Looker User Profile, create and set the value of name = language, label = "Default Value for language Required" to the desired default language.
   
   NOTE - The dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency. Some calculations perform better with BI Engine Optimization feature in Looker. It can be enabled via Looker admin --> Labs
 
