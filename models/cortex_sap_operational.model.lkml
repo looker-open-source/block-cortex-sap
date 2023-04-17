@@ -191,7 +191,15 @@ explore: sales_orders {
 
 explore: vendor_performance {
   sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-    and ${vendor_performance.language_key} = '{{ _user_attributes['language'] }}';;
+    and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}'
+    ;;
+
+  join: language_map {
+    fields: []
+    type: left_outer
+    sql_on: ${vendor_performance.language_key} = ${language_map.language_key} ;;
+    relationship: many_to_one
+  }
 
   join: materials_valuation_v2 {
     type: left_outer
@@ -209,33 +217,6 @@ explore: days_payable_outstanding_v2 {
   sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
 }
 
-explore: materials_valuation_v2 {
-  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
-}
-
-explore: inventory_metrics_overview {
-    join: inventory_by_plant {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
-            ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
-  }
-  
-    sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-      and ${inventory_metrics_overview.language_spras} = '{{ _user_attributes['language'] }}';;
-}
-
-explore: inventory_by_plant {
-    sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-      and ${inventory_by_plant.language_spras} = '{{ _user_attributes['language'] }}';;
-
-    join: inventory_metrics_overview {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} and
-      ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs};;
-  }
-}
 
 explore: accounts_payable_v2 {
 
@@ -257,6 +238,47 @@ explore: accounts_payable_turnover_v2 {
   sql_always_where: ${accounts_payable_turnover_v2.client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
 }
 
-
+explore: materials_valuation_v2 {
+  sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+}
 
 ########################################### Finanace Dashboards End ########################################################################
+
+################################################ Supply Chain #######################################################
+
+
+explore: inventory_metrics_overview {
+  sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+  and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
+
+  join: inventory_by_plant {
+    type: left_outer
+    relationship: many_to_one
+    fields: [inventory_by_plant.stock_characteristic]
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} 
+      and ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs}
+    ;;
+  }
+
+  join: language_map {
+    fields: []
+    type: left_outer
+    sql_on: ${inventory_metrics_overview.language_spras} = ${language_map.language_key} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: inventory_by_plant {
+    sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+        and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}'
+    ;;
+
+  join: language_map {
+    fields: []
+    type: left_outer
+    sql_on: ${inventory_by_plant.language_spras} = ${language_map.language_key} ;;
+    relationship: many_to_one
+  }
+}
+
+################################################ End of Supply Chain #################################################
