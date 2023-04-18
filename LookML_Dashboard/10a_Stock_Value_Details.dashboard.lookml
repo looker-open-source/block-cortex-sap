@@ -217,9 +217,9 @@
   - name: Company Name
     title: Company Name
     type: field_filter
-    default_value: CYMBAL US01 US EAST
+    default_value: ''
     allow_multiple_values: true
-    required: true
+    required: false
     ui_config:
       type: tag_list
       display: popover

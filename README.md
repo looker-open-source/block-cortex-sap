@@ -1,57 +1,69 @@
 <h1><span style="color:#2d7eea">Google Cloud Cortex Framework for SAP</span></h1>
 
-<h2><span style="color:#2d7eea">Data Foundation Order to Cash</span></h2>
+<h2><span style="color:#2d7eea">What does this Looker Block do for me?</span></h2>
 
-What does this Looker Block do for me?
+<h3> Data Foundation - Order to Cash </h3>
 
-There are several high-level dashboards included:
-- **1. Orders Fulfillment Dashboard** - Monitor current delivery status, highlight late deliveries and compare pending deliveries with current stock.
-- **2. Order Snapshot Dashboard** - To monitor the health of the orders and also how efficient our Orders vs Deliveries.
-- **3. Order Details** - Find all the information about your order in one place and their status.
-- **4. Sales Performance** - Review the sales performance of Products, Division, Sales organization and Distribution channel.
-- **5. Billing and Pricing** - All the information related to the customer and products focused on price variations.
+- **Orders Fulfillment Dashboard** - Monitor current delivery status, highlight late deliveries and compare pending deliveries with current stock.
+- **Order Snapshot Dashboard** - To monitor the health of the orders and also how efficient our Orders vs Deliveries.
+- **Order Details** - Find all the information about your order in one place and their status.
+- **Sales Performance** - Review the sales performance of Products, Division, Sales organization and Distribution channel.
+- **Billing and Pricing** - All the information related to the customer and products focused on price variations.
 
-These 5 dashboards are accompanied by 14 supplemental dashboards with pertinent drill information. The dashboards have been organized by relationship to one of the 5 primary dashboards.
-(For example, dashboards related to "1. Order Fullfillment" will have titles following this pattern "1_a" "1_b").
+<h3>Data Foundation - Finance</h3>
 
-<h2><span style="color:#2d7eea">Data Foundation Finance</span></h2>
-
-What does this Looker Block do for me?
-- **Accounts Receivable Dashboard** - Find all the information regarding the companies finance such as Accounts Receivable, Overdue Receivables, Day Sales Outstanding.
-- **Accounts Payable Dashboard** - Find all the information regarding the companies finance such as Accounts Payables, Accounts Payalable Turnover, Overdue Payables, Accounts Payable Aging and Cash Discount Utilization.
+- **Accounts Receivable Dashboard** - Find all the information regarding the companies' finance such as Accounts Receivable, Overdue Receivables, Day Sales Outstanding.
+- **Accounts Payable Dashboard** - Find all the information regarding the companies' finance such as Accounts Payables, Accounts Payalable Turnover, Overdue Payables, Accounts Payable Aging and Cash Discount Utilization.
 - **Vendor Performance Dashboard** - Find all the information regarding the Vendor Performance in terms of delivery and other important indicators like Vendor Lead time , Purchase price variance , Purchase Order status.
 - **Spend Analysis Dashboard** - Find all the information regarding the major indicators like Total Spend, Spend Analysis, Total number of Suppliers to check spend across different Purchase orgs, Purchase groups, Vendor Countries, Material Types.
 
+<h3>Data Foundation - Inventory</h3>
+
+- **Inventory Management Dashboard** - This block gives the high level information to Inventory Manager about various stock categories and other important Key Performance Indicators including Inventory Turn, Days of Supply, Obsolete Inventory and Slow Moving Inventory.
+
+<h2><span style="color:#2d7eea">Setting up the dashboards for the first time</span></h2>
+
+There are 2 ways to setting up these dashboards:
+
+- Use "Install from Git URL" functionality from Looker Marketplace. See [instructions](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_a_git_url).
+- (Advanced) Use a Git connection. See [Instructions](https://cloud.google.com/looker/docs/setting-up-git-connection).
+
 <h2><span style="color:#2d7eea">Required Data</span></h2>
-The datasets required by this block can be obtained by following the installation and configuration instructions for the <a href="https://github.com/GoogleCloudPlatform/cortex-data-foundation">Google Cloud Cortex Framework</a> application. The related <a href="https://github.com/llooker/cortex_data_foundation">Google Cloud Cortex Framework for SAP</a> LookML Block also leverages these same datasets.
+
+The datasets required by this block can be obtained by following the installation and configuration instructions for the [Google Cloud Cortex Framework](https://github.com/GoogleCloudPlatform/cortex-data-foundation) application. The related [Google Cloud Cortex Framework for SAP](https://github.com/llooker/cortex_data_foundation) LookML Block also leverages these same datasets.
 
 <h2><span style="color:#2d7eea">Required Customizations</span></h2>
 
->   ❕ Required Constant Values are configured during the Installation process
+<h3>Constant Values</h3>
+
+>   ❕ Required Constant Values are configured during the Installation process. 
+
+>   ❕ This step is completed automatically if you use ["Install from Git URL" functionality](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_a_git_url) from Looker Marketplace.
+
 
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
-
 - **GCP Project**: The GCP project name where the SAP reporting dataset resides in BigQuery (not project id).
-
 - **Reporting Dataset**: The deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
-
 - **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
 
-- **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
+<h3> User Attributes </h3>
 
->   ❕ Required User Attributes are configured separately within the Looker instance
+>   ❕ The dashboards will not load properly if any of the following required user attributes is not set. 
 
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
-
 - **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
-  
-  NOTE - The dashboards will not load properly without the default currency set. Users may override this attribute in their preferred local currency. Some calculations perform better with BI Engine Optimization feature in Looker. It can be enabled via Looker admin --> Labs
 
-**(Optional)** Unhide additional dimensions and measure: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
+<h3> Other considerations </h3>
+
+- **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
+- **Locale**: Each user's [Locale setting](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) in their Looker User Profile will be used to map to SAP language code and filter material text language for Sales Order, Vendor Performance and Inventory Metrics Overview views. See the [language_map](views/language_map.view.lkml) view for details on the mapping.
+- **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) feature in Looker. 
+- **(Optional) Unhide additional dimensions and measure**: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
 <h2><span style="color:#2d7eea">Additional Resources</span></h2>
 
 To learn more about LookML and how to develop visit:
+
 - [Looker User Guide](https://looker.com/guide)
 - [Looker Help Center](https://help.looker.com)
 - [Looker University](https://training.looker.com/)

@@ -49,7 +49,7 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: single_value
-    fields: [accounts_payable_v2.sum_overdue_amount_conv_drill]
+    fields: [accounts_payable_v2.total_due]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -62,6 +62,8 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     note_state: collapsed
     note_display: hover
     note_text: Total balance due to all vendors as of today in the target currency
@@ -306,6 +308,11 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    color_application:
+      collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
+      palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
+      options:
+        steps: 5
     y_axes: [{label: Amount Due, orientation: left, series: [{axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             id: aNot OverDue - accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             name: aNot OverDue}, {axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
@@ -320,6 +327,7 @@
     series_colors:
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
+      accounts_payable_v2.sum_past_overdue_not_overdue_drill: "#1A73E8"
     series_labels:
       aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: ">90 Days\
@@ -349,9 +357,9 @@
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: single_value
-    fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period]
+    fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period_month]
     filters: {}
-    sorts: [accounts_payable_turnover_v2.fiscal_period desc]
+    sorts: [accounts_payable_turnover_v2.fiscal_period_month desc]
     limit: 1
     column_limit: 50
     dynamic_fields: [{measure: average_of_accounts_payable_turnover_in_target_currency,
@@ -387,7 +395,8 @@
     hidden_pivots: {}
     defaults_version: 1
     series_types: {}
-    hidden_fields: [accounts_payable_turnover_v2.fiscal_period]
+    hidden_fields: [accounts_payable_turnover_v2.fiscal_period_month]
+    y_axes: []
     note_state: collapsed
     note_display: hover
     note_text: How many times we paid off the average accounts payable amount in the
@@ -405,8 +414,11 @@
     model: cortex_sap_operational
     explore: accounts_payable_turnover_v2
     type: looker_line
-    fields: [accounts_payable_turnover_v2.fiscal_period, accounts_payable_turnover_v2.turnover_in_days]
-    sorts: [accounts_payable_turnover_v2.fiscal_period]
+    fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period_month]
+    fill_fields: [accounts_payable_turnover_v2.fiscal_period_month]
+    filters:
+      accounts_payable_turnover_v2.fiscal_period_month: 12 months ago for 12 months
+    sorts: [accounts_payable_turnover_v2.fiscal_period_month]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -424,12 +436,12 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: true
+    limit_displayed_rows: false
     legend_position: center
     point_style: circle
     show_value_labels: false
     label_density: 25
-    x_axis_scale: auto
+    x_axis_scale: ordinal
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
@@ -442,7 +454,7 @@
             id: accounts_payable_turnover_v2.turnover, name: Turnover (in days)}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Fiscal Period
+    x_axis_label: Month
     x_axis_zoom: true
     y_axis_zoom: true
     limit_displayed_rows_values:
@@ -454,8 +466,8 @@
       accounts_payable_turnover_v2.turnover_in_days: "#9334E6"
     series_labels:
       accounts_payable_turnover_v2.turnover: Turnover
-    x_axis_datetime_label: "%Y-%m"
-    x_axis_label_rotation: -60
+    x_axis_datetime_label: "%Y/%m"
+    x_axis_label_rotation: -50
     defaults_version: 1
     hidden_pivots: {}
     note_state: collapsed
@@ -475,9 +487,11 @@
     model: cortex_sap_operational
     explore: days_payable_outstanding_v2
     type: looker_line
-    fields: [sum_of_days_payable_outstanding_in_target_currency, days_payable_outstanding_v2.Month_Year]
-    filters: {}
-    sorts: [days_payable_outstanding_v2.Month_Year]
+    fields: [sum_of_days_payable_outstanding_in_target_currency, days_payable_outstanding_v2.fiscal_date_month]
+    fill_fields: [days_payable_outstanding_v2.fiscal_date_month]
+    filters:
+      days_payable_outstanding_v2.fiscal_date_month: 12 months ago for 12 months
+    sorts: [days_payable_outstanding_v2.fiscal_date_month]
     limit: 500
     column_limit: 50
     dynamic_fields: [{measure: sum_of_days_payable_outstanding_in_target_currency,
@@ -499,12 +513,12 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: true
+    limit_displayed_rows: false
     legend_position: center
-    point_style: none
+    point_style: circle
     show_value_labels: false
     label_density: 25
-    x_axis_scale: auto
+    x_axis_scale: ordinal
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
@@ -520,6 +534,8 @@
       sum_of_days_payable_outstanding_in_target_currency: "#FF8168"
     series_labels:
       sum_of_days_payable_outstanding_in_target_currency: Days Payable Outstanding
+    x_axis_datetime_label: "%Y/%m"
+    x_axis_label_rotation: -50
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -548,6 +564,7 @@
     fill_fields: [cash_discount_utilization.posting_date_in_the_document_budat_month]
     filters:
       cash_discount_utilization.posting_date_in_the_document_budat_month: 12 months
+        ago for 12 months
     sorts: [cash_discount_utilization.posting_date_in_the_document_budat_month]
     limit: 500
     column_limit: 50
@@ -566,12 +583,12 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: true
+    limit_displayed_rows: false
     legend_position: center
     point_style: circle
     show_value_labels: true
     label_density: 25
-    x_axis_scale: auto
+    x_axis_scale: ordinal
     y_axis_combined: true
     show_null_points: true
     interpolation: linear

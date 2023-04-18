@@ -30,9 +30,21 @@ view: accounts_payable_turnover_v2 {
     sql: (${TABLE}.AccountsPayableTurnoverInTargetCurrency * -1);;
   }
 
-  dimension: fiscal_period {
+  dimension: doc_fisc_period {
     type: string
-    sql: concat(LEFT(${doc_fisc_period},4),"/",RIGHT(${doc_fisc_period},2)) ;;
+    sql: ${TABLE}.DocFiscPeriod ;;
+  }
+
+  dimension: fiscal_period_to_date{
+    sql: DATE(CAST(LEFT(${doc_fisc_period},4) AS INT64),CAST(RIGHT(${doc_fisc_period},2) AS INT64),01) ;;
+  }
+
+  dimension_group: fiscal_period {
+    type: time
+    datatype: date
+    timeframes: [month, year]
+    sql: ${fiscal_period_to_date} ;;
+    convert_tz: no
     hidden: no
   }
 
@@ -40,7 +52,7 @@ view: accounts_payable_turnover_v2 {
     type: average
     value_format: "0.0"
     sql: NULLIF(${accounts_payable_turnover_in_target_currency},0) ;;
-    sql_distinct_key: ${fiscal_period} ;;
+    sql_distinct_key: ${fiscal_period_month} ;;
     required_fields: [doc_fisc_period]
     hidden: no
   }
@@ -103,11 +115,6 @@ view: accounts_payable_turnover_v2 {
   dimension: currency_key_waers {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
-  }
-
-  dimension: doc_fisc_period {
-    type: string
-    sql: ${TABLE}.DocFiscPeriod ;;
   }
 
   dimension: name1 {

@@ -416,7 +416,7 @@ view: data_intelligence_ar {
 
   dimension: Current_Date{
     type: date
-    sql: current_date() ;;
+    sql: cast((CURRENT_TIMESTAMP()) as timestamp) ;;
     html: {{ rendered_value | date: "%m-%d-%Y" }} ;;
   }
 

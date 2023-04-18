@@ -38,9 +38,16 @@ view: days_payable_outstanding_v2 {
     sql: ${TABLE}.FiscalPeriod ;;
   }
 
-  dimension: Month_Year {
-    type: string
-    sql: concat(${fiscal_year},"/",${fiscal_period}) ;;
+  dimension: fiscal_period_to_date {
+    sql: DATE(CAST(${fiscal_year} AS INT64),CAST(${fiscal_period} AS INT64),01) ;;
+  }
+
+  dimension_group: fiscal_date {
+    type: time
+    datatype: date
+    timeframes: [month, year]
+    sql: ${fiscal_period_to_date} ;;
+    convert_tz: no
     hidden: no
   }
 

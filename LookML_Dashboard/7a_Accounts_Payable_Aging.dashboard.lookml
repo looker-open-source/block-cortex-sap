@@ -44,6 +44,11 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    color_application:
+      collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
+      palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
+      options:
+        steps: 5
     y_axes: [{label: Amount Due, orientation: left, series: [{axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             id: aNot OverDue - accounts_payable_v2.sum_past_overdue_amount_conv_drill,
             name: aNot OverDue}, {axisId: accounts_payable_v2.sum_past_overdue_amount_conv_drill,
@@ -58,6 +63,7 @@
     series_colors:
       e> 90 Days - accounts_payable_v2.sum_past_overdue_amount_conv_drill: "#E52592"
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "#E52592"
+      accounts_payable_v2.sum_past_overdue_not_overdue: "#1A73E8"
     series_labels:
       aNot OverDue - accounts_payable_v2.sum_overdue_amount_conv_drill_1: Not Overdue
       e> 90 Days - accounts_payable_v2.sum_overdue_amount_conv_drill_1: "> 90 Days"
@@ -94,13 +100,12 @@
     model: cortex_sap_operational
     explore: accounts_payable_v2
     type: looker_bar
-    fields: [accounts_payable_v2.name1, accounts_payable_v2.sum_overdue_amount_conv_drill,
-      accounts_payable_v2.sum_past_overdue_not_overdue, accounts_payable_v2.sum_past_overdue_1_to_30days,
-      accounts_payable_v2.sum_past_overdue_31_to_60days, accounts_payable_v2.sum_past_overdue_61_to_90days,
-      accounts_payable_v2.sum_past_overdue_greater_than_90days]
+    fields: [accounts_payable_v2.name1, accounts_payable_v2.total_due, accounts_payable_v2.sum_past_overdue_not_overdue,
+      accounts_payable_v2.sum_past_overdue_1_to_30days, accounts_payable_v2.sum_past_overdue_31_to_60days,
+      accounts_payable_v2.sum_past_overdue_61_to_90days, accounts_payable_v2.sum_past_overdue_greater_than_90days]
     filters:
       accounts_payable_v2.account_type_koart: K
-    sorts: [accounts_payable_v2.sum_overdue_amount_conv_drill desc]
+    sorts: [accounts_payable_v2.total_due desc]
     limit: 5
     column_limit: 50
     x_axis_gridlines: false
@@ -132,7 +137,7 @@
     totals_color: "#808080"
     color_application:
       collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
-      palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
+      palette_id: f0077e50-e03c-4a7e-930c-7321b2267283
       options:
         steps: 5
     y_axes: [{label: '', orientation: bottom, series: [{axisId: accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill,
@@ -152,7 +157,8 @@
     y_axis_zoom: true
     font_size: '10'
     series_types: {}
-    series_colors: {}
+    series_colors:
+      accounts_payable_v2.sum_past_overdue_not_overdue: "#1A73E8"
     series_labels:
       accounts_payable_v2.outstanding_but_not_overdue_1_conv_drill: Not Overdue
       accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill: 1 to 30 Days
@@ -166,7 +172,7 @@
       accounts_payable_v2.sum_past_overdue_greater_than_90days: "> 90 Days"
     defaults_version: 1
     hidden_pivots: {}
-    hidden_fields: [accounts_payable_v2.sum_overdue_amount_conv_drill]
+    hidden_fields: [accounts_payable_v2.total_due]
     note_state: collapsed
     note_display: hover
     note_text: Aging analysis of highest balances due and overdue to vendors as of

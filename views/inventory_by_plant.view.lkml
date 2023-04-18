@@ -202,12 +202,6 @@ view: inventory_by_plant {
     type: sum
     sql: ${inventory_value} ;;
     value_format_name: Greek_Number_Format
-    link: {
-      label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_by_plant.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_by_plant.currency_key_waers']| url_encode }}&Plant+={{ _filters['inventory_by_plant.plant_name_name2']| url_encode }}&Material+={{ _filters['inventory_by_plant.material_text_maktx']| url_encode }}&Country+={{ _filters['inventory_by_plant.country_key_land1']| url_encode }}&Client={{ _filters['inventory_by_plant.client_mandt']| url_encode }}"
-    }
-    #required_fields: [inventory_value]
-    #drill_fields: [company_code_bukrs,plant_name_name2,storage_location_text_lgobe,material_number_matnr,material_text_maktx,description_of_material_type_mtbez,stock_characteristic,quantity_menge,base_unit_of_measure_meins,inventory_value,currency_key_waers]
   }
 
 
@@ -347,7 +341,7 @@ view: inventory_by_plant {
     sql: ${TABLE}.WeekEndDate ;;
     hidden: no
   }
-
+  
   measure: count {
     type: count
     drill_fields: []
