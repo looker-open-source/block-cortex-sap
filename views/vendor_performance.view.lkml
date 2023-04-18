@@ -123,7 +123,7 @@ view: vendor_performance {
     hidden: no
   }
 
-  dimension_group: PO_Creation_Date {
+    dimension_group: PO_Creation_Date {
     type: time
     timeframes: [
       raw,
@@ -185,13 +185,13 @@ view: vendor_performance {
     suggest_persist_for: "10 minutes"
     hidden: no
   }
-
+  
   dimension: target_currency_tcurr {
     type: string
     sql: ${TABLE}.TargetCurrency_TCURR ;;
     hidden: no
   }
-
+  
   dimension: currency_key_waers2 {
     type: string
     sql: ${TABLE}.CurrencyKey_WAERS ;;
@@ -226,8 +226,6 @@ view: vendor_performance {
     type: number
     sql: ${TABLE}.GoodsReceiptAmountInSourceCurrency ;;
   }
-
-#####################################################################
 
   dimension: goods_receipt_amount_in_source_currency_1 {
     type: number
@@ -622,8 +620,6 @@ view: vendor_performance {
     sql: ${invoice_amount_in_source_currency} ;;
   }
 
-  ######################################## Invoive Amount ####################################################
-
   dimension: invoice_amount_in_source_currency_1 {
     type: number
     sql: ${TABLE}.InvoiceAmountInSourceCurrency ;;
@@ -657,6 +653,7 @@ view: vendor_performance {
     hidden: no
     value_format_name: Greek_Number_Format
   }
+
 
   ######################################## Open PO Count ####################################################
 
@@ -718,6 +715,7 @@ view: vendor_performance {
     value_format_name: Greek_Number_Format
   }
 
+
   measure: sum_spend_by_purchase_grp_1 {
     type: sum
     sql: ${invoice_amount_in_source_currency} ;;
@@ -738,17 +736,20 @@ view: vendor_performance {
     value_format_name: Greek_Number_Format
   }
 
+
   measure: sum_spend_by_purchase_grp {
     type: sum
     sql: ${invoice_amount_in_source_currency} ;;
     value_format_name: Greek_Number_Format
   }
 
+
   measure: sum_spend_by_country {
     type: sum
     sql: ${invoice_amount_in_source_currency} ;;
     value_format_name: Greek_Number_Format
   }
+
 
   measure: sum_spend_by_material_type {
     type: sum
@@ -760,6 +761,7 @@ view: vendor_performance {
     type: sum
     sql: ${invoice_amount_in_source_currency} ;;
   }
+
 
   measure: sum_spend_by_material {
     type: sum
@@ -849,6 +851,7 @@ view: vendor_performance {
     sql: ${TABLE}.NetPrice_NETPR ;;
   }
 
+
   dimension: standard_cost {
     type: number
     sql:
@@ -930,8 +933,6 @@ view: vendor_performance {
     value_format_name: Greek_Number_Format
   }
 
-
-  ###################### Purchase variance currency conversion ###########
 
   dimension: Invoice_status {
     type: string
