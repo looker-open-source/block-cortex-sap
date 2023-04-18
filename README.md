@@ -56,7 +56,7 @@ The datasets required by this block can be obtained by following the installatio
 <h3> Other considerations </h3>
 
 - **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
-- **Locale**: In the Looker User Profile, make sure to [set the Locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) for every dashboard user.
+- **Locale**: Each user's [Locale setting](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) in their Looker User Profile will be used to map to SAP language code and filter material text language for Sales Order, Vendor Performance and Inventory Metrics Overview views. See the [language_map](views/language_map.view.lkml) view for details on the mapping.
 - **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) feature in Looker. 
 - **(Optional) Unhide additional dimensions and measure**: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
