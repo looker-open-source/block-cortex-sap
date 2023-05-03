@@ -1,4 +1,4 @@
-<h1><span style="color:#2d7eea">Google Cloud Cortex Framework for SAP</span></h1>
+<h1><span style="color:#2d7eea">Google Cloud Cortex Framework for SAP edited by me</span></h1>
 
 <h2><span style="color:#2d7eea">What does this Looker Block do for me?</span></h2>
 
@@ -36,7 +36,7 @@ The datasets required by this block can be obtained by following the installatio
 
 <h3>Constant Values</h3>
 
->   ❕ Required Constant Values are configured during the Installation process. 
+>   ❕ Required Constant Values are configured during the Installation process.
 
 >   ❕ This step is completed automatically if you use ["Install from Git URL" functionality](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_a_git_url) from Looker Marketplace.
 
@@ -44,11 +44,11 @@ The datasets required by this block can be obtained by following the installatio
 - **Connection**: In the manifest.lkml file, update the value of the CONNECTION_NAME constant and Client ID.
 - **GCP Project**: The GCP project name where the SAP reporting dataset resides in BigQuery (not project id).
 - **Reporting Dataset**: The deployed Cortex Data Foundation _REPORTING dataset where the SAP views reside within the GCP BigQuery project.
-- **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data. 
+- **ClientId/Constant**: The SAP Client number (mandt) the dashboards will utilize to display data.
 
 <h3> User Attributes </h3>
 
->   ❕ The dashboards will not load properly if any of the following required user attributes is not set. 
+>   ❕ The dashboards will not load properly if any of the following required user attributes is not set.
 
 - **Default Currency**: In the Looker User Profile, create and set the value of name = default_value_currency_required, label = "Default Value Currency Required" to the desired default currency.
 - **Client Id Rep**: In the Looker User Profile, create and set the value of name = client_id_rep, label = "Default Value for Client Id Rep Required" to the desired default client_id_rep.
@@ -57,7 +57,7 @@ The datasets required by this block can be obtained by following the installatio
 
 - **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
 - **Locale**: Each user's [Locale setting](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) in their Looker User Profile will be used to map to SAP language code and filter material text language for Sales Order, Vendor Performance and Inventory Metrics Overview views. See the [language_map](views/language_map.view.lkml) view for details on the mapping.
-- **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) feature in Looker. 
+- **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) feature in Looker.
 - **(Optional) Unhide additional dimensions and measure**: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
 
 <h2><span style="color:#2d7eea">Additional Resources</span></h2>
