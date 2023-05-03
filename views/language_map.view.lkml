@@ -24,9 +24,7 @@ view: language_map{
             SELECT 'ZH' as TwoCharacterSapLanguageCode_LAISO, 'zh_CN' as Looker_Locale UNION ALL
             SELECT 'ZH' as TwoCharacterSapLanguageCode_LAISO, 'zh_TW' as Looker_Locale)
 
-            SELECT t002.LanguageKey_SPRAS, temp.TwoCharacterSapLanguageCode_LAISO, temp.Looker_Locale
-            FROM ${languages_t002.SQL_TABLE_NAME} as t002
-            LEFT JOIN temp on temp.TwoCharacterSapLanguageCode_LAISO=t002.TwoCharacterSapLanguageCode_LAISO
+            SELECT * from temp
        ;;
       sql_trigger_value: SELECT 1 ;;
   }

@@ -1,19 +1,19 @@
 constant: CONNECTION_NAME {
-  value: "cortex"
+  value: "kpmg_in-01"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "GCP Project Name"
+  value: "skynet-data-extraction"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "Reporting Dataset Name"
+  value: "reporting_dummy"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "Client ID"
+  value: "MANDT"
   export: override_required
 }
