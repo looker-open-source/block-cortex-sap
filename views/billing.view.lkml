@@ -25,6 +25,12 @@ view: billing {
     type: number
     sql: ${TABLE}.ActualBilledQuantity_FKIMG ;;
   }
+  
+  measure: total_actual_billed_quantity_fkimg {
+    type: number
+    sql: SUM(${actual_billed_quantity_fkimg}) ;;
+    hidden: no
+  }
 
   dimension: batch_number_charg {
     type: string
