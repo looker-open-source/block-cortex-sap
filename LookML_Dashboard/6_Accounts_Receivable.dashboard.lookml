@@ -743,7 +743,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-      options: []
+      options: ['DOP']
     model: cortex_sap_operational
     explore: data_intelligence_ar
     listens_to_filters: []
