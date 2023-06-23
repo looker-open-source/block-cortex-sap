@@ -1,5 +1,5 @@
 constant: CONNECTION_NAME {
-  value: "cortex_3"
+  value: "sap-cortex-demo"
   export: override_required
 }
 
