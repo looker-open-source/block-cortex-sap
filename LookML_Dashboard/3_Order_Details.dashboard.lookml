@@ -142,6 +142,8 @@
       data_intelligence_otc.Sales_Order_Value_Global_Currency, data_intelligence_otc.Global_Currency]
     sorts: [data_intelligence_otc.Exchange_Rate_Sales_Value desc]
     limit: 5000
+    filters:
+      data_intelligence_otc.sales_order_value_Local_Currecny: ">0"
     show_view_names: false
     show_row_numbers: true
     transpose: false
