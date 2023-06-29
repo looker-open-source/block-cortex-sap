@@ -7,7 +7,7 @@
   - name: Sales Performance
     type: text
     title_text: Sales Performance
-    subtitle_text: "<font color=\"#c1c1c1\">How are my Sales performing now?\t</font>"
+    subtitle_text: "<font color=\"#c1c1c1\">How are my Sales performing today?\t</font>"
     body_text: ''
     row: 2
     col: 0
