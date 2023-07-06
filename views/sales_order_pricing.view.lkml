@@ -1,16 +1,21 @@
 # The name of this view in Looker is "Sales Order Pricing"
 view: sales_order_pricing {
+  # The sql_table_name parameter indicates the underlying database table
+  # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.SalesOrderPricing`
     ;;
 
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Access Sequence Access Number Kolnr" in Explore.
+  
   fields_hidden_by_default: yes
 
   dimension: key {
-  type: string
-  primary_key: yes
-  sql: CONCAT(${client_mandt},${condition_item_number_kposn},${number_of_the_document_condition_knumv});;
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${condition_item_number_kposn},${number_of_the_document_condition_knumv});;
   }
-
 
   dimension: access_sequence_access_number_kolnr {
     type: string
@@ -119,7 +124,7 @@ view: sales_order_pricing {
 
   dimension: client_mandt {
     type: string
-   #primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.Client_MANDT ;;
   }
 
@@ -195,7 +200,7 @@ view: sales_order_pricing {
 
   dimension: condition_item_number_kposn {
     type: string
-   #primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.ConditionItemNumber_KPOSN ;;
   }
 
@@ -360,7 +365,7 @@ view: sales_order_pricing {
 
   dimension: number_of_the_document_condition_knumv {
     type: string
-   #primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.NumberOfTheDocumentCondition_KNUMV ;;
   }
 

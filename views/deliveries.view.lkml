@@ -1,8 +1,14 @@
 # The name of this view in Looker is "Deliveries"
 view: deliveries {
+  # The sql_table_name parameter indicates the underlying database table
+  # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.Deliveries`
     ;;
 
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Account Assignment Category Knttp" in Explore.
+  
   fields_hidden_by_default: yes
 
   dimension: key {
@@ -10,7 +16,7 @@ view: deliveries {
     primary_key: yes
     sql: CONCAT(${client_mandt},${delivery_vbeln},${delivery_item_posnr});;
   }
-
+  
   dimension: OnTimeDelivery {
     type: string
     sql: IF( ${date__proof_of_delivery___podat_date}<=${delivery_date_lfdat_date},
@@ -18,6 +24,7 @@ view: deliveries {
     'NotDeliveredOnTime') ;;
     hidden: no
   }
+
   dimension: InFullDelivery {
     type: string
     sql: IF(${sales_orders.cumulative_order_quantity_kwmeng}=${actual_quantity_delivered_in_sales_units_lfimg},
@@ -106,7 +113,7 @@ view: deliveries {
     hidden: no
     link: {
       label: "Delivery Performance"
-      url: "/dashboards/cortex_infosys::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
   }
 
@@ -116,7 +123,7 @@ view: deliveries {
     hidden: no
     link: {
       label: "Delivery Performance"
-      url: "/dashboards/cortex_infosys::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
   }
 
@@ -126,7 +133,7 @@ view: deliveries {
     hidden: no
     link: {
       label: "Delivery Performance"
-      url: "/dashboards/cortex_infosys::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
   }
 
@@ -136,7 +143,7 @@ view: deliveries {
     hidden: no
     link: {
       label: "Delivery Performance"
-      url: "/dashboards/cortex_infosys::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_orders.creation_date_erdat_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
   }
 

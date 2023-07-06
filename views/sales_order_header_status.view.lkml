@@ -1,9 +1,14 @@
 # The name of this view in Looker is "Sales Order Header Status"
 view: sales_order_header_status {
-
+  # The sql_table_name parameter indicates the underlying database table
+  # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.SalesOrderHeaderStatus`
     ;;
 
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "At Least One of ID Items Not Yet Complete on Hold Hdals" in Explore.
+  
   fields_hidden_by_default: yes
 
   dimension: key {
@@ -11,7 +16,7 @@ view: sales_order_header_status {
     primary_key: yes
     sql: CONCAT(${client_mandt},${sales_document_vbeln});;
   }
-
+  
   dimension: at_least_one_of_id_items_not_yet_complete_on_hold_hdals {
     type: string
     sql: ${TABLE}.AtLeastOneOfIdItemsNotYetCompleteOnHold_HDALS ;;

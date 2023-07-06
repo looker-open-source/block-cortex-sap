@@ -6,15 +6,15 @@ view: days_payable_outstanding_v2 {
 
   fields_hidden_by_default: yes
 
-  dimension: key {
-    type: string
-    primary_key: yes
-    sql: CONCAT(${client_mandt},${company_code_bukrs},${fiscal_year},${fiscal_period},${target_currency_tcurr});;
-  }
-
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${company_code_bukrs},${fiscal_period});;
   }
 
   dimension: client_mandt {

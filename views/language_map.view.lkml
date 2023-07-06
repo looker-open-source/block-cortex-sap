@@ -33,19 +33,19 @@ view: language_map{
 
   dimension: language_key {
     primary_key: yes
-    hidden: no
+    hidden: yes
     type: string
     sql: ${TABLE}.LanguageKey_SPRAS ;;
   }
 
   dimension: two_character_sap_language_code {
-    hidden: no
+    hidden: yes
     type: string
     sql: ${TABLE}.TwoCharacterSapLanguageCode_LAISO ;;
   }
 
   dimension: looker_locale {
-    hidden: no
+    hidden: yes
     type: string
     sql: ${TABLE}.Looker_Locale ;;
   }

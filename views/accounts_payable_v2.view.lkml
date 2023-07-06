@@ -421,7 +421,7 @@ view: accounts_payable_v2 {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_infosys::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
     }
   }
 
@@ -441,7 +441,7 @@ view: accounts_payable_v2 {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_infosys::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
     }
   }
 
@@ -461,7 +461,7 @@ view: accounts_payable_v2 {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_infosys::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
     }
   }
 
@@ -481,7 +481,7 @@ view: accounts_payable_v2 {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_infosys::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
     }
   }
 
@@ -499,7 +499,7 @@ view: accounts_payable_v2 {
     hidden: no
     link: {
       label: "Accounts Payable Aging"
-      url: "/dashboards/cortex_infosys::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_finance_ap_07_a_accounts_payable_aging?Target+Currency={{ _filters['accounts_payable_v2.target_currency_tcurr']| url_encode }}&Vendor+Name={{ _filters['accounts_payable_v2.name1']| url_encode }}&Company+Name={{ _filters['accounts_payable_v2.company_text_butxt']| url_encode }}"
     }
   }
 
