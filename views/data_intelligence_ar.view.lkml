@@ -46,7 +46,8 @@ view: data_intelligence_ar {
 
   dimension: key {
     type: string
-   primary_key: yes
+    primary_key: yes
+    hidden: yes
     sql: CONCAT(${Client_ID},${Accounting_Document},${Company_Code},${fiscal_year},${Accounting_Document_Items});;
   }
 
