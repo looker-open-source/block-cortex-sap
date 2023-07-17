@@ -11,6 +11,7 @@ view: accounts_payable_v2 {
   dimension: key {
     type: string
     primary_key: yes
+    hidden: yes
     sql: CONCAT(${client_mandt},${accounting_document_number_belnr},${number_of_line_item_within_accounting_document_buzei},${company_code_bukrs},${target_currency_tcurr});;
   }
 
