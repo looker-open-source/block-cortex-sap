@@ -48,7 +48,7 @@ view: data_intelligence_ar {
     type: string
     primary_key: yes
     hidden: yes
-    sql: CONCAT(${Client_ID},${Accounting_Document},${Company_Code},${fiscal_year},${Accounting_Document_Items});;
+    sql: CONCAT(${Client_ID},${Accounting_Document},${Company_Code},${fiscal_year_gjahr},${Accounting_Document_Items});;
   }
 
 
@@ -223,10 +223,11 @@ view: data_intelligence_ar {
     sql: ${TABLE}.ExchangeRateType_KURST ;;
   }
 
-  #dimension: Fiscal_Year {
-   # type: string
-   # sql: ${TABLE}.FiscalYear_GJAHR ;;
-  #}
+  dimension: fiscal_year_gjahr {
+     type: string
+     hidden: yes
+     sql: ${TABLE}.FiscalYear_GJAHR ;;
+  }
 
   dimension: Invoice_to_which_the_Transaction_belongs {
     type: string
@@ -359,12 +360,12 @@ view: data_intelligence_ar {
 
   dimension: Fiscal_Year {
     type: string
-    sql: split(Period,'|')[OFFSET(0)] ;;
+    sql: ${PeriodCalc} ;;
   }
 
   dimension: Fiscal_Period {
     type: string
-    sql: split(Period,'|')[OFFSET(1)] ;;
+    sql: SUBSTRING(${PeriodCalc}, 6,2) ;;
   }
 
   dimension_group: Fiscal_Date {
@@ -380,8 +381,8 @@ view: data_intelligence_ar {
     ]
     convert_tz: no
     datatype: date
-    sql:PARSE_DATE('%m/%Y',  Concat(cast(Cast(split(Period,'|')[OFFSET(1)] as int) as string),'/',split(Period,'|')[OFFSET(0)]));;
-    }
+    sql:PARSE_DATE('%m/%Y',  Concat(cast(Cast(SUBSTRING(${PeriodCalc},6,2) as int) as string),'/',SUBSTRING(${PeriodCalc},1,4)));;
+  }
 
     dimension: Current_PeriodCalc {
       hidden: yes
@@ -392,13 +393,13 @@ view: data_intelligence_ar {
     dimension: Current_Fiscal_Year {
       hidden: yes
       type: string
-      sql: split(Current_Period,'|')[OFFSET(0)] ;;
+      sql: SUBSTRING(${Current_PeriodCalc}, 1,4) ;;
     }
 
     dimension: Current_Fiscal_Period {
       hidden: yes
       type: string
-      sql: split(Current_Period,'|')[OFFSET(1)] ;;
+      sql: SUBSTRING(${Current_PeriodCalc}, 6,2) ;;
     }
 
     dimension_group: Current_Fiscal_Date {
@@ -414,8 +415,8 @@ view: data_intelligence_ar {
       ]
       convert_tz: no
       datatype: date
-      sql:PARSE_DATE('%m/%Y',  Concat(cast(Cast(split(Current_Period,'|')[OFFSET(1)] as int) as string),'/',split(Current_Period,'|')[OFFSET(0)]));;
-      }
+      sql:PARSE_DATE('%m/%Y',  Concat(cast(Cast(SUBSTRING(${Current_PeriodCalc},6,2) as int) as string),'/',SUBSTRING(${Current_PeriodCalc},1,4)));;
+    }
 
   dimension: Global_Currency_Key {
     type: string
