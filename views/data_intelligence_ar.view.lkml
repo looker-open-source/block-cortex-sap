@@ -353,14 +353,10 @@ view: data_intelligence_ar {
   }
 
   dimension: PeriodCalc {
-    hidden: yes
+    label: "Fiscal Year / Period"
+    description: "Fiscal Year + Period in format YYYYPPP"
     type: string
     sql: ${TABLE}.Period ;;
-  }
-
-  dimension: Fiscal_Year {
-    type: string
-    sql: ${PeriodCalc} ;;
   }
 
   dimension: Fiscal_Period {
