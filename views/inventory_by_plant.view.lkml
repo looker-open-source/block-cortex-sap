@@ -2,7 +2,14 @@ view: inventory_by_plant {
   derived_table: {
     sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant`;;
   }
+  
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${material_number_matnr},${plant_werks},${batch_number_charg},${storage_location_lgort},${company_code_bukrs},${stock_characteristic},${cal_year},${cal_week});;
+  }
 
   dimension: amount_in_local_currency_dmbtr {
     type: number
@@ -91,7 +98,7 @@ view: inventory_by_plant {
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: language_spras {

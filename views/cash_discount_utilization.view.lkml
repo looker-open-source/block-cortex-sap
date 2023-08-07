@@ -6,6 +6,12 @@ view: cash_discount_utilization {
 
   fields_hidden_by_default: yes
 
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${accounting_document_number_belnr},${company_code_bukrs},${target_currency_tcurr});;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]

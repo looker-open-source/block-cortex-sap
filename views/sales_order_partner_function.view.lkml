@@ -4,13 +4,17 @@ view: sales_order_partner_function {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.SalesOrderPartnerFunction`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Address Adrnr" in Explore.
 
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${item_posnr},${sales_document_vbeln},${partner_function_parvw});;
+  }
+  
   dimension: address_adrnr {
     type: string
     sql: ${TABLE}.Address_ADRNR ;;
@@ -43,7 +47,7 @@ view: sales_order_partner_function {
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: country_land1 {
@@ -64,7 +68,7 @@ view: sales_order_partner_function {
   dimension: customer_kunnr {
     type: string
     sql: ${TABLE}.Customer_KUNNR ;;
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 
@@ -110,7 +114,7 @@ view: sales_order_partner_function {
   dimension: item_posnr {
     type: string
     sql: ${TABLE}.Item_POSNR ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: level_number_within_hierarchy_histunr {
@@ -151,7 +155,7 @@ view: sales_order_partner_function {
   dimension: sales_document_vbeln {
     type: string
     sql: ${TABLE}.SalesDocument_VBELN ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: transportation_zone_lzone {

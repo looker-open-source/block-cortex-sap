@@ -3,7 +3,14 @@ view: inventory_metrics_overview {
     sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryKeyMetrics`
       ;;
   }
+  
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${material_number_matnr},${plant_werks},${cal_year},${cal_month});;
+  }
 
   dimension: amount_in_local_currency_dmbtr {
     type: number
@@ -33,14 +40,14 @@ view: inventory_metrics_overview {
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: company_code_bukrs {
     type: string
     sql: ${TABLE}.CompanyCode_BUKRS ;;
     label: "Company Code"
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 
