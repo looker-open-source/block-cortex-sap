@@ -22,6 +22,12 @@ view: sales_order_schedule_line_dt {
     drill_fields: [detail*]
   }
 
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${sales_order_schedule_line_client_mandt},${sales_order_schedule_line_sales_document_vbeln},${sales_order_schedule_line_sales_document_item_posnr}) ;;
+  }
+
   dimension: sales_order_schedule_line_client_mandt {
     type: string
     sql: ${TABLE}.sales_order_schedule_line_client_mandt ;;

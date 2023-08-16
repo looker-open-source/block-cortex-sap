@@ -4,13 +4,19 @@ view: one_touch_order {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.OneTouchOrder`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Actual Billed Quantity Fkimg" in Explore.
+  
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${vbapclient_mandt},${vbapsales_document_item_posnr},${vbapsales_document_vbeln});;
+  }
+  
   dimension: actual_billed_quantity_fkimg {
     type: number
     sql: ${TABLE}.ActualBilledQuantity_FKIMG ;;
@@ -37,19 +43,19 @@ view: one_touch_order {
 
   dimension: vbapclient_mandt {
     type: string
-    primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.VBAPClient_MANDT ;;
   }
 
   dimension: vbapsales_document_item_posnr {
     type: string
-    primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.VBAPSalesDocument_Item_POSNR ;;
   }
 
   dimension: vbapsales_document_vbeln {
     type: string
-    primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.VBAPSalesDocument_VBELN ;;
   }
 

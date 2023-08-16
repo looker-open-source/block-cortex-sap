@@ -123,18 +123,6 @@ explore: sales_orders {
             AND ${sales_orders.item_posnr} = ${sales_order_pricing.condition_item_number_kposn};;
     }
 
-
-    join: currency_conversion_pricing {
-      from: currency_conversion_new
-      type: left_outer
-      relationship: many_to_one
-      sql_on: ${sales_order_pricing.client_mandt} = ${currency_conversion_pricing.mandt}
-          AND ${sales_order_pricing.checkbox_kdatu_date} = ${currency_conversion_pricing.conv_date}
-          AND ${sales_order_pricing.condition_value_currency_key_waers} = ${currency_conversion_pricing.fcurr}
-          AND ${currency_conversion_pricing.kurst} = 'M';;
-    }
-
-
     join: one_touch_order {
       type: left_outer
       relationship: one_to_many
