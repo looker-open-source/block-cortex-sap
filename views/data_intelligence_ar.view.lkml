@@ -45,6 +45,13 @@ view: data_intelligence_ar {
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Accounting Document Number Belnr" in Explore.
 
+  dimension: key {
+    type: string
+    primary_key: yes
+    hidden: yes
+    sql: CONCAT(${Client_ID},${Accounting_Document},${Company_Code},${fiscal_year_gjahr},${Accounting_Document_Items});;
+  }
+
   dimension: Past_Due_Interval{
     type: string
     sql: if((date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)>0 and date_diff(cast({% parameter Key_Date %} as Date),${TABLE}.NetDueDate, DAY)<({% parameter Aging_Interval %}+1)),concat('1- ',({% parameter Aging_Interval %}),' Days'),
@@ -216,10 +223,12 @@ view: data_intelligence_ar {
     sql: ${TABLE}.ExchangeRateType_KURST ;;
   }
 
-  #dimension: Fiscal_Year {
-   # type: string
-   # sql: ${TABLE}.FiscalYear_GJAHR ;;
-  #}
+  dimension: fiscal_year_gjahr {
+    label: "Fiscal Year"
+    type: string
+    hidden: no
+    sql: ${TABLE}.FiscalYear_GJAHR ;;
+  }
 
   dimension: Invoice_to_which_the_Transaction_belongs {
     type: string

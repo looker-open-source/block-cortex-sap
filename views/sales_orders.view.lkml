@@ -8,7 +8,7 @@ view: sales_orders {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Account Assignment Category Knttp" in Explore.
-  
+
   fields_hidden_by_default: yes
 
   dimension: key {
@@ -16,7 +16,7 @@ view: sales_orders {
     primary_key: yes
     sql: CONCAT(${client_mandt},${item_posnr},${sales_document_vbeln});;
   }
-  
+
   dimension: account_assignment_category_knttp {
     type: string
     sql: ${TABLE}.AccountAssignmentCategory_KNTTP ;;
@@ -2329,6 +2329,7 @@ view: sales_orders {
       value: "JPY"
     }
     hidden: no
+    default_value: "USD"
   }
 
   dimension: Global_Currency {
