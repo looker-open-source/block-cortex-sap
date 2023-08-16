@@ -33,6 +33,16 @@ named_value_format: Greek_Number_Format {
 
 explore: data_intelligence_ar {
 sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${data_intelligence_ar.Client_ID}=${currency_conversion_new.mandt}
+          and ${data_intelligence_ar.Local_Currency_Key}=${currency_conversion_new.fcurr}
+          and ${data_intelligence_ar.Posting_date} = ${currency_conversion_new.conv_date}
+          and ${currency_conversion_new.kurst} = "M"
+          and ${currency_conversion_new.tcurr} = {% parameter data_intelligence_ar.Currency_Required %};;
+    fields: [] #this view used for currency convesion only so no fields need to be included in the explore
+  }
 }
 
 explore: sales_orders {
@@ -58,7 +68,8 @@ explore: sales_orders {
     sql_on: ${sales_orders.client_mandt}=${currency_conversion_new.mandt}
           and ${sales_orders.currency_waerk}=${currency_conversion_new.fcurr}
           and ${sales_orders.creation_date_erdat_date} = ${currency_conversion_new.conv_date}
-          and ${currency_conversion_new.kurst} = "M";;
+          and ${currency_conversion_new.kurst} = "M"
+          and ${currency_conversion_new.tcurr} = {% parameter sales_orders.Currency_Required %};;
   }
 
   join: billing {
@@ -243,7 +254,7 @@ explore: inventory_metrics_overview {
     type: left_outer
     relationship: many_to_one
     fields: [inventory_by_plant.stock_characteristic]
-    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} 
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt}
       and ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs}
     ;;
   }
