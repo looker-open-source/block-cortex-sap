@@ -4,7 +4,7 @@ view: data_intelligence_ar {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.AccountingDocumentsReceivable`
     ;;
-  
+
   parameter: Aging_Interval {
     type: number
     default_value: "10"
@@ -28,6 +28,7 @@ view: data_intelligence_ar {
       label: "JPY"
       value: "JPY"
     }
+    default_value: "USD"
   }
 
   parameter: Day_Sales_Outstanding {
