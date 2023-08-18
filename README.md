@@ -47,11 +47,12 @@ Manually install this LookML Model following one of the options below.
 Refer to the Looker documentation for [Installing a Tool from Marketplace](https://cloud.google.com/looker/docs/marketplace#installing_a_tool_from_a_git_url). Provide values for the required prompts as outlined in next section **Required Parameters**.
 
 <h4><span style="color:#2d7eea">Option B: Manual Install via Fork of this Repository</span></h4>
-  - [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
-  - [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) with any name (e.g., cortex_sap_operational)
-  - [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
-  - Update the values of constants in the `manifest.lkml` file as described in the next section **Required Parameters**
-  - [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
+
+  * [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
+  * [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) with any name (e.g., cortex_sap_operational)
+  * [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
+  * Update the values of constants in the `manifest.lkml` file as described in the next section **Required Parameters**
+  * [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
 
 With the Looker project based on your forked repository, you can customize the LookML to fit your unique business needs.
 
