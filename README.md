@@ -2,33 +2,45 @@
 
 <h2><span style="color:#2d7eea">What does this Looker Block do for me?</span></h2>
 
-<h3> Data Foundation - Order to Cash </h3>
+Gain faster insights into your Order to Cash, Finance, and Inventory data with these Dashboards and Explores based on the SAP Cortex Data Foundation. Leverage or customize this Looker model to:
+* Identify trends and patterns in your data
+* Spot potential problems early on
+* Make better decisions faster
 
-- **Orders Fulfillment Dashboard** - Monitor current delivery status, highlight late deliveries and compare pending deliveries with current stock.
-- **Order Snapshot Dashboard** - Monitor the health of the orders and also how efficient our Orders vs Deliveries.
+<h2><span style="color:#2d7eea">Included Dashboards by Subject Area</span></h2>
+
+<h3> Order to Cash </h3>
+
+- **Orders Fulfillment** - Monitor current delivery status, highlight late deliveries and compare pending deliveries with current stock.
+- **Order Snapshot** - Monitor the health of the orders including product delivery efficiency.
 - **Order Details** - See order details including status.
-- **Sales Performance** - Review the sales performance of Products, Division, Sales organization and Distribution channel.
+- **Sales Performance** - Review the sales performance of products, divisions, sales organizations and distribution channels.
 - **Billing and Pricing** - Review price variations by customer and product.
 
-<h3>Data Foundation - Finance</h3>
+<h3>Finance</h3>
 
-- **Accounts Receivable Dashboard** - Analyze total receivables, overdue receivables, days outstanding, and top companies with highest receivables.
-- **Accounts Payable Dashboard** - Find financial information such as accounts payable, accounts payable turnover, overdue payables, accounts payable aging, and cash discount utilization.
-- **Vendor Performance Dashboard** - Analyze vendor performance including delivery, lead time, price variance, purchase order status.
-- **Spend Analysis Dashboard** - Review key kpis like total spend, active vendor count and cleared invoices. Breakdown spend by purchase organization, purchase group, vendor country, and material type.
+- **Accounts Receivable** - Analyze total receivables, overdue receivables, days outstanding, and top companies with highest receivables.
+- **Accounts Payable** - Find financial information such as accounts payable, accounts payable turnover, overdue payables, accounts payable aging, and cash discount utilization.
+- **Vendor Performance** - Analyze vendor performance including delivery, lead time, price variance, purchase order status.
+- **Spend Analysis** - Review Key Performance Indicators (KPIs) like total spend, active vendor count and cleared invoices. Breakdown spend by purchase organization, purchase group, vendor country, and material type.
 
 
-<h3>Data Foundation - Inventory</h3>
+<h3>Inventory</h3>
 
-- **Inventory Management Dashboard** - This block gives the high level information to Inventory Manager about various stock categories and other important Key Performance Indicators including Inventory Turn, Days of Supply, Obsolete Inventory and Slow Moving Inventory.
+- **Inventory Management** - Review inventory value over time (in total and by material type). Highlight other important KPIs including:
+  * Inventory Turn
+  * Days of Supply
+  * Obsolete Inventory Value
+  * Slow Moving Inventory Value
+
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
 
-Get the required datasets for this block by following the [Google Cloud Cortex Framework](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+Get the required BigQuery datasets for this block by following the installation instructions for [Google Cloud Cortex Framework](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
 
 <h2><span style="color:#2d7eea">Installation Instructions</span></h2>
 
-Manually install this LookML Model following the one of the options below.
+Manually install this LookML Model following one of the options below.
 
 <h4><span style="color:#2d7eea">Option A: Marketplace Install via Git</span></h4>
 
@@ -36,10 +48,12 @@ Refer to the Looker documentation for [Installing a Tool from Marketplace](https
 
 <h4><span style="color:#2d7eea">Option B: Manual Install via Fork of this Repository</span></h4>
   - [Fork this GitHub repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
-  - [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) with any name (e.g., cortex_demand_sensing)
+  - [Create a blank LookML project](https://cloud.google.com/looker/docs/create-projects#creating_a_blank_project) with any name (e.g., cortex_sap_operational)
   - [Connect the new LookML project to the forked repository](https://cloud.google.com/looker/docs/setting-up-git-connection)
   - Update the values of constants in the `manifest.lkml` file as described in the next section **Required Parameters**
   - [Commit and deploy changes to production](https://cloud.google.com/looker/docs/version-control-and-deploying-changes#getting_your_changes_to_production)
+
+With the Looker project based on your forked repository, you can customize the LookML to fit your unique business needs.
 
 <h2><span style="color:#2d7eea"> Required Parameters</span></h2>
 > ⚠️ These required values are configured during the Marketplace Installation process, or if this Block was installed from a forked Git repository, you will update the values for these constants in the `manifest.lkml` file for the project.
@@ -70,10 +84,13 @@ Each dashboard user can personalize these values by following these [instruction
 
 <h2><span style="color:#2d7eea">Other Considerations</span></h2>
 
-- **Persistent Derived Tables**: Enable <a href="https://cloud.google.com/looker/docs/derived-tables#persistent_derived_tables_(pdts)">Persistent Derived Tables</a> using check box under CONNECTION settings accessible through Admin > Databases > Connections.
-- **Locale**: Each user's [Locale setting](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) in their Looker User Profile will be used to map to SAP language code and filter material text language for Sales Order, Vendor Performance and Inventory Metrics Overview views. See the [language_map](views/language_map.view.lkml) view for details on the mapping.
-- **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) feature in Looker.
-- **(Optional) Unhide additional dimensions and measure**: Most dimensions and measures have been hidden to simplify reporting and data understanding. However should you find anything valuable missing, simply update the hidden parameters to No in the relevant views.
+- **Persistent Derived Tables**: If using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
+
+- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
+
+- **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) enabled in BigQuery.
+
+- **(Optional) Unhide additional dimensions and measures**: Many dimensions and measures are hidden for simplicity. If you find anything valuable missing, update the field's `hidden` parameter value **No** in the relevant views.
 
 <h2><span style="color:#2d7eea">Additional Resources</span></h2>
 
