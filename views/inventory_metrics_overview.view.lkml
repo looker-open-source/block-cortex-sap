@@ -257,7 +257,7 @@ view: inventory_metrics_overview {
     hidden: no
     link: {
       label: "Stock Value Details"
-      url: "/dashboards/cortex_sap_operational::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational_arauco_qa::stock_value_details?Company+Name={{ _filters['inventory_metrics_overview.company_text_butxt']| url_encode }}&Currency={{ _filters['inventory_metrics_overview.target_currency']| url_encode }}&Plant={{ _filters['inventory_metrics_overview.plant_name2_name2']| url_encode }}&Material={{ _filters['inventory_metrics_overview.material_text_maktx']| url_encode }}&Country={{ _filters['inventory_metrics_overview.country_key_land1']| url_encode }}&Stock+Type={{ _filters['inventory_by_plant.stock_characteristic']| url_encode }}&Material+Type={{ _filters['inventory_metrics_overview.material_type']| url_encode }}"
     }
   }
 

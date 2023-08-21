@@ -7,7 +7,7 @@
   elements:
   - title: Inventory Value by Plant
     name: Inventory Value by Plant
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     type: looker_column
     fields: [inventory_by_plant.plant_name_name2, inventory_by_plant.sum_inventory_value_target_currency_for_plant]
@@ -91,7 +91,7 @@
     height: 6
   - title: Stock Value Detailed Report
     name: Stock Value Detailed Report
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     type: looker_grid
     fields: [inventory_by_plant.plant_name_name2, inventory_by_plant.material_text_maktx,
@@ -210,7 +210,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: []
     field: inventory_by_plant.target_currency
@@ -223,7 +223,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Country, Plant, Stock Type, Material Type, Material]
     field: inventory_by_plant.company_text_butxt
@@ -237,7 +237,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Plant, Stock Type, Material Type, Material]
     field: inventory_by_plant.country_key_land1
@@ -251,7 +251,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Country, Stock Type, Material Type, Material]
     field: inventory_by_plant.plant_name_name2
@@ -265,7 +265,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Country, Plant, Material Type, Material]
     field: inventory_by_plant.stock_characteristic
@@ -279,7 +279,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Country, Plant, Stock Type, Material]
     field: inventory_by_plant.description_of_material_type_mtbez
@@ -293,7 +293,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_arauco_qa
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Country, Plant, Stock Type, Material Type]
     field: inventory_by_plant.material_text_maktx
