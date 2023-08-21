@@ -32,7 +32,7 @@ named_value_format: Greek_Number_Format {
 }
 
 explore: data_intelligence_ar {
-sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
+  sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
 }
 
 explore: sales_orders {
@@ -106,88 +106,88 @@ explore: sales_orders {
     sql_on: ${sales_organizations_md.sales_org_vkorg}=${sales_orders.sales_organization_vkorg}
           and ${sales_organizations_md.client_mandt}=${sales_orders.client_mandt}
           and ${sales_organizations_md.language_spras}=${language_map.language_key} ;;
-    }
-    join: distribution_channels_md {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${distribution_channels_md.distribution_channel_vtweg}=${sales_orders.distribution_channel_vtweg}
+  }
+  join: distribution_channels_md {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${distribution_channels_md.distribution_channel_vtweg}=${sales_orders.distribution_channel_vtweg}
             and  ${sales_orders.client_mandt}=${distribution_channels_md.client_mandt}
             and ${distribution_channels_md.language_spras}=${language_map.language_key};;
-    }
+  }
 
-    join: sales_order_pricing {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${sales_order_pricing.client_mandt}
+  join: sales_order_pricing {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${sales_order_pricing.client_mandt}
             AND ${sales_orders.condition_number_knumv}=${sales_order_pricing.number_of_the_document_condition_knumv}
             AND ${sales_orders.item_posnr} = ${sales_order_pricing.condition_item_number_kposn};;
-    }
+  }
 
 
-    join: currency_conversion_pricing {
-      from: currency_conversion_new
-      type: left_outer
-      relationship: many_to_one
-      sql_on: ${sales_order_pricing.client_mandt} = ${currency_conversion_pricing.mandt}
+  join: currency_conversion_pricing {
+    from: currency_conversion_new
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${sales_order_pricing.client_mandt} = ${currency_conversion_pricing.mandt}
           AND ${sales_order_pricing.checkbox_kdatu_date} = ${currency_conversion_pricing.conv_date}
           AND ${sales_order_pricing.condition_value_currency_key_waers} = ${currency_conversion_pricing.fcurr}
           AND ${currency_conversion_pricing.kurst} = 'M';;
-    }
-
-
-    join: one_touch_order {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${one_touch_order.vbapclient_mandt}
-            and  ${sales_orders.sales_document_vbeln}=${one_touch_order.vbapsales_document_vbeln}
-            and ${sales_orders.item_posnr}=${one_touch_order.vbapsales_document_item_posnr};;
-    }
-
-    join: sales_order_schedule_line_dt{
-      type: left_outer
-      relationship: one_to_many
-      sql_on:  ${sales_orders.client_mandt}=${sales_order_schedule_line_dt.sales_order_schedule_line_client_mandt}
-            and  ${sales_orders.sales_document_vbeln}=${sales_order_schedule_line_dt.sales_order_schedule_line_sales_document_vbeln}
-            and ${sales_orders.item_posnr}=${sales_order_schedule_line_dt.sales_order_schedule_line_sales_document_item_posnr};;
-    }
-
-    join: divisions_md {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${divisions_md.client_mandt}
-            and ${sales_orders.division_spart}=${divisions_md.division_spart}
-            and ${language_map.language_key}=${divisions_md.language_key_spras} ;;
-    }
-
-    join: sales_order_header_status {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${sales_order_header_status.client_mandt}
-        and ${sales_orders.sales_document_vbeln}=${sales_order_header_status.sales_document_vbeln};;
-    }
-
-    join: sales_order_partner_function {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${sales_order_partner_function.client_mandt}
-            and ${sales_orders.sales_document_vbeln}= ${sales_order_partner_function.sales_document_vbeln}
-            and ${sales_orders.item_posnr} = ${sales_order_partner_function.item_posnr};;
-    }
-
-    join: sales_order_partner_function_header {
-      from: sales_order_partner_function
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${sales_orders.client_mandt}=${sales_order_partner_function_header.client_mandt}
-          and ${sales_orders.sales_document_vbeln}= ${sales_order_partner_function_header.sales_document_vbeln}
-          and (${sales_order_partner_function.item_posnr} is Null or ${sales_order_partner_function_header.item_posnr} = '000000');;
-    }
-
-    sql_always_where: ${client_mandt}='{{ _user_attributes['client_id_rep'] }}' ;;
-
   }
 
-  ########################################### Finanace Dashboards ########################################################################
+
+  join: one_touch_order {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${one_touch_order.vbapclient_mandt}
+            and  ${sales_orders.sales_document_vbeln}=${one_touch_order.vbapsales_document_vbeln}
+            and ${sales_orders.item_posnr}=${one_touch_order.vbapsales_document_item_posnr};;
+  }
+
+  join: sales_order_schedule_line_dt{
+    type: left_outer
+    relationship: one_to_many
+    sql_on:  ${sales_orders.client_mandt}=${sales_order_schedule_line_dt.sales_order_schedule_line_client_mandt}
+            and  ${sales_orders.sales_document_vbeln}=${sales_order_schedule_line_dt.sales_order_schedule_line_sales_document_vbeln}
+            and ${sales_orders.item_posnr}=${sales_order_schedule_line_dt.sales_order_schedule_line_sales_document_item_posnr};;
+  }
+
+  join: divisions_md {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${divisions_md.client_mandt}
+            and ${sales_orders.division_spart}=${divisions_md.division_spart}
+            and ${language_map.language_key}=${divisions_md.language_key_spras} ;;
+  }
+
+  join: sales_order_header_status {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${sales_order_header_status.client_mandt}
+      and ${sales_orders.sales_document_vbeln}=${sales_order_header_status.sales_document_vbeln};;
+  }
+
+  join: sales_order_partner_function {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${sales_order_partner_function.client_mandt}
+            and ${sales_orders.sales_document_vbeln}= ${sales_order_partner_function.sales_document_vbeln}
+            and ${sales_orders.item_posnr} = ${sales_order_partner_function.item_posnr};;
+  }
+
+  join: sales_order_partner_function_header {
+    from: sales_order_partner_function
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sales_orders.client_mandt}=${sales_order_partner_function_header.client_mandt}
+          and ${sales_orders.sales_document_vbeln}= ${sales_order_partner_function_header.sales_document_vbeln}
+          and (${sales_order_partner_function.item_posnr} is Null or ${sales_order_partner_function_header.item_posnr} = '000000');;
+  }
+
+  sql_always_where: ${client_mandt}='{{ _user_attributes['client_id_rep'] }}' ;;
+
+}
+
+########################################### Finanace Dashboards ########################################################################
 
 explore: vendor_performance {
   sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
@@ -205,12 +205,12 @@ explore: vendor_performance {
     type: left_outer
     relationship: many_to_one
     sql_on: ${vendor_performance.client_mandt} = ${materials_valuation_v2.client_mandt}
-    and ${vendor_performance.material_number} = ${materials_valuation_v2.material_number_matnr}
-    and ${vendor_performance.plant} = ${materials_valuation_v2.valuation_area_bwkey}
-    and ${vendor_performance.month_year} = ${materials_valuation_v2.month_year}
-    and ${materials_valuation_v2.valuation_type_bwtar} = ''
-    ;;
-    }
+          and ${vendor_performance.material_number} = ${materials_valuation_v2.material_number_matnr}
+          and ${vendor_performance.plant} = ${materials_valuation_v2.valuation_area_bwkey}
+          and ${vendor_performance.month_year} = ${materials_valuation_v2.month_year}
+          and ${materials_valuation_v2.valuation_type_bwtar} = ''
+          ;;
+  }
 }
 
 explore: days_payable_outstanding_v2 {
@@ -249,13 +249,13 @@ explore: materials_valuation_v2 {
 
 explore: inventory_metrics_overview {
   sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-  and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
+    and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
 
   join: inventory_by_plant {
     type: left_outer
     relationship: many_to_one
     fields: [inventory_by_plant.stock_characteristic]
-    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt} 
+    sql_on: ${inventory_by_plant.client_mandt} = ${inventory_metrics_overview.client_mandt}
       and ${inventory_by_plant.company_code_bukrs} = ${inventory_metrics_overview.company_code_bukrs}
     ;;
   }
@@ -269,7 +269,7 @@ explore: inventory_metrics_overview {
 }
 
 explore: inventory_by_plant {
-    sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
+  sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
         and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}'
     ;;
 

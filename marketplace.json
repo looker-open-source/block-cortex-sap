@@ -19,13 +19,13 @@
     },
      "CLIENT": {
       "label": "SAP Client ID"
-    }  
+    }
   },
       "models": [
         {
-            "name": "cortex_sap_operational",
+            "name": "cortex_sap_operational-arauco",
             "connection_constant": "CONNECTION_NAME"
         }
     ]
-  
+
 }
