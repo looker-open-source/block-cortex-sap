@@ -75,7 +75,7 @@
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
-      data_intelligence_ar.Fiscal_Year, data_intelligence_ar.Sold_to_Party_Name, data_intelligence_ar.Accounting_Document,
+      data_intelligence_ar.PeriodCalc, data_intelligence_ar.Sold_to_Party_Name, data_intelligence_ar.Accounting_Document,
       data_intelligence_ar.Posting_date, data_intelligence_ar.Local_Currency_Key,
       data_intelligence_ar.Accounts_Receivable_Local_Currency, data_intelligence_ar.Global_Currency_Key,
       data_intelligence_ar.Accounts_Receivable_Global_Currency]

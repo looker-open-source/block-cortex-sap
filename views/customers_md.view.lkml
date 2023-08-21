@@ -4,13 +4,19 @@ view: customers_md {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.CustomersMD`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Account Number Fiscal Address Fiskn" in Explore.
+  
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${customer_number_kunnr});;
+  }
+  
   dimension: account_number_fiscal_address_fiskn {
     type: string
     sql: ${TABLE}.AccountNumberFiscalAddress_FISKN ;;
@@ -253,7 +259,7 @@ view: customers_md {
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 
@@ -385,7 +391,7 @@ view: customers_md {
   dimension: customer_number_kunnr {
     type: string
     sql: ${TABLE}.CustomerNumber_KUNNR ;;
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 

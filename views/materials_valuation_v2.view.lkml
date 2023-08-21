@@ -9,6 +9,12 @@ view: materials_valuation_v2 {
     drill_fields: [detail*]
   }
 
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${material_number_matnr},${valuation_type_bwtar},${valuation_area_bwkey},${fiscal_year},${posting_period});;
+  }
+
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;

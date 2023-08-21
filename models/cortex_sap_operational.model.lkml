@@ -34,6 +34,16 @@ named_value_format: Greek_Number_Format {
 
 explore: data_intelligence_ar {
   sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
+  join: currency_conversion_new {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${data_intelligence_ar.Client_ID}=${currency_conversion_new.mandt}
+          and ${data_intelligence_ar.Local_Currency_Key}=${currency_conversion_new.fcurr}
+          and ${data_intelligence_ar.Posting_date} = ${currency_conversion_new.conv_date}
+          and ${currency_conversion_new.kurst} = "M"
+          and ${currency_conversion_new.tcurr} = {% parameter data_intelligence_ar.Currency_Required %};;
+    fields: [] #this view used for currency convesion only so no fields need to be included in the explore
+  }
 }
 
 explore: sales_orders {
@@ -59,7 +69,8 @@ explore: sales_orders {
     sql_on: ${sales_orders.client_mandt}=${currency_conversion_new.mandt}
           and ${sales_orders.currency_waerk}=${currency_conversion_new.fcurr}
           and ${sales_orders.creation_date_erdat_date} = ${currency_conversion_new.conv_date}
-          and ${currency_conversion_new.kurst} = "M";;
+          and ${currency_conversion_new.kurst} = "M"
+          and ${currency_conversion_new.tcurr} = {% parameter sales_orders.Currency_Required %};;
   }
 
   join: billing {
@@ -123,7 +134,6 @@ explore: sales_orders {
             AND ${sales_orders.condition_number_knumv}=${sales_order_pricing.number_of_the_document_condition_knumv}
             AND ${sales_orders.item_posnr} = ${sales_order_pricing.condition_item_number_kposn};;
   }
-
 
   join: currency_conversion_pricing {
     from: currency_conversion_new
