@@ -1,4 +1,5 @@
 # Define the database connection to be used for this model.
+label: "cortex_sap_operational (Arauco QA)"
 connection: "@{CONNECTION_NAME}"
 
 # include all the views
