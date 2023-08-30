@@ -4,16 +4,16 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "ipnet-sap-cortex-demo"
+  value: "ipnet-sap-cortex"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "SAP_REPORTING"
+  value: "SAP_REPORTING_GS"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "800"
+  value: "100"
   export: override_required
 }
