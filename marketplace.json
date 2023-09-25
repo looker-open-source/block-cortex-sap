@@ -8,17 +8,17 @@
 
   "constants": {
     "CONNECTION_NAME": {
-      "label": "Connection Name",
+      "label": "ldp_cortex_demo",
       "value_constraint": "connection"
     },
     "GCP_PROJECT": {
-      "label": "GCP Project Name"
+      "label": "internal-sales"
     },
     "REPORTING_DATASET": {
-      "label": "Reporting Dataset Name"
+      "label": "demo_sales_cortex_ldp_report"
     },
      "CLIENT": {
-      "label": "SAP Client ID"
+      "label": "800"
     }  
   },
       "models": [
