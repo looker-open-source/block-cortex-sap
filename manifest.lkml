@@ -4,16 +4,16 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "GCP Project Name"
+  value: "internal-sales"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "Reporting Dataset Name"
+  value: "demo_sales_cortex_ldp_report"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "Client ID"
+  value: "800"
   export: override_required
 }
