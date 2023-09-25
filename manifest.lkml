@@ -1,5 +1,5 @@
 constant: CONNECTION_NAME {
-  value: "cortex"
+  value: "ldp_cortex_demo"
   export: override_required
 }
 
