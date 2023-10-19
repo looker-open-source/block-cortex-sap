@@ -1,9 +1,9 @@
 schemaVersion: 3
 meta:
-  sourceVersionId: abc4dfa1-3714-4524-8b77-52caab4dc894 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
+  sourceVersionId: 58146be6-b2b6-49e5-891c-3a99b815fe03 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
   description: null
   projectId: b95befaa-f752-45c0-bd72-8c0cd88670c6 # DO NOT CHANGE - Unique ID of the project from which this file was generated
-  title: superstore
+  title: demo - superstore
   timezone: null
   appTheme: SYS_PREF
   codeLanguage: PYTHON
@@ -28,7 +28,9 @@ cells:
     cellId: e3f3225b-cfcb-47c8-92d0-2aa0880f73b2 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
     cellLabel: null
     config:
-      source: impoert pd pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
+      source: |-
+        import pandas as pd 
+        pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
 appLayout:
   visibleMetadataFields:
     - NAME
