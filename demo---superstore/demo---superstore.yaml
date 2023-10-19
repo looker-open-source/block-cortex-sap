@@ -28,8 +28,7 @@ cells:
     cellId: e3f3225b-cfcb-47c8-92d0-2aa0880f73b2 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
     cellLabel: null
     config:
-      source: impoert pd 
-      pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
+      source: impoert pd pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
 appLayout:
   visibleMetadataFields:
     - NAME
