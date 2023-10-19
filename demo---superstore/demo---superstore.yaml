@@ -1,6 +1,6 @@
 schemaVersion: 3
 meta:
-  sourceVersionId: 58146be6-b2b6-49e5-891c-3a99b815fe03 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
+  sourceVersionId: 4c9fe4f2-b784-4fd8-89ec-1f68b0611192 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
   description: null
   projectId: b95befaa-f752-45c0-bd72-8c0cd88670c6 # DO NOT CHANGE - Unique ID of the project from which this file was generated
   title: demo - superstore
@@ -9,8 +9,7 @@ meta:
   codeLanguage: PYTHON
   status:
     name: In Progress
-  categories:
-    - name: Template
+  categories: []
   castDecimalsDefault: true
   logicQueryCacheTimeout: null
   publishedQueryCacheTimeout: null
@@ -30,7 +29,23 @@ cells:
     config:
       source: |-
         import pandas as pd 
-        pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
+        demo = pd.read_csv("Sample - Superstore.csv", encoding="ISO-8859-1")
+  - cellType: SQL
+    cellId: 4e5add88-0061-4f24-86fd-c43a966373ee # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: select * from demo limit 10
+      dataFrameCell: true
+      dataConnectionId: null
+      resultVariableName: dataframe
+      useRichDisplay: false
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig: null
 appLayout:
   visibleMetadataFields:
     - NAME
