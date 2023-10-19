@@ -3,7 +3,7 @@ meta:
   sourceVersionId: abc4dfa1-3714-4524-8b77-52caab4dc894 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
   description: null
   projectId: b95befaa-f752-45c0-bd72-8c0cd88670c6 # DO NOT CHANGE - Unique ID of the project from which this file was generated
-  title: demo - superstore
+  title: superstore
   timezone: null
   appTheme: SYS_PREF
   codeLanguage: PYTHON
