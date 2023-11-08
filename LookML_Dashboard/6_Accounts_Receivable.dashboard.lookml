@@ -315,7 +315,7 @@
       data_intelligence_ar.Sum_of_Sales]
     fill_fields: [data_intelligence_ar.Posting_month]
     filters:
-      data_intelligence_ar.Posting_month: 3 months
+      data_intelligence_ar.Posting_month: 2022/01/01 to 2022/10/01
     sorts: [data_intelligence_ar.Posting_month desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: '', label: Total Receivable,
