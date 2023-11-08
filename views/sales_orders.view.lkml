@@ -603,7 +603,6 @@ view: sales_orders {
   dimension: distribution_channel_vtweg {
     type: string
     sql: ${TABLE}.DistributionChannel_VTWEG ;;
-    ##primary_key: yes
   }
 
   dimension: division_hdr_spart {
