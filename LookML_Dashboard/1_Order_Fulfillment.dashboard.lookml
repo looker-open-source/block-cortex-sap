@@ -344,7 +344,7 @@
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: USD
+    default_value: MXN
     allow_multiple_values: true
     required: true
     ui_config:
