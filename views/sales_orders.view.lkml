@@ -4,13 +4,19 @@ view: sales_orders {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.SalesOrders_V2`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Account Assignment Category Knttp" in Explore.
+
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${item_posnr},${sales_document_vbeln});;
+  }
+
   dimension: account_assignment_category_knttp {
     type: string
     sql: ${TABLE}.AccountAssignmentCategory_KNTTP ;;
@@ -252,7 +258,7 @@ view: sales_orders {
   dimension: client_mandt {
     type: string
     sql: ${TABLE}.Client_MANDT ;;
-    primary_key: yes
+    ##primary_key: yes
     hidden:no
   }
 
@@ -597,7 +603,7 @@ view: sales_orders {
   dimension: distribution_channel_vtweg {
     type: string
     sql: ${TABLE}.DistributionChannel_VTWEG ;;
-    primary_key: yes
+    ##primary_key: yes
   }
 
   dimension: division_hdr_spart {
@@ -784,7 +790,7 @@ view: sales_orders {
   dimension: item_posnr {
     type: string
     sql: ${TABLE}.Item_POSNR ;;
-    primary_key: yes
+    ##primary_key: yes
     hidden: no
   }
 
@@ -912,7 +918,7 @@ view: sales_orders {
   dimension: material_number_matnr {
     type: string
     sql: ${TABLE}.MaterialNumber_MATNR ;;
-    primary_key: yes
+    ##primary_key: yes
     hidden: no
   }
 
@@ -1412,7 +1418,7 @@ view: sales_orders {
   dimension: sales_document_vbeln {
     type: string
     sql: ${TABLE}.SalesDocument_VBELN ;;
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 
@@ -1451,7 +1457,7 @@ view: sales_orders {
   dimension: sales_organization_vkorg {
     type: string
     sql: ${TABLE}.SalesOrganization_VKORG ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: sales_probability_awahr {
@@ -1502,7 +1508,7 @@ view: sales_orders {
   dimension: sold_to_party_kunnr {
     type: string
     sql: ${TABLE}.SoldToParty_KUNNR ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: sold_to_party_name {
@@ -1548,7 +1554,7 @@ view: sales_orders {
           OR ${sales_order_partner_function.item_posnr} = '000000'),
             ${sales_order_partner_function_header.customer_kunnr},
             ${sales_order_partner_function.customer_kunnr}) ;;
-    primary_key: yes
+    #primary_key: yes
     hidden: no
   }
 
@@ -2074,7 +2080,7 @@ view: sales_orders {
 
   dimension: list_price_glob_curr {
     type: number
-    sql: ${sales_order_pricing.list_price} * ${currency_conversion_pricing.ukurs};;
+    sql: ${sales_order_pricing.list_price} * ${currency_conversion_new.ukurs};;
     hidden: no
   }
 
@@ -2091,7 +2097,7 @@ view: sales_orders {
     sql: ${list_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2111,7 +2117,7 @@ view: sales_orders {
   }
   dimension: adjusted_price_glob_curr {
     type: number
-    sql: ${sales_order_pricing.adjusted_price} * ${currency_conversion_pricing.ukurs};;
+    sql: ${sales_order_pricing.adjusted_price} * ${currency_conversion_new.ukurs};;
     hidden: no
   }
 
@@ -2128,7 +2134,7 @@ view: sales_orders {
     sql: ${adjusted_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2138,7 +2144,7 @@ view: sales_orders {
   dimension: intercompany_price_glob_curr {
     type: number
     hidden: no
-    sql: ${sales_order_pricing.inter_company_price} * ${currency_conversion_pricing.ukurs};;
+    sql: ${sales_order_pricing.inter_company_price} * ${currency_conversion_new.ukurs};;
   }
 
   measure: avg_list_price_global_currency_product{
@@ -2147,7 +2153,7 @@ view: sales_orders {
     sql: ${list_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2165,7 +2171,7 @@ view: sales_orders {
     sql: ${intercompany_price_glob_curr} ;;
     link: {
       label: "Price Adjustments based on Product Availability"
-      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_pricing.tcurr']| url_encode }}"
+      url: "/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_05_b_price_adjustments_based_on_product_availabilityperformance_tuning?Region={{ _filters['countries_md.country_name_landx']| url_encode }}&Year={{ _filters['sales_order_pricing.checkbox_kdatu_date']| url_encode }}&Sales+Org={{ _filters['sales_organizations_md.sales_org_name_vtext']| url_encode }}&Distribution+Channel={{ _filters['distribution_channels_md.distribution_channel_name_vtext']| url_encode }}&Product={{ _filters['materials_md.material_text_maktx']| url_encode }}&Division={{ _filters['divisions_md.division_name_vtext']| url_encode }}&Currency={{ _filters['currency_conversion_new.tcurr']| url_encode }}"
     }
     hidden: no
   }
@@ -2175,7 +2181,7 @@ view: sales_orders {
   dimension: discount_glob_curr {
     type: number
     hidden: no
-    sql: ${sales_order_pricing.discount} * ${currency_conversion_pricing.ukurs};;
+    sql: ${sales_order_pricing.discount} * ${currency_conversion_new.ukurs};;
   }
 
   measure: discount_global_currency {
@@ -2216,9 +2222,8 @@ view: sales_orders {
   }
 
   measure: sales_order_netvalue_glob_curr_1 {
-    type: sum_distinct
-    sql_distinct_key: ${sales_document_vbeln} ;;
-    sql: ${sales_order_netvalue_glob_curr} ;;
+    type: number
+    sql: SUM(${sales_order_netvalue_glob_curr}) ;;
     value_format : "0.00"
     hidden: no
   }
@@ -2324,6 +2329,7 @@ view: sales_orders {
       value: "JPY"
     }
     hidden: no
+    default_value: "USD"
   }
 
   dimension: Global_Currency {

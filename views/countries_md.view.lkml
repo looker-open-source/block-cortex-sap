@@ -4,13 +4,20 @@ view: countries_md {
   # to be used for all fields in this view.
   sql_table_name: `@{GCP_PROJECT}.@{REPORTING_DATASET}.CountriesMD`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
+ 
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Alternative Country Key Landa" in Explore.
+  
   fields_hidden_by_default: yes
+
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: CONCAT(${client_mandt},${country_key_land1},${language_spras});;
+  }
+  
   dimension: alternative_country_key_landa {
     type: string
     sql: ${TABLE}.AlternativeCountryKey_LANDA ;;
@@ -49,7 +56,7 @@ view: countries_md {
   dimension: country_key_land1 {
     type: string
     sql: ${TABLE}.CountryKey_LAND1 ;;
-    primary_key: yes
+    #primary_key: yes
   }
 
   dimension: country_language_spras {
