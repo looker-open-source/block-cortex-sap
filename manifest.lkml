@@ -4,7 +4,7 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "psc-sap-nopro"
+  value: "degasa-sap"
   export: override_required
 }
 
@@ -14,7 +14,7 @@ constant: REPORTING_DATASET {
 }
 
 constant: CLIENT {
-  value: "500"
+  value: "300"
   export: override_required
 }
 #
