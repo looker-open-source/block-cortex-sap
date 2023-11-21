@@ -46,7 +46,7 @@
     height: 1
   - title: Total Due Amount
     name: Total Due Amount
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: single_value
     fields: [accounts_payable_v2.total_due]
@@ -77,7 +77,7 @@
     height: 2
   - title: Past Due Amount
     name: Past Due Amount
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: single_value
     fields: [accounts_payable_v2.sum_past_overdue_amount_conv_drill]
@@ -109,7 +109,7 @@
     height: 2
   - title: Accounts Payable by Vendor
     name: Accounts Payable by Vendor
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_pie
     fields: [accounts_payable_v2.sum_overdue_amount_conv_drill_2, accounts_payable_v2.name1]
@@ -137,7 +137,7 @@
     height: 5
   - title: Upcoming Payments and Penalties
     name: Upcoming Payments and Penalties
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_bar
     fields: [accounts_payable_v2.name1, accounts_payable_v2.sum_late_payments_in_target_currency,
@@ -205,7 +205,7 @@
     height: 5
   - title: Parked and Blocked Invoices
     name: Parked and Blocked Invoices
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_grid
     fields: [accounts_payable_v2.company_text_butxt, accounts_payable_v2.blocked_invoice_amount_global_currency,
@@ -271,7 +271,7 @@
     height: 6
   - title: Accounts Payable Aging
     name: Accounts Payable Aging
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_column
     fields: [accounts_payable_v2.sum_past_overdue_not_overdue_drill, accounts_payable_v2.sum_past_overdue_1_to_30days_conv_drill,
@@ -354,7 +354,7 @@
     height: 6
   - title: Accounts Payable Turnover
     name: Accounts Payable Turnover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_turnover_v2
     type: single_value
     fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period_month]
@@ -411,7 +411,7 @@
     height: 2
   - title: Accounts Payable Turnover Trend
     name: Accounts Payable Turnover Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_turnover_v2
     type: looker_line
     fields: [accounts_payable_turnover_v2.turnover_in_days, accounts_payable_turnover_v2.fiscal_period_month]
@@ -484,7 +484,7 @@
     height: 6
   - title: Days Payable Outstanding
     name: Days Payable Outstanding
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: days_payable_outstanding_v2
     type: looker_line
     fields: [sum_of_days_payable_outstanding_in_target_currency, days_payable_outstanding_v2.fiscal_date_month]
@@ -557,7 +557,7 @@
     height: 6
   - title: Cash Discount Utilization Trend
     name: Cash Discount Utilization Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: cash_discount_utilization
     type: looker_line
     fields: [cash_discount_utilization.posting_date_in_the_document_budat_month, cash_discount_utilization.Cash_Discount_Utilization]
@@ -629,7 +629,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: []
     field: accounts_payable_v2.target_currency_tcurr
@@ -642,7 +642,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: [Vendor Name]
     field: accounts_payable_v2.company_text_butxt
@@ -655,7 +655,8 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: [Company Name]
     field: accounts_payable_v2.name1
+

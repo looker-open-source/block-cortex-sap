@@ -7,7 +7,7 @@
   elements:
   - title: Delivery Performance Detailed Report
     name: Delivery Performance Detailed Report
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_grid
     fields: [vendor_performance.company_text_butxt, vendor_performance.purchasing_organization_text_ekotx,
@@ -159,7 +159,7 @@
     height: 6
   - title: Delivery Performance Trend
     name: Delivery Performance Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_column
     fields: [vendor_performance.Vendor_Ontime_del, vendor_performance.Infull_rate_del,
@@ -322,7 +322,7 @@
       type: relative_timeframes
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.purchasing_document_date_bedat_date
@@ -335,7 +335,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Vendor Country, Vendor Name, Material Type Description, Material,
       Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
@@ -349,7 +349,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
         Description, Material, Material Type, Vendor Number, Purchasing Group]
@@ -363,7 +363,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
         Description, Material, Material Type, Vendor Number, Purchasing Organization]
@@ -377,7 +377,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Vendor Name, Material Type Description, Material,
       Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
@@ -391,7 +391,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Vendor Country, Material Type Description,
       Material, Material Type, Vendor Number, Purchasing Group, Purchasing Organization]
@@ -405,7 +405,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Vendor Country, Vendor Name, Material Type
         Description, Material, Material Type, Purchasing Group, Purchasing Organization]
@@ -419,7 +419,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Vendor Number, Purchasing Group, Purchasing Organization]
     field: vendor_performance.material_type_description
@@ -432,7 +432,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Material Type, Vendor Number, Purchasing Group, Purchasing
         Organization]

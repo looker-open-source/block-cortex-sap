@@ -6,7 +6,7 @@
   elements:
   - title: 'Day Sales Outstanding by Company '
     name: 'Day Sales Outstanding by Company '
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.DSO]
@@ -74,7 +74,7 @@
     height: 10
   - title: Day Sales Outstanding by Customer
     name: Day Sales Outstanding by Customer
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -142,7 +142,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational_d::accounts_receivable?">Home</a>'
     body_text: ''
     row: 23
     col: 0
@@ -150,7 +150,7 @@
     height: 2
   - title: Avg Day Sales Outstanding
     name: Avg Day Sales Outstanding
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.Total_DSO]
@@ -187,7 +187,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -201,7 +201,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
@@ -215,7 +215,7 @@
       type: advanced
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Day_Sales_Outstanding
@@ -229,7 +229,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Currency_Required

@@ -8,7 +8,7 @@
   elements:
   - title: Inventory Categorization by Value
     name: Inventory Categorization by Value
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d_d
     explore: inventory_by_plant
     type: looker_pie
     fields: [inventory_by_plant.stock_characteristic, inventory_by_plant.sum_inventory_value_target_currency]
@@ -49,7 +49,7 @@
     height: 7
   - title: Obsolete Inventory
     name: Obsolete Inventory
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_by_plant
     type: single_value
     fields: [inventory_by_plant.sum_obsolete_value_target_currency, inventory_by_plant.sum_inventory_value_target_currency]
@@ -92,7 +92,7 @@
     height: 3
   - title: Slow Moving Inventory
     name: Slow Moving Inventory
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     type: single_value
     fields: [inventory_metrics_overview.sum_slow_moving_inventory_target_currency,
@@ -130,7 +130,7 @@
     height: 3
   - title: Days of Supply for Top Material Groups
     name: Days of Supply for Top Material Groups
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d_d
     explore: inventory_metrics_overview
     type: looker_grid
     fields: [sum_of_quantity_menge_2, inventory_metrics_overview.material_group_name_wgbez,
@@ -251,7 +251,7 @@
     height: 5
   - title: Total Inventory Value Trend
     name: Total Inventory Value Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     type: looker_column
     fields: [inventory_metrics_overview.month_end_month, inventory_metrics_overview.sum_inventory_value_target_currency]
@@ -331,7 +331,7 @@
     height: 6
   - title: Inventory Value by Material Type
     name: Inventory Value by Material Type
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     type: looker_column
     fields: [inventory_metrics_overview.month_end_month, inventory_metrics_overview.material_type,
@@ -496,7 +496,7 @@
     note_text: Monthly trend of average inventory turn for top 5 material groups by
       value
     merged_queries:
-    - model: cortex_sap_operational
+    - model: cortex_sap_operational_d
       explore: inventory_metrics_overview
       type: looker_column
       fields: [inventory_metrics_overview.sum_inventory_value, inventory_metrics_overview.material_group_name_wgbez]
@@ -598,7 +598,7 @@
       defaults_version: 1
       hidden_pivots: {}
       hidden_fields: [inventory_metrics_overview.sum_inventory_value]
-    - model: cortex_sap_operational
+    - model: cortex_sap_operational_d
       explore: inventory_metrics_overview
       type: looker_column
       fields: [inventory_metrics_overview.material_group_name_wgbez, inventory_metrics_overview.month_end_month,
@@ -724,13 +724,13 @@
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: MXN
+    default_value: USD
     allow_multiple_values: true
     required: true
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: []
     field: inventory_metrics_overview.target_currency
@@ -743,7 +743,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: [Country, Plant, Material Type, Material]
     field: inventory_metrics_overview.company_text_butxt
@@ -756,7 +756,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: [Company Name, Plant, Material Type, Material]
     field: inventory_metrics_overview.country_key_land1
@@ -769,7 +769,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: [Company Name, Country, Material Type, Material]
     field: inventory_metrics_overview.plant_name2_name2
@@ -782,7 +782,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_by_plant
     listens_to_filters: [Company Name, Country, Plant, Material Type, Material]
     field: inventory_by_plant.stock_characteristic
@@ -795,7 +795,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: [Company Name, Country, Plant, Stock Type, Material]
     field: inventory_metrics_overview.material_type
@@ -808,7 +808,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: inventory_metrics_overview
     listens_to_filters: [Company Name, Country, Plant, Stock Type, Material Type]
     field: inventory_metrics_overview.material_text_maktx

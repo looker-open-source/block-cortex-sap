@@ -16,7 +16,7 @@
     height: 2
   - title: Avg Fill Rate %
     name: Avg Fill Rate %
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.fill_rate]
@@ -52,7 +52,7 @@
     height: 4
   - title: Cancelled Orders
     name: Cancelled Orders
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.canceled_order_percentage]
@@ -85,7 +85,7 @@
     height: 4
   - title: Return Order
     name: Return Order
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.Return_Order_Percentage]
@@ -117,7 +117,7 @@
     height: 4
   - title: Order Vs Delivery Efficiency (Top 10 Products)
     name: Order Vs Delivery Efficiency (Top 10 Products)
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: looker_column
     fields: [materials_md.material_text_maktx, sales_orders.count_sales_orders_line_item,
@@ -178,7 +178,7 @@
     height: 8
   - title: One Touch Order
     name: One Touch Order
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.one_touch_order_percentage, sales_orders.count_one_touch_order,
@@ -211,7 +211,7 @@
     height: 4
   - title: New Tile
     name: New Tile
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.dash_nav]
@@ -252,7 +252,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_orders.creation_date_erdat_date
@@ -265,7 +265,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -278,7 +278,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: countries_md.country_name_landx
@@ -292,7 +292,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_organizations_md.sales_org_name_vtext
@@ -306,7 +306,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: distribution_channels_md.distribution_channel_name_vtext
@@ -319,7 +319,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: divisions_md.division_name_vtext
@@ -333,7 +333,7 @@
       type: checkboxes
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: materials_md.material_text_maktx

@@ -7,7 +7,7 @@
   elements:
   - title: Spend by Top Vendors Detailed Report
     name: Spend by Top Vendors Detailed Report
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_grid
     fields: [vendor_performance.company_text_butxt, vendor_performance.purchasing_organization_text_ekotx,
@@ -105,7 +105,7 @@
     height: 6
   - title: Spend by Top Vendors Trend
     name: Spend by Top Vendors Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_line
     fields: [vendor_performance.Invoice_date_month, vendor_performance.name1, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -191,7 +191,7 @@
     height: 6
   - title: Spend by Top Vendors
     name: Spend by Top Vendors
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_bar
     fields: [vendor_performance.name1, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -279,7 +279,7 @@
       type: relative_timeframes
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.Invoice_date_date
@@ -292,7 +292,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.target_currency_tcurr
@@ -305,7 +305,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.company_text_butxt
@@ -318,7 +318,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code]
     field: vendor_performance.purchasing_organization_text_ekotx
@@ -331,7 +331,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Purchasing Organization, Company Code]
     field: vendor_performance.purchasing_group_text_eknam
@@ -344,7 +344,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Purchasing Group, Company Code]
     field: vendor_performance.country_key_land1
@@ -357,7 +357,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Vendor Country, Company Code]
     field: vendor_performance.name1
@@ -370,7 +370,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code]
     field: vendor_performance.vendor_account_number_lifnr
@@ -383,7 +383,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.material_type_description
@@ -396,7 +396,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.material_description

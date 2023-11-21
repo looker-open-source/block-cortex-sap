@@ -36,7 +36,7 @@
     height: 2
   - title: Spend by Top Vendors
     name: Spend by Top Vendors
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_bar
     fields: [vendor_performance.name1, vendor_performance.sum_invoice_amount_in_target_currency_by_top_vendor]
@@ -115,7 +115,7 @@
     height: 5
   - title: Total Spend
     name: Total Spend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: single_value
     fields: [vendor_performance.sum_invoice_amount_in_target_currency]
@@ -157,7 +157,7 @@
     height: 2
   - title: Active Vendors
     name: Active Vendors
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: single_value
     fields: [vendor_performance.count_vendors]
@@ -225,7 +225,7 @@
     height: 2
   - title: Cleared Invoices
     name: Cleared Invoices
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: single_value
     fields: [vendor_performance.count_cleared_invoices]
@@ -269,7 +269,7 @@
     height: 2
   - title: Spend by Vendor Country
     name: Spend by Vendor Country
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_pie
     fields: [vendor_performance.country_key_land1, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -309,7 +309,7 @@
     height: 5
   - title: Spend by Purchasing Organization
     name: Spend by Purchasing Organization
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_pie
     fields: [vendor_performance.purchasing_organization_text_ekotx, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -349,7 +349,7 @@
     height: 5
   - title: Spend by Material Type
     name: Spend by Material Type
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_column
     fields: [vendor_performance.material_type_description, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -420,7 +420,7 @@
     height: 5
   - title: Total Spend Trend
     name: Total Spend Trend
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_area
     fields: [vendor_performance.Invoice_date_month, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -504,7 +504,7 @@
     height: 5
   - title: Spend by Purchasing Group
     name: Spend by Purchasing Group
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     type: looker_pie
     fields: [vendor_performance.purchasing_group_text_eknam, vendor_performance.sum_invoice_amount_in_target_currency]
@@ -553,7 +553,7 @@
       type: relative_timeframes
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.Invoice_date_date
@@ -566,7 +566,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: []
     field: vendor_performance.target_currency_tcurr
@@ -579,7 +579,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Purchasing Organization, Purchasing Group, Vendor Country,
       Vendor Name]
@@ -594,7 +594,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Purchasing Group, Vendor Country, Vendor Name]
     field: vendor_performance.purchasing_organization_text_ekotx
@@ -608,7 +608,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Purchasing Organization, Vendor Country, Vendor
         Name]
@@ -623,7 +623,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
       Vendor Name]
@@ -638,7 +638,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: vendor_performance
     listens_to_filters: [Company Code, Purchasing Organization, Purchasing Group,
       Vendor Country]

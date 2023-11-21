@@ -7,7 +7,7 @@
   elements:
   - title: Sales Performance by Sales Org
     name: Sales Performance by Sales Org
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: looker_grid
     fields: [sales_organizations_md.sales_org_name_vtext, distribution_channels_md.distribution_channel_name_vtext,
@@ -88,7 +88,7 @@
     height: 10
   - title: Home
     name: Home
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.Sales_performance]
@@ -127,7 +127,7 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_orders.creation_date_erdat_date
@@ -140,7 +140,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -153,7 +153,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: countries_md.country_name_landx
@@ -166,7 +166,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_organizations_md.sales_org_name_vtext
@@ -179,7 +179,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: distribution_channels_md.distribution_channel_name_vtext
@@ -192,7 +192,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: divisions_md.division_name_vtext
@@ -205,7 +205,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: materials_md.material_text_maktx

@@ -6,7 +6,7 @@
   elements:
   - title: Overdue Receivable by Company
     name: Overdue Receivable by Company
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: looker_column
     fields: [data_intelligence_ar.Company_Name, data_intelligence_ar.Over_Due_Amount]
@@ -69,7 +69,7 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ' <a href="/dashboards/cortex_sap_operational::accounts_receivable?">Home</a>'
+    subtitle_text: ' <a href="/dashboards/cortex_sap_operational_d::accounts_receivable?">Home</a>'
     body_text: ''
     row: 21
     col: 0
@@ -77,7 +77,7 @@
     height: 2
   - title: Total Overdue Receivable
     name: Total Overdue Receivable
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: single_value
     fields: [data_intelligence_ar.OverDue_Amount]
@@ -107,7 +107,7 @@
     height: 10
   - title: Overdue Receivable
     name: Overdue Receivable
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     type: looker_grid
     fields: [data_intelligence_ar.Company_Code, data_intelligence_ar.Company_Name,
@@ -179,7 +179,7 @@
       type: dropdown_menu
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Company_Name
@@ -193,7 +193,7 @@
       type: tag_list
       display: popover
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Sold_to_Party_Name
@@ -207,7 +207,7 @@
       type: dropdown_menu
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: data_intelligence_ar
     listens_to_filters: []
     field: data_intelligence_ar.Currency_Required

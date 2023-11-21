@@ -14,10 +14,10 @@
     col: 0
     width: 24
     height: 2
-  - name: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
+  - name: <a href="/dashboards/cortex_sap_operational_::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
       Performance</a>
     type: text
-    title_text: <a href="/dashboards/cortex_sap_operational::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
+    title_text: <a href="/dashboards/cortex_sap_operational_d::sap_order_to_cash_o2c_01_a_delivery_performance_performance_tuning">Delivery
       Performance</a>
     subtitle_text: ''
     body_text: ''
@@ -27,7 +27,7 @@
     height: 2
   - title: In Full %
     name: In Full %
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [deliveries.InFullPercentage]
@@ -59,7 +59,7 @@
     height: 4
   - title: On Time %
     name: On Time %
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [deliveries.OnTimePercentage]
@@ -91,7 +91,7 @@
     height: 4
   - title: OTIF %
     name: OTIF %
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [deliveries.OTIFPercentage]
@@ -123,7 +123,7 @@
     height: 4
   - title: Late Delivery %
     name: Late Delivery %
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [deliveries.LateDeliveryPercentage]
@@ -164,7 +164,7 @@
     height: 4
   - title: Avg Order To Delivery Cycle Time
     name: Avg Order To Delivery Cycle Time
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: looker_column
     fields: [average_of_order_cycle_time_1, materials_md.material_text_maktx]
@@ -231,7 +231,7 @@
     height: 7
   - title: On Time, In Full & OTIF
     name: On Time, In Full & OTIF
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: looker_line
     fields: [deliveries.count_on_time_delivery, deliveries.count_in_full_delivery,
@@ -297,7 +297,7 @@
     height: 7
   - title: Untitled
     name: Untitled
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     type: single_value
     fields: [sales_orders.dash_nav]
@@ -337,20 +337,20 @@
       type: day_range_picker
       display: inline
       options: []
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_orders.creation_date_erdat_date
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: MXN
+    default_value: USD
     allow_multiple_values: true
     required: true
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: currency_conversion_new.tcurr
@@ -363,7 +363,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: countries_md.country_name_landx
@@ -376,7 +376,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: sales_organizations_md.sales_org_name_vtext
@@ -389,7 +389,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: distribution_channels_md.distribution_channel_name_vtext
@@ -402,7 +402,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: divisions_md.division_name_vtext
@@ -415,7 +415,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: sales_orders
     listens_to_filters: []
     field: materials_md.material_text_maktx

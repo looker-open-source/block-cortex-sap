@@ -7,7 +7,7 @@
   elements:
   - title: Accounts Payable Aging
     name: Accounts Payable Aging
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_column
     fields: [accounts_payable_v2.sum_past_overdue_not_overdue, accounts_payable_v2.sum_past_overdue_1_to_30days,
@@ -97,7 +97,7 @@
     height: 7
   - title: Accounts Payable Aging by Vendor
     name: Accounts Payable Aging by Vendor
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_bar
     fields: [accounts_payable_v2.name1, accounts_payable_v2.total_due, accounts_payable_v2.sum_past_overdue_not_overdue,
@@ -188,7 +188,7 @@
     height: 7
   - title: Accounts Payable Aging Detailed Report
     name: Accounts Payable Aging Detailed Report
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     type: looker_grid
     fields: [accounts_payable_v2.company_text_butxt, accounts_payable_v2.name1, accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr,
@@ -331,7 +331,7 @@
     ui_config:
       type: dropdown_menu
       display: inline
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: []
     field: accounts_payable_v2.target_currency_tcurr
@@ -344,7 +344,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: [Vendor Name, Vendor Number]
     field: accounts_payable_v2.company_text_butxt
@@ -357,7 +357,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: [Company Name, Vendor Number]
     field: accounts_payable_v2.name1
@@ -370,7 +370,7 @@
     ui_config:
       type: tag_list
       display: popover
-    model: cortex_sap_operational
+    model: cortex_sap_operational_d
     explore: accounts_payable_v2
     listens_to_filters: [Company Name, Vendor Name]
     field: accounts_payable_v2.account_number_of_vendor_or_creditor_lifnr
