@@ -4,12 +4,12 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "degasa-sap"
+  value: "psc-sap-nopro"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "SAP_REPORTING"
+  value: "SAP_REPORTING_D"
   export: override_required
 }
 
