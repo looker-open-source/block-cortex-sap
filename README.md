@@ -98,9 +98,11 @@ Each dashboard user can personalize these values by following these [instruction
 
 - **Persistent Derived Tables**: If using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
 
-- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
+- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _BalanceSheet_, _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
 
 - **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) enabled in BigQuery.
+
+- **Liquid Templating Language**: Some constants, views, explores and dashboard use liquid templating language. For more information, see Looker's [Liquid Variable Reference](https://cloud.google.com/looker/docs/liquid-variable-reference) documentation.
 
 - **(Optional) Unhide additional dimensions and measures**: Many dimensions and measures are hidden for simplicity. If you find anything valuable missing, update the field's `hidden` parameter value **No** in the relevant views.
 

@@ -1,6 +1,7 @@
 ## Release v5.3
 * Added views, explores and dashboards to support `Balance Sheet` reporting
 * Added constants to the `manifest` to allow for the reuse of HTML value formatting and comparison period logic used in the Balance Sheet.
+* Note the manifest and the Balance Sheet views and explores leverage liquid templating language. For more information, refer to Looker's [Liquid Variable Reference](https://cloud.google.com/looker/docs/liquid-variable-reference) documentation.
 
 
 ## Release v5.0.1

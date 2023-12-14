@@ -12,7 +12,7 @@
 #   Languague
 #   Global (Target) Currency
 #
-# Measuresr:
+# Measures:
 #    Amount in Local Currency, Amount in Global Currency
 #    Cumulative Amount in Local Currency, Cumulative Amount in Global Currency
 #    Exchange Rate (based on last date in the period)
