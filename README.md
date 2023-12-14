@@ -33,6 +33,17 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
   * Obsolete Inventory Value
   * Slow Moving Inventory Value
 
+<h3>Balance Sheet</h3>
+
+> ⚠️ available beginning with [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+
+View the balance sheet as of a selected fiscal period, compared to the same period last year, the previous fiscal period, or a different fiscal period. And display the parent and child nodes for levels 2-4 of a selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
+
+
+- **Balance Sheet Finance Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
+
+- **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required).
+
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
 
