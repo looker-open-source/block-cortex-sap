@@ -33,6 +33,17 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
   * Obsolete Inventory Value
   * Slow Moving Inventory Value
 
+<h3>Balance Sheet</h3>
+
+> ⚠️ available beginning with [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+
+View the balance sheet as of a selected fiscal period, compared to the same period last year, the previous fiscal period, or a different fiscal period. And display the parent and child nodes for levels 2-4 of a selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
+
+
+- **Balance Sheet Finance Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
+
+- **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required).
+
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
 
@@ -87,9 +98,11 @@ Each dashboard user can personalize these values by following these [instruction
 
 - **Persistent Derived Tables**: If using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
 
-- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
+- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _BalanceSheet_, _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
 
 - **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) enabled in BigQuery.
+
+- **Liquid Templating Language**: Some constants, views, explores and dashboard use liquid templating language. For more information, see Looker's [Liquid Variable Reference](https://cloud.google.com/looker/docs/liquid-variable-reference) documentation.
 
 - **(Optional) Unhide additional dimensions and measures**: Many dimensions and measures are hidden for simplicity. If you find anything valuable missing, update the field's `hidden` parameter value **No** in the relevant views.
 
