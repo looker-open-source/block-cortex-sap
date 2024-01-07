@@ -3,6 +3,8 @@ connection: "@{CONNECTION_NAME}"
 
 # include all the views
 include: "/views/**/*.view"
+include: "/components/*.lkml"
+include: "/explores_balance_sheet/*.explore"
 
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
