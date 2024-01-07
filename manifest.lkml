@@ -1,20 +1,20 @@
 constant: CONNECTION_NAME {
-  value: "bigquery-sap-cortex-quick-demo"
+  value: "poc-cortex-aurora"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "sap-cortex-quick-demo"
+  value: "poc-sap-cortex-400818"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "CORTEX_SAP_REPORTING"
+  value: "REPORTING"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "100"
+  value: "400"
   export: override_required
 }
 
