@@ -12,7 +12,7 @@
 #   Languague
 #   Global (Target) Currency
 #
-# Measures:
+# Measuresr:
 #    Amount in Local Currency, Amount in Global Currency
 #    Cumulative Amount in Local Currency, Cumulative Amount in Global Currency
 #    Exchange Rate (based on last date in the period)
@@ -37,7 +37,7 @@ view: +balance_sheet {
     primary_key: yes
     hidden: yes
     sql: concat(${client},${company_code}, ${chart_of_accounts}, ${hierarchy_name},
-          coalesce(${business_area},'is null') ,coalesce(${ledger_in_general_ledger_accounting},'is null')
+          coalesce(${business_area},'is null') ,coalesce(${ledger_in_general_ledger_accounting},'0L')
           ,${node},${fiscal_year},${fiscal_period},${language_key_spras},${target_currency_tcurr});;
   }
 
@@ -76,7 +76,7 @@ view: +balance_sheet {
       label: "Previous Fiscal Period" value: "prior"
     }
     allowed_value: {
-      label: "Custom Range" value: "custom"
+      label: "Custom Comparison Period" value: "custom"
     }
     default_value: "yoy"
 
@@ -125,6 +125,17 @@ view: +balance_sheet {
   dimension: ledger_in_general_ledger_accounting {
     label: "Ledger"
     description: "Ledger in General Ledger Accounting"
+    sql: coalesce(${TABLE}.LedgerInGeneralLedgerAccounting,'0L') ;;
+  }
+
+  dimension: ledger_name {
+    description: "Ledger in General Ledger Accounting"
+    sql: if(${ledger_in_general_ledger_accounting} = '0L','Leading Ledger', ${ledger_in_general_ledger_accounting} );;
+    order_by_field: ledger_in_general_ledger_accounting
+  }
+
+  dimension: business_area {
+    sql: coalesce(${TABLE}.BusinessArea,'N/A') ;;
   }
 
   dimension: company_code {
@@ -146,8 +157,11 @@ view: +balance_sheet {
     type: string
     label: "Parent (text)"
     description: "Parent (as text) of Hierarchy. For example, Assets is Parent with multiple Child Nodes like Current Assets and Non-Current Assets."
-    sql: coalesce(${TABLE}.ParentText,${TABLE}.Parent) ;;
-    order_by_field: parent_sort_order
+    # sql: coalesce(${TABLE}.ParentText,${TABLE}.Parent) ;;
+    sql: coalesce(regexp_replace(${TABLE}.ParentText,'Non[- ]Current','Noncurrent'),${TABLE}.Parent) ;;
+
+    # order_by_field: parent_sort_order
+    order_by_field: parent
   }
   dimension: parent_sort_order {
     type: string
@@ -164,25 +178,40 @@ view: +balance_sheet {
     type: string
     label: "Node (text)"
     description: "Child Node (as text) of Hierarchy. For example, Assets is Parent with multiple Child Nodes like Current Assets and Non-Current Assets."
-    sql: coalesce(${TABLE}.NodeText,${TABLE}.Node) ;;
-    order_by_field: node_sort_order
+    sql: coalesce(regexp_replace(${TABLE}.NodeText,'Non[- ]Current','Noncurrent'),${TABLE}.Node) ;;
+    # order_by_field: node_sort_order
+    order_by_field: node
   }
 
   dimension: node_sort_order {
-    type: string
+    type: number
     hidden: yes
-    sql: concat(${level_number},${parent},${node}) ;;
+    sql: parse_bignumeric(${node})*-1 ;;
   }
 
   dimension: level {
+    hidden: yes
     description: "Shows the Parent-Child Relationship. For example depending on the Hierarchy selected, Level 02 will display FPA1 as the Parent with Assets and Liabilities & Equity as Child Nodes. Level 03 will display Assets as Parent with Current Assets and Non-Current Assets as Child Nodes."
   }
 
   dimension: level_number {
     type: number
     description: "Level as a numeric. Level shows the Parent-Child Relationship. For example depending on the Hierarchy selected, Level 2 will display FPA1 as the Parent with Assets and Liabilities & Equity as Child Nodes. Level 3 will display Assets as Parent with Current Assets and Non-Current Assets as Child Nodes."
-
     sql: parse_numeric(${level}) ;;
+  }
+
+  dimension: level_string {
+    type: string
+    label: "Level"
+    description: "Level as a numeric. Level shows the Parent-Child Relationship. For example depending on the Hierarchy selected, Level 2 will display FPA1 as the Parent with Assets and Liabilities & Equity as Child Nodes. Level 3 will display Assets as Parent with Current Assets and Non-Current Assets as Child Nodes."
+    sql: ltrim(${level},'0') ;;
+  }
+
+  # used as filter suggestion for selecting level depth to display
+  dimension: level_depth {
+    hidden: yes
+    type: string
+    sql: cast((${level_number} - 1) as string) ;;
   }
 
   dimension: is_leaf_node {
@@ -223,19 +252,22 @@ view: +balance_sheet {
     type: number
     group_label: "Fiscal Dates"
     description: "Fiscal Year and Period as a Numeric Value in form of YYYYPP or YYYYPPP"
-    sql: {% assign max_fp_size = '@{max_fiscal_period}' | remove_first: '0' | size | times: 1 %}
-         {% if max_fp_size == 2 %} {% assign fp = 'right(${fiscal_period},2)'%}{%else%}{%assign fp = '${fiscal_period}' %}{%endif%}
-        parse_numeric(concat(${fiscal_year},{{fp}})) ;;
+    sql: parse_numeric(concat(${fiscal_year},${fiscal_period})) ;;
     value_format_name: id
+  }
+
+  dimension: fiscal_year_period_negative_number {
+    hidden: yes
+    type: number
+    sql: -1 * ${fiscal_year_period_number} ;;
   }
 
   dimension: fiscal_year_period {
     type: string
     group_label: "Fiscal Dates"
     description: "Fiscal Year and Period as String in form of YYYY.PP or YYYY.PPP"
-    sql: {% assign max_fp_size = '@{max_fiscal_period}' | remove_first: '0' | size | times: 1 %}
-         {% if max_fp_size == 2 %} {% assign fp = 'right(${fiscal_period},2)'%}{%else%}{%assign fp = '${fiscal_period}' %}{%endif%}
-          concat(${fiscal_year},'.',{{fp}});;
+    sql: concat(${fiscal_year},'.',${fiscal_period});;
+    order_by_field: fiscal_year_period_negative_number
   }
 
   dimension: fiscal_year_quarter {
@@ -410,7 +442,7 @@ view: +balance_sheet {
   measure: difference_value {
     type: number
     group_label: "Reporting v Comparison Period Metrics"
-    label: "Var"
+    label: "Gain (Loss)"
     description: "Reporting Period Amount - Comparison Period Amount"
     sql: ${reporting_period_amount_in_global_currency} - ${comparison_period_amount_in_global_currency} ;;
     value_format_name: millions_d1
@@ -432,11 +464,12 @@ view: +balance_sheet {
     type: number
     description: "Used in Balance Sheet dashboard as Summary visualization with Company, Global Currency, Fiscal Period and Current Ratio."
     sql: 1 ;;
+    # (207,219,213,.5)
     html:
       <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center;  line-height: .8; font-family:'Noto Sans SC'; font-color: #808080">
           <a style="font-size:100%;font-family:'verdana';color: black"><b>Balance Sheet</b></a><br>
           <a style= "font-size:80%;font-family:'verdana';color: black">{{company_text._value}}</a><br>
-          <a style= "font-size:80%;font-family:'verdana';color: black">Reporting Period:   {{select_fiscal_period._parameter_value}}&nbsp;&nbsp;&nbsp; Current Ratio: {{current_ratio._rendered_value}}</a>
+          <a style= "font-size:80%;font-family:'verdana';color: black">Fiscal Period:   {{select_fiscal_period._parameter_value}}&nbsp;&nbsp;&nbsp; Current Ratio: {{current_ratio._rendered_value}}</a>
           <br>
           <a style= "font-size: 70%; text-align:center;font-family:'verdana';color: black"> Amounts in Millions  {{target_currency_tcurr}} </a>
        </div>
@@ -468,6 +501,12 @@ view: +balance_sheet {
     description: "Max Exchange Rate between Currency (Local) and Currency (Global) for the Fiscal Period"
     sql: ${max_exchange_rate} ;;
     value_format_name: decimal_4
+  }
+
+  measure: max_fiscal_year_period {
+    type: max
+    sql: ${fiscal_year_period_number} ;;
+    value_format_name: id
   }
 
 

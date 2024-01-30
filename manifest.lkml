@@ -50,33 +50,31 @@ constant: derive_comparison_period {
   value: "{% assign comparison_type = select_comparison_type._parameter_value %}
           {% assign fp = select_fiscal_period._parameter_value %}
           {% assign cp = select_custom_comparison_period._parameter_value %}
-          {% assign max_fp_size = '@{max_fiscal_period}' | remove_first: '0' | size | times: 1 %}
+          {% assign max_fp_size = '3' | times: 1 %}
           {% assign max_fp_size_neg = max_fp_size | times: -1 %}
-          {% assign pad = '' %}
-          {% for i in (1..max_fp_size) %}
-              {% assign pad = pad | append: '0' %}
-          {% endfor %}
+          {% assign pad = '00' %}
+
           {% if comparison_type == 'custom' %}
-               {% if fp == cp %}{% assign comparison_type = 'none' %}
-               {% elsif cp == '' %}{% assign comparison_type = 'yoy' %}
-               {% endif %}
+            {% if fp == cp %}{% assign comparison_type = 'none' %}
+              {% elsif cp == '' %}{% assign comparison_type = 'yoy' %}
+            {% endif %}
           {% endif %}
 
-        {% if comparison_type == 'prior' or comparison_type == 'yoy' %}
-            {% assign p_array = fp | split: '.' %}
-                {% if comparison_type == 'prior' %}
-                    {% if p_array[1] == '001' or p_array[1] == '01' %}
-                        {% assign m = '@{max_fiscal_period}' %}{% assign sub_yr = 1 %}
-                    {% else %}
-                        {% assign m = p_array[1] | times: 1 | minus: 1 | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 0 %}
-                    {% endif %}
-                {% else %}
-                  {% assign m = p_array[1] %}{% assign sub_yr = 1 %}
-                {% endif %}
+          {% if comparison_type == 'prior' or comparison_type == 'yoy' %}
+              {% assign p_array = fp | split: '.' %}
+              {% if comparison_type == 'prior' %}
+                  {% if p_array[1] == '001' %}
+                      {% assign m = '@{max_fiscal_period}' | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 1 %}
+                  {% else %}
+                      {% assign m = p_array[1] | times: 1 | minus: 1 | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 0 %}
+                  {% endif %}
+              {% else %}
+                {% assign m = p_array[1] %}{% assign sub_yr = 1 %}
+              {% endif %}
             {% assign yr = p_array[0] | times: 1 | minus: sub_yr %}
             {% assign cp =  yr | append: '.'| append: m %}
-        {% elsif comparison_type == 'none' %} {% assign cp = '' %}
-        {% endif %}"
+          {% elsif comparison_type == 'none' %} {% assign cp = '' %}
+          {% endif %}"
 }
 
 #} end additional constants
