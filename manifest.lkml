@@ -56,17 +56,17 @@ constant: derive_comparison_period {
 
           {% if comparison_type == 'custom' %}
             {% if fp == cp %}{% assign comparison_type = 'none' %}
-              {% elsif cp == '' %}{% assign comparison_type = 'yoy' %}
+            {% elsif cp == '' %}{% assign comparison_type = 'yoy' %}
             {% endif %}
           {% endif %}
 
           {% if comparison_type == 'prior' or comparison_type == 'yoy' %}
-              {% assign p_array = fp | split: '.' %}
+             {% assign p_array = fp | split: '.' %}
               {% if comparison_type == 'prior' %}
                   {% if p_array[1] == '001' %}
-                      {% assign m = '@{max_fiscal_period}' | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 1 %}
-                  {% else %}
-                      {% assign m = p_array[1] | times: 1 | minus: 1 | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 0 %}
+                    {% assign m = '@{max_fiscal_period}' | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 1 %}
+                    {% else %}
+                    {% assign m = p_array[1] | times: 1 | minus: 1 | prepend: pad | slice: max_fp_size_neg, max_fp_size %}{% assign sub_yr = 0 %}
                   {% endif %}
               {% else %}
                 {% assign m = p_array[1] %}{% assign sub_yr = 1 %}
