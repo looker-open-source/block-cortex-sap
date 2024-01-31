@@ -37,10 +37,10 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
 
 > ⚠️ available beginning with [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
 
-View the balance sheet as of a selected fiscal period, compared to the same period last year, the previous fiscal period, or a different fiscal period. And display the parent and child nodes for levels 2-4 of a selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
+View the balance sheet as of a selected fiscal period, compared to the same period last year, the previous fiscal period, or a different fiscal period. And display 3-levels of the selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
 
 
-- **Balance Sheet Finance Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
+- **Balance Sheet Marketplace Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
 
 - **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required).
 
@@ -70,7 +70,7 @@ With the Looker project based on your forked repository, you can customize the L
 <h2><span style="color:#2d7eea"> Required Parameters</span></h2>
 > ⚠️ These required values are configured during the Marketplace Installation process, or if this Block was installed from a forked Git repository, you will update the values for these constants in the `manifest.lkml` file for the project.
 
-- **Connection**: Value of the BigQuery CONNECTION_NAME allowing Looker to query the Cortex REPORTING dataset.
+- **Connection**: Value of the BigQuery CONNECTION_NAME allowing Looker to query the Cortex REPORTING dataset. Note, to use Balance Sheet reporting [Persistent Derived Tables](https://cloud.google.com/looker/docs/db-config-google-bigquery#persistent-derived-tables-on-a-connection) must be enabled.
 
 - **GCP Project ID**: The GCP project where the SAP reporting dataset resides in BigQuery (i.e., GCP project ID). [Identifying Project ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects).
 
@@ -81,7 +81,7 @@ With the Looker project based on your forked repository, you can customize the L
 
 <h2><span style="color:#2d7eea"> Required User Attributes</span></h2>
 
-Dashboards require two Looker [user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to work properly.
+Dashboards require four Looker [user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to work properly.
 
 A Looker Admin should create the following user attributes and set their default values.
 > ⚠️ Name each user attribute exactly as listed below:
@@ -89,14 +89,16 @@ A Looker Admin should create the following user attributes and set their default
 | **Required User Attribute Name** | **Label**                            | **Data Type** | **User Access** | **Hide Value** | **Default Value** |
 |----------------------------------|--------------------------------------|---------------|-----------------|----------------|-------------------|
 | default_value_currency_required  | SAP Default Currency to Display      | String        | Edit            | No             | `USD` or _desired currency like EUR, CAD or JPY_ |
-| client_id_rep                    | SAP Client Id (mandt) for Reporting  | String        | Edit            | No             | _Enter your SAP Client ID_ or `100` if using the provided test data |
+| client_id_rep                    | SAP Client Id (mandt) for Reporting  | String        | Edit            | No             | Enter your _SAP Client ID_ or `100` if using the provided test data |
+| sap_use_demo_data                | SAP: Use Demo Data (Yes or No)       | String        | Edit            | No             | Enter `Yes` if using the provided test data. Otherwise, enter `No` |
+| sap_sql_flavor                   | SAP: SQL Flavor (ECC or S4)          | String        | View            | No             | Enter `ECC` or `S4` as required for your SAP system |
 
 Each dashboard user can personalize these values by following these [instructions](https://cloud.google.com/looker/docs/user-account).
 
 
 <h2><span style="color:#2d7eea">Other Considerations</span></h2>
 
-- **Persistent Derived Tables**: If using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
+- **Persistent Derived Tables**: Required for using Balance Sheet dasbhoards. And if using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
 
 - **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _BalanceSheet_, _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
 

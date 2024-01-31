@@ -37,9 +37,7 @@
     fields: [balance_sheet.reporting_period_amount_in_global_currency, balance_sheet.comparison_period_amount_in_global_currency,
       balance_sheet.difference_value, balance_sheet.difference_percent, balance_sheet_hierarchy_selection_sdt.hier1_node_text,
       balance_sheet_hierarchy_selection_sdt.hier2_node_text, balance_sheet_hierarchy_selection_sdt.hier3_node_text]
-
     sorts: [balance_sheet_hierarchy_selection_sdt.hier1_node_text, balance_sheet_hierarchy_selection_sdt.hier2_node_text, balance_sheet_hierarchy_selection_sdt.hier3_node_text]
-    # subtotals: [balance_sheet.parent_text]
     subtotals: [balance_sheet_hierarchy_selection_sdt.hier1_node_text, balance_sheet_hierarchy_selection_sdt.hier2_node_text]
 
     total: true
@@ -62,45 +60,18 @@
     show_totals: true
     show_row_totals: true
     truncate_header: false
+    title_hidden: true
     minimum_column_width: 100
     series_labels:
       balance_sheet_hierarchy_selection_sdt.hier1_node_text: ' '
       balance_sheet_hierarchy_selection_sdt.hier2_node_text: ' '
       balance_sheet_hierarchy_selection_sdt.hier3_node_text: ' '
-
-    # series_cell_visualizations:
-    #   balance_sheet.reporting_period_amount_in_global_currency:
-    #     is_active: true
     series_collapsed:
       balance_sheet_hierarchy_selection_sdt.hier1_node_text: false
       balance_sheet_hierarchy_selection_sdt.hier2_node_text: true
     align: left
-    # x_axis_gridlines: false
-    # y_axis_gridlines: true
-    # show_y_axis_labels: true
-    # show_y_axis_ticks: true
-    # y_axis_tick_density: default
-    # y_axis_tick_density_custom: 5
-    # show_x_axis_label: true
-    # show_x_axis_ticks: true
-    # y_axis_scale_mode: linear
-    # x_axis_reversed: false
-    # y_axis_reversed: false
-    # plot_size_by_field: false
-    # trellis: ''
-    # stacking: ''
-    # legend_position: center
-    # point_style: none
-    # show_value_labels: false
-    # label_density: 25
-    # x_axis_scale: auto
-    # y_axis_combined: true
-    # ordering: none
-    # show_null_labels: false
-    # show_totals_labels: false
-    # show_silhouette: false
-    # totals_color: "#808080"
-    defaults_version: 1
+
+    # defaults_version: 1
     listen:
       Fiscal Period: balance_sheet.select_fiscal_period
       Comparison Type: balance_sheet.select_comparison_type
@@ -211,7 +182,7 @@
   - name: Ledger
     title: Ledger
     type: field_filter
-    default_value: Leading Ledger
+    default_value: "0L - Leading Ledger"
     allow_multiple_values: true
     required: false
     ui_config:

@@ -130,7 +130,12 @@ view: +balance_sheet {
 
   dimension: ledger_name {
     description: "Ledger in General Ledger Accounting"
-    sql: if(${ledger_in_general_ledger_accounting} = '0L','Leading Ledger', ${ledger_in_general_ledger_accounting} );;
+    # sql: if(${ledger_in_general_ledger_accounting} = '0L','Leading Ledger', ${ledger_in_general_ledger_accounting} );;
+    sql: case ${ledger_in_general_ledger_accounting}
+        when '0L' then '0L - Leading Ledger'
+        when '2L' then '2L - IFRS Non-leading Ledger'
+        when '0E' then '0E - Extension Ledger'
+    else ${ledger_in_general_ledger_accounting} end;;
     order_by_field: ledger_in_general_ledger_accounting
   }
 
@@ -454,7 +459,8 @@ view: +balance_sheet {
     group_label: "Reporting v Comparison Period Metrics"
     label: "Var %"
     description: "Percentage Change between Reporting and Comparison Periods"
-    sql: safe_divide(${reporting_period_amount_in_global_currency},${comparison_period_amount_in_global_currency}) - 1 ;;
+    # sql: safe_divide(${reporting_period_amount_in_global_currency},${comparison_period_amount_in_global_currency}) - 1 ;;
+    sql: safe_divide( (${reporting_period_amount_in_global_currency} - ${comparison_period_amount_in_global_currency}),abs(${comparison_period_amount_in_global_currency})) ;;
     value_format_name: percent_1
     html: @{negative_format} ;;
   }

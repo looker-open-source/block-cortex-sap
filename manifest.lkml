@@ -38,7 +38,7 @@ constant: negative_format {
 # used to derive previous previous period when 1st period is selected
 constant: max_fiscal_period {
   value: "12"
-  export: override_optional
+
 }
 
 # comparison period derived based on select_comparison_type parameter:

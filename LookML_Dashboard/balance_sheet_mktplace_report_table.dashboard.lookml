@@ -41,11 +41,7 @@
     filters: {}
     sorts: [balance_sheet.fiscal_year_period desc, balance_sheet_hierarchy_selection_sdt.hier1_node_text,
       balance_sheet_hierarchy_selection_sdt.hier2_node_text, balance_sheet_hierarchy_selection_sdt.hier3_node_text]
-    limit: 5000
-    column_limit: 50
     total: true
-    hidden_fields: []
-    hidden_points_if_no: []
     series_labels: {}
     show_view_names: false
     theme: contemporary
@@ -72,59 +68,29 @@
     indexColumn: false
     transposeTable: false
     label|balance_sheet_hierarchy_selection_sdt.hier1_node_text: " "
-    heading|balance_sheet_hierarchy_selection_sdt.hier1_node_text: ''
-    hide|balance_sheet_hierarchy_selection_sdt.hier1_node_text: false
     label|balance_sheet_hierarchy_selection_sdt.hier2_node_text: " "
-    heading|balance_sheet_hierarchy_selection_sdt.hier2_node_text: ''
-    hide|balance_sheet_hierarchy_selection_sdt.hier2_node_text: false
     label|balance_sheet_hierarchy_selection_sdt.hier3_node_text: " "
-    heading|balance_sheet_hierarchy_selection_sdt.hier3_node_text: ''
-    hide|balance_sheet_hierarchy_selection_sdt.hier3_node_text: false
     subtotalDepth: '1'
     label|balance_sheet.total_cumulative_amount_in_global_currency: Amount
-    heading|balance_sheet.total_cumulative_amount_in_global_currency: ''
     style|balance_sheet.total_cumulative_amount_in_global_currency: black_red
     reportIn|balance_sheet.total_cumulative_amount_in_global_currency: '1'
-    unit|balance_sheet.total_cumulative_amount_in_global_currency: ''
     comparison|balance_sheet.total_cumulative_amount_in_global_currency: balance_sheet.fiscal_year_period
     switch|balance_sheet.total_cumulative_amount_in_global_currency: false
     var_num|balance_sheet.total_cumulative_amount_in_global_currency: true
     var_pct|balance_sheet.total_cumulative_amount_in_global_currency: true
-    label|balance_sheet_hierarchy_selection_sdt.hier0_node_text: "."
-    heading|balance_sheet_hierarchy_selection_sdt.hier0_node_text: ''
-    hide|balance_sheet_hierarchy_selection_sdt.hier0_node_text: false
-    # label|balance_sheet.parent_text: Parent
-    # heading|balance_sheet.parent_text: ''
-    # hide|balance_sheet.parent_text: false
-    # label|balance_sheet.node_text: Node
-    # heading|balance_sheet.node_text: ''
-    # hide|balance_sheet.node_text: false
-    show_row_numbers: false
-    transpose: false
+    title_hidden: true
     truncate_text: true
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
     header_text_alignment: left
     header_font_size: '12'
     rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
     truncate_header: false
     minimum_column_width: 75
-    # series_cell_visualizations:
-    #   balance_sheet.total_cumulative_amount_in_global_currency:
-    #     is_active: false
-    hidden_pivots: {}
-    defaults_version: 0
-    y_axes: []
-    title_hidden: true
+
     listen:
       Fiscal Period: balance_sheet.select_fiscal_period
       Comparison Type: balance_sheet.select_comparison_type
@@ -146,7 +112,7 @@
   - name: Fiscal Period
     title: Fiscal Period
     type: field_filter
-    # assumes as 12 month fiscal period that aligns with calendar. Will find last month and select period with same value
+    # assumes as 12 month fiscal period that aligns with calendar. Will find last complete month and select period with same value
     default_value: "{% if _user_attributes['sap_use_demo_data']=='Yes'%}{% assign ym = '2023.011'%}{%else%}{% assign intervalDays = 31 %}{% assign intervalSeconds = intervalDays | times: 86400 %}{% assign daysMinus31 = 'now' | date: '%s' | minus: intervalSeconds %}{% assign m = daysMinus31 | date: '%m' | prepend: '00' | slice: -3,3 %}{% assign ym = daysMinus31 | date: '%Y' | append: '.' | append: m %}{%endif%}{{ym}}"
     allow_multiple_values: false
     required: true
@@ -197,7 +163,6 @@
     title: Hierarchy
     type: field_filter
     default_value: FPA1
-    # default_value: "{% assign dh = _user_attributes['sap_balance_sheet_default_hierarchy']%}{{dh}}"
     allow_multiple_values: false
     required: true
     ui_config:
@@ -209,7 +174,6 @@
   - name: Chart of Accounts
     title: Chart of Accounts
     type: field_filter
-    # default_value: CA01
     default_value: "{% if _user_attributes['sap_sql_flavor']=='S4' %}{% assign coa = 'YCOA'%}{%else%}{% assign coa = 'CA01' %}{% endif %}{{coa}}"
     allow_multiple_values: false
     required: true
@@ -223,7 +187,6 @@
     title: Company
     type: field_filter
     default_value: "%CENTRAL%"
-    # default_value: "{% assign dco = _user_attributes['sap_balance_sheet_default_company']%}{{dco}}"
     allow_multiple_values: false
     required: true
     ui_config:
@@ -235,7 +198,7 @@
   - name: Ledger
     title: Ledger
     type: field_filter
-    default_value: "Leading Ledger"
+    default_value: "0L - Leading Ledger"
     allow_multiple_values: true
     required: false
     ui_config:

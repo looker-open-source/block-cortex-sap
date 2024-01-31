@@ -1,3 +1,13 @@
+## Release v5.3.1
+* Added Persistent Derived Table (pdt) `balance_sheet_path_to_node_pdt` and Datagroup `balance_sheet_node_count`. This pdt finds the full hierarchy path to each Balance Sheet node (e.g., Assets/Current Assets/Cash & Equivalents). This PDT will regenerate if the count of Client, Chart of Accounts, Hierarchy Name, Level, and Node changes. Requires BigQuery connection used for this LookML model to have [Persistent Derived Tables](https://cloud.google.com/looker/docs/db-config-google-bigquery#persistent-derived-tables-on-a-connection) enabled.
+* Updated Balance Sheet dashboards by:
+  *   including three levels of the hierarchy as specified by user
+  *   adding filter for Ledger
+  *   renaming dashboards and select filters to more business-friendly terms
+  *   modifying the sort order for columns and rows
+  *   adding defaults for select filters based on user attributes for SQL Flavor (S4 or ECC) and Use of Test Data (Yes or No)
+
+
 ## Release v5.3
 * Added views, explores and dashboards to support `Balance Sheet` reporting
 * Added constants to the `manifest` to allow for the reuse of HTML value formatting and comparison period logic used in the Balance Sheet.
