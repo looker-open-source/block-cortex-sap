@@ -6,7 +6,9 @@
   *   renaming dashboards and select filters to more business-friendly terms
   *   modifying the sort order for columns and rows
   *   adding defaults for select filters based on user attributes for SQL Flavor (S4 or ECC) and Use of Test Data (Yes or No)
-
+* Added the following user attributes to set default values for select filters used in the balance sheet dashboard. A Looker Admin will need to add these user attributes to Looker (see README doc for more details) or update LookML dashboards to use other defaults.
+  *   sap_use_demo_data: set to _Yes_ if using the test data included with the Cortex Framework
+  *   sap_sap_sql_flavor: set to either _S4_ or _ECC_ depending upon your SAP system
 
 ## Release v5.3
 * Added views, explores and dashboards to support `Balance Sheet` reporting

@@ -14,9 +14,9 @@ view: balance_sheet_path_to_node_pdt {
           LanguageKey_SPRAS,
           CAST(Level AS INT64) AS LevelNumber,
           Parent,
-          COALESCE(ParentText,Parent) AS ParentText,
+          COALESCE(REGEXP_REPLACE(ParentText,'Non[- ]Current','Noncurrent'),Parent) AS ParentText,
           Node,
-          COALESCE(NodeText,Node) AS NodeText
+          COALESCE(REGEXP_REPLACE(NodeText,'Non[- ]Current','Noncurrent'),Node) AS NodeText
         FROM
           `@{GCP_PROJECT}.@{REPORTING_DATASET}.BalanceSheet`
         GROUP BY

@@ -68,7 +68,7 @@
       balance_sheet_hierarchy_selection_sdt.hier3_node_text: ' '
     series_collapsed:
       balance_sheet_hierarchy_selection_sdt.hier1_node_text: false
-      balance_sheet_hierarchy_selection_sdt.hier2_node_text: true
+      balance_sheet_hierarchy_selection_sdt.hier2_node_text: false
     align: left
 
     # defaults_version: 1
@@ -91,6 +91,7 @@
   - name: Fiscal Period
     title: Fiscal Period
     type: field_filter
+    # default assumes as 12 month fiscal period that aligns with calendar. Will find last complete month and select period with same value
     default_value: "{% if _user_attributes['sap_use_demo_data']=='Yes'%}{% assign ym = '2023.011'%}{%else%}{% assign intervalDays = 31 %}{% assign intervalSeconds = intervalDays | times: 86400 %}{% assign daysMinus31 = 'now' | date: '%s' | minus: intervalSeconds %}{% assign m = daysMinus31 | date: '%m' | prepend: '00' | slice: -3,3 %}{% assign ym = daysMinus31 | date: '%Y' | append: '.' | append: m %}{%endif%}{{ym}}"
     allow_multiple_values: false
     required: true
@@ -156,7 +157,8 @@
   - name: Chart of Accounts
     title: Chart of Accounts
     type: field_filter
-    default_value: YCOA
+    # default_value: YCOA
+    default_value: "{% if _user_attributes['sap_sql_flavor']=='S4' %}{% assign coa = 'YCOA'%}{%else%}{% assign coa = 'CA01' %}{% endif %}{{coa}}"
     allow_multiple_values: false
     required: true
     ui_config:

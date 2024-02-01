@@ -150,7 +150,6 @@
     title: Currency
     type: field_filter
     default_value: USD
-    # default_value: "{% assign dc = _user_attributes['sap_default_global_currency %}{{dc}}"
     allow_multiple_values: false
     required: true
     ui_config:
