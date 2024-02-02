@@ -12,22 +12,8 @@ view: data_intelligence_ar {
 
   parameter: Currency_Required{
     type: string
-    allowed_value: {
-      label: "USD"
-      value: "USD"
-    }
-    allowed_value: {
-      label: "EUR"
-      value: "EUR"
-    }
-    allowed_value: {
-      label: "CAD"
-      value: "CAD"
-    }
-    allowed_value: {
-      label: "JPY"
-      value: "JPY"
-    }
+    suggest_explore: global_currency_list_pdt
+    suggest_dimension: global_currency_list_pdt.to_currency_tcurr
     default_value: "USD"
   }
 
