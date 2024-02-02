@@ -283,3 +283,8 @@ explore: inventory_by_plant {
 }
 
 ################################################ End of Supply Chain #################################################
+
+explore: global_currency_list_pdt {
+  hidden: yes
+  description: "Used to provide filter suggestions for Global Currency"
+}
