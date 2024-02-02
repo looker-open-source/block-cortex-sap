@@ -12,13 +12,13 @@
 #   Languague
 #   Global (Target) Currency
 #
-# Measuresr:
+# Measures:
 #    Amount in Local Currency, Amount in Global Currency
 #    Cumulative Amount in Local Currency, Cumulative Amount in Global Currency
 #    Exchange Rate (based on last date in the period)
 #    Avg Exchange Rate, Max Exchange Rate
 #
-# To query this table, should always include Fiscal Year and Fiscal Period as dimensions
+# To query this table, always include Fiscal Year and Fiscal Period as dimensions
 # and filter to:
 #   - a single Client MANDT (handled with Constant defined in Manifest file)
 #   - a single Language (the Explore based on this view uses User Attribute locale to select language in joined view language_map_sdt)
@@ -51,7 +51,8 @@ view: +balance_sheet {
 #
 # use parameter selections to define fiscal_period_group values of 'Reporting' or 'Comparison'
 #
-# at explore level if select_fiscal_period in query then filter where fiscal_period_group is null
+# a sql_always_where clause defined at explore level will
+# filter where fiscal_period_group is null if select_fiscal_period is in the query
 #########################################################
 
   parameter: select_fiscal_period {
@@ -79,7 +80,6 @@ view: +balance_sheet {
       label: "Custom Comparison Period" value: "custom"
     }
     default_value: "yoy"
-
   }
 
   parameter: select_custom_comparison_period {
@@ -164,8 +164,6 @@ view: +balance_sheet {
     description: "Parent (as text) of Hierarchy. For example, Assets is Parent with multiple Child Nodes like Current Assets and Non-Current Assets."
     # sql: coalesce(${TABLE}.ParentText,${TABLE}.Parent) ;;
     sql: coalesce(regexp_replace(${TABLE}.ParentText,'Non[- ]Current','Noncurrent'),${TABLE}.Parent) ;;
-
-    # order_by_field: parent_sort_order
     order_by_field: parent
   }
   dimension: parent_sort_order {
@@ -184,14 +182,7 @@ view: +balance_sheet {
     label: "Node (text)"
     description: "Child Node (as text) of Hierarchy. For example, Assets is Parent with multiple Child Nodes like Current Assets and Non-Current Assets."
     sql: coalesce(regexp_replace(${TABLE}.NodeText,'Non[- ]Current','Noncurrent'),${TABLE}.Node) ;;
-    # order_by_field: node_sort_order
     order_by_field: node
-  }
-
-  dimension: node_sort_order {
-    type: number
-    hidden: yes
-    sql: parse_bignumeric(${node})*-1 ;;
   }
 
   dimension: level {
@@ -212,18 +203,9 @@ view: +balance_sheet {
     sql: ltrim(${level},'0') ;;
   }
 
-  # used as filter suggestion for selecting level depth to display
-  dimension: level_depth {
-    hidden: yes
-    type: string
-    sql: cast((${level_number} - 1) as string) ;;
-  }
-
   dimension: is_leaf_node {
     description: "Yes if GL Account Number and indicates lowest level of hierarchy."
   }
-
-
 
 
 # Fiscal Year and Period and other forms of Fiscal Dates
@@ -256,11 +238,12 @@ view: +balance_sheet {
     hidden: no
     type: number
     group_label: "Fiscal Dates"
-    description: "Fiscal Year and Period as a Numeric Value in form of YYYYPP or YYYYPPP"
+    description: "Fiscal Year and Period as a Numeric Value in form of YYYYPPP"
     sql: parse_numeric(concat(${fiscal_year},${fiscal_period})) ;;
     value_format_name: id
   }
 
+  # used in order_by_field to sort fiscal year period in descending order
   dimension: fiscal_year_period_negative_number {
     hidden: yes
     type: number
@@ -270,7 +253,7 @@ view: +balance_sheet {
   dimension: fiscal_year_period {
     type: string
     group_label: "Fiscal Dates"
-    description: "Fiscal Year and Period as String in form of YYYY.PP or YYYY.PPP"
+    description: "Fiscal Year and Period as String in form of YYYY.PPP"
     sql: concat(${fiscal_year},'.',${fiscal_period});;
     order_by_field: fiscal_year_period_negative_number
   }
@@ -296,6 +279,7 @@ view: +balance_sheet {
   #     if yoy then subtract year from period
   #     if prior then subtract 1 from period (if period 001 then substract 1 year and use max_fiscal_period for period)
   #     if custom then use value from select_custom_comparison_period
+  # see manifest for full logic defined in constant derive_comparison_period
 
   dimension: fiscal_period_group {
     type: string
@@ -323,7 +307,7 @@ view: +balance_sheet {
 
   #} end Fiscal Dates
 
-# Hidden dimensions that are restated as measures; Amounts and Exchange Rates
+# Hidden dimensions including those restated as measures like Amounts and Exchange Rates
 # {
   # hide client and define as client_mandt to match other SAP tables
   dimension: client {
@@ -431,24 +415,20 @@ view: +balance_sheet {
     type: number
     group_label: "Reporting v Comparison Period Metrics"
     label: "{% if select_fiscal_period._in_query %}
-    @{derive_comparison_period}{{cp}}
-    {% else %} Comparison Period Amount in Global Currency
-    {% endif %}"
-
+            @{derive_comparison_period}{{cp}}
+            {% else %} Comparison Period Amount in Global Currency
+            {% endif %}"
     description: "Cumulative Amount in Global Currency for the selected Fiscal Comparison Period"
-    # sql: ${cumulative_amount_in_target_currency}  ;;
     sql: sum(case ${fiscal_period_group} when "Comparison" then ${cumulative_amount_in_target_currency} else null end) ;;
-    # filters: [fiscal_period_group: "Comparison"]
     value_format_name: millions_d1
     html: @{negative_format} ;;
   }
-
 
   measure: difference_value {
     type: number
     group_label: "Reporting v Comparison Period Metrics"
     label: "Gain (Loss)"
-    description: "Reporting Period Amount - Comparison Period Amount"
+    description: "Reporting Period Amount minus Comparison Period Amount"
     sql: ${reporting_period_amount_in_global_currency} - ${comparison_period_amount_in_global_currency} ;;
     value_format_name: millions_d1
     html: @{negative_format} ;;
@@ -459,18 +439,16 @@ view: +balance_sheet {
     group_label: "Reporting v Comparison Period Metrics"
     label: "Var %"
     description: "Percentage Change between Reporting and Comparison Periods"
-    # sql: safe_divide(${reporting_period_amount_in_global_currency},${comparison_period_amount_in_global_currency}) - 1 ;;
     sql: safe_divide( (${reporting_period_amount_in_global_currency} - ${comparison_period_amount_in_global_currency}),abs(${comparison_period_amount_in_global_currency})) ;;
     value_format_name: percent_1
     html: @{negative_format} ;;
   }
 
-  # used in Balance Sheet dashboard, added to a single-value visualization
+  # used in Balance Sheet dashboard; add to a single-value visualization
   measure: title_balance_sheet {
     type: number
     description: "Used in Balance Sheet dashboard as Summary visualization with Company, Global Currency, Fiscal Period and Current Ratio."
     sql: 1 ;;
-    # (207,219,213,.5)
     html:
       <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center;  line-height: .8; font-family:'Noto Sans SC'; font-color: #808080">
           <a style="font-size:100%;font-family:'verdana';color: black"><b>Balance Sheet</b></a><br>

@@ -1,3 +1,17 @@
+#########################################################
+# This SQL Derived Table (sdt):
+#   1) Takes user inputs from parameters:
+#          parameter_pick_start_level - select top level of hierarchy to show
+#          parameter_pick_depth_level - how many levels should be shown (1 to 5 levels)
+#   2) Derives node_text and node values for hier1 to hier5 by placing the top level selected by user into hier_1 and subsequent levels into hier2 to hier5
+#   3) Filters to the last level selected by user. For example, if Top Level to Display of 2 and a depth of 3 is selected:
+#         level = 5
+#         derived as: 0 (start) + 3 (depth) + 2 (adjustment because minimum level possible = 2)
+#
+# If more than 5 hierarchy levels are needed, update the parameter_pick_depth_level and add additional hierN dimensions for node and node_text
+#
+#########################################################
+
 include: "/views/balance_sheet_path_to_node_pdt.view"
 view: balance_sheet_hierarchy_selection_sdt {
     derived_table: {
@@ -27,7 +41,7 @@ view: balance_sheet_hierarchy_selection_sdt {
             NodePath[SAFE_OFFSET({{start | plus: 4}})] AS hier5_node
         from ${balance_sheet_path_to_node_pdt.SQL_TABLE_NAME} h
         where
-        --filter to ending level as start + depth + 2 (add 2 as minimum level in hierarchy is 2)
+        --filter to ending level as start + depth + 2 (add 2 as minimum level is 2)
         --cap at Max Number of Levels if requested depth exceeds
         LevelNumber = least({{start}} + {{depth}} + 2,MaxLevelNumber)
         ;;
@@ -59,8 +73,6 @@ view: balance_sheet_hierarchy_selection_sdt {
       allowed_value: {value: "5"}
       default_value: "3"
     }
-
-
 
     dimension: key {
       hidden: yes
@@ -116,8 +128,6 @@ view: balance_sheet_hierarchy_selection_sdt {
       sql: ${TABLE}.NodePath_String ;;
     }
 
-
-
     dimension: hier1_node_text {
       hidden: no
       type: string
@@ -153,38 +163,39 @@ view: balance_sheet_hierarchy_selection_sdt {
       order_by_field: hier5_node
     }
 
-
-
     dimension: hier1_node {
       hidden: no
+      description: "First level of hierarchy to display"
       type: string
       sql: ${TABLE}.hier1_node ;;
     }
 
     dimension: hier2_node {
       hidden: no
+      description: "Second level of hierarchy to display"
       type: string
       sql: ${TABLE}.hier2_node ;;
     }
 
     dimension: hier3_node {
       hidden: no
+      description: "Third level of hierarchy to display"
       type: string
       sql: ${TABLE}.hier3_node ;;
     }
 
     dimension: hier4_node {
       hidden: no
+      description: "Fourth level of hierarchy to display"
       type: string
       sql: ${TABLE}.hier4_node ;;
     }
 
     dimension: hier5_node {
       hidden: no
+      description: "Fifth level of hierarchy to display"
       type: string
       sql: ${TABLE}.hier5_node ;;
     }
-
-
 
   }
