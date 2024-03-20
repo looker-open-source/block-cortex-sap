@@ -42,7 +42,18 @@ View the balance sheet as of a selected fiscal period, compared to the same peri
 
 - **Balance Sheet Marketplace Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
 
-- **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required).
+- **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required). For cleaner formatting and display, this dashboard also includes navigation option to display a report with or without comparisons.
+
+<h3>Income Statement</h3>
+
+> ⚠️ available beginning with [Google Cloud Cortex Framework 5.4](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+
+View the income statement for select fiscal periods (individually or combined). Compare timeframe to the same timeframe a year ago or the previous fiscal timeframe. And display 3-levels of the selected hierarchy for a company. Two set dashboards using different table styles and including/excluding comparisons are provided.
+
+
+- **Income Statement Marketplace Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace). For cleaner formatting and display, this dashboard also includes navigation option to display a report with or without comparisons.
+
+- **Income Statement Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required). For cleaner formatting and display, this dashboard also includes navigation option to display a report with or without comparisons.
 
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
@@ -77,6 +88,9 @@ With the Looker project based on your forked repository, you can customize the L
 - **Reporting Dataset**: The deployed Cortex Data Foundation REPORTING dataset where the SAP views reside within the GCP BigQuery project.
 
 - **Client**: The SAP Client number (mandt) to use for Reporting.
+
+- **Sign Change**: For Profit and Loss/Income Statement reporting, revenue is generally displayed in general ledger as a negative number, which indicates a credit. By setting Sign Change value to 'yes', it's displayed as a positive number in income statement reports.
+
 
 
 <h2><span style="color:#2d7eea"> Required User Attributes</span></h2>

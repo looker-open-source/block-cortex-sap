@@ -1,3 +1,16 @@
+## Release v5.4
+* Balance Sheet:
+  * Improved fields descriptions and organization within the Balance Sheet Explore
+  * Updated underlying logic for hierarchy levels to display the selected top level and its subordinate levels, rather than just the lowest level
+  * Added navigation to Subtotals dashboards with and without comparisons to year ago, prior fiscal period or custom period
+  * Updated underlying logic for deriving comparison period to eliminate reliance on `max_fiscal_period` constant
+  * Added context to view definitions with more-detailed comments
+  * Added Balance Sheet dashboard template to minimize edits to filters and other shared elements
+
+* Profit and Loss / Income Statement:
+  * Added views, explores and dashboards to support `Income Statement` reporting
+  * Added a required constant to provide flexibility in how revenue amounts appear in reporting. To display revenue as positive, set the value of `SIGN_CHANGE` constant to `yes`
+
 ## Release v5.3.1
 * Balance Sheet Updates:
   * Added the Persistent Derived Table (PDT) view `balance_sheet_path_to_node_pdt` and Datagroup `balance_sheet_node_count`. This PDT finds the full hierarchy path to each Balance Sheet node (e.g., Assets/Current Assets/Cash & Equivalents). This PDT will regenerate if the count of Client, Chart of Accounts, Hierarchy Name, Level, and Node changes. Requires BigQuery connection used for this LookML model to have [Persistent Derived Tables](https://cloud.google.com/looker/docs/db-config-google-bigquery#persistent-derived-tables-on-a-connection) enabled.
