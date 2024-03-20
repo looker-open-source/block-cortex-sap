@@ -351,11 +351,11 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     sql: 1 ;;
     html:
       <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center; font-family:'google sans' ; line-height: .8; font-color: #808080">
-          <a style="font-size:100%;color: black"><b>Income Statement</b></a><br>
-          <a style= "font-size:80%;color: black">{{profit_and_loss.company_text._value}}</a><br>
-          <a style= "font-size:80%;color: black">Reporting Fiscal Timeframe:   {{reporting_timeframes_list_with_partial_indicator._value}}&nbsp;&nbsp;&nbsp; Net Income: {{profit_and_loss.net_income._rendered_value}}M</a>
+          <a style="font-size:16px;color: black"><b>Income Statement</b></a><br>
+          <a style= "font-size:14px;color: black">{{profit_and_loss.company_text._value}}</a><br>
+          <a style= "font-size:14px;color: black">Reporting Fiscal Timeframe:   {{reporting_timeframes_list_with_partial_indicator._value}}&nbsp;&nbsp;&nbsp; Net Income: {{profit_and_loss.net_income._rendered_value}}M</a>
           <br>
-          <a style= "font-size: 70%; text-align:center;color: black"> Amounts in {{profit_and_loss.target_currency_tcurr}} </a>
+          <a style= "font-size: 10px; text-align:center;color: black"> Amounts in {{profit_and_loss.target_currency_tcurr}} </a>
        </div>
       ;;
   }

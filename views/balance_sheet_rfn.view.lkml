@@ -240,12 +240,12 @@ view: +balance_sheet {
     description: "Used in Balance Sheet dashboard as Summary visualization with Company, Global Currency, Fiscal Period and Current Ratio. Add this measure to a single-value visualizaiton."
     sql: 1 ;;
     html:
-      <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center;  line-height: .8; font-family:'verdana'; font-color: #808080">
-          <a style="font-size:100%;font-family:'verdana';color: black"><b>Balance Sheet</b></a><br>
-          <a style= "font-size:80%;font-family:'verdana';color: black">{{company_text._value}}</a><br>
-          <a style= "font-size:80%;font-family:'verdana';color: black">Fiscal Period:   {{select_fiscal_period._parameter_value}}&nbsp;&nbsp;&nbsp; Current Ratio: {{current_ratio._rendered_value}}</a>
+      <div  style="font-size:16px; background-color:rgb((169,169,169,.5); text-align:center;  line-height: .8; font-color: #808080">
+          <a style="font-size:16px;color: black"><b>Balance Sheet</b></a><br>
+          <a style= "font-size:14px;color: black">{{company_text._value}}</a><br>
+          <a style= "font-size:14px;color: black">Fiscal Period:   {{select_fiscal_period._parameter_value}}&nbsp;&nbsp;&nbsp; Current Ratio: {{current_ratio._rendered_value}}</a>
           <br>
-          <a style= "font-size: 70%; text-align:center;font-family:'verdana';color: black"> Amounts in Millions  {{target_currency_tcurr}} </a>
+          <a style= "font-size: 10px; text-align:center;color: black"> Amounts in Millions  {{target_currency_tcurr}} </a>
        </div>
       ;;
   }
