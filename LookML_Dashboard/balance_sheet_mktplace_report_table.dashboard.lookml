@@ -6,7 +6,7 @@
 #########################################################}
 
 - dashboard: balance_sheet_mktplace_report_table
-  title: Financial Statement Balance Sheet
+  title: Financial Balance Sheet
   layout: newspaper
   preferred_viewer: dashboards-next
   filters_location_top: false

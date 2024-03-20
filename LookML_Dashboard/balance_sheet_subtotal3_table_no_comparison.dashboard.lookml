@@ -9,7 +9,7 @@
 #########################################################}
 
 - dashboard: balance_sheet_subtotal3_table_no_comparison
-  title: Financial Statement Balance Sheet
+  title: Financial Balance Sheet
   layout: newspaper
   preferred_viewer: dashboards-next
   description: "Using standard table with subtotals, reports Fiscal Period Cumulative Amount in Global Currency for the selected hierarchy, chart of accounts, company, and fiscal period."

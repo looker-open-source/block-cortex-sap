@@ -8,7 +8,7 @@
 #########################################################}
 
 - dashboard: balance_sheet_subtotal3_table
-  title: Financial Statement Balance Sheet
+  title: Financial Balance Sheet
   layout: newspaper
   preferred_viewer: dashboards-next
   description: Using standard table with subtotals, reports Fiscal Period Cumulative
