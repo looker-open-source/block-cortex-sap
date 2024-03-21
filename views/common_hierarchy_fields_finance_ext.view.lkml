@@ -69,6 +69,7 @@ view: common_hierarchy_fields_finance_ext {
     label: "Hierarchy Node 2"
     description: "Node (text) for 2nd Hierarchy Level as set with the parameter 'Select Top Hierarchy Level to Display'"
     sql: COALESCE(${TABLE}.hier2_node_text,' ') ;;
+    # sql: COALESCE(${TABLE}.hier2_node_text,${TABLE}.hier1_node_text) ;;
     order_by_field: hier2_node
   }
 
@@ -79,6 +80,7 @@ view: common_hierarchy_fields_finance_ext {
     label: "Hierarchy Node 3"
     description: "Node (text) for 3rd Hierarchy Level as set with the parameter 'Select Top Hierarchy Level to Display'"
     sql: COALESCE(${TABLE}.hier3_node_text,' ') ;;
+    # sql: COALESCE(${TABLE}.hier3_node_text,${TABLE}.hier2_node_text) ;;
     order_by_field: hier3_node
   }
 
@@ -105,30 +107,30 @@ view: common_hierarchy_fields_finance_ext {
   dimension: hier1_node {
     hidden: yes
     type: string
-    sql: ${TABLE}.hier1_node ;;
+    sql: UPPER(${TABLE}.hier1_node) ;;
   }
 
   dimension: hier2_node {
     hidden: yes
     type: string
-    sql: ${TABLE}.hier2_node ;;
+    sql: UPPER(COALESCE(${TABLE}.hier2_node,'ZZZZ')) ;;
   }
 
   dimension: hier3_node {
     hidden: yes
     type: string
-    sql: ${TABLE}.hier3_node ;;
+    sql: UPPER(COALESCE(${TABLE}.hier3_node,'ZZZZ')) ;;
   }
 
   dimension: hier4_node {
     hidden: yes
     type: string
-    sql: ${TABLE}.hier4_node ;;
+    sql: UPPER(COALESCE(${TABLE}.hier4_node,'ZZZZ') ;;
   }
 
   dimension: hier5_node {
     hidden: yes
     type: string
-    sql: ${TABLE}.hier5_node ;;
+    sql: UPPER(COALESCE(${TABLE}.hier5_node),'ZZZZ') ;;
   }
 }
