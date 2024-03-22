@@ -350,7 +350,7 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     hidden: no
     sql: 1 ;;
     html:
-      <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center; font-family:'google sans' ; line-height: .8; font-color: #808080">
+      <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center; line-height: .8; font-color: #808080">
           <a style="font-size:100%;color: black"><b>Income Statement</b></a><br>
           <a style= "font-size:80%;color: black">{{profit_and_loss.company_text._value}}</a><br>
           <a style= "font-size:80%;color: black">Reporting Fiscal Timeframe:   {{reporting_timeframes_list_with_partial_indicator._value}}&nbsp;&nbsp;&nbsp; Net Income: {{profit_and_loss.net_income._rendered_value}}M</a>
@@ -365,17 +365,17 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     type: string
     hidden: no
     description: "Add this measure to a single-value visualization. Returns a footnote indicating if a partial timeframe is included in the report and if so, it's max fiscal period. Should be added to a single value visualization."
-    sql: MAX('1') ;;
+    sql: MAX('2') ;;
     html: {% if any_timeframe_is_partial._value == 'Yes' %}{% assign time_level = selected_time_level._value %}{% assign compare_to = profit_and_loss.parameter_compare_to._parameter_value %}
           {% assign note = '*' | append: time_level | append: ' To Date:' %}{% assign reporting_time = max_partial_timeframe_reporting._value %}{% assign reporting_max = ' through period ' | append: max_fiscal_period_in_partial_timeframe_reporting._value %}
           {% assign compare_max = ' through period ' | append: max_fiscal_period_in_partial_timeframe_comparison._value %}
           {% assign reporting_note = ' Reporting ' | append: reporting_time %}
           {% if compare_to == 'none' %}{% assign comparison_note = reporting_max %}
-            {% elsif compare_to == 'yoy' or time_level == 'Fiscal Year' %}{% assign comparison_note = ' & Year Ago comparison through period ' | append: reporting_max %}
-            {% elsif compare_to == 'prior' and time_level != 'Fiscal Year' %}{% assign comparison_note = reporting_max | append: ' & Comparison ' | append: max_partial_timeframe_comparison._value | append: ' through period ' | append: compare_max %}
+            {% elsif compare_to == 'yoy' or time_level == 'Fiscal Year' %}{% assign comparison_note = ' & Year Ago' | append: reporting_max %}
+            {% elsif compare_to == 'prior' and time_level != 'Fiscal Year' %}{% assign comparison_note = reporting_max | append: ' & Comparison ' | append: max_partial_timeframe_comparison._value | append: compare_max %}
             {% else %}{% assign comparison_note = ' '%}
           {% endif %}
-            <div style="font-size:11px; text-align:left; font-family:'verdana'; line-height: 2; font-color: #808080">
+            <div style="font-size:11px; text-align:left; line-height: 2; font-color: #808080">
             <a>{{note}}{{reporting_note}}{{comparison_note}}</a><br>
           {% else %} {%endif%}
           ;;

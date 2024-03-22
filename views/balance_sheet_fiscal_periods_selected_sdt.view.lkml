@@ -1,32 +1,38 @@
 #########################################################{
-# Purpose:
-# Takes user inputs from parameters to derive Reporting vs Comparison Period
+# PURPOSE:
+# Derives Reporting vs Comparison Periods based on user inputs
 #
-# Keys to using this view:
+# REFERENCED IN:
+# Explore balance_sheet
+#
+# SOURCE:
+# View balance_sheet_fiscal_periods_sdt
+#
+# KEYS TO USING:
 #   - View label is "Reporting vs. Comparison Period"
-#   - Fields are hidden by default so must change hidden: property to no to include in an explore
-#   - includes references to fields from view balance_sheet so always join this view to balance_sheet using an inner join on:
+#   - Fields are hidden by default so must change "hidden: property" to "no" to include in an Explore
+#   - Measures includes references to fields from view balance_sheet so must join this view to balance_sheet using an inner join on:
 #         hierarchy_name, company_code, fiscal_year, fiscal_period
-#      Note, the balance_sheet_fiscal_periods_sdt view already filters to the same Client id so it is not needed in the join.
+#     Note, the source view already filters to a single Client id so it is not needed in the join
 #
-# Steps taken:
-#   1) Takes user inputs from parameters:
-#         balance_sheet.select_fiscal_period - user picks one fiscal period which becomes the "Reporting" period
-#         balance_sheet.select_compare_to - user picks to compare the Reporting period to either: same period a year ago, the prior fiscal period, a specific fiscal period or none
-#         balance_sheet.select_custom_comparison_period - if user picks a comparison to a custom fiscal period, user must select one fiscal period which becomes the "Comparison" period
+# PROCESS:
+#   1) Captures inputs from parameters:
+#         balance_sheet.select_fiscal_period -- user selects a single "Reporting" fiscal period
+#         balance_sheet.select_compare_to -- user can compare the Reporting period to either: same period a year ago, the prior fiscal period, a specific fiscal period
+#         balance_sheet.select_custom_comparison_period -- if "Custom" comparison selected, user must select one "Comparison" fiscal period. Year ago used if no period provided
+
+#   2) Builds SQL statement based on parameter values selected. Returns the fiscal periods
+#      representing the "Reporting" and "Comparison" periods
 #
-#   2) Using Liquid, builds SQL statement on the fly based on values selected for above parameters that returns
-#      two fiscal periods representing the "Reporting" and "Comparison" periods. View balance_sheet_fiscal_periods_sdt is the source.
-#
-#   3) Derives new dimensions:
+#   3) Derives these fields:
 #         fiscal_period_group -- value of Reporting or Comparison
 #         alignment_group_name -- equals the value of the selected reporting period
 #
-# Derives these Measures to support Reporting vs. Comparison Period:
-#    reporting_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Reporting'
-#    comparison_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Comparison'
-#    difference_value -- reporting_period_amount_in_global_currency - comparison_period_amount_in_global_currency
-#    difference_percent -- (reporting_period_amount_in_global_currency - comparison_period_amount_in_global_currency) / abs(comparison_period_amount_in_global_currency)
+# MEASURES:
+#     reporting_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Reporting'
+#     comparison_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Comparison'
+#     difference_value -- reporting_period_amount_in_global_currency - comparison_period_amount_in_global_currency
+#     difference_percent -- (reporting_period_amount_in_global_currency - comparison_period_amount_in_global_currency) / abs(comparison_period_amount_in_global_currency)
 #
 #########################################################}
 

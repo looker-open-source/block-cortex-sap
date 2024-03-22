@@ -1,26 +1,42 @@
 #########################################################
-# This SQL Derived Table (sdt):
-#   1) Takes user inputs from parameters:
-#          parameter_pick_start_level - select top level of hierarchy to show
-#          parameter_pick_depth_level - how many levels should be shown (1 to 5 levels)
-#   2) Derives node_text and node values for hier1 to hier5 by placing the top level selected by user into hier_1 and subsequent levels into hier2 to hier5
-#   3) Filters applied:
-#         first level of the hierarchy = top level selected AND
-#         (level number = last level selected by user OR
-#          level number < last level AND IsLeafNode = true)
-#      For example, if Top Level to Display of 2 and a depth of 3 is selected, level 4 will be selected as the lowest level AND
-#       levels 2 and 3 where IsLeafNode = true will also be selected
+# PURPOSE
+# SQL Derived Table (SDT) to select the Node levels to display in Balance Sheet report. Assigns values to Hier1_node_text to Heir5_node_text based on user inputs.
 #
-# If more than 5 hierarchy levels are needed, update the parameter_pick_depth_level and add additional hierN dimensions for node and node_text
+# SOURCES:
+# View balance_sheet_path_to_node_pdt
+# Extends View common_hierarchy_fields_finance_ext
+#
+# REFERENCED IN:
+# Explore Balance Sheet
+#
+# PROCESS:
+#   1) Captures inputs from parameters:
+#          parameter_pick_start_level -- select top level of hierarchy to show
+#          parameter_pick_depth_level -- how many levels should be shown (1 to 5 levels)
+#   2) Derives node_text and node values for hier1 to hier5 by placing the top level selected by user into hier_1 and subsequent levels into hier2 to hier5
+#   3) Filters to keep:
+#         Hier1_node = top level selected AND
+#         (Child Level Number = last level selected by user OR
+#          Child Level Number < last level AND IsLeafNode = true)
+#
+# For example, if Top Level to Display of 2 and a depth of 3 is selected, level 4 will be selected as the lowest level.
+# Additionally, levels 2 and 3, where IsLeafNode equals true, will also be selected.
+#
+# CAVEATS:
+# If more than 5 hierarchy levels are needed:
+#   - update the parameter_pick_depth_level to accept additional values
+#   - add additional hierN SQL statements
+#   - add additional dimensions in this view OR in extended view common_hierarchy_fields_finance_ext if also needed in other views
 #
 # EXTENDED FIELDS
-# The following parameters and dimensions are extended from view common_hierarchy_fields_finance_ext and can be further customized for Balance Sheet reporting:
+# The following parameters and dimensions are extended from view common_hierarchy_fields_finance_ext
+# and can be further customized for Balance Sheet reporting:
 #   parameter_pick_start_level
 #   parameter_pick_depth_level
 #   hier1_node_text ... hier5_node_text
 #   hier1_node ... hier5_node
 #
-# This view should be joined to balance sheet using an inner join on:
+# PRIMARY KEY:
 #   client_mandt
 #   hierarchy_name
 #   chart_of_accounts
