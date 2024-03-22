@@ -129,7 +129,7 @@
     allow_multiple_values: false
     required: true
     ui_config:
-      type: advanced
+      type: dropdown_menu
       display: popover
     explore: balance_sheet
     field: balance_sheet.company_text

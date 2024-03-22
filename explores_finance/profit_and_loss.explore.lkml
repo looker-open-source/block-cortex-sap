@@ -35,8 +35,12 @@ explore: profit_and_loss {
   join: profit_and_loss_03_selected_fiscal_periods_sdt  {
     type: inner
     relationship: many_to_many
-    sql_on: ${profit_and_loss.fiscal_year} = ${profit_and_loss_03_selected_fiscal_periods_sdt.fiscal_year}
-      and ${profit_and_loss.fiscal_period} = ${profit_and_loss_03_selected_fiscal_periods_sdt.fiscal_period};;
+    sql_on:
+      ${profit_and_loss.glhierarchy} = ${profit_and_loss_03_selected_fiscal_periods_sdt.glhierarchy} AND
+      ${profit_and_loss.company_code} = ${profit_and_loss_03_selected_fiscal_periods_sdt.company_code} AND
+      ${profit_and_loss.fiscal_year} = ${profit_and_loss_03_selected_fiscal_periods_sdt.fiscal_year} AND
+      ${profit_and_loss.fiscal_period} = ${profit_and_loss_03_selected_fiscal_periods_sdt.fiscal_period};;
+
   }
 
   join: profit_and_loss_hierarchy_selection_sdt {

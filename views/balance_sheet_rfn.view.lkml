@@ -1,5 +1,7 @@
 #########################################################{
-# balance_sheet view reflects an aggregation of Transactions by the following dimensions:
+# PURPOSE
+# The BalanceSheet table and its corresponding View balance_sheet reflects
+# an aggregation of Transactions by the following dimensions:
 #   Client
 #   Fiscal Year
 #   Fiscal Period
@@ -12,15 +14,32 @@
 #   Languague
 #   Global (Target) Currency
 #
-# Measures:
+# SOURCES
+# Refines View balance_sheet (defined in file balance_sheet_base.view)
+# Extends View common_fields_finance_ext
+#
+# REFERENCED BY
+# Explore balance_sheet
+#
+# EXTENDED FIELDS
+# Extends common dimensions found in both balance sheet and profit and loss
+#   client_mandt, language_key_spras, currency_key, target_currency_tcurr, ledger_in_general_ledger_accounting, company_code, company_text, chart_of_accounts, business_area,
+#   fiscal_period, fiscal_quarter, fiscal_year and related fields
+# Make changes to these dimensions in the common_fields_finance_ext view or
+# in this view if the changes are specific to the Balance Sheet.
+#
+# KEY MEASURES
 #    Amount in Local Currency, Amount in Global Currency
 #    Cumulative Amount in Local Currency, Cumulative Amount in Global Currency
 #    Exchange Rate (based on last date in the period)
 #    Avg Exchange Rate, Max Exchange Rate
+#    Current Ratio, Current Assets, and Current Liabilities
 #
-# Derives Current Ratio, Current Assets, and Current Liabilities using English-only terms found in Node (text).
-# These should be edited as necessary to use Node (code) values instead text values to accomodate other languages.
+# CAVEATS
+# Current Ratio and related measures are defined using English-only terms found in Node (text).
+# Edit these as necessary to support other languages or use Node values instead of text.
 #
+# HOW TO USE
 # To query this table, always include Fiscal Year and Fiscal Period as dimensions
 # and filter to:
 #   - a single Client MANDT (handled with Constant defined in Manifest file)
@@ -29,13 +48,6 @@
 #   - a single Hierarchy Name or Financial Statement Version
 #   - a single Chart of Accounts
 #   - a single Company
-#
-# EXTENDED FIELDS:
-# Extends common dimensions found in both balance sheet and profit and loss using view common_fields_finance_ext
-#   client_mandt, language_key_spras, currency_key, target_currency_tcurr, ledger_in_general_ledger_accounting, company_code, company_text, chart_of_accounts, business_area,
-#   fiscal_period, fiscal_quarter, fiscal_year and related fields
-# Changes to these dimensions can be made in view common_fields_finance_ext if the changes are for both balance sheet and profit and loss;
-# or customize these dimensions specifically for Balance Sheet in this view as needed
 #########################################################}
 
 
@@ -86,7 +98,7 @@ view: +balance_sheet {
       label: "Year Ago" value: "yoy"
     }
     allowed_value: {
-      label: "Previous Fiscal Period" value: "prior"
+      label: "Prior Fiscal Period" value: "prior"
     }
     allowed_value: {
       label: "Custom Comparison Period" value: "custom"

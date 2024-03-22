@@ -1,20 +1,20 @@
 #########################################################{
-# PURPOSE:
+# PURPOSE
 # Finds the Fiscal Years and Periods available in Balance Sheet
 # And derives the following fields:
 # - fiscal_year_period
 # - yoy_fiscal_period
 # - prior_fiscal_year_period
 #
-# SOURCE:
+# SOURCE
 # Table @{GCP_PROJECT}.@{REPORTING_DATASET}.BalanceSheet
 #
-# REFERENCED IN:
+# REFERENCED BY
 # View balance_sheet_fiscal_periods_selected to identify comparison period based on user selections
 #
-# NOTE: no dimensions or measure are defined as this view is only referenced in another view
+# NOTE
+# This view is only referenced in another view and does not define any dimensions or measures.
 #########################################################}
-
 
 view: balance_sheet_fiscal_periods_sdt {
   derived_table: {

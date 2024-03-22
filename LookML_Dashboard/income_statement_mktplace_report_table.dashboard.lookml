@@ -55,6 +55,7 @@
     label|profit_and_loss_hierarchy_selection_sdt.hier3_node_text: " "
     subtotalDepth: '1'
     style|profit_and_loss_03_selected_fiscal_periods_sdt.reporting_amount: black_red
+    label|profit_and_loss_03_selected_fiscal_periods_sdt.comparison_amount:
     style|profit_and_loss_03_selected_fiscal_periods_sdt.comparison_amount: black_red
     style|profit_and_loss_03_selected_fiscal_periods_sdt.difference_value: black_red
     style|profit_and_loss_03_selected_fiscal_periods_sdt.difference_percent: black_red

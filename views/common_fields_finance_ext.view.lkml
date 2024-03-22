@@ -1,12 +1,14 @@
 #########################################################{
-# common fields and parameters to be EXTENDED into:
+# PURPOSE
+# Defines dimensions and parameters to be EXTENDED into:
 #   balance_sheet_rfn
 #   profit_and_loss_rfn
+# The properties from this view are used and customized by extending views.
 #
-# This view's established properties will be utilized by any views that use this view as an extension.
-# Once extended into balance_sheet_rfn and profit_and_loss_rfn, these dimensions can be customized as necessary in the extending views.
+# SOURCE
+#   none. The ${TABLE} property uses the table definition of the extending view
 #
-# includes:
+# EXTENDABLE FIELDS
 #   client_mandt
 #   language_key_spras
 #   currency_key
@@ -26,6 +28,7 @@
 
 
 view: common_fields_finance_ext {
+  extension: required
 
   dimension: client_mandt {
     type: string

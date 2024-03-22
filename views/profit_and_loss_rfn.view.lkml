@@ -111,7 +111,7 @@ view: +profit_and_loss {
       label: "Year Ago" value: "yoy"
     }
     allowed_value: {
-      label: "Previous Fiscal Timeframe" value: "prior"
+      label: "Prior Fiscal Timeframe" value: "prior"
     }
     default_value: "none"
   }

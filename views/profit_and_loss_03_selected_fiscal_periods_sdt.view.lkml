@@ -204,8 +204,8 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
 
   dimension: alignment_group {
     type: number
-    hidden: yes
-    sql: ${TABLE}.alignment_group ;;
+    hidden: no
+    sql: UPPER(CAST(${TABLE}.alignment_group as STRING)) ;;
   }
 
   dimension: alignment_group_name {

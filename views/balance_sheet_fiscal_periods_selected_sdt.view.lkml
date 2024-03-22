@@ -1,21 +1,21 @@
 #########################################################{
-# PURPOSE:
+# PURPOSE
 # Derives Reporting vs Comparison Periods based on user inputs
 #
-# REFERENCED IN:
-# Explore balance_sheet
-#
-# SOURCE:
+# SOURCE
 # View balance_sheet_fiscal_periods_sdt
 #
-# KEYS TO USING:
+# REFERENCED BY
+# Explore balance_sheet
+#
+# KEYS TO USING
 #   - View label is "Reporting vs. Comparison Period"
 #   - Fields are hidden by default so must change "hidden: property" to "no" to include in an Explore
 #   - Measures includes references to fields from view balance_sheet so must join this view to balance_sheet using an inner join on:
 #         hierarchy_name, company_code, fiscal_year, fiscal_period
 #     Note, the source view already filters to a single Client id so it is not needed in the join
 #
-# PROCESS:
+# PROCESS
 #   1) Captures inputs from parameters:
 #         balance_sheet.select_fiscal_period -- user selects a single "Reporting" fiscal period
 #         balance_sheet.select_compare_to -- user can compare the Reporting period to either: same period a year ago, the prior fiscal period, a specific fiscal period
@@ -28,7 +28,7 @@
 #         fiscal_period_group -- value of Reporting or Comparison
 #         alignment_group_name -- equals the value of the selected reporting period
 #
-# MEASURES:
+# MEASURES
 #     reporting_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Reporting'
 #     comparison_period_amount_in_global_currency -- Cumulative Amount in Global Currency when fiscal_period_group = 'Comparison'
 #     difference_value -- reporting_period_amount_in_global_currency - comparison_period_amount_in_global_currency

@@ -1,9 +1,19 @@
-#########################################################
-# this Persistent Derived Table (pdt) derives the full path to a node (e.g., Assets/Current Assets/Cash & Equivalents)
+#########################################################{
+# PURPOSE
+# This Persistent Derived Table (PDT) derives the full path to a node using RECURSIVE
+# to navigate the parent-child relationships.
+# For example, for Child Node Cash & Equivalents, the path is:
+#     Assets-->Current Assets-->Cash & Equivalents
 #
-# Uses RECURSIVE to navigate the parent-child relationships and derive the full path
-# This view is only referenced in the view balance_sheet_hierarchy_selection_sdt
-#########################################################
+# SOURCE
+# Table `@{GCP_PROJECT}.@{REPORTING_DATASET}.BalanceSheet`
+#
+# REFERENCED BY
+# View balance_sheet_hierarchy_selection_sdt
+#
+# UPDATE SCHEDULE
+# triggered when distinct count of nodes changes (see datagroup trigger balance_sheet_node_count)
+#########################################################}
 
 view: balance_sheet_path_to_node_pdt {
   derived_table: {

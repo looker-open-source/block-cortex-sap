@@ -1,10 +1,19 @@
 #########################################################{
-# common hierarchy-related fields and parameters to be EXTENDED into:
+# PURPOSE
+# Defines hierarchy-related dimensions and parameters to be EXTENDED into:
 #   balance_sheet_hierarchy_selection_sdt
 #   profit_and_loss_hierarchy_selection_sdt
 #
-# This view's established properties will be utilized by any views that use this view as an extension.
+# The properties from this view are used and customized by extending views.
 #
+# SOURCE
+#   none. The ${TABLE} property uses the table definition of the extending view
+#
+# EXTENDABLE FIELDS
+#   parameter_pick_start_level, parameter_pick_depth_level
+#   node_text_path_string, node_path_string
+#   hier1_node_text to hier5_node_text
+#   hier1_node to hier5_node (used as order by fields for hierN_node_text dimension)
 #########################################################}
 
 view: common_hierarchy_fields_finance_ext {

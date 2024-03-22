@@ -49,7 +49,7 @@
     useHeadings: false
     useShortName: false
     useUnit: false
-    groupVarianceColumns: false
+    groupVarianceColumns: true
     genericLabelForSubtotals: false
     indexColumn: false
     transposeTable: false

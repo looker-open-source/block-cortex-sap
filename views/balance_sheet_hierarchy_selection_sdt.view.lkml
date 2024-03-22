@@ -2,14 +2,14 @@
 # PURPOSE
 # SQL Derived Table (SDT) to select the Node levels to display in Balance Sheet report. Assigns values to Hier1_node_text to Heir5_node_text based on user inputs.
 #
-# SOURCES:
+# SOURCES
 # View balance_sheet_path_to_node_pdt
 # Extends View common_hierarchy_fields_finance_ext
 #
-# REFERENCED IN:
+# REFERENCED BY
 # Explore Balance Sheet
 #
-# PROCESS:
+# PROCESS
 #   1) Captures inputs from parameters:
 #          parameter_pick_start_level -- select top level of hierarchy to show
 #          parameter_pick_depth_level -- how many levels should be shown (1 to 5 levels)
@@ -22,7 +22,7 @@
 # For example, if Top Level to Display of 2 and a depth of 3 is selected, level 4 will be selected as the lowest level.
 # Additionally, levels 2 and 3, where IsLeafNode equals true, will also be selected.
 #
-# CAVEATS:
+# CAVEATS
 # If more than 5 hierarchy levels are needed:
 #   - update the parameter_pick_depth_level to accept additional values
 #   - add additional hierN SQL statements
@@ -36,7 +36,7 @@
 #   hier1_node_text ... hier5_node_text
 #   hier1_node ... hier5_node
 #
-# PRIMARY KEY:
+# PRIMARY KEY
 #   client_mandt
 #   hierarchy_name
 #   chart_of_accounts
