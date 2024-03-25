@@ -183,7 +183,7 @@
     type: field_filter
     default_value: "%CENTRAL%"
     allow_multiple_values: false
-    required: false
+    required: true
     ui_config:
       type: dropdown_menu
       display: inline
