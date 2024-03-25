@@ -314,9 +314,10 @@ view: +profit_and_loss {
     value_format_name: millions_d1
   }
 
-  measure: list_fiscal_periods {
+  measure: list_companies {
     type: list
-    list_field: fiscal_year_period
+    hidden: yes
+    list_field: company_text
   }
 
   #} end measures

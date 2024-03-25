@@ -182,10 +182,10 @@
     title: Company
     type: field_filter
     default_value: "%CENTRAL%"
-    allow_multiple_values: false
-    required: true
+    allow_multiple_values: true
+    required: false
     ui_config:
-      type: dropdown_menu
+      type: tag_list
       display: inline
     explore: profit_and_loss
     listens_to_filters: []

@@ -80,7 +80,7 @@ view: profit_and_loss_02_comparison_fiscal_periods_sdt {
           {% assign rank_field = timeframe_field | append: "_rank" %}
 
       {% if aggregate == 'Yes' %}{% assign alignment_group_sql = '1' %}
-      {% else %}{% assign alignment_group_sql = "DENSE_RANK() OVER (window_pk ORDER BY comp." | append: timeframe_field | append: " DESC)" %}
+      {% else %}{% assign alignment_group_sql = "DENSE_RANK() OVER (ORDER BY comp." | append: timeframe_field | append: " DESC)" %}
       {% endif %}
 
       {% if comparison_type == 'yoy' %}{% assign timeframe_join_sql = "fiscal_year_period" %}
@@ -92,16 +92,17 @@ view: profit_and_loss_02_comparison_fiscal_periods_sdt {
       {% assign join1_sql = "AND rep.prior_timeframe_join = comp." | append: timeframe_join_sql %}
 
 
-      SELECT  comp.glhierarchy,
-      comp.company_code,
-      comp.fiscal_year_period,
-      comp.fiscal_year_quarter,
-      comp.fiscal_year,
-      comp.fiscal_period,
-      {{alignment_group_sql}} AS alignment_group,
-      comp.{{timeframe_field}} AS selected_timeframe,
-      rep.is_partial_timeframe,
-      'Comparison' AS fiscal_reporting_group
+      SELECT
+        comp.glhierarchy,
+        comp.company_code,
+        comp.fiscal_year_period,
+        comp.fiscal_year_quarter,
+        comp.fiscal_year,
+        comp.fiscal_period,
+        {{alignment_group_sql}} AS alignment_group,
+        comp.{{timeframe_field}} AS selected_timeframe,
+        rep.is_partial_timeframe,
+        'Comparison' AS fiscal_reporting_group
       FROM ${profit_and_loss_01_reporting_fiscal_periods_sdt.SQL_TABLE_NAME} rep
       JOIN ${profit_and_loss_fiscal_periods_sdt.SQL_TABLE_NAME} comp
       ON rep.glhierarchy = comp.glhierarchy

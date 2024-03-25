@@ -61,7 +61,7 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
       {% assign tp_list = _filters['profit_and_loss.filter_fiscal_timeframe'] | sql_quote | remove: '"' | remove: "'" | replace: ",",", " | split: ", " %}
       {% assign tp_list = tp_list | sort | join: ", " %}
       {% assign aggregate = profit_and_loss.parameter_aggregate._parameter_value %}
-      {% assign window_alignment = "(PARTITION BY glhierarchy, company_code, alignment_group)" %}
+      {% assign window_alignment = "(PARTITION BY glhierarchy, alignment_group)" %}
       {% if time_level == "f" %}{% assign time_level_sql = "Fiscal Year Period"%}{%elsif time_level == "q"%}{% assign time_level_sql = "Fiscal Quarter"%}{%elsif time_level == "y" %}{% assign time_level_sql = "Fiscal Year"%}{% else %}{% assign time_level_sql = "None"%}{%endif%}
       {% if aggregate == 'Yes' %}{% assign alignment_group_name_sql = "'" | append: tp_list | append: "'" %}
         {% else %}{% assign alignment_group_name_sql = "MAX(selected_timeframe) OVER (window_alignment)" %}
@@ -343,6 +343,7 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     sql: MAX(CASE WHEN ${fiscal_reporting_group} = 'Comparison' THEN ${fiscal_period} END) ;;
   }
 
+
 # used in Income Statement dashboard; add to a single-value visualization
   measure: title_income_statement {
     type: number
@@ -350,9 +351,11 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     hidden: no
     sql: 1 ;;
     html:
+      {% if profit_and_loss.company_text._is_filtered %}{% assign company_list = profit_and_loss.list_companies._value | replace: '|RECORD|',', ' %}
+      {% else %}{% assign company_list = 'All Companies' %}{%endif%}
       <div  style="font-size:100pct; background-color:rgb((169,169,169,.5); text-align:center; line-height: .8; font-color: #808080">
           <a style="font-size:100%;color: black"><b>Income Statement</b></a><br>
-          <a style= "font-size:80%;color: black">{{profit_and_loss.company_text._value}}</a><br>
+          <a style= "font-size:80%;color: black">{{company_list}}</a><br>
           <a style= "font-size:80%;color: black">Reporting Fiscal Timeframe:   {{reporting_timeframes_list_with_partial_indicator._value}}&nbsp;&nbsp;&nbsp; Net Income: {{profit_and_loss.net_income._rendered_value}}M</a>
           <br>
           <a style= "font-size: 60%; text-align:center;color: black"> Amounts in {{profit_and_loss.target_currency_tcurr}} </a>

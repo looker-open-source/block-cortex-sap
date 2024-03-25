@@ -79,7 +79,7 @@ view: profit_and_loss_01_reporting_fiscal_periods_sdt {
       {% endif %}
 
       {% if aggregate == 'Yes' %}{% assign alignment_group_sql = '1' %}
-      {% else %}{% assign alignment_group_sql = "DENSE_RANK() OVER (window_pk ORDER BY " | append: timeframe_field | append: " DESC)" %}
+      {% else %}{% assign alignment_group_sql = "DENSE_RANK() OVER (ORDER BY " | append: timeframe_field | append: " DESC)" %}
       {% endif %}
 
 
