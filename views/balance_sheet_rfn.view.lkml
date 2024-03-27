@@ -252,9 +252,11 @@ view: +balance_sheet {
     description: "Used in Balance Sheet dashboard as Summary visualization with Company, Global Currency, Fiscal Period and Current Ratio. Add this measure to a single-value visualizaiton."
     sql: 1 ;;
     html:
+      {% if company_text._is_filtered %}{% assign company_list = list_companies._value | replace: '|RECORD|',', ' %}
+      {% else %}{% assign company_list = 'All Companies' %}{%endif%}
       <div  style="font-size:100%; background-color:rgb((169,169,169,.5); text-align:center;  line-height: .8; font-color: #808080">
           <a style="font-size:100%;color: black"><b>Balance Sheet</b></a><br>
-          <a style= "font-size:80%;color: black">{{company_text._value}}</a><br>
+          <a style= "font-size:80%;color: black">{{company_list}}</a><br>
           <a style= "font-size:80%;color: black">Fiscal Period:   {{select_fiscal_period._parameter_value}}&nbsp;&nbsp;&nbsp; Current Ratio: {{current_ratio._rendered_value}}</a>
           <br>
           <a style= "font-size: 60%; text-align:center;color: black"> Amounts in Millions  {{target_currency_tcurr}} </a>
@@ -287,6 +289,12 @@ view: +balance_sheet {
     description: "Max Exchange Rate between Currency (Local) and Currency (Global) for the Fiscal Period"
     sql: ${max_exchange_rate} ;;
     value_format_name: decimal_4
+  }
+
+  measure: list_companies {
+    type: list
+    hidden: yes
+    list_field: company_text
   }
 
   #} end measures

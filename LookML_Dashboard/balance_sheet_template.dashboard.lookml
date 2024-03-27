@@ -127,10 +127,10 @@
     type: field_filter
     default_value: "%CENTRAL%"
     allow_multiple_values: false
-    required: true
+    required: false
     ui_config:
-      type: dropdown_menu
-      display: popover
+      type: tag_list
+      display: inline
     explore: balance_sheet
     field: balance_sheet.company_text
 

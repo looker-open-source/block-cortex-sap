@@ -14,6 +14,7 @@
   * Added Balance Sheet dashboard template to minimize edits to filters and other shared dashboard elements.
   * For Report Table dashboard, changed column order so that variance values appear at the end.
   * Change labels used in Comparison Type parameter to `Year Ago` and `Prior Fiscal Period`.
+  * Modify Company filter to allow multiple values.
 
 * Profit and Loss / Income Statement:
   * Added views, explores and dashboards to support `Income Statement` reporting.
