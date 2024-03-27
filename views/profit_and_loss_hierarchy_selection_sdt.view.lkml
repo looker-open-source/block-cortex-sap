@@ -1,26 +1,46 @@
-#########################################################{
-# This SQL Derived Table (sdt):
-#   1) Takes user inputs from parameters:
-#          parameter_pick_start_level - select top level of hierarchy to show
-#          parameter_pick_depth_level - how many levels should be shown (1 to 5 levels)
+#########################################################
+# PURPOSE
+# SQL Derived Table (SDT) to select the Node levels to display in Income Statement report. Assigns values to Hier1_node_text to Heir5_node_text based on user inputs.
+#
+# SOURCES
+# View profit_and_loss_path_to_node_pdt
+# Extends View common_hierarchy_fields_finance_ext
+#
+# REFERENCED BY
+# Explore profit_and_loss
+#
+# KEYS TO USING
+#   - View label is "Income Statement"
+#   - Fields are hidden by default so must change field's "hidden: property" to "no" to include in an Explore
+#
+# PROCESS
+#   1) Captures inputs from parameters:
+#          parameter_pick_start_level -- select top level of hierarchy to show
+#          parameter_pick_depth_level -- how many levels should be shown (1 to 5 levels)
 #   2) Derives node_text and node values for hier1 to hier5 by placing the top level selected by user into hier_1 and subsequent levels into hier2 to hier5
-#   3) Filters applied:
-#         first level of the hierarchy = top level selected AND
-#         (level number = last level selected by user OR
-#          level number < last level AND GLIsLeafNode = true)
-#      For example, if Top Level to Display of 2 and a depth of 3 is selected, level 4 will be selected as the lowest level AND
-#       levels 2 and 3 where GLIsLeafNode = true will also be selected
+#   3) Filters to keep:
+#         Hier1_node = top level selected AND
+#         (Child Level Number = last level selected by user OR
+#          Child Level Number < last level AND IsLeafNode = true)
 #
-# If more than 5 hierarchy levels are needed, update the parameter_pick_depth_level and add additional hierN dimensions for node and node_text
+# For example, if Top Level to Display of 2 and a depth of 3 is selected, level 4 will be selected as the lowest level.
+# Additionally, levels 2 and 3, where GLIsLeafNode equals true, will also be selected.
 #
-# EXTENDED FIELDS:
-# The following parameters and dimensions are extended from view common_hierarchy_fields_finance_ext:
+# CAVEATS
+# If more than 5 hierarchy levels are needed:
+#   - update the parameter_pick_depth_level to accept additional values
+#   - add additional hierN SQL statements
+#   - add additional dimensions in this view OR in extended view common_hierarchy_fields_finance_ext if also needed in other views
+#
+# EXTENDED FIELDS
+# The following parameters and dimensions are extended from view common_hierarchy_fields_finance_ext
+# and can be further customized for Income Statement reporting:
 #   parameter_pick_start_level
 #   parameter_pick_depth_level
 #   hier1_node_text ... hier5_node_text
 #   hier1_node ... hier5_node
 #
-# This view should be joined to profit_and_loss using an inner join on:
+# PRIMARY KEY
 #   client_mandt
 #   glhierarchy
 #   chart_of_accounts

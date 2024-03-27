@@ -1,15 +1,22 @@
 ## Release v5.4
+* General:
+  * Added a required constant to provide flexibility in how revenue amounts appear in Income Statement reporting. To display revenue as positive, set the value of `SIGN_CHANGE` constant to `yes`.
+  * Removed optional constants max_fiscal_period and derive_comparison_period.
+  * Updated `language_map_sdt` view to default to English if no locale match or locale language does not exist in BalanceSheet or ProfitAndLoss tables.
+  * Added `universal_ledgers_md` view to provide Ledger Name for reporting.
+
 * Balance Sheet:
-  * Improved fields descriptions and organization within the Balance Sheet Explore
-  * Updated underlying logic for hierarchy levels to display the selected top level and its subordinate levels, rather than just the lowest level
-  * Added navigation to Subtotals dashboards with and without comparisons to year ago, prior fiscal period or custom period
-  * Updated underlying logic for deriving comparison period to eliminate reliance on `max_fiscal_period` constant
-  * Added context to view definitions with more-detailed comments
-  * Added Balance Sheet dashboard template to minimize edits to filters and other shared elements
+  * Improved fields descriptions and organization within the Balance Sheet Explore.
+  * Updated underlying logic for hierarchy levels to display the selected top level and its subordinate levels, rather than just the lowest level.
+  * Added navigation feature that allows users to switch between Subtotals dashboards that provide comparisons to other timeframes and those that do not have such comparisons.
+  * Modified the logic behind calculating the comparison period to no longer rely on the max_fiscal_period constant.
+  * Added context to view and explore definitions with more-detailed comments.
+  * Added Balance Sheet dashboard template to minimize edits to filters and other shared dashboard elements.
+  * For Report Table dashboard, changed column order so that variance values appear at the end.
+  * Change labels used in Comparison Type parameter to `Year Ago` and `Prior Fiscal Period`.
 
 * Profit and Loss / Income Statement:
-  * Added views, explores and dashboards to support `Income Statement` reporting
-  * Added a required constant to provide flexibility in how revenue amounts appear in reporting. To display revenue as positive, set the value of `SIGN_CHANGE` constant to `yes`
+  * Added views, explores and dashboards to support `Income Statement` reporting.
 
 ## Release v5.3.1
 * Balance Sheet Updates:

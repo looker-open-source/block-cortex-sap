@@ -1,3 +1,25 @@
+#########################################################{
+# PURPOSE
+# The Balance Sheet Explore supports the Balance Sheet dashboards
+# and any adhoc querying of balance_sheet
+#
+# SOURCES
+# See the "include: " statements below for specifc source
+#
+# REFERENCED BY
+#   LookML dashboards:
+#     balance_sheet_template
+#     balance_sheet_mktplace_report_table
+#     balance_sheet_subtotal3_table
+#     balance_sheet_subtotal3_table_no_comparison
+#
+# KEYS TO USING
+#   - always_filter on hierarchy_name, chart_of_accounts, company_text and target_currency_tcurr
+#   - always_join to `language_map_sdt` so Explore automatically filters to user's locale setting (or English)
+#   - sql_always_where to limit to single Client MANDT based on CLIENT constant set in manifest file
+#   - For small views that only add a few fields to the Explore, set the view label to "Balance Sheet" in the "join:" property.
+#########################################################}
+
 include: "/views/balance_sheet_rfn.view"
 include: "/views/language_map_sdt.view"
 include: "/views/universal_ledgers_md_rfn.view"

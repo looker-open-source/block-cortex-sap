@@ -3,7 +3,7 @@
 # Finds the Fiscal Years and Periods available in Balance Sheet
 # And derives the following fields:
 # - fiscal_year_period
-# - yoy_fiscal_period
+# - yoy_fiscal_year_period
 # - prior_fiscal_year_period
 #
 # SOURCE

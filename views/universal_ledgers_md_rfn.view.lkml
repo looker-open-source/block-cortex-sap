@@ -1,3 +1,24 @@
+#########################################################{
+# PURPOSE
+# Provide Ledger Name and other details
+#
+# SOURCE
+# Refines View universal_ledgers_md (defined in file universal_ledgers_base.view)
+#
+# REFERENCED BY
+# Explore profit_and_loss
+#
+# DERIVED DIMENSION
+#   ledger_id_name -- concatenation of ledger_rldnr and name_name and used for Income Statement dashboard filter
+#
+# KEYS TO USING
+#   - Fields are hidden by default so must change "hidden: " property to "no" to include in an Explore
+#   - currently only Ledger Name and Ledger ID - Name are unhidden
+#   - this View is labeled "Profit and Loss" when included in Explore profit_and_loss
+#   - this View is labeled "Balance Sheet" when included in Explore balance_sheet
+#
+#########################################################}
+
 include: "/views/universal_ledgers_md_base.view"
 
 view: +universal_ledgers_md {

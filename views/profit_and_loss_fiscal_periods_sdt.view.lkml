@@ -1,12 +1,21 @@
 #########################################################{
+# PURPOSE
 # Finds the Fiscal Years and Periods available in Profit and Loss
-# and derives:
-#     prior dimension for fiscal year, quarter and period
-#     year ago fiscal period
-#     max fiscal period in a fiscal year (used to identify YTD selections)
-#     max periods in a quarter (used for identify QTD selections)
+# And derives the following fields:
+# - fiscal_year_period
+# - year ago fiscal period
+# - max fiscal period in a fiscal year (used to identify YTD selections)
+# - max periods in a quarter (used for identify QTD selections)
 #
-# Used as source for finding Current and Comparison Periods based on user selection
+# SOURCE
+# Table @{GCP_PROJECT}.@{REPORTING_DATASET}.ProfitAndLoss
+#
+# REFERENCED BY
+# View profit_and_loss_01_reporting_fiscal_periods_sdt
+# View profit_and_loss_02_comparison_fiscal_periods_sdt
+#
+# NOTE
+# This view is only referenced in other views and does not define any dimensions or measures.
 #########################################################}
 
 view: profit_and_loss_fiscal_periods_sdt {
@@ -21,9 +30,9 @@ view: profit_and_loss_fiscal_periods_sdt {
           fiscal_period,
           CONCAT(fiscal_year,'.Q',fiscal_quarter) AS fiscal_year_quarter,
           CONCAT(fiscal_year,'.',fiscal_period) as fiscal_year_period,
-          rank() over (partition by glhierarchy, company_code order by CONCAT(fiscal_year,'.',fiscal_period) desc) as fiscal_year_period_rank,
-          dense_rank() over (partition by glhierarchy, company_code order by CONCAT(fiscal_year,'.',fiscal_quarter) desc) as fiscal_year_quarter_rank,
-          dense_rank() over (partition by glhierarchy, company_code order by fiscal_year desc) as fiscal_year_rank,
+          RANK() over (PARTITION by glhierarchy, company_code order by CONCAT(fiscal_year,'.',fiscal_period) desc) as fiscal_year_period_rank,
+          DENSE_RANK() over (PARTITION by glhierarchy, company_code order by CONCAT(fiscal_year,'.',fiscal_quarter) desc) as fiscal_year_quarter_rank,
+          DENSE_RANK() over (PARTITION by glhierarchy, company_code order by fiscal_year desc) as fiscal_year_rank,
           --prior fiscal year, quarter and period
           CAST(PARSE_NUMERIC(fiscal_year) - 1 AS STRING) as prior_fiscal_year,
           LAG(CONCAT(fiscal_year,'.Q',fiscal_quarter),3) OVER (PARTITION BY glhierarchy, company_code ORDER BY fiscal_year, fiscal_quarter) as prior_fiscal_year_quarter,

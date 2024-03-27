@@ -1,36 +1,56 @@
 #########################################################{
-# Filters Languages_T002 to single row based on the `locale` user attribute value.
-# If user does not have a locale value or if the user's locale is not one of the
-# Languages used for Balance Sheet or Profit and Loss,
+# PURPOSE
+# This SQL-derived Table (SDT) filters Languages_T002 to single row
+# based on the `locale` user attribute value.
 #
-# The `locale` user attribute is used to Localize a LookML Model and impacts
-# language used for User Interface, labels and/or number formatting.
-# The supported user-interface languages with the Looker Locale Code are found here:
+# ENGLISH IS DEFAULT
+# English is used if the user's locale value does not match SAP locales.
+# Additional checks are performed in Explores balance_sheet and profit_and_loss
+# to match the user's locale with languagues in the underlying tables.
+# If no match is found, English is used.
+#
+# SOURCE
+# Table `@{GCP_PROJECT}.@{REPORTING_DATASET}.Languages_T002`
+#
+# REFERENCED BY
+# Explore balance_sheet
+# Explore profit_and_loss
+#
+# LOCALE USER ATTRIBUTE
+# The `locale` user attribute localizes a LookML model, affecting UI language,
+# labels and/or number formatting. Link to supported user-interface languages with
+# Looker Locale Codes is below:
 #    https://cloud.google.com/looker/docs/supported-user-interface-languages#localizing_the_looker_user_interface
 #
-# If Looker has not been configured for Localization, admin will need to add
-# a user_attribute named `locale` with default value of 'en' or 'EN'.
-# And admin will need to assign users or user groups values using:
-#    Looker Locale Code or
-#    SAP LAISO code (two-character SAP language Code)
+# If Localization is not configured in Looker, an administrator needs to add a user
+# attribute named `locale` with a default value of `en` or `EN`. Then the administrator
+# should assign users or user groups values using the Looker Locale Code or
+# SAP LAISO code (two-character SAP language code).
 #
-# Steps in the dynamic generation of SQL based on user's locale
-# (for this example, user's locale = 'es_ES'):
-#   1. Capture user's value in locale user attribute and:
+# PROCESS
+# Below are the steps take to dynamically generate SQL base on user's locale.
+# For this example, we'll assume the user's locale is 'es_ES'.
+#   1) Capture user's value in locale user attribute and:
 #       - replace 'nb' with 'no' (so Norweign locale string parse correctly to SAP LAISO code)
 #       - convert to UPPER case
 #       - split into array on '_' (first value of array will be used in SQL)
-#   2. Generate WHERE clause using first value of locale array:
+#   2) Generate WHERE clause using first value of locale array:
 #         WHERE TwoCharacterSapLanguageCode_LAISO = 'ES'
-#   3. If the languague_map_sdt view used in either Balance Sheet or Profit and Loss Explores,
+#   3) If this View is used in either Balance Sheet or Profit and Loss Explores,
 #      add another condition to WHERE clause:
 #         AND LanguagueKey_SPRAS in (select distinct languageKey_SPRAS FROM BalanceSheet (or ProfitAndLoss))
-#   4. To ensure English is used if locale value does not match SAP LAISO code or not part of
+#   4) To ensure English is used if locale value does not match SAP LAISO code or not part of
 #      Balance Sheet or Profit and Loss data, add UNION ALL to always include English as a row
 #         UNION ALL SELECT 'E' as LanguageKey_SPRAS
-#   5. Limit to only 1 row, keeping a valid locale value first and English second
+#   5) Apply 'LIMIT 1' to return 1 row, keeping a valid locale value first and English second
 #
-# JOIN this view as inner join to materials_MD and others which require language_key_spras
+# HOW TO USE
+# This View can be joined to balance_sheet or other views which require language_key_spras. When
+# including this View in an Explore, recommend:
+#   - using `always_join` so that language is automatically filtered for the use
+#   - setting `fields:` property to [] so that no fields from language_map_sdt are
+#     visible in the Explore
+#
 # For example:
 #       explore: profit_and_loss {
 #           always_join: [language_map_sdt]

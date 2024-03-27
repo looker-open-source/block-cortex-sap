@@ -1,51 +1,60 @@
 #########################################################{
-# Step 3 of 3 in deriving Reporting and Comparison Groups
-# Step 3 - Combine Reporting and Comparison Groups
-# This SQL Derived Table (sdt) uses these views:
-#     profit_and_loss_01_reporting_fiscal_periods_sdt (aliased below as rep)
-#     profit_and_loss_02_comparison_fiscal_periods_sdt (aliased below as comp)
+# PURPOSE
+# Step 3 of 3 in deriving Reporting and Comparison Groups. Step 03 returns combination of Reporting and Comparison periods.
 #
-# Keys to using this view:
+# SOURCE
+# VIEW profit_and_loss_01_reporting_fiscal_periods_sdt (aliased in SQL below as rep)
+# VIEW profit_and_loss_02_comparison_fiscal_periods_sdt (aliased in SQL below as comp)
+#
+# REFERENCED BY
+# Explore profit_and_loss
+#
+# KEYS TO USING THIS VIEW
 #   - View label is "Reporting vs. Comparison Period"
-#   - Fields are hidden by default so must change hidden: property to no to include in an explore
-#   - includes references to fields from view profit_and_loss so always join this view to profit_and_loss using an inner join on:
+#   - Fields are hidden by default so must change a field's "hidden: property" to "no" to include in an Explore
+#   - Measures include references to fields from View profit_and_loss so must join this view to profit_and_loss using an inner join on:
 #         glhierarchy, company_code, fiscal_year, fiscal_period
-#      Note, the profit_and_loss_fiscal_periods_sdt view already filters to the same Client id so it is not needed in the join.
+#     Note, the source view already filters to a single Client id so it is not needed in the join
 #
-# Purpose:
-#   1) Takes user inputs from parameters and filters:
-#         profit_and_loss.parameter_display_time_dimension - use either Year, Quarter or Period for timeframes in report
-#         profit_and_loss.parameter_compare_to - - compare timeframes selected to either same period(s) last year, most recent period(s) prior or no comparison
-#         profit_and_loss.parameter_aggregate - if yes, all timeframes selected will be aggregated into Reporting/Comparison Period else each timeframe selected will be displayed in report
-#         profit_and_loss.filter_fiscal_timeframe - select one or more fiscal periods to include in Income Statement report
+# PROCESS FOR STEP 3 - COMBINE REPORTING AND COMPARISON PERIODS
+#   1) Captures user inputs from parameters and filters:
+#         profit_and_loss.parameter_display_time_dimension -- filter and display either Fiscal Year, Fiscal Quarter or Fiscal Period
+#         profit_and_loss.filter_fiscal_timeframe -- select one or more fiscal timeframes (either Year, Quarter or Fiscal Period) to include in Income Statement report
+#         profit_and_loss.parameter_compare_to -- compare selected reporting timeframe to either same timeframe last year, the prior timeframe or no comparison
+#         profit_and_loss.parameter_aggregate -- If "yes" is selected, all selected timeframes will be combined into a single Reporting/Comparison Group. Otherwise, each selected timeframe will be displayed separately in the report.
 #
-#   2) Using Liquid, builds SQL statement on the fly based on values selected for above parameters
-#      and combines "Reporting" and "Comparison" rows using UNION ALL
+#   2) Builds SQL statement based on parameter values selected. Returns the fiscal periods
+#      representing the "Reporting" and "Comparison" periods using UNION ALL statement.
+#      The UNION operator is utilized to combine data from the Reporting period and
+#      the Comparison period, as certain periods may overlap in both.
 #
 #   3) Derives new dimensions:
 #         alignment_group_name -- if parameter_aggregate = 'Yes' assign list of timeframes selected else
-#                            derive with MAX([timeframe]) OVER (glhierarchy, company_code, alignment_group)
+#                            derive with MAX([timeframe]) OVER (alignment_group)
 #
-#                            If multiple timeframes selected and Aggregate = 'No', each set of comparisons will be given a unique group number
-#                            e.g., if user selects 2024.001 and 2024.002 to compare to same periods last year and Aggregate = 'No', two alignment groups will be defined as:
-#                            alignment group 1 = 2024.001 compared to 2023.001 and alignment_group_name = 2024.001
-#                            alignment group 2 = 2024.002 compared to 2023.002 and alignment_group_name = 2024.002
+#                            If multiple timeframes selected and parameter_aggregate = 'No', each set of comparisons will be given a unique group number.
+#                            e.g., if user selects 2024.001 and 2024.002 to compare to a year ago and parameter_aggregate = 'No', two alignment groups will be defined as:
+#                               alignment group 1 = 2024.001 compared to 2023.001 and alignment_group_name = 2024.001
+#                               alignment group 2 = 2024.002 compared to 2023.002 and alignment_group_name = 2024.002
 #
-#                            If multiple timeframes selected and Aggregate = 'Yes', all timeframes will be combined into 1 alignment group.
-#                            e.g., if user selects 2024.001 and 2024.002 to compare to same periods last year, two alignment groups with focus_timeframe labels will be defined as:
-#                            alignment group 1 = 2024.001 + 2024.002 compared to 2023.001 + 2023.002
-#                            and alignment_group_name = 2024.001, 2024.002
+#                            If multiple timeframes selected and parameter_aggregate = 'Yes', all timeframes will be combined into 1 alignment group.
+#                            e.g., if user selects 2024.001 and 2024.002 to compare to a year ago, one alignment group is defined as:
+#                               alignment group 1 = 2024.001 + 2024.002 compared to 2023.001 + 2023.002
+#                               and alignment_group_name = 2024.001, 2024.002
 #
 #        reporting_timeframes_list -- captures the values selected in filter_fiscal_timeframe as a string (e.g., 2024.001, 2024.002, 2024.003)
-#        is_partial_timeframe -- Value of true if selected_timeframe (fiscal_year/fiscal_year_quarter) is incomplete else false. Note does not check if fiscal_year_period is incomplete
+#        is_partial_timeframe -- value of true if selected_timeframe (fiscal_year/fiscal_year_quarter) is incomplete else false. Note does not check if fiscal_year_period is incomplete
 #        is_partial_timeframe_in_alignment_group -- If any of the timeframes in the alignment_group are incomplete then true else false
 #
-#   4) Defines reporting measures:
-#         reporting_amount
-#         comparison_amount
-#         difference_value
-#         difference_percent
+# MEASURES
+#     reporting_amount -- SUM(Amount in Target Currency) when fiscal_reporting_group = 'Reporting'
+#     comparison_amount -- SUM(Amount in Target Currency) when fiscal_reporting_group = 'Comparison'
+#     difference_value -- reporting_amount - comparison_amount
+#     difference_percent -- (reporting_amount - comparison_amount) / abs(comparison_amount)
 #
+# NOTE
+# Only fiscal_year and fiscal_year_quarter are flagged for incompleteness.
+# If the user selects a partial year or quarter, the comparison period will also be a partial year or quarter.
 ##########################################################}
 
 include: "/views/profit_and_loss_0*.view"
@@ -61,7 +70,7 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
       {% assign tp_list = _filters['profit_and_loss.filter_fiscal_timeframe'] | sql_quote | remove: '"' | remove: "'" | replace: ",",", " | split: ", " %}
       {% assign tp_list = tp_list | sort | join: ", " %}
       {% assign aggregate = profit_and_loss.parameter_aggregate._parameter_value %}
-      {% assign window_alignment = "(PARTITION BY glhierarchy, alignment_group)" %}
+      {% assign window_alignment = "(PARTITION BY alignment_group)" %}
       {% if time_level == "f" %}{% assign time_level_sql = "Fiscal Year Period"%}{%elsif time_level == "q"%}{% assign time_level_sql = "Fiscal Quarter"%}{%elsif time_level == "y" %}{% assign time_level_sql = "Fiscal Year"%}{% else %}{% assign time_level_sql = "None"%}{%endif%}
       {% if aggregate == 'Yes' %}{% assign alignment_group_name_sql = "'" | append: tp_list | append: "'" %}
         {% else %}{% assign alignment_group_name_sql = "MAX(selected_timeframe) OVER (window_alignment)" %}
@@ -245,30 +254,6 @@ view: profit_and_loss_03_selected_fiscal_periods_sdt {
     description: "If the timeframe reflects a partial period then an '*' is appended to the timeframe description."
     group_label: "Reporting vs. Comparison Period"
     sql: CASE WHEN ${is_partial_timeframe} THEN CONCAT(${selected_timeframe},"*") ELSE ${selected_timeframe} END ;;
-  }
-
-  dimension: selected_timeframe_comparison {
-    type: string
-    hidden: yes
-    sql: case when ${fiscal_reporting_group} = "Comparison" then ${selected_timeframe_label} end ;;
-  }
-
-  dimension: selected_timeframe_reporting {
-    type: string
-    hidden: yes
-    sql: case when ${fiscal_reporting_group} = "Reporting" then ${selected_timeframe_label} end ;;
-  }
-
-  dimension: fiscal_year_period_comparison {
-    type: string
-    hidden: yes
-    sql: case when ${fiscal_reporting_group} = "Comparison" then ${fiscal_year_period} end ;;
-  }
-
-  dimension: fiscal_year_period_reporting {
-    type: string
-    hidden: yes
-    sql: case when ${fiscal_reporting_group} = "Reporting" then ${fiscal_year_period} end ;;
   }
 
   measure: reporting_amount {

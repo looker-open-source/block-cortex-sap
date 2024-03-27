@@ -1,39 +1,52 @@
 #########################################################{
-# Extends and modifies navigation_template to support navigation between
-# related Income Statement Dashboards: With Comparisons and No Comparisons
+# PURPOSE
+# Dynamically generates html links (including filters) to supports navigation between
+# related Income Statements (With Comparisons and No Comparisons)
 #
-# Two sets of LookML dashboards are included:
-#   - Marketplace Report Table With Comparisons (income_statement_mktplace_report_table)
-#     and Without Comparisons (income_statement_mktplace_report_table_no_comparisons)
+# SOURCE
+# Extends View navigation_template
+#
+# REFERENCED BY
+# Explore profit_and_loss
+# Dashboards:
+#   - Marketplace With Comparisons (income_statement_mktplace_report_table)
+#   - Marketplace Without Comparisons (income_statement_mktplace_report_table_no_comparison)
 #   - Subtotal Table With Comparisons (income_statement_subtotal_table)
-#     and Without Comparisons (income_statement_subtotal_table_no_comparisons)
+#   - Subtotal Table Without Comparisons (income_statement_subtotal_table_no_comparison)
 #
-# Because of these two sets of dashboards ADDED a parameter navigation_which_dashboard_style
-# to dynamically derive LookML dashboard name based on parameter setting
+# CUSTOMIZATIONS
+# While the navigation_template provides much of the logic needed, customizations for Income Statement
+# are required.
+#   1. Added new parameter "navigation_which_dashboard_style"
+#      Used to dynamically derive LookML dashboard name for dash_bindings based on parameter setting
 #
-# Other customizations:
-#   dash_bindings: added dashboard and link names
-#   filter_bindings: added 8 filters and corresponding URL values
-#     filter      label                           URL format
-#     -------     ---------------                 ---------------------
-#     filter1     Hierarchy                       Hierarchy
-#     filter2     Display Timeframe               Display+Timeframe
-#     filter3     Select Fiscal Timeframe         Select+Fiscal+Timeframe
-#     filter4     Global Currency                 Global+Currency
-#     filter5     Company                         Company
-#     filter6     Ledger Name                     Ledger+Name
-#     filter7     Top Hierarchy Level to Display  Top+Hierarchy+Level+to+Display
-#     filter8     Combine Selected Timeframes?    Combine+Selected+Timeframes%3F
+#   2. dash_bindings -- added dynamic dashboard name and link text for each dashboard
+#       dashboard name                                                                          link text
+#       ---------------                                                                         ---------------
+#       income_statement_{% parameter navigation_which_dashboard_style %}_table                 With Comparisons
+#       income_statement_{% parameter navigation_which_dashboard_style %}_table_no_comparison   No Comparisons
 #
-#     tip: to find URL formats copy url for dashboard and review list of parameters after
+#   3. filter_bindings -- added 7 filters and corresponding URL values
+#       filter      label                           URL format
+#       -------     ---------------                 ---------------------
+#       filter1     Hierarchy                       Hierarchy
+#       filter2     Display Timeframe               Display+Timeframe
+#       filter3     Select Fiscal Timeframe         Select+Fiscal+Timeframe
+#       filter4     Global Currency                 Global+Currency
+#       filter5     Company                         Company
+#       filter6     Ledger Name                     Ledger+Name
+#       filter7     Top Hierarchy Level to Display  Top+Hierarchy+Level+to+Display
+#       filter8     Combine Selected Timeframes?    Combine+Selected+Timeframes%3F
+#
+#       tip: to find URL formats copy url for dashboard and review list of parameters after
 #          [dashboard name]?
 #
-#   filter1 to filter8 filters: added labels as indicated above (NOTE: can optionally unhide)
-#   navigation_focus_page: confirmed allowed values of 1 or 2
-#   added group_label = "Navigation" for parameters exposed in the Explore
+#   4. filter1 to filter8 filters: added labels as indicated above (NOTE: can optionally unhide)
+#   5. navigation_focus_page: confirmed allowed values of 1 or 2
+#   6. added group_label = "Navigation" for parameters exposed in the Explore
 #
-# To use this view:
-#   1) Add to an explore using a bare join
+# HOW TO USE FOR NAVIGATION
+#   1. Add to an Explore using a bare join
 #         explore: profit_and_loss {
 #         join: profit_and_loss_navigation_ext {
 #           view_label: "🔍 Filters & 🛠 Tools"
@@ -41,12 +54,14 @@
 #           sql:  ;;
 #           }}
 #
-#   2) Add Navigation to Single Value Visualization and set these paramaters accordingly
-#         Navigation Style = small
-#         Navigation Focus Page = 1 (if adding to first dashboard listed, set to 2 if added viz to second dashboard)
-#         Which Dashboard Style? = subtotal (if adding to one of the subtotal dashboards)
+#   2. Add Navigation dimension to Single Value Visualization and set these paramaters accordingly
+#         Navigation Style = Hyperlinks - Left Aligned - No Border - Small font (or if using lookml, small)
+#         Navigation Focus Page = 1 (1 if adding to first dashboard listed; set to 2 if adding viz to second dashboard)
+#         Navigation Which Dashboard Style? = Subtotal Table (or if using lookml, = subtotal) if adding to one of the subtotal dashboards OR
+#                                           = Marketplace Table (Report) (or if using lookml, mktplace_report) if adding to one of the Marketplace dashboards
 #
-#   3) Add Navigation visualization to a dashboard and set to map to listen to the dashboard filters
+#
+#   3. Add Navigation visualization to dashboard and set viz to listen to the dashboard filters
 #
 #      Below is example Dashboard LookML generated:
 #     - title: navigation
@@ -70,7 +85,6 @@
 #         Top Hierarchy Level to Display: profit_and_loss_navigation_ext.filter7
 #         Combine Selected Timeframes?: profit_and_loss_navigation_ext.filter8
 #########################################################}
-
 
 include: "/views/navigation_template.view"
 

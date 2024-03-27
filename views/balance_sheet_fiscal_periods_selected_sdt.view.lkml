@@ -10,8 +10,8 @@
 #
 # KEYS TO USING
 #   - View label is "Reporting vs. Comparison Period"
-#   - Fields are hidden by default so must change "hidden: property" to "no" to include in an Explore
-#   - Measures includes references to fields from view balance_sheet so must join this view to balance_sheet using an inner join on:
+#   - Fields are hidden by default so must change field's "hidden:" property to "no" to include in an Explore
+#   - Measures include references to fields from view balance_sheet so must join this view to balance_sheet using an inner join on:
 #         hierarchy_name, company_code, fiscal_year, fiscal_period
 #     Note, the source view already filters to a single Client id so it is not needed in the join
 #
@@ -20,7 +20,7 @@
 #         balance_sheet.select_fiscal_period -- user selects a single "Reporting" fiscal period
 #         balance_sheet.select_compare_to -- user can compare the Reporting period to either: same period a year ago, the prior fiscal period, a specific fiscal period
 #         balance_sheet.select_custom_comparison_period -- if "Custom" comparison selected, user must select one "Comparison" fiscal period. Year ago used if no period provided
-
+#
 #   2) Builds SQL statement based on parameter values selected. Returns the fiscal periods
 #      representing the "Reporting" and "Comparison" periods
 #

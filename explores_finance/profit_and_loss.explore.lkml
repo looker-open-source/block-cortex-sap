@@ -1,3 +1,27 @@
+#########################################################{
+# PURPOSE
+# The profit_and_loss Explore supports the Income Statement dashboards
+# and any adhoc querying of profit_and_loss view
+#
+# SOURCES
+# See the "include: " statements below for specifc sources
+#
+# REFERENCED BY
+#   LookML dashboards:
+#     income_statement_template
+#     income_statement_mktplace_report_table
+#     income_statement_mktplace_report_table_no_comparison
+#     income_statement_subtotal_table
+#     income_statement_subtotal_table_no_comparison
+#
+# KEYS TO USING
+#   - Explore and base view labeled Income Statement (instead of Profit and Loss)
+#   - always_filter on glhierarchy, company_text and target_currency_tcurr
+#   - always_join to `language_map_sdt` so Explore automatically filters to user's locale setting (or English)
+#   - sql_always_where to limit to single Client MANDT based on CLIENT constant set in manifest file
+#   - For small views that only add a few fields to the Explore, set the view label to "Balance Sheet" in the "join:" property.
+#########################################################}
+
 include: "/views/profit_and_loss_rfn.view"
 include: "/views/language_map_sdt.view"
 include: "/views/universal_ledgers_md_rfn.view"

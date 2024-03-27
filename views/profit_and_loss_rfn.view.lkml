@@ -1,7 +1,6 @@
 #########################################################{
-# With this reporting view, users can report on any of the FSV nodes and corresponding amounts will be rolled up or down according to node values
-#
-# aggregation of General Ledger Transactions by the following dimensions:
+# PURPOSE
+# The ProfitAndLoss table and its corresponding View profit_and_loss reflects an aggregation of General Ledger Transactions by the following dimensions:
 #   Client
 #   Fiscal Year
 #   Fiscal Period
@@ -16,24 +15,33 @@
 #   Languague
 #   Global (Target) Currency
 #
-# Measures:
+# SOURCES
+# Refines View profit_and_loss (defined in file profit_and_loss_base.view)
+# Extends View common_fields_finance_ext
+#
+# REFERENCED BY
+# Explore profit_and_loss
+#
+# EXTENDED FIELDS
+# Extends common dimensions found in both balance sheet and profit and loss
+#   client_mandt, language_key_spras, currency_key, target_currency_tcurr, ledger_in_general_ledger_accounting, company_code, company_text, chart_of_accounts, business_area,
+#   fiscal_period, fiscal_quarter, fiscal_year and related fields
+# Make changes to these dimensions in the common_fields_finance_ext view or
+# in this view if the changes are specific to Profit and Loss.
+#
+# KEY MEASURES
 #    Amount in Local Currency, Amount in Global Currency
 #    Cumulative Amount in Local Currency, Cumulative Amount in Global Currency
 #    Exchange Rate (based on last date in the period)
 #    Avg Exchange Rate, Max Exchange Rate
 #
+# HOW TO USE
 # To query this table, filter to:
 #   - a single Client MANDT (handled with Constant defined in Manifest file)
 #   - a single Language (the Explore based on this view uses User Attribute locale to select language in joined view language_map_sdt)
 #   - a single Global Currency
 #   - a single Hierarchy Name or Financial Statement Version
-#   - a single Company
 #
-# Extends common dimensions found in both balance sheet and profit and loss using view common_fields_finance_ext
-#   client_mandt, language_key_spras, currency_key, target_currency_tcurr, ledger_in_general_ledger_accounting, company_code, company_text, chart_of_accounts, business_area,
-#   fiscal_period, fiscal_quarter, fiscal_year and related fields
-# Make changes to these dimensions in view common_fields_finance_ext if changes are for both balance sheet and profit and loss or;
-# Customize these dimensions specifically for Profit and Loss in this view as needed
 #########################################################}
 
 

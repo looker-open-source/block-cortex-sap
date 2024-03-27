@@ -1,8 +1,18 @@
 #########################################################{
-# this Persistent Derived Table (pdt) derives the full path to a node (e.g., Net Income (P&L)/Operating Income/Gross Margin)
+# PURPOSE
+# This Persistent Derived Table (PDT) derives the full path to a node using RECURSIVE
+# to navigate the parent-child relationships.
+# For example, for Child Node Gross Margin, the path is:
+#     Net Income (P&L)-->Operating Income-->Gross Margin
 #
-# Uses RECURSIVE to navigate the parent-child relationships and derive the full path
-# This view is only referenced in the view profit_and_loss_hierarchy_selection_sdt
+# SOURCE
+# Table `@{GCP_PROJECT}.@{REPORTING_DATASET}.ProfitAndLoss`
+#
+# REFERENCED BY
+# View profit_and_loss_hierarchy_selection_sdt
+#
+# UPDATE SCHEDULE
+# triggered when distinct count of nodes changes (see datagroup trigger profit_and_loss_node_count)
 #########################################################}
 
 view: profit_and_loss_path_to_node_pdt {
