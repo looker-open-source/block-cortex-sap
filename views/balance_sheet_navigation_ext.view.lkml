@@ -29,7 +29,7 @@
 #       filter2     Global Currency                 Global+Currency
 #       filter3     Hierarchy                       Hierarchy
 #       filter4     Chart of Accounts               Chart+of+Accounts
-#       filter5     Company                         Company
+#       filter5     Company Code                    Company+Code
 #       filter6     Ledger Name                     Ledger+Name
 #       filter7     Top Hierarchy Level             Top+Hierarchy+Level
 #
@@ -71,7 +71,7 @@
 #         Global Currency: balance_sheet_navigation_ext.filter2
 #         Hierarchy: balance_sheet_navigation_ext.filter3
 #         Chart of Accounts: balance_sheet_navigation_ext.filter4
-#         Company: balance_sheet_navigation_ext.filter5
+#         Company Code: balance_sheet_navigation_ext.filter5
 #         Ledger Name: balance_sheet_navigation_ext.filter6
 #         Top Hierarchy Level: balance_sheet_navigation_ext.filter7
 #########################################################}
@@ -92,7 +92,7 @@ view: balance_sheet_navigation_ext {
     hidden: yes
     type: string
     # sql: 'filter1|Display+Timeframe' ;;
-    sql: 'filter1|Fiscal+Period||filter2|Global+Currency||filter3|Hierarchy||filter4|Chart+of+Accounts||filter5|Company||filter6|Ledger+Name||filter7|Top+Hierarchy+Level' ;;
+    sql: 'filter1|Fiscal+Period||filter2|Global+Currency||filter3|Hierarchy||filter4|Chart+of+Accounts||filter5|Company+Code||filter6|Ledger+Name||filter7|Top+Hierarchy+Level' ;;
   }
 
   parameter: navigation_focus_page {
@@ -136,7 +136,7 @@ view: balance_sheet_navigation_ext {
   filter: filter5 {
     hidden: yes
     type: string
-    label: "Company"
+    label: "Company Code"
   }
 
   filter: filter6 {

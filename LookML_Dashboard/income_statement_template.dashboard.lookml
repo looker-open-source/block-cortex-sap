@@ -46,7 +46,7 @@
       Display Timeframe: profit_and_loss.parameter_display_time_dimension
       Select Comparison Type: profit_and_loss.parameter_compare_to
       Ledger Name: universal_ledgers_md.ledger_id_name
-      Company: profit_and_loss.company_text
+      Company Code: profit_and_loss.company_text
       Hierarchy: profit_and_loss.glhierarchy
     row: 2
     col: 0
@@ -65,7 +65,7 @@
       Display Timeframe: profit_and_loss.parameter_display_time_dimension
       Select Comparison Type: profit_and_loss.parameter_compare_to
       Ledger Name: universal_ledgers_md.ledger_id_name
-      Company: profit_and_loss.company_text
+      Company Code: profit_and_loss.company_text
       Hierarchy: profit_and_loss.glhierarchy
       Combine Selected Timeframes?: profit_and_loss.parameter_aggregate
     row: 10
@@ -89,7 +89,7 @@
       Display Timeframe: profit_and_loss_navigation_ext.filter2
       Select Fiscal Timeframe: profit_and_loss_navigation_ext.filter3
       Global Currency: profit_and_loss_navigation_ext.filter4
-      Company: profit_and_loss_navigation_ext.filter5
+      Company Code: profit_and_loss_navigation_ext.filter5
       Ledger Name: profit_and_loss_navigation_ext.filter6
       Top Hierarchy Level: profit_and_loss_navigation_ext.filter7
       Combine Selected Timeframes?: profit_and_loss_navigation_ext.filter8
@@ -178,8 +178,8 @@
     listens_to_filters: []
     field: profit_and_loss.target_currency_tcurr
 
-  - name: Company
-    title: Company
+  - name: Company Code
+    title: Company Code
     type: field_filter
     default_value: "%CENTRAL%"
     allow_multiple_values: true

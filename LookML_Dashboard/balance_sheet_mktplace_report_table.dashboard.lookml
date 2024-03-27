@@ -82,7 +82,7 @@
       Custom Comparison Period: balance_sheet.select_custom_comparison_period
       Hierarchy: balance_sheet.hierarchy_name
       Chart of Accounts: balance_sheet.chart_of_accounts
-      Company: balance_sheet.company_text
+      Company Code: balance_sheet.company_text
       Global Currency: balance_sheet.target_currency_tcurr
       Ledger Name: universal_ledgers_md.ledger_id_name
       Top Hierarchy Level: balance_sheet_hierarchy_selection_sdt.parameter_pick_start_level

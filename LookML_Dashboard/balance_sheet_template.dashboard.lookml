@@ -39,7 +39,7 @@
     listen:
       Global Currency: balance_sheet.target_currency_tcurr
       Chart of Accounts: balance_sheet.chart_of_accounts
-      Company: balance_sheet.company_text
+      Company Code: balance_sheet.company_text
       Fiscal Period: balance_sheet.select_fiscal_period
       Hierarchy: balance_sheet.hierarchy_name
       Ledger Name: universal_ledgers_md.ledger_id_name
@@ -122,8 +122,8 @@
     explore: balance_sheet
     field: balance_sheet.chart_of_accounts
 
-  - name: Company
-    title: Company
+  - name: Company Code
+    title: Company Code
     type: field_filter
     default_value: "%CENTRAL%"
     allow_multiple_values: false

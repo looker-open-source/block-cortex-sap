@@ -60,12 +60,12 @@ view: common_fields_finance_ext {
   }
 
   dimension: company_code {
-    label: "Company (code)"
+    label: "Company Code"
     description: "Company Code"
   }
 
   dimension: company_text {
-    label: "Company (text)"
+    label: "Company Code Text"
     description: "Company Name"
   }
 

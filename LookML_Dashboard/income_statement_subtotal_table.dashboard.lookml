@@ -66,7 +66,7 @@
       Display Timeframe: profit_and_loss.parameter_display_time_dimension
       Select Comparison Type: profit_and_loss.parameter_compare_to
       Ledger Name: universal_ledgers_md.ledger_id_name
-      Company: profit_and_loss.company_text
+      Company Code: profit_and_loss.company_text
       Hierarchy: profit_and_loss.glhierarchy
       Top Hierarchy Level: profit_and_loss_hierarchy_selection_sdt.parameter_pick_start_level
     row: 3
