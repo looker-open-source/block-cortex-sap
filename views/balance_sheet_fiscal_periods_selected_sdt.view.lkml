@@ -138,6 +138,7 @@ view: balance_sheet_fiscal_periods_selected_sdt {
   measure: reporting_period_amount_in_global_currency {
     type: sum_distinct
     sql_distinct_key: ${balance_sheet.key} ;;
+    hidden: no
     view_label: "Reporting vs. Comparison Period"
     label_from_parameter: balance_sheet.select_fiscal_period
     description: "Cumulative Amount in Global Currency for the selected Fiscal Reporting Period"
@@ -150,6 +151,7 @@ view: balance_sheet_fiscal_periods_selected_sdt {
   measure: comparison_period_amount_in_global_currency {
     type: sum_distinct
     sql_distinct_key: ${balance_sheet.key} ;;
+    hidden: no
     view_label: "Reporting vs. Comparison Period"
     label: "{% assign compare_to = balance_sheet.select_comparison_type._parameter_value %}
     {% if balance_sheet.select_fiscal_period._in_query %}
@@ -178,6 +180,7 @@ view: balance_sheet_fiscal_periods_selected_sdt {
 
   measure: difference_value {
     type: number
+    hidden: no
     view_label: "Reporting vs. Comparison Period"
     label: "Variance Amount"
     description: "Reporting Period Amount minus Comparison Period Amount"
@@ -188,6 +191,7 @@ view: balance_sheet_fiscal_periods_selected_sdt {
 
   measure: difference_percent {
     type: number
+    hidden: no
     view_label: "Reporting vs. Comparison Period"
     label: "Variance %"
     description: "Percentage Change between Reporting and Comparison Periods"
