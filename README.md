@@ -23,6 +23,10 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
 - **Accounts Payable** - Find financial information such as accounts payable, accounts payable turnover, overdue payables, accounts payable aging, and cash discount utilization.
 - **Vendor Performance** - Analyze vendor performance including delivery, lead time, price variance, purchase order status.
 - **Spend Analysis** - Review Key Performance Indicators (KPIs) like total spend, active vendor count and cleared invoices. Breakdown spend by purchase organization, purchase group, vendor country, and material type.
+- **Balance Sheet** - View the balance sheet as of a selected fiscal period. Compare it to the same period last year, the previous fiscal period, or a different fiscal period. And display multiple levels of the selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
+⚠️ Since [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+- **Income Statement** - View the income statement for selected fiscal periods, individually or combined. Compare the timeframe to the same timeframe a year ago or the preceding fiscal timeframe, and display multiple levels of the GL Account hierarchy. Two dashboards using different table styles are included.
+⚠️ Since [Google Cloud Cortex Framework 5.4](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
 
 
 <h3>Inventory</h3>
@@ -32,17 +36,6 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
   * Days of Supply
   * Obsolete Inventory Value
   * Slow Moving Inventory Value
-
-<h3>Balance Sheet</h3>
-
-> ⚠️ available beginning with [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
-
-View the balance sheet as of a selected fiscal period, compared to the same period last year, the previous fiscal period, or a different fiscal period. And display 3-levels of the selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
-
-
-- **Balance Sheet Marketplace Report** - This report uses an easy-to-read table style designed for finance reports. To use this dashboard, a Looker Admin must install the [Report Table](https://marketplace.looker.com/marketplace/detail/viz-report_table) plug-in/visualization type from Looker Marketplace. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
-
-- **Balance Sheet Subtotals Report** - This report uses Looker's built-in table visualization with subtotals (no special installation required).
 
 
 <h2><span style="color:#2d7eea">Required Data</span></h2>
@@ -78,35 +71,46 @@ With the Looker project based on your forked repository, you can customize the L
 
 - **Client**: The SAP Client number (mandt) to use for Reporting.
 
+- **Sign Change**: For Profit and Loss/Income Statement reporting, revenue is generally displayed in general ledger as a negative number, which indicates a credit. By setting Sign Change value to 'yes', it's displayed as a positive number in income statement reports.
+
+
 
 <h2><span style="color:#2d7eea"> Required User Attributes</span></h2>
 
-Dashboards require four Looker [user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to work properly.
+Dashboards require several Looker [user attributes](https://cloud.google.com/looker/docs/admin-panel-users-user-attributes) to work properly.
 
 A Looker Admin should create the following user attributes and set their default values.
 > ⚠️ Name each user attribute exactly as listed below:
 
 | **Required User Attribute Name** | **Label**                            | **Data Type** | **User Access** | **Hide Value** | **Default Value** |
 |----------------------------------|--------------------------------------|---------------|-----------------|----------------|-------------------|
+| locale                           | locale                               | String        | View            | No             | en                |
 | default_value_currency_required  | SAP Default Currency to Display      | String        | Edit            | No             | `USD` or _desired currency like EUR, CAD or JPY_ |
 | client_id_rep                    | SAP Client Id (mandt) for Reporting  | String        | Edit            | No             | Enter your _SAP Client ID_ or `100` if using the provided test data |
 | sap_use_demo_data                | SAP: Use Demo Data (Yes or No)       | String        | Edit            | No             | Enter `Yes` if using the provided test data. Otherwise, enter `No` |
 | sap_sql_flavor                   | SAP: SQL Flavor (ECC or S4)          | String        | View            | No             | Enter `ECC` or `S4` as required for your SAP system |
 
-Each dashboard user can personalize these values by following these [instructions](https://cloud.google.com/looker/docs/user-account).
+Each dashboard user can personalize the values of the editable user attributes by following these [instructions](https://cloud.google.com/looker/docs/user-account).
 
+<h2><span style="color:#2d7eea">Language</span></h2>
+SAP Explores filter language based on user's [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) or use English as a fallback if no locale value is found. The Balance Sheet and Income Statement Explores further restrict the locale to those also found in the source tables, using English if there are no matches.
+
+<h2><span style="color:#2d7eea">Report Table Visualization from Marketplace</span></h2>
+The Balance Sheet and Income Statement dashboards come in two different styles:
+1. Looker's Table Visualization with subtotals
+2. Report Table Visualization from Looker Marketplace
+
+The Report Table provides an easy-to-read table style designed especially for finance reports. A Looker Admin must install the visualization from marketplace to use this table style. Refer to Looker documentation for [Using Looker Marketplace](https://cloud.google.com/looker/docs/marketplace).
 
 <h2><span style="color:#2d7eea">Other Considerations</span></h2>
 
-- **Persistent Derived Tables**: Required for using Balance Sheet dasbhoards. And if using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
-
-- **Locale**: The Looker user [locale](https://cloud.google.com/looker/docs/model-localization#assigning_users_to_a_locale) setting (as seen in account profile) maps to SAP language code for _BalanceSheet_, _Materials_MD_, _Vendor Performance_, and _Inventory Metrics Overview_ views and determines material text language. See [language_map](views/language_map.view.lkml) for details.
+- **Persistent Derived Tables**: Required for using Balance Sheet dashboards. And if using this block with production data, you may want to convert some derived tables to [Persistent Derived Tables (PDTs)](https://cloud.google.com/looker/docs/derived-tables#use_cases_for_pdts) to improve query performance. Ensure your BigQuery Connection has enabled PDTs, then update any derived table syntax with the desired [persistence strategy](https://cloud.google.com/looker/docs/derived-tables#persistence_strategies).
 
 - **BI Engine Optimization**: Some calculations perform better with [BI Engine Optimization](https://cloud.google.com/blog/products/data-analytics/faster-queries-with-bigquery-bi-engine) enabled in BigQuery.
 
 - **Liquid Templating Language**: Some constants, views, explores and dashboard use liquid templating language. For more information, see Looker's [Liquid Variable Reference](https://cloud.google.com/looker/docs/liquid-variable-reference) documentation.
 
-- **(Optional) Unhide additional dimensions and measures**: Many dimensions and measures are hidden for simplicity. If you find anything valuable missing, update the field's `hidden` parameter value **No** in the relevant views.
+- **(Optional) Unhide additional dimensions and measures**: Many dimensions and measures are hidden for simplicity. If you find anything valuable missing, update the field's `hidden` property value to **no** in the relevant views.
 
 <h2><span style="color:#2d7eea">Additional Resources</span></h2>
 
