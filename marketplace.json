@@ -19,7 +19,10 @@
     },
      "CLIENT": {
       "label": "SAP Client ID"
-    }  
+    },
+     "SIGN_CHANGE": {
+      "label": "SAP Sign Change for Income Statement Reports (yes or no)"
+    }
   },
       "models": [
         {
