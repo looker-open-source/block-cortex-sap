@@ -1,22 +1,23 @@
 constant: CONNECTION_NAME {
-  value: "cortex"
+  value: "sap-cortex-demo"
   export: override_required
 }
 
 constant: GCP_PROJECT {
-  value: "GCP Project ID"
+  value: "alen-cortex-tmp"
   export: override_required
 }
 
 constant: REPORTING_DATASET {
-  value: "Reporting Dataset Name"
+  value: "SAP_REPORTING"
   export: override_required
 }
 
 constant: CLIENT {
-  value: "Client ID"
+  value: "800"
   export: override_required
 }
+
 
 # Revenue is generally displayed in general ledger as a negative number, which indicates a credit.
 # By setting Sign Change value to 'yes', it's displayed as a positive number in income statement reports.
