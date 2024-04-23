@@ -9,7 +9,7 @@ constant: GCP_PROJECT {
 }
 
 constant: REPORTING_DATASET {
-  value: "SAP_REPORTING"
+  value: "ALEN_SAP_REPORTING"
   export: override_required
 }
 
