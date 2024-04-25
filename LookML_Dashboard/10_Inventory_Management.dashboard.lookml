@@ -13,7 +13,7 @@
     type: looker_pie
     fields: [inventory_by_plant.stock_characteristic, inventory_by_plant.sum_inventory_value_target_currency]
     filters:
-      inventory_by_plant.week_end_date: today
+      inventory_by_plant.week_end_date: this month
     sorts: [inventory_by_plant.sum_inventory_value_target_currency desc 0]
     limit: 500
     column_limit: 50
@@ -54,7 +54,7 @@
     type: single_value
     fields: [inventory_by_plant.sum_obsolete_value_target_currency, inventory_by_plant.sum_inventory_value_target_currency]
     filters:
-      inventory_by_plant.week_end_date: today
+      inventory_by_plant.week_end_date: this month
     limit: 500
     column_limit: 50
     custom_color_enabled: true
