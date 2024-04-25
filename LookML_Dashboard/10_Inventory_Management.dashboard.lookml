@@ -724,7 +724,7 @@
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: USD
+    default_value: MXN
     allow_multiple_values: true
     required: true
     ui_config:
@@ -745,7 +745,7 @@
       display: popover
     model: cortex_sap_operational
     explore: inventory_metrics_overview
-    listens_to_filters: [Country, Plant, Material Type, Material]
+    listens_to_filters: [Country, Plant, Material Type, Material, Currency]
     field: inventory_metrics_overview.company_text_butxt
   - name: Country
     title: Country
