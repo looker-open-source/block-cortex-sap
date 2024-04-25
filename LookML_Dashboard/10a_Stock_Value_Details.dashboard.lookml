@@ -204,7 +204,7 @@
   - name: Currency
     title: Currency
     type: field_filter
-    default_value: USD
+    default_value: MXN
     allow_multiple_values: true
     required: true
     ui_config:
@@ -225,7 +225,7 @@
       display: popover
     model: cortex_sap_operational
     explore: inventory_by_plant
-    listens_to_filters: [Country, Plant, Stock Type, Material Type, Material]
+    listens_to_filters: [Country, Plant, Stock Type, Material Type, Material, Currency]
     field: inventory_by_plant.company_text_butxt
   - name: Country
     title: Country
