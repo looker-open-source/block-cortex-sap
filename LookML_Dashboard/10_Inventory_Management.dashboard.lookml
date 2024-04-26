@@ -726,13 +726,13 @@
     type: field_filter
     default_value: MXN
     allow_multiple_values: true
-    required: true
+    required: false
     ui_config:
       type: dropdown_menu
       display: inline
     model: cortex_sap_operational
     explore: inventory_metrics_overview
-    listens_to_filters: []
+    listens_to_filters: [Company Name, Country, Plant, Material Type, Material]
     field: inventory_metrics_overview.target_currency
   - name: Company Name
     title: Company Name

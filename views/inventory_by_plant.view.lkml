@@ -1,6 +1,6 @@
 view: inventory_by_plant {
   derived_table: {
-    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant_`;;
+    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant`;;
   }
 
   fields_hidden_by_default: yes
