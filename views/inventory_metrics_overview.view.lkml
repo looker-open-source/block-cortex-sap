@@ -1,9 +1,9 @@
 view: inventory_metrics_overview {
   derived_table: {
-    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryKeyMetrics`
+    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryKeyMetrics_`
       ;;
   }
-  
+
   fields_hidden_by_default: yes
 
   dimension: key {

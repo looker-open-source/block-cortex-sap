@@ -1,8 +1,8 @@
 view: inventory_by_plant {
   derived_table: {
-    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant`;;
+    sql: select * from `@{GCP_PROJECT}.@{REPORTING_DATASET}.InventoryByPlant_`;;
   }
-  
+
   fields_hidden_by_default: yes
 
   dimension: key {
@@ -348,7 +348,7 @@ view: inventory_by_plant {
     sql: ${TABLE}.WeekEndDate ;;
     hidden: no
   }
-  
+
   measure: count {
     type: count
     drill_fields: []
