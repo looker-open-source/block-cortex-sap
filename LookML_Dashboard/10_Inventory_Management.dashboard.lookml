@@ -745,7 +745,7 @@
       display: popover
     model: cortex_sap_operational
     explore: inventory_metrics_overview
-    listens_to_filters: [Country, Plant, Material Type, Material, Currency]
+    listens_to_filters: [Currency, Country, Plant, Material Type, Material]
     field: inventory_metrics_overview.company_text_butxt
   - name: Country
     title: Country

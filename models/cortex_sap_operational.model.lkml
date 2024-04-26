@@ -11,7 +11,7 @@ include: "/explores_finance/*.explore"
 
 datagroup: cortex_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  max_cache_age: "240 hour"
 }
 
 persist_with: cortex_default_datagroup
