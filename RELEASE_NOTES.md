@@ -1,3 +1,6 @@
+## Release v5.4.1
+* Update README with message about using Balance Sheet and Income Statement with SAP Financial test harness data available with Cortext Framework.
+
 ## Release v5.4
 * General:
   * Added a required constant to provide flexibility in how revenue amounts appear in Income Statement reporting. To display revenue as positive, set the value of `SIGN_CHANGE` constant to `yes`.
