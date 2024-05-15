@@ -20,13 +20,18 @@ Gain faster insights into your Order to Cash, Finance, and Inventory data with t
 <h3>Finance</h3>
 
 - **Accounts Receivable** - Analyze total receivables, overdue receivables, days outstanding, and top companies with highest receivables.
+
 - **Accounts Payable** - Find financial information such as accounts payable, accounts payable turnover, overdue payables, accounts payable aging, and cash discount utilization.
+
 - **Vendor Performance** - Analyze vendor performance including delivery, lead time, price variance, purchase order status.
+
 - **Spend Analysis** - Review Key Performance Indicators (KPIs) like total spend, active vendor count and cleared invoices. Breakdown spend by purchase organization, purchase group, vendor country, and material type.
+
 - **Balance Sheet** - View the balance sheet as of a selected fiscal period. Compare it to the same period last year, the previous fiscal period, or a different fiscal period. And display multiple levels of the selected hierarchy for a user-specified chart of accounts and company. Two dashboards using different table styles are included.
-⚠️ Since [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+⚠️ Since [Google Cloud Cortex Framework 5.3](https://github.com/GoogleCloudPlatform/cortex-data-foundation). If using this block with the SAP Finance test harness data, only company code C006 balances to zero. This is expected.
+
 - **Income Statement** - View the income statement for selected fiscal periods, individually or combined. Compare the timeframe to the same timeframe a year ago or the preceding fiscal timeframe, and display multiple levels of the GL Account hierarchy. Two dashboards using different table styles are included.
-⚠️ Since [Google Cloud Cortex Framework 5.4](https://github.com/GoogleCloudPlatform/cortex-data-foundation).
+⚠️ Since [Google Cloud Cortex Framework 5.4](https://github.com/GoogleCloudPlatform/cortex-data-foundation). If using this block with SAP Finance test harness data, company code C006 provides the best illustration of Income Statement.
 
 
 <h3>Inventory</h3>
