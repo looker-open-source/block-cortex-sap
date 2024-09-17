@@ -1,3 +1,7 @@
+## Release v6.0
+* Small fix to navigation template links.
+
+
 ## Release v5.4.1
 * Update README with message about using Balance Sheet and Income Statement with SAP Financial test harness data available with Cortext Framework.
 

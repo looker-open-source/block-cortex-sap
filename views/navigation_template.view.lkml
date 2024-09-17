@@ -165,6 +165,7 @@ view: navigation_template {
     hidden: no
     description: "Add to Single Value Visualization. Defined HTML styling will be shown."
     sql: '' ;;
+    required_fields: [item_delimiter, value_delimiter]
     html:
      <!-- initial splits -->
       {% assign navItems = dash_bindings._value | split: item_delimiter._value %}
